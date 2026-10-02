@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Nando Voyager constrói negócios entre a China e o mundo. Conheça o curso Primeira Importação e o Voyager AI." />
+    <link rel="canonical" href="https://nandovoyager.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nandovoyager.com/" />
+    <meta property="og:site_name" content="Nando Voyager" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Nando Voyager — Eu construo negócios entre a China e o mundo." />
+    <meta property="og:description" content="Curso Primeira Importação, Voyager AI e os próximos lançamentos." />
+    <meta property="og:image" content="https://nandovoyager.com/public/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Nando Voyager em uma fábrica na China, com o título Eu construo negócios entre a China e o mundo." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@NandoVoyager" />
+    <title>Nando Voyager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <img class="photo" src="/public/nando.jpg" width="1350" height="675" alt="Nando Voyager em visita a uma fábrica na China" fetchpriority="high" />
+
+      <h1>Eu construo negócios <br />entre a China e o mundo.</h1>
+
+      <nav class="socials" aria-label="Redes sociais">
+        <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube @NandoVoyager">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="1.5" y="4.5" width="21" height="15" rx="4.5" fill="#ff3b30" /><path d="M10 9v6l5.2-3z" fill="#fff" /></svg>
+          @NandoVoyager
+        </a>
+        <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram @nandovoyager">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f9a23c" /><stop offset=".5" stop-color="#e6366b" /><stop offset="1" stop-color="#8a3ad8" /></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="url(#ig)" stroke-width="2" /><circle cx="12" cy="12" r="4.2" fill="none" stroke="url(#ig)" stroke-width="2" /><circle cx="17.3" cy="6.7" r="1.2" fill="#c13584" /></svg>
+          @nandovoyager
+        </a>
+        <a class="social-mail" href="mailto:contato@nandovoyager.com" aria-label="E-mail contato@nandovoyager.com">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 7.2V18a1.5 1.5 0 0 0 1.5 1.5H7v-8.2l5 3.8 5-3.8v8.2h2.5A1.5 1.5 0 0 0 21 18V7.2l-1.6-1.2L12 11.6 4.6 6z" fill="#ea4335" /><path d="M3 7.2 7 10.2v9.3H4.5A1.5 1.5 0 0 1 3 18z" fill="#4285f4" /><path d="M17 10.2l4-3V18a1.5 1.5 0 0 1-1.5 1.5H17z" fill="#34a853" /><path d="M3 7.2V6.5a2 2 0 0 1 3.2-1.6L7 5.5v4.7z" fill="#c5221f" /><path d="M21 7.2V6.5a2 2 0 0 0-3.2-1.6l-.8.6v4.7z" fill="#fbbc04" /></svg>
+          contato@nandovoyager.com
+        </a>
+      </nav>
+
+      <div class="signup-block">
+        <p class="form-intro">Quer começar a importar da China? Receba as novidades em primeira mão:</p>
+
+        <form class="signup" id="signup-form" novalidate>
+          <label class="sr-only" for="email">Seu e-mail</label>
+          <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
+          <button type="submit">Quero ser avisado</button>
+        </form>
+      </div>
+      <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+
+      <div class="offers">
+        <a class="offer offer-primary" data-offer="primeiraImportacao" href="#">
+          <span class="offer-tag">Curso</span>
+          <span class="offer-title">Primeira Importação <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="offer" data-offer="voyagerAi" href="#">
+          <span class="offer-tag">Lançamento</span>
+          <span class="offer-title">Voyager AI <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+
+
+      <footer>© <span id="year"></span> Nando Voyager · <a href="/privacidade.html">Política de Privacidade</a></footer>
+    </main>
+    <script src="/site-config.js"></script>
+    <script src="/script.js" defer></script>
+  </body>
+</html>

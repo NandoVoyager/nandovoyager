@@ -1,0 +1,7 @@
+# Never upload secrets or local-only files to Vercel.
+.env
+.env.*
+!.env.example
+server.mjs
+README.md
+node_modules
