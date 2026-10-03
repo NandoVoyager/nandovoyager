@@ -1,6 +1,6 @@
 # Nando Voyager — landing page
 
-Página única (sem rolagem) de nandovoyager.com: foto, título, redes sociais, cadastro na lista de lançamentos (Resend) e links para o curso Primeira Importação e o Voyager AI. HTML/CSS/JS puro, sem etapa de build.
+Página única (sem rolagem) de nandovoyager.com: foto, título, redes sociais, cadastro na lista de lançamentos (Resend) e links para a Imersão Canton Fair e o Voyager AI. HTML/CSS/JS puro, sem etapa de build.
 
 ## Rodar localmente
 
@@ -31,10 +31,11 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` roda como
 
 ## Configuração
 
-- `site-config.js`: endpoint do cadastro, links dos cartões (`offers`) e das redes, incluindo os links que abrem direto no app no celular.
+- `site-config.js`: endpoint do cadastro, link do cartão Voyager AI (`offers`), número do WhatsApp (`whatsapp`) e redes, incluindo os links que abrem direto no app no celular.
+- `canton-fair.js`: pacotes da Imersão Canton Fair (datas, roteiro, valores, o que está incluso). O cartão principal abre essa janela; ela também abre direto por `nandovoyager.com/#canton-fair` ou por pacote, ex.: `#canton-fair/grande-baia`, `#canton-fair/sem-pequim`, `#canton-fair/jornada-completa`.
 - `privacidade.html`: política de privacidade (LGPD).
 - `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
 
 ## Analytics
 
-O `script.js` chama `window.nandoAnalytics.track(evento, propriedades)` se algum provedor de analytics definir essa função. Eventos: `social_click`, `cta_click`, `newsletter_signup` (só depois que a API confirma).
+O `script.js` chama `window.nandoAnalytics.track(evento, propriedades)` se algum provedor de analytics definir essa função. Eventos: `social_click`, `cta_click`, `canton_package`, `whatsapp_click`, `newsletter_signup` (só depois que a API confirma).

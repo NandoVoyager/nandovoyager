@@ -3,9 +3,10 @@ window.NANDO_SITE_CONFIG = {
   signupEndpoint: "/api/subscribe",
   /* Links dos CTAs principais. Troque pelos endereços reais antes de publicar. */
   offers: {
-    primeiraImportacao: "",
     voyagerAi: ""
   },
+  /* WhatsApp da equipe para a Imersão Canton Fair: só dígitos, com DDI e DDD (ex.: 5511999999999). */
+  whatsapp: "",
   /*
    * web: normal link (desktop, and mobile browsers, which already hand off to the app).
    * ios: app URL scheme, tried only inside in-app browsers (Instagram, TikTok…) on iPhone.
