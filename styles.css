@@ -1,221 +1,330 @@
 :root {
-  --bg: #000;
+  --bg: #0a0c0b;
   --ink: #fff;
-  --muted: #b4b4b4;
-  --faint: #7a7a7a;
-  --field: #1c1c1c;
-  --line: #2a2a2a;
+  --text: #cfd3ca;
+  --muted: #9aa094;
+  --faint: #6f746b;
+  --panel: #131614;
+  --line: rgba(255, 255, 255, 0.1);
   --accent: #d5f36a;
+  --accent-ink: #12140c;
   --sans: "Inter", system-ui, -apple-system, sans-serif;
   --display: "Manrope", var(--sans);
-  /* One column width for everything; the headline is sized to fill it exactly. */
-  --col: 620px;
 }
 
 * { box-sizing: border-box; }
 
-/* Single screen: no scrolling at all. script.js scales .stage down if the window is too short. */
+/* Single screen: no scrolling. script.js scales .stage to fit the window. */
 html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
 
 body {
   margin: 0;
   position: relative;
-  background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(900px 600px at 82% 42%, rgba(213, 243, 106, 0.07), transparent 60%),
+    radial-gradient(700px 420px at 4% 100%, rgba(213, 243, 106, 0.06), transparent 60%),
+    var(--bg);
 }
 
-/* Centered on screen; script.js appends scale() when the window is too short. */
+a { color: inherit; }
+
+/* Desktop design is a fixed 1200px canvas, scaled as a whole. */
 .stage {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 1200px;
+  padding: 26px 88px 20px;
   transform: translate(-50%, -50%);
-  width: min(100%, 720px);
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
   transform-origin: center center;
 }
 
-.photo {
-  display: block;
-  width: 100%;
-  max-width: var(--col);
-  aspect-ratio: 2 / 1;
-  height: auto;
-  object-fit: cover;
-  object-position: 50% 40%;
-  border-radius: 14px;
-  margin-bottom: 18px;
+/* Header */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-h1 {
-  margin: 0 0 18px;
-  font-family: var(--display);
-  /* Always exactly two lines: size follows the screen width so the longer line never wraps. */
-  font-size: min(56px, calc((100vw - 40px) / 11.15));
-  width: 100%;
-  max-width: var(--col);
-  line-height: 1.05;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  white-space: nowrap;
+.brand {
+  display: inline-flex;
+  align-items: center;
+  font: 800 22px/1 var(--display);
+  letter-spacing: -0.03em;
+  text-decoration: none;
 }
+
+.brand span { color: var(--accent); }
+.brand svg { color: var(--accent); margin-left: 7px; }
 
 .socials {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  max-width: var(--col);
-  gap: 8px;
+  align-items: center;
+  gap: 28px;
+  padding: 10px 24px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .socials a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  height: 32px;
-  padding: 4px 10px 4px 8px;
-  border-radius: 999px;
-  background: var(--field);
-  color: var(--ink);
-  font-size: 16px;
+  gap: 9px;
+  color: #c9cdc4;
+  font-size: 14px;
   text-decoration: none;
-  transition: background 0.15s;
+  transition: color 0.15s;
 }
 
-.socials a:hover { background: #2a2a2a; }
-.socials svg { width: 20px; height: 20px; flex: none; }
-.socials a[data-social="x"] svg { width: 18px; height: 18px; }
+.socials a:hover { color: var(--ink); }
+.socials svg { flex: none; }
 
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  gap: 20px;
+  align-items: center;
+  margin-top: 26px;
+}
+
+.hero-copy { min-width: 0; }
+
+.eyebrow {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.eyebrow i { font-style: normal; margin: 0 12px; letter-spacing: 0; }
+
+h1 {
+  margin: 0;
+  font: 800 64px/0.98 var(--display);
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+.hl { color: var(--accent); }
+
+.form-intro {
+  max-width: 470px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.form-intro strong { color: var(--text); font-weight: 500; }
+
+.signup {
+  display: flex;
+  align-items: center;
+  width: 464px;
+  margin-top: 20px;
+  padding: 4px 4px 4px 0;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #171a18;
+}
+
+.field-icon { flex: none; margin: 0 4px 0 18px; color: #8d9288; }
+
+.signup input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  padding: 0 12px;
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  font: 15px var(--sans);
+  outline: none;
+}
+
+.signup input::placeholder { color: #747970; }
+.signup:focus-within { border-color: rgba(213, 243, 106, 0.45); }
+
+.signup button {
+  height: 46px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: 800 15.5px var(--display);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.signup button span { margin-left: 4px; }
+.signup button:hover { filter: brightness(1.08); }
+.signup button:disabled { opacity: 0.6; cursor: wait; }
+.signup[hidden] { display: none; }
+
+.form-message { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+.form-message:empty { display: none; }
+.form-message[data-state="error"] { color: #ff9b82; }
+.form-message[data-state="success"] { margin-top: 20px; color: var(--accent); font: 800 20px var(--display); }
+
+.features {
+  display: flex;
+  gap: 30px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.features svg { flex: none; color: var(--accent); }
+
+/* Photo + floating chips + dotted globe */
+.visual {
+  position: relative;
+  height: 420px;
+}
+
+.photo-card {
+  position: absolute;
+  inset: 14px 30px 18px 0;
+  margin: 0;
+  z-index: 1;
+  border: 1.5px solid rgba(213, 243, 106, 0.55);
+  border-radius: 20px;
+  overflow: hidden;
+  transform: perspective(1400px) rotateY(-10deg) rotateZ(1.5deg);
+  box-shadow: 0 0 46px rgba(213, 243, 106, 0.14), 0 30px 70px rgba(0, 0, 0, 0.6);
+}
+
+.photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+
+.globe {
+  position: absolute;
+  top: 70px;
+  right: -110px;
+  width: 300px;
+  height: 330px;
+  border-radius: 50%;
+  background-image: radial-gradient(circle, rgba(213, 243, 106, 0.6) 1.1px, transparent 1.7px);
+  background-size: 8px 8px;
+  -webkit-mask-image: radial-gradient(circle at 45% 45%, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle at 45% 45%, #000 30%, transparent 70%);
+  opacity: 0.75;
+}
+
+.globe i {
+  position: absolute;
+  top: 34%;
+  left: 42%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px 4px rgba(213, 243, 106, 0.6);
+}
+
+.chip {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(213, 243, 106, 0.32);
+  border-radius: 13px;
+  background: rgba(20, 24, 20, 0.86);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  color: var(--ink);
+  font: 600 13.5px/1.35 var(--display);
+}
+
+.chip svg { flex: none; color: var(--accent); }
+.chip b { font-weight: 800; }
+.chip-top { top: 26px; right: -50px; }
+.chip-top .chip-arrow { margin-left: 14px; }
+.chip-bottom { bottom: 2px; left: 22px; font-weight: 500; }
+
+/* Course / Voyager AI cards */
 .offers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  width: 100%;
-  max-width: var(--col);
-  margin-top: 24px;
+  gap: 20px;
+  margin-top: 26px;
 }
 
 .offer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  padding: 11px 14px;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--field);
+  border-radius: 15px;
+  background: var(--panel);
   color: var(--ink);
-  text-align: left;
   text-decoration: none;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, filter 0.15s;
 }
 
-.offer:hover { border-color: #444; background: #232323; }
+.offer:hover { border-color: rgba(255, 255, 255, 0.22); }
+
+.offer-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+}
+
+.offer-text { display: flex; flex-direction: column; gap: 4px; }
 
 .offer-tag {
   color: var(--muted);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-.offer-title {
-  font-size: 15px;
-  font-weight: 600;
-}
+.offer-title { font: 800 21px/1.15 var(--display); letter-spacing: -0.02em; }
+.offer-desc { color: var(--text); font-size: 13.5px; }
 
-.offer-primary { background: var(--accent); border-color: var(--accent); color: #12140c; }
-.offer-primary .offer-tag { color: #4d5a1f; }
-.offer-primary:hover { background: var(--accent); border-color: var(--accent); filter: brightness(1.08); }
-
-.form-intro {
-  margin: 22px 0 0;
-  color: var(--ink);
-  font-size: 17px;
-  font-weight: 500;
-}
-
-/* Align the signup copy and form with the offer cards below. */
-.signup-block {
-  width: 100%;
-  max-width: var(--col);
-}
-
-.signup {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  max-width: var(--col);
-  margin-top: 12px;
-}
-
-.signup input {
-  flex: 1;
-  min-width: 0;
-  height: 50px;
-  padding: 0 16px;
-  background: var(--field);
-  border: 1px solid transparent;
-  border-radius: 10px;
-  color: var(--ink);
-  font: 16px var(--sans);
-  outline: none;
-  transition: border-color 0.15s;
-}
-
-.signup input::placeholder { color: var(--faint); }
-.signup input:focus { border-color: #444; }
-
-.signup button {
-  height: 50px;
-  padding: 0 20px;
-  border: 0;
-  border-radius: 10px;
-  background: #333;
-  color: var(--ink);
-  font: 600 16px var(--sans);
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.signup button:hover { background: #404040; }
-.signup button:disabled { opacity: 0.6; cursor: wait; }
-
-footer a { color: inherit; text-underline-offset: 2px; }
-footer a:hover { color: var(--muted); }
-
-.form-message {
-  min-height: 16px;
-  margin: 6px 0 0;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.form-message:empty { display: none; }
-.form-message[data-state="error"] { color: #ff9b82; }
-.signup[hidden] { display: none; }
-.form-message[data-state="success"] {
-  margin-top: 22px;
-  color: var(--ink);
-  font-size: 18px;
-  font-weight: 700;
-}
+.offer-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.offer-primary:hover { border-color: var(--accent); filter: brightness(1.05); }
+.offer-primary .offer-icon { background: rgba(18, 20, 12, 0.08); border-color: rgba(18, 20, 12, 0.08); }
+.offer-primary .offer-tag { color: #4b5820; }
+.offer-primary .offer-desc { color: #2d3416; }
 
 footer {
-  margin-top: 18px;
+  margin-top: 20px;
   color: var(--faint);
   font-size: 12px;
+  text-align: center;
 }
+
+footer i { font-style: normal; margin: 0 6px; }
+footer a { text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, 0.25); }
+footer a:hover { color: var(--text); }
 
 .sr-only {
   position: absolute;
@@ -226,13 +335,43 @@ footer {
   white-space: nowrap;
 }
 
-@media (max-width: 520px) {
-  .socials { justify-content: center; }
-  .socials a { width: 44px; height: 44px; padding: 0; justify-content: center; font-size: 0; gap: 0; }
-  .socials svg, .socials a[data-social="x"] svg { width: 22px; height: 22px; }
-  .form-intro { font-size: 16px; }
-  .signup input { padding: 0 12px; font-size: 15px; }
-  .signup button { padding: 0 14px; font-size: 15px; }
+/* Mobile: one column, photo on top; decorative extras hidden. */
+@media (max-width: 760px) {
+  .stage { width: 100%; padding: 16px 18px 14px; }
+
+  .brand { font-size: 19px; }
+  .brand svg { width: 20px; height: 20px; }
+  .socials { gap: 6px; padding: 0; border: 0; background: none; }
+  .socials a { width: 38px; height: 38px; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(255, 255, 255, 0.04); }
+  .socials span { display: none; }
+  .socials svg { width: 18px; height: 18px; }
+
+  .hero { grid-template-columns: 1fr; gap: 18px; margin-top: 16px; }
+  .visual { order: -1; height: auto; }
+  .photo-card { position: relative; inset: auto; height: 27svh; transform: none; }
+  .globe, .chip, .features { display: none; }
+
+  .eyebrow { margin-bottom: 10px; font-size: 10px; letter-spacing: 0.22em; }
+  .eyebrow i { margin: 0 6px; }
+  /* Longest line ("a China e o mundo.") is ~9× the font size; keep all three lines on screen. */
+  h1 { font-size: calc((100vw - 36px) / 9.3); }
+  .form-intro { margin-top: 14px; font-size: 15px; }
+  .signup { width: 100%; margin-top: 12px; }
+  .field-icon { margin-left: 12px; }
+  .signup input { padding: 0 8px; font-size: 15px; }
+  .signup button { padding: 0 14px; font-size: 14px; }
+
+  .offers { gap: 10px; margin-top: 18px; }
+  .offer { padding: 12px 14px; gap: 10px; border-radius: 13px; }
+  .offer-icon, .offer-desc { display: none; }
+  .offer-title { font-size: 16px; }
+  .offer-tag { font-size: 10px; }
+  footer { margin-top: 14px; }
+}
+
+@media (max-width: 380px) {
+  .field-icon { display: none; }
+  .signup input { padding-left: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

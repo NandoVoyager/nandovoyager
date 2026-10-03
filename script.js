@@ -6,11 +6,12 @@
   const endpoint = config.signupEndpoint;
   document.querySelector("#year").textContent = new Date().getFullYear();
 
-  // Keep everything on one screen: shrink the whole block proportionally when the window is too short.
+  // Keep everything on one screen: scale the whole block to the window (desktop may grow a little, never scroll).
   const stage = document.querySelector(".stage");
   const fitToScreen = () => {
-    const scale = Math.min(1, window.innerHeight / stage.offsetHeight);
-    stage.style.transform = `translate(-50%, -50%)${scale < 1 ? ` scale(${scale})` : ""}`;
+    const maxScale = window.innerWidth > 760 ? 1.3 : 1;
+    const scale = Math.min(maxScale, window.innerWidth / stage.offsetWidth, window.innerHeight / stage.offsetHeight);
+    stage.style.transform = `translate(-50%, -50%)${scale !== 1 ? ` scale(${scale})` : ""}`;
   };
   fitToScreen();
   window.addEventListener("resize", fitToScreen);
