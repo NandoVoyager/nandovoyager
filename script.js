@@ -141,7 +141,7 @@
           <div><dt>Para quem é</dt><dd>${p.forWhom}</dd></div>
         </dl>
 
-        <h3 class="sec-title sec-accent">O que está incluso</h3>
+        <h3 class="sec-title">O que está incluso</h3>
         <ul class="included">${canton.included.map((item) => `<li>${item}</li>`).join("")}</ul>
 
         <h3 class="sec-title">Formas de pagamento</h3>
