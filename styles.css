@@ -611,6 +611,15 @@ footer a:hover { color: var(--text); }
   .facts div { grid-template-columns: 1fr; gap: 4px; }
 }
 
+/* Short windows: a fixed header would leave the body a sliver, so the whole dialog scrolls and only the footer stays pinned. */
+@media (max-height: 720px) {
+  .sheet[open] { display: block; overflow-y: auto; overscroll-behavior: contain; }
+  .sheet-body { overflow: visible; }
+  .sheet-foot { position: sticky; bottom: 0; }
+  .sheet-head { padding-top: 20px; padding-bottom: 18px; }
+  .sheet-title { font-size: 28px; }
+}
+
 @media (max-width: 380px) {
   .field-icon { display: none; }
   .signup input { padding-left: 14px; }

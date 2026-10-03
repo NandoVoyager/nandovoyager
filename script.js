@@ -154,6 +154,7 @@
       current = pkg ? pkg.id : null;
       sheet.innerHTML = pkg ? detailView(pkg) : listView();
       sheet.dataset.view = pkg ? "detail" : "list";
+      sheet.scrollTop = 0;
       history.replaceState(null, "", `#canton-fair${pkg ? `/${pkg.id}` : ""}`);
       // Opening focuses the dialog itself (not its first button) so no focus ring flashes on touch screens.
       if (!sheet.open) {
