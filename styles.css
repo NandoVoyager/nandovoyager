@@ -277,6 +277,11 @@ h1 {
 
 .offer:not(.offer-primary):hover { border-color: rgba(255, 255, 255, 0.28); }
 
+/* Locked card (coming soon): not a link, so no hover; padlock where the arrow would be. */
+.offer-locked { cursor: default; }
+.offer-locked:not(.offer-primary):hover { border-color: rgba(255, 255, 255, 0.14); }
+.offer-lock { color: var(--muted); vertical-align: -1px; }
+
 .offer:not(.offer-primary) .offer-icon {
   border-color: rgba(255, 255, 255, 0.14);
   background: linear-gradient(180deg, #2a2c2b 0%, #0d0e0d 100%);
@@ -574,7 +579,8 @@ footer a:hover { color: var(--text); }
 
   /* Longest line ("a China e o mundo.") is ~9× the font size; keep all three lines on screen. */
   h1 { font-size: calc((100vw - 36px) / 9.6); }
-  .form-intro { margin-top: 14px; font-size: 15px; white-space: normal; }
+  /* One line on phones: the sentence is ~32× the font size wide in Inter. */
+  .form-intro { margin-top: 14px; font-size: min(15px, calc((100vw - 36px) / 33.2)); }
   .signup { width: 100%; margin-top: 12px; }
   .field-icon { margin-left: 12px; }
   .signup input { padding: 0 8px; font-size: 15px; }
