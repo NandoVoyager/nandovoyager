@@ -46,18 +46,8 @@ a { color: inherit; }
 .topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  font: 800 26px/1 var(--display);
-  letter-spacing: -0.03em;
-  text-decoration: none;
-}
-
-.brand span { color: var(--accent); }
 
 .socials {
   display: flex;
@@ -331,7 +321,6 @@ footer a:hover { color: var(--text); }
 @media (max-width: 760px) {
   .stage { width: 100%; padding: 16px 18px 14px; }
 
-  .brand { font-size: 23px; }
   .socials { gap: 6px; padding: 0; border: 0; background: none; }
   .socials a { width: 38px; height: 38px; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(255, 255, 255, 0.04); }
   .socials span { display: none; }
