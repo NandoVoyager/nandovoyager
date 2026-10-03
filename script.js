@@ -134,6 +134,14 @@
             </div>
           </div>`).join("")}
 
+        <h3 class="sec-title">Destinos e feiras</h3>
+        <ul class="places">${p.places.map((key) => canton.places[key]).map((place) => `
+          <li>
+            <div class="place-head"><b>${place.name}</b><span>${place.where}</span></div>
+            <p>${place.text}</p>
+          </li>`).join("")}
+        </ul>
+
         <h3 class="sec-title">Roteiro</h3>
         <dl class="facts">
           <div><dt>Período</dt><dd>${p.dates} · ${p.days} dias</dd></div>
