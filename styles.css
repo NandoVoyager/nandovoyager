@@ -246,18 +246,8 @@ h1 {
   font: 600 13.5px/1.35 var(--display);
 }
 
-/* Near-invisible icon tile: dark icon on black, barely-there edge. */
-.chip-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  background: #050605;
-  color: #4a4e48;
-}
+/* Bars themselves in luxury black (gradient + fine light edge), no tile. */
+.chip-icon { flex: none; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)); }
 .chip b { font-weight: 800; }
 .chip { bottom: 18px; right: 0; }
 
