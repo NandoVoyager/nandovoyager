@@ -134,15 +134,15 @@ h1 {
 }
 
 .signup input::placeholder { color: #747970; }
-.signup:focus-within { border-color: rgba(213, 243, 106, 0.45); }
+.signup:focus-within { border-color: rgba(255, 255, 255, 0.28); }
 
 .signup button {
   height: 46px;
   padding: 0 22px;
   border: 0;
   border-radius: 10px;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: #f2f3ee;
+  color: #0a0c0b;
   font: 800 15.5px var(--display);
   white-space: nowrap;
   cursor: pointer;
@@ -151,7 +151,7 @@ h1 {
 
 .signup button span[aria-hidden] { margin-left: 4px; }
 .label-short { display: none; }
-.signup button:hover { filter: brightness(1.08); }
+.signup button:hover { background: #fff; }
 .signup button:disabled { opacity: 0.6; cursor: wait; }
 .signup[hidden] { display: none; }
 
