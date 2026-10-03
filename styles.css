@@ -134,30 +134,24 @@ h1 {
 }
 
 .signup input::placeholder { color: #747970; }
-.signup:focus-within { border-color: rgba(255, 255, 255, 0.28); }
+.signup:focus-within { border-color: rgba(213, 243, 106, 0.45); }
 
 .signup button {
   height: 46px;
-  padding: 0 20px;
-  /* Minimal: no fill or shadow, just text set apart from the field by a hairline. */
+  padding: 0 22px;
   border: 0;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0 10px 10px 0;
-  background: transparent;
-  color: #e9ebe6;
-  font: 500 14px var(--sans);
-  letter-spacing: 0.02em;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: 800 15.5px var(--display);
   white-space: nowrap;
   cursor: pointer;
-  transition: color 0.15s, background 0.15s;
+  transition: filter 0.15s;
 }
 
 .signup button span[aria-hidden] { margin-left: 4px; }
 .label-short { display: none; }
-.signup button:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.04);
-}
+.signup button:hover { filter: brightness(1.08); }
 .signup button:disabled { opacity: 0.6; cursor: wait; }
 .signup[hidden] { display: none; }
 
