@@ -246,8 +246,8 @@ h1 {
   font: 600 13.5px/1.35 var(--display);
 }
 
-/* Bars themselves in luxury black (gradient + fine light edge), no tile. */
-.chip-icon { flex: none; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)); }
+/* Trending-up icon: white line, green arrowhead. */
+.chip-icon { flex: none; }
 .chip b { font-weight: 800; }
 .chip { bottom: 18px; right: 0; }
 
