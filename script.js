@@ -79,6 +79,12 @@
     };
     let current = null;
 
+    // Some embedded previews refuse URL changes; the dialog must still open.
+    const setHash = (hash) => {
+      try {
+        history.replaceState(null, "", hash || location.pathname + location.search);
+      } catch {}
+    };
     const whatsappHref = (text) => (config.whatsapp ? `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(text)}` : "#");
     const meta = (p) => `Pacote ${p.number} · ${p.days} dias · ${p.dates}`;
 
@@ -134,6 +140,14 @@
             </div>
           </div>`).join("")}
 
+        <h3 class="sec-title">Destinos e feiras</h3>
+        <ul class="places">${p.places.map((key) => canton.places[key]).map((place) => `
+          <li>
+            <div class="place-head"><b>${place.name}</b><span>${place.where}</span></div>
+            <p>${place.text}</p>
+          </li>`).join("")}
+        </ul>
+
         <h3 class="sec-title">Roteiro</h3>
         <dl class="facts">
           <div><dt>Período</dt><dd>${p.dates} · ${p.days} dias</dd></div>
@@ -141,7 +155,7 @@
           <div><dt>Para quem é</dt><dd>${p.forWhom}</dd></div>
         </dl>
 
-        <h3 class="sec-title sec-accent">O que está incluso</h3>
+        <h3 class="sec-title">O que está incluso</h3>
         <ul class="included">${canton.included.map((item) => `<li>${item}</li>`).join("")}</ul>
 
         <h3 class="sec-title">Formas de pagamento</h3>
@@ -154,7 +168,8 @@
       current = pkg ? pkg.id : null;
       sheet.innerHTML = pkg ? detailView(pkg) : listView();
       sheet.dataset.view = pkg ? "detail" : "list";
-      history.replaceState(null, "", `#canton-fair${pkg ? `/${pkg.id}` : ""}`);
+      sheet.scrollTop = 0;
+      setHash(`#canton-fair${pkg ? `/${pkg.id}` : ""}`);
       // Opening focuses the dialog itself (not its first button) so no focus ring flashes on touch screens.
       if (!sheet.open) {
         sheet.showModal();
@@ -181,7 +196,7 @@
       }
     });
 
-    sheet.addEventListener("close", () => history.replaceState(null, "", location.pathname + location.search));
+    sheet.addEventListener("close", () => setHash(""));
 
     document.querySelectorAll("[data-canton]").forEach((link) => {
       link.addEventListener("click", (event) => {

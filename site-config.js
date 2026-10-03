@@ -6,7 +6,7 @@ window.NANDO_SITE_CONFIG = {
     voyagerAi: ""
   },
   /* WhatsApp da equipe para a Imersão Canton Fair: só dígitos, com DDI e DDD (ex.: 5511999999999). */
-  whatsapp: "",
+  whatsapp: "15615966097",
   /*
    * web: normal link (desktop, and mobile browsers, which already hand off to the app).
    * ios: app URL scheme, tried only inside in-app browsers (Instagram, TikTok…) on iPhone.

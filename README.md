@@ -31,7 +31,7 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` roda como
 
 ## Configuração
 
-- `site-config.js`: endpoint do cadastro, link do cartão Voyager AI (`offers`), número do WhatsApp (`whatsapp`) e redes, incluindo os links que abrem direto no app no celular.
+- `site-config.js`: endpoint do cadastro, link do cartão Voyager AI (`offers`; sem uso enquanto o cartão está como "Em breve"), número do WhatsApp (`whatsapp`) e redes, incluindo os links que abrem direto no app no celular.
 - `canton-fair.js`: pacotes da Imersão Canton Fair (datas, roteiro, valores, o que está incluso). O cartão principal abre essa janela; ela também abre direto por `nandovoyager.com/#canton-fair` ou por pacote, ex.: `#canton-fair/grande-baia`, `#canton-fair/sem-pequim`, `#canton-fair/jornada-completa`.
 - `privacidade.html`: política de privacidade (LGPD).
 - `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
