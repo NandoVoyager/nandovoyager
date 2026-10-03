@@ -158,7 +158,8 @@ h1 {
   transition: filter 0.15s;
 }
 
-.signup button span { margin-left: 4px; }
+.signup button span[aria-hidden] { margin-left: 4px; }
+.label-short { display: none; }
 .signup button:hover { filter: brightness(1.08); }
 .signup button:disabled { opacity: 0.6; cursor: wait; }
 .signup[hidden] { display: none; }
@@ -329,6 +330,8 @@ footer a:hover { color: var(--text); }
   .field-icon { margin-left: 12px; }
   .signup input { padding: 0 8px; font-size: 15px; }
   .signup button { padding: 0 14px; font-size: 14px; }
+  .label-long { display: none; }
+  .label-short { display: inline; }
 
   .offers { gap: 10px; margin-top: 18px; }
   .offer { padding: 12px 14px; gap: 10px; border-radius: 13px; }

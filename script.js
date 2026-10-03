@@ -91,7 +91,7 @@
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.error || "Não foi possível concluir sua inscrição.");
       form.hidden = true;
-      setMessage("Obrigado por se inscrever!", "success");
+      setMessage("Recebido! Minha equipe vai entrar em contato com você.", "success");
       fitToScreen();
       track("newsletter_signup", { source: "landing_page" });
     } catch (error) {
