@@ -188,6 +188,24 @@ h1 {
   box-shadow: 0 0 46px rgba(213, 243, 106, 0.14), 0 30px 70px rgba(0, 0, 0, 0.6);
 }
 
+/* Quiet social-proof tag inside the photo's top-left corner. */
+.photo-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  padding: 7px 12px;
+  border: 1px solid rgba(213, 243, 106, 0.28);
+  border-radius: 999px;
+  background: rgba(10, 12, 11, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.82);
+  font: 500 12.5px/1 var(--sans);
+}
+
+.photo-badge b { color: var(--accent); font-weight: 700; }
+
 .photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
 
 .globe {
@@ -324,6 +342,7 @@ footer a:hover { color: var(--text); }
   .visual { order: -1; height: auto; }
   .photo-card { position: relative; inset: auto; height: 27svh; transform: none; }
   .globe, .chip { display: none; }
+  .photo-badge { top: 9px; left: 9px; padding: 5px 9px; font-size: 11px; }
 
   /* Longest line ("a China e o mundo.") is ~9× the font size; keep all three lines on screen. */
   h1 { font-size: calc((100vw - 36px) / 9.6); }
