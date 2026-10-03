@@ -52,7 +52,7 @@ a { color: inherit; }
 .brand {
   display: inline-flex;
   align-items: center;
-  font: 800 28px/1 var(--display);
+  font: 800 26px/1 var(--display);
   letter-spacing: -0.03em;
   text-decoration: none;
 }
@@ -62,8 +62,8 @@ a { color: inherit; }
 .socials {
   display: flex;
   align-items: center;
-  gap: 28px;
-  padding: 10px 24px;
+  gap: 24px;
+  padding: 9px 20px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.025);
@@ -85,10 +85,10 @@ a { color: inherit; }
 /* Hero */
 .hero {
   display: grid;
-  grid-template-columns: 1fr 430px;
-  gap: 20px;
+  grid-template-columns: 1fr 440px;
+  gap: 40px;
   align-items: center;
-  margin-top: 26px;
+  margin-top: 40px;
 }
 
 .hero-copy { min-width: 0; }
@@ -101,10 +101,12 @@ h1 {
 }
 
 .hl { color: var(--accent); }
+/* This font leaves a wide gap before the period; pull it in. */
+.period { margin-left: -0.06em; }
 
 .form-intro {
   white-space: nowrap;
-  margin: 24px 0 0;
+  margin: 20px 0 0;
   color: var(--muted);
   font-size: 17px;
   line-height: 1.45;
@@ -112,11 +114,14 @@ h1 {
 
 .form-intro strong { color: var(--text); font-weight: 500; }
 
+/* The form spans the headline's width so both edges line up. */
+.signup-block { width: 100%; }
+
 .signup {
   display: flex;
   align-items: center;
-  width: 464px;
-  margin-top: 20px;
+  width: 100%;
+  margin-top: 16px;
   padding: 4px 4px 4px 0;
   border: 1px solid var(--line);
   border-radius: 13px;
@@ -166,12 +171,12 @@ h1 {
 /* Photo + floating chips + dotted globe */
 .visual {
   position: relative;
-  height: 420px;
+  height: 350px;
 }
 
 .photo-card {
   position: absolute;
-  inset: 14px 30px 18px 0;
+  inset: 0 26px 0 0;
   margin: 0;
   z-index: 1;
   border: 1.5px solid rgba(213, 243, 106, 0.55);
@@ -227,21 +232,21 @@ h1 {
 
 .chip svg { flex: none; color: var(--accent); }
 .chip b { font-weight: 800; }
-.chip { top: 26px; right: -50px; }
+.chip { top: 18px; right: 0; }
 
 /* Course / Voyager AI cards */
 .offers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 26px;
+  gap: 16px;
+  margin-top: 40px;
 }
 
 .offer {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 18px 22px;
+  gap: 18px;
+  padding: 20px 24px;
   border: 1px solid var(--line);
   border-radius: 15px;
   background: var(--panel);
@@ -283,7 +288,7 @@ h1 {
 .offer-primary .offer-desc { color: #2d3416; }
 
 footer {
-  margin-top: 20px;
+  margin-top: 24px;
   color: var(--faint);
   font-size: 12px;
   text-align: center;
