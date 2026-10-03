@@ -79,6 +79,12 @@
     };
     let current = null;
 
+    // Some embedded previews refuse URL changes; the dialog must still open.
+    const setHash = (hash) => {
+      try {
+        history.replaceState(null, "", hash || location.pathname + location.search);
+      } catch {}
+    };
     const whatsappHref = (text) => (config.whatsapp ? `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(text)}` : "#");
     const meta = (p) => `Pacote ${p.number} · ${p.days} dias · ${p.dates}`;
 
@@ -163,7 +169,7 @@
       sheet.innerHTML = pkg ? detailView(pkg) : listView();
       sheet.dataset.view = pkg ? "detail" : "list";
       sheet.scrollTop = 0;
-      history.replaceState(null, "", `#canton-fair${pkg ? `/${pkg.id}` : ""}`);
+      setHash(`#canton-fair${pkg ? `/${pkg.id}` : ""}`);
       // Opening focuses the dialog itself (not its first button) so no focus ring flashes on touch screens.
       if (!sheet.open) {
         sheet.showModal();
@@ -190,7 +196,7 @@
       }
     });
 
-    sheet.addEventListener("close", () => history.replaceState(null, "", location.pathname + location.search));
+    sheet.addEventListener("close", () => setHash(""));
 
     document.querySelectorAll("[data-canton]").forEach((link) => {
       link.addEventListener("click", (event) => {
