@@ -33,7 +33,7 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` roda como
 
 - `site-config.js`: endpoint do cadastro, links dos cartões (`offers`) e das redes, incluindo os links que abrem direto no app no celular.
 - `privacidade.html`: política de privacidade (LGPD).
-- `public/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
+- `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
 
 ## Analytics
 
