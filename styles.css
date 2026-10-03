@@ -313,6 +313,227 @@ h1 {
 .offer-primary .offer-tag { color: #4b5820; }
 .offer-primary .offer-desc { color: #2d3416; }
 
+/* Imersão Canton Fair dialog: fixed header and footer, scrolling body. */
+.sheet {
+  width: min(720px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(880px, calc(100dvh - 48px));
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: #0e110f;
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
+}
+
+.sheet[open] { display: flex; flex-direction: column; animation: sheet-in 0.22s ease-out; }
+.sheet::backdrop { background: rgba(4, 5, 4, 0.74); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+:where(.sheet button) { font: inherit; color: inherit; cursor: pointer; }
+.sheet:focus { outline: none; }
+.sheet :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.sheet-head {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 26px 32px 24px;
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(520px 200px at 0% 0%, rgba(213, 243, 106, 0.08), transparent 70%);
+}
+
+.sheet-heading { min-width: 0; }
+
+.sheet-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.sheet-back:hover { color: var(--ink); }
+
+.sheet-eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sheet-title { margin: 0; font: 800 34px/1.05 var(--display); letter-spacing: -0.03em; }
+.sheet-sub { margin: 10px 0 0; color: var(--text); font-size: 15px; line-height: 1.45; }
+
+.sheet-close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sheet-close:hover { border-color: rgba(255, 255, 255, 0.28); }
+
+.sheet-body {
+  flex: 1;
+  min-height: 0;
+  padding: 8px 32px 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sheet-foot {
+  flex: none;
+  padding: 16px 32px;
+  border-top: 1px solid var(--line);
+  background: #0b0d0c;
+}
+
+.wa-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 54px;
+  border-radius: 13px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: 800 16px var(--display);
+  text-decoration: none;
+  transition: filter 0.15s;
+}
+
+.wa-btn:hover { filter: brightness(1.06); }
+
+/* Package list */
+.packages { margin: 0; padding: 0; list-style: none; }
+.packages li { margin-top: 14px; }
+.packages li:has(.pkg-featured) { margin-top: 24px; }
+
+.pkg {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 22px 20px 22px 22px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--panel);
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pkg:hover { border-color: rgba(213, 243, 106, 0.5); background: #161a17; }
+.pkg-featured { border-color: rgba(213, 243, 106, 0.4); }
+
+.pkg-badge {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pkg-info, .pkg-price { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.pkg-meta { color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.pkg-name { font: 800 24px/1.1 var(--display); letter-spacing: -0.02em; }
+.pkg-route { color: var(--muted); font-size: 14px; }
+
+.pkg-price { align-items: flex-end; text-align: right; }
+.pkg-price small { color: var(--muted); font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.pkg-price b { font: 800 24px/1.1 var(--display); letter-spacing: -0.02em; white-space: nowrap; }
+.pkg-arrow { display: grid; color: var(--muted); }
+.pkg:hover .pkg-arrow { color: var(--accent); }
+
+/* Package details */
+.sec-title {
+  margin: 30px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sec-title:first-child { margin-top: 22px; }
+.sec-accent { color: var(--accent); }
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.price-label, .price-values { display: flex; flex-direction: column; gap: 6px; }
+.price-label b { font: 700 19px/1.2 var(--display); }
+.price-label span { color: var(--muted); font-size: 11.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.price-values { align-items: flex-end; text-align: right; }
+.price-main { font: 800 32px/1 var(--display); letter-spacing: -0.02em; white-space: nowrap; }
+.price-note { color: var(--muted); font-size: 12.5px; }
+.price-card { margin-top: 4px; color: var(--text); font-size: 14px; }
+.price-card b { color: var(--ink); font-weight: 700; white-space: nowrap; }
+
+.facts { margin: 0; }
+.facts div { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.facts dt { color: var(--muted); font-size: 14px; }
+.facts dd { margin: 0; color: var(--text); font-size: 15px; line-height: 1.5; }
+
+.included { margin: 0; padding: 0; list-style: none; }
+
+.included li {
+  display: flex;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.included li::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin-top: 6px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+}
+
+.pay div { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.pay b { font: 700 17px var(--display); }
+.pay span { color: var(--text); font-size: 14.5px; }
+
 footer {
   margin-top: 24px;
   color: var(--faint);
@@ -365,6 +586,29 @@ footer a:hover { color: var(--text); }
   .offer-title { font-size: 16px; }
   .offer-tag { font-size: 10px; }
   footer { margin-top: 14px; }
+
+  /* Canton Fair dialog takes the whole screen. */
+  .sheet { width: 100%; height: 100%; max-height: none; border: 0; border-radius: 0; }
+  .sheet-head { padding: 18px 18px 18px; gap: 12px; }
+  .sheet-back { margin-bottom: 12px; }
+  .sheet-title { font-size: 28px; }
+  .sheet-sub { font-size: 14px; }
+  .sheet-close { width: 40px; height: 40px; }
+  .sheet-body { padding: 0 18px 24px; }
+  .sheet-foot { padding: 12px 18px calc(12px + env(safe-area-inset-bottom)); }
+  .wa-btn { height: 50px; font-size: 15px; }
+
+  .pkg { grid-template-columns: 1fr auto; gap: 12px; padding: 18px 16px; }
+  .pkg-arrow { display: none; }
+  .pkg-name { font-size: 20px; }
+  .pkg-route { font-size: 13px; }
+  .pkg-meta { font-size: 10px; }
+  .pkg-price b { font-size: 19px; }
+  .pkg-price small { font-size: 9.5px; }
+
+  .price-label b { font-size: 17px; }
+  .price-main { font-size: 26px; }
+  .facts div { grid-template-columns: 1fr; gap: 4px; }
 }
 
 @media (max-width: 380px) {
@@ -373,5 +617,5 @@ footer a:hover { color: var(--text); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
 }

@@ -73,7 +73,7 @@
       </section>
 
       <div class="offers">
-        <a class="offer offer-primary" data-offer="cantonFair" href="#">
+        <a class="offer offer-primary" data-canton href="#canton-fair" aria-haspopup="dialog">
           <span class="offer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M4.5 3h15l2.5 6H2z" fill="currentColor" /><path d="M2 9a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0z" fill="currentColor" /><path d="M4 13.5V21h16v-7.5M8.5 21v-4.5h7V21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
           <span class="offer-text">
             <span class="offer-tag">Feira</span>
@@ -93,7 +93,12 @@
 
       <footer>© <span id="year"></span> Nando Voyager <i>·</i> <a href="/privacidade.html">Política de Privacidade</a></footer>
     </main>
+
+    <!-- Imersão Canton Fair: filled by script.js from canton-fair.js -->
+    <dialog class="sheet" id="canton-fair" aria-labelledby="sheet-title" tabindex="-1"></dialog>
+
     <script src="/site-config.js"></script>
+    <script src="/canton-fair.js"></script>
     <script src="/script.js" defer></script>
   </body>
 </html>
