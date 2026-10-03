@@ -246,7 +246,19 @@ h1 {
   font: 600 13.5px/1.35 var(--display);
 }
 
-.chip svg { flex: none; color: var(--accent); }
+/* Icon tile in the same luxury black as the button and Voyager AI card. */
+.chip-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #2a2c2b 0%, #0d0e0d 55%, #030303 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 4px 12px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
 .chip b { font-weight: 800; }
 .chip { bottom: 18px; right: 0; }
 
