@@ -156,7 +156,10 @@
         </dl>
 
         <h3 class="sec-title">O que está incluso</h3>
-        <ul class="included">${canton.included.map((item) => `<li>${item}</li>`).join("")}</ul>
+        <ul class="included">
+          ${canton.included.map((item) => `<li>${item}</li>`).join("")}
+          ${(canton.notIncluded || []).map((item) => `<li class="excluded">${item}</li>`).join("")}
+        </ul>
 
         <h3 class="sec-title">Formas de pagamento</h3>
         <div class="pay">${canton.payment.map(([title, text]) => `<div><b>${title}</b><span>${text}</span></div>`).join("")}</div>

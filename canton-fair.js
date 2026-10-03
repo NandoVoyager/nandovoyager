@@ -91,6 +91,8 @@ window.NANDO_CANTON_FAIR = {
     "Guias, tradutores português–chinês e aparelhos de tradução simultânea",
     "Seguro-viagem internacional e suporte com visto"
   ],
+  /* Mostrados com um X no fim de "O que está incluso". */
+  notIncluded: ["Passagem aérea internacional (não inclusa)"],
   payment: [
     ["PIX ou transferência", "Pagamento à vista, pelo menor valor."],
     ["Cartão", "Pagamento à vista, pelo valor indicado no cartão."]

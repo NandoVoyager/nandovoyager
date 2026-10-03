@@ -519,7 +519,7 @@ h1 {
 
 .included li {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   padding: 13px 0;
   border-bottom: 1px solid var(--line);
   color: var(--text);
@@ -527,14 +527,21 @@ h1 {
   line-height: 1.45;
 }
 
+/* "Approved" mark: dark check on an accent disc. */
 .included li::before {
   content: "";
   flex: none;
-  width: 9px;
-  height: 9px;
-  margin-top: 6px;
-  border: 1.5px solid var(--muted);
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
   border-radius: 50%;
+  background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 12.5 4 4 8-9' fill='none' stroke='%2312140c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+/* Not included: dark X on a grey disc, muted text. */
+.included li.excluded { color: var(--muted); }
+.included li.excluded::before {
+  background: var(--muted) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m8 8 8 8M16 8l-8 8' fill='none' stroke='%2312140c' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center / 12px no-repeat;
 }
 
 .pay div { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line); }
