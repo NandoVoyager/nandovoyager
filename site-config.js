@@ -3,7 +3,7 @@ window.NANDO_SITE_CONFIG = {
   signupEndpoint: "/api/subscribe",
   /* Links dos CTAs principais. Troque pelos endereços reais antes de publicar. */
   offers: {
-    primeiraImportacao: "",
+    cantonFair: "",
     voyagerAi: ""
   },
   /*

@@ -1,6 +1,6 @@
 # Nando Voyager — landing page
 
-Página única (sem rolagem) de nandovoyager.com: foto, título, redes sociais, cadastro na lista de lançamentos (Resend) e links para o curso Primeira Importação e o Voyager AI. HTML/CSS/JS puro, sem etapa de build.
+Página única (sem rolagem) de nandovoyager.com: foto, título, redes sociais, cadastro na lista de lançamentos (Resend) e links para a Canton Fair e o Voyager AI. HTML/CSS/JS puro, sem etapa de build.
 
 ## Rodar localmente
 
