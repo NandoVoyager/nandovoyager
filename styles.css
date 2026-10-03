@@ -158,7 +158,8 @@ h1 {
 .form-message { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
 .form-message:empty { display: none; }
 .form-message[data-state="error"] { color: #ff9b82; }
-.form-message[data-state="success"] { margin-top: 20px; color: var(--accent); font: 800 20px var(--display); }
+/* One line on desktop: the sentence is ~27.8× the font size wide, and the column is 544px. */
+.form-message[data-state="success"] { margin-top: 20px; color: var(--accent); font: 800 19px var(--display); white-space: nowrap; }
 
 /* Photo + floating chips + dotted globe */
 .visual {
@@ -587,6 +588,7 @@ footer a:hover { color: var(--text); }
   /* Longest line ("a China e o mundo.") is ~9× the font size; keep all three lines on screen. */
   h1 { font-size: calc((100vw - 36px) / 9.6); }
   /* One line on phones: the sentence is ~32× the font size wide in Inter. */
+  .form-message[data-state="success"] { font-size: 20px; white-space: normal; }
   .form-intro { margin-top: 14px; font-size: min(15px, calc((100vw - 36px) / 33.2)); }
   .signup { width: 100%; margin-top: 12px; }
   .field-icon { margin-left: 12px; }

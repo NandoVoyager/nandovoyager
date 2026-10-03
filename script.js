@@ -173,11 +173,9 @@
       sheet.dataset.view = pkg ? "detail" : "list";
       sheet.scrollTop = 0;
       setHash(`#canton-fair${pkg ? `/${pkg.id}` : ""}`);
-      // Opening focuses the dialog itself (not its first button) so no focus ring flashes on touch screens.
-      if (!sheet.open) {
-        sheet.showModal();
-        sheet.focus();
-      } else sheet.querySelector("button").focus();
+      // Focus the dialog itself, not its first button, so switching views never draws a focus ring on "Todos os pacotes".
+      if (!sheet.open) sheet.showModal();
+      sheet.focus();
     };
 
     sheet.addEventListener("click", (event) => {
@@ -188,11 +186,7 @@
         track("canton_package", { package: pkg.dataset.package });
         return show(pkg.dataset.package);
       }
-      if (event.target.closest("[data-back]")) {
-        const from = current;
-        show(null);
-        return sheet.querySelector(`[data-package="${from}"]`)?.focus();
-      }
+      if (event.target.closest("[data-back]")) return show(null);
       if (event.target.closest("[data-whatsapp]")) {
         track("whatsapp_click", { package: current || "geral" });
         if (!config.whatsapp) event.preventDefault();
