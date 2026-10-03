@@ -234,7 +234,7 @@ h1 {
 
 .chip svg { flex: none; color: var(--accent); }
 .chip b { font-weight: 800; }
-.chip { top: 18px; right: 0; }
+.chip { bottom: 18px; right: 0; }
 
 /* Course / Voyager AI cards */
 .offers {
