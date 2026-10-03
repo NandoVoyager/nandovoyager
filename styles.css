@@ -9,7 +9,7 @@
   --accent: #d5f36a;
   --accent-ink: #12140c;
   --sans: "Inter", system-ui, -apple-system, sans-serif;
-  --display: "Manrope", var(--sans);
+  --display: "Plus Jakarta Sans", var(--sans);
 }
 
 * { box-sizing: border-box; }
@@ -95,8 +95,8 @@ a { color: inherit; }
 
 h1 {
   margin: 0;
-  font: 800 64px/0.98 var(--display);
-  letter-spacing: -0.05em;
+  font: 800 62px/1.04 var(--display);
+  letter-spacing: -0.03em;
   white-space: nowrap;
 }
 
@@ -318,7 +318,7 @@ footer a:hover { color: var(--text); }
   .globe, .chip { display: none; }
 
   /* Longest line ("a China e o mundo.") is ~9× the font size; keep all three lines on screen. */
-  h1 { font-size: calc((100vw - 36px) / 9.3); }
+  h1 { font-size: calc((100vw - 36px) / 9.6); }
   .form-intro { margin-top: 14px; font-size: 15px; }
   .signup { width: 100%; margin-top: 12px; }
   .field-icon { margin-left: 12px; }
