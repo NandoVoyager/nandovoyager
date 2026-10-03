@@ -91,7 +91,8 @@ a { color: inherit; }
   margin-top: 40px;
 }
 
-.hero-copy { min-width: 0; }
+/* Text block sits a little below the photo's center line. */
+.hero-copy { min-width: 0; position: relative; top: 22px; }
 
 h1 {
   margin: 0;
@@ -319,6 +320,7 @@ footer a:hover { color: var(--text); }
   .socials svg { width: 18px; height: 18px; }
 
   .hero { grid-template-columns: 1fr; gap: 18px; margin-top: 16px; }
+  .hero-copy { top: 0; }
   .visual { order: -1; height: auto; }
   .photo-card { position: relative; inset: auto; height: 27svh; transform: none; }
   .globe, .chip { display: none; }
