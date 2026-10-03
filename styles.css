@@ -313,7 +313,7 @@ h1 {
 .offer-primary .offer-tag { color: #4b5820; }
 .offer-primary .offer-desc { color: #2d3416; }
 
-/* Imersão Canton Fair dialog: fixed header and footer, scrolling body. */
+/* Imersão Canton Fair dialog: the dialog itself scrolls; header and footer stick. The body row never shrinks below its content. */
 .sheet {
   width: min(720px, calc(100vw - 32px));
   max-width: none;
@@ -324,11 +324,10 @@ h1 {
   background: #0e110f;
   color: var(--ink);
   font-family: var(--sans);
-  overflow: hidden;
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
 }
 
-.sheet[open] { display: flex; flex-direction: column; animation: sheet-in 0.22s ease-out; }
+.sheet[open] { display: grid; grid-template-rows: auto 1fr auto; overflow-y: auto; overscroll-behavior: contain; animation: sheet-in 0.22s ease-out; }
 .sheet::backdrop { background: rgba(4, 5, 4, 0.74); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 
 @keyframes sheet-in {
@@ -340,13 +339,15 @@ h1 {
 .sheet :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .sheet-head {
-  flex: none;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   gap: 16px;
   padding: 26px 32px 24px;
   border-bottom: 1px solid var(--line);
-  background: radial-gradient(520px 200px at 0% 0%, rgba(213, 243, 106, 0.08), transparent 70%);
+  background: radial-gradient(520px 200px at 0% 0%, rgba(213, 243, 106, 0.08), transparent 70%), #0e110f;
 }
 
 .sheet-heading { min-width: 0; }
@@ -391,16 +392,11 @@ h1 {
 
 .sheet-close:hover { border-color: rgba(255, 255, 255, 0.28); }
 
-.sheet-body {
-  flex: 1;
-  min-height: 0;
-  padding: 8px 32px 28px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
+.sheet-body { padding: 8px 32px 28px; }
 
 .sheet-foot {
-  flex: none;
+  position: sticky;
+  bottom: 0;
   padding: 16px 32px;
   border-top: 1px solid var(--line);
   background: #0b0d0c;
@@ -611,12 +607,9 @@ footer a:hover { color: var(--text); }
   .facts div { grid-template-columns: 1fr; gap: 4px; }
 }
 
-/* Short windows: a fixed header would leave the body a sliver, so the whole dialog scrolls and only the footer stays pinned. */
+/* Short windows: a pinned header would leave the content a sliver, so it scrolls away and only the footer stays pinned. */
 @media (max-height: 720px) {
-  .sheet[open] { display: block; overflow-y: auto; overscroll-behavior: contain; }
-  .sheet-body { overflow: visible; }
-  .sheet-foot { position: sticky; bottom: 0; }
-  .sheet-head { padding-top: 20px; padding-bottom: 18px; }
+  .sheet-head { position: static; padding-top: 20px; padding-bottom: 18px; }
   .sheet-title { font-size: 28px; }
 }
 
