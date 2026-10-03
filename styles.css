@@ -103,7 +103,7 @@ h1 {
 .hl { color: var(--accent); }
 
 .form-intro {
-  max-width: 470px;
+  white-space: nowrap;
   margin: 24px 0 0;
   color: var(--muted);
   font-size: 17px;
@@ -319,7 +319,7 @@ footer a:hover { color: var(--text); }
 
   /* Longest line ("a China e o mundo.") is ~9× the font size; keep all three lines on screen. */
   h1 { font-size: calc((100vw - 36px) / 9.6); }
-  .form-intro { margin-top: 14px; font-size: 15px; }
+  .form-intro { margin-top: 14px; font-size: 15px; white-space: normal; }
   .signup { width: 100%; margin-top: 12px; }
   .field-icon { margin-left: 12px; }
   .signup input { padding: 0 8px; font-size: 15px; }
