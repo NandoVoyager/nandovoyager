@@ -6,17 +6,28 @@
   const endpoint = config.signupEndpoint;
   document.querySelector("#year").textContent = new Date().getFullYear();
 
-  // Keep everything on one screen: scale the whole block to the window (desktop may grow a little, never scroll).
+  // Keep everything on one screen, never scroll. Desktop: scale the fixed canvas to the window (may grow a little).
+  // Phones: the CSS centres the block in normal flow; only very short screens shrink it, with zoom so layout shrinks too.
   const stage = document.querySelector(".stage");
+  const phone = window.matchMedia("(max-width: 760px)");
   const fitToScreen = () => {
-    const maxScale = window.innerWidth > 760 ? 1.3 : 1;
-    const scale = Math.min(maxScale, window.innerWidth / stage.offsetWidth, window.innerHeight / stage.offsetHeight);
+    if (phone.matches) {
+      stage.style.transform = "";
+      stage.style.zoom = "";
+      const zoom = Math.min(1, document.body.clientHeight / stage.offsetHeight);
+      if (zoom < 1) stage.style.zoom = zoom;
+      return;
+    }
+    stage.style.zoom = "";
+    const scale = Math.min(1.3, window.innerWidth / stage.offsetWidth, window.innerHeight / stage.offsetHeight);
     stage.style.transform = `translate(-50%, -50%)${scale !== 1 ? ` scale(${scale})` : ""}`;
   };
   fitToScreen();
   window.addEventListener("resize", fitToScreen);
   document.fonts?.ready.then(fitToScreen);
   document.querySelector(".photo")?.addEventListener("load", fitToScreen);
+  // After the iOS keyboard closes, Safari can leave the page scrolled; put it back.
+  form.email.addEventListener("blur", () => setTimeout(() => window.scrollTo(0, 0), 100));
 
   const track = (name, properties = {}) => {
     // Plug a privacy-friendly analytics provider in here when one is selected.
