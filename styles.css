@@ -571,7 +571,10 @@ footer a:hover { color: var(--text); }
 
 /* Mobile: one column, photo on top; decorative extras hidden. */
 @media (max-width: 760px) {
-  .stage { width: 100%; padding: 16px 18px 14px; }
+  /* Phones: plain flow centred in the small viewport (stable while Safari's bars come and go). The desktop
+     absolute + transform centring made iOS treat the page as wider than the screen, so it panned sideways. */
+  body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100svh; }
+  .stage { position: relative; top: auto; left: auto; width: 100%; padding: 16px 18px 14px; transform: none; }
 
   .socials { gap: 6px; padding: 0; border: 0; background: none; }
   .socials a { width: 38px; height: 38px; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(255, 255, 255, 0.04); }
@@ -586,6 +589,7 @@ footer a:hover { color: var(--text); }
   .hero-copy { top: 0; }
   .visual { order: -1; height: auto; }
   .photo-card { position: relative; inset: auto; height: 27svh; transform: none; }
+  .photo { object-position: 50% 18%; } /* keep faces in frame when the photo gets short */
   .globe, .chip { display: none; }
   .photo-badge { top: 9px; left: 9px; padding: 5px 9px; font-size: 11px; }
 
@@ -596,7 +600,7 @@ footer a:hover { color: var(--text); }
   .form-intro { margin-top: 14px; font-size: min(15px, calc((100vw - 36px) / 33.2)); }
   .signup { width: 100%; margin-top: 12px; }
   .field-icon { margin-left: 12px; }
-  .signup input { padding: 0 8px; font-size: 15px; }
+  .signup input { padding: 0 8px; font-size: 16px; } /* under 16px, iOS zooms in on focus */
   .signup button { padding: 0 14px; font-size: 14px; }
   .label-long { display: none; }
   .label-short { display: inline; }
