@@ -15,6 +15,7 @@
   --navy-2: #1d3476;
   --navy-hi: #1a2f6b;
   --logo: #1e2343;
+  --navy-title: #13224f;
   --display: "Outfit", "Avenir Next", system-ui, sans-serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gutter: clamp(16px, 4vw, 40px);
@@ -52,6 +53,8 @@ h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 500; color: va
 h1 { font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1.04; letter-spacing: -0.03em; }
 h2 { font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.1; letter-spacing: -0.025em; }
 h3 { font-size: 1.5rem; line-height: 1.2; letter-spacing: -0.015em; }
+/* Two-tone titles: the second part in the brand navy, on its own line. */
+.t2 { display: block; color: var(--navy-title); }
 
 .label { margin: 0 0 14px; color: var(--navy-2); font-size: 14px; font-weight: 600; }
 
@@ -145,17 +148,18 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 /* Hero */
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: clamp(32px, 6vw, 88px);
   align-items: center;
   padding-block: calc(var(--header-h) + 48px) 72px;
 }
 
 .hero-badge { margin: 0 0 24px; }
+.hero h1 { font-size: clamp(2.4rem, 4.5vw, 4rem); }
+.hero h1 .t2 { white-space: nowrap; }
 .hero-badge a { margin-left: 4px; font-family: var(--display); font-weight: 500; font-size: 15px; color: var(--logo); text-decoration: none; }
 .hero-badge a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-.lead { max-width: 34em; margin: 24px 0 0; color: var(--text-dim); font-size: clamp(1.05rem, 1.35vw, 1.18rem); line-height: 1.6; }
 
 .signup-block { margin-top: 32px; max-width: 34rem; }
 .signup-intro { margin: 0 0 12px; color: var(--text-dim); font-size: 15px; }
@@ -206,21 +210,27 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .hero-mail a { color: var(--text-dim); text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
 .hero-mail a:hover { color: var(--navy); }
 
-.facts {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  justify-content: start;
-  gap: 56px;
-  margin: 40px 0 0;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
+
+
+.hero-media { position: relative; }
+.hero-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: var(--radius-card); }
+
+.photo-chip {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--text-dim);
+  font-size: 14px;
+  box-shadow: 0 6px 18px rgba(8, 14, 32, 0.18);
 }
 
-.facts div { display: flex; flex-direction: column-reverse; gap: 6px; }
-.facts dt { color: var(--muted); font-size: 14px; }
-.facts dd { margin: 0; font-family: var(--display); font-size: 2rem; font-weight: 500; line-height: 1; letter-spacing: -0.025em; color: var(--heading); }
-
-.hero-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: var(--radius-card); }
+.photo-chip b { color: var(--navy); font-weight: 600; }
 
 /* Load-in: elements end at their resting state, so a still frame is always complete. */
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
@@ -228,28 +238,69 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .hero-copy > :nth-child(2) { animation-delay: 0.05s; }
 .hero-copy > :nth-child(3) { animation-delay: 0.1s; }
 .hero-copy > :nth-child(4) { animation-delay: 0.15s; }
-.hero-copy > :nth-child(5) { animation-delay: 0.2s; }
 .hero-media { animation: rise 0.8s 0.1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
-/* DeepChina */
-.dc { padding-block: clamp(72px, 9vw, 112px); }
-.dc-head { max-width: 46rem; }
-.dc-lead { margin: 20px 0 0; color: var(--text-dim); font-size: 1.1rem; }
+/* DeepChina AI */
+.dc { padding-block: clamp(72px, 9vw, 112px); background: var(--card); border-block: 1px solid var(--line); }
+.dc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: center; }
+.dc-lead { max-width: 34em; margin: 20px 0 0; color: var(--text-dim); font-size: 1.1rem; }
 
-.dc-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 44px; }
+/* The six steps are a real sequence; "Custo" is the one the example conversation shows. */
+.steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { counter-increment: step; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 8px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--text-dim); font-size: 14px; font-weight: 500; }
+.steps li::before { content: counter(step); display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--badge); color: var(--navy); font-size: 12px; font-weight: 600; }
+.steps li[aria-current] { border-color: var(--navy); background: var(--navy); color: #fff; }
+.steps li[aria-current]::before { background: rgba(255, 255, 255, 0.18); color: #fff; }
+
+.dc-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 32px; }
+.dc-note { margin: 14px 0 0; color: var(--muted); font-size: 14px; }
+
+.chat {
+  padding: clamp(20px, 2.6vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--bg);
+  box-shadow: var(--shadow-card);
+}
+
+.chat-q {
+  max-width: 85%;
+  margin: 0 0 14px auto;
+  padding: 12px 16px;
+  border-radius: 18px 18px 4px 18px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.chat-a { padding: 18px 20px; border: 1px solid var(--line); border-radius: 18px 18px 18px 4px; background: var(--card); }
+.chat-title { margin: 0 0 10px; color: var(--heading); font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
+.chat-rows { margin: 0; font-variant-numeric: tabular-nums; }
+.chat-rows div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.chat-rows dt { color: var(--text-dim); }
+.chat-rows dd { margin: 0; color: var(--heading); white-space: nowrap; }
+.chat-rows .chat-total { border-bottom: 0; font-weight: 600; }
+.chat-rows .chat-total dt { color: var(--heading); }
+.chat-now { margin: 6px 0 12px; color: var(--muted); font-size: 14px; }
+.chat-answer { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin: 0; padding: 12px 14px; border-radius: 12px; background: var(--badge); color: var(--navy); font-size: 14px; font-weight: 500; }
+.chat-answer b { font-family: var(--display); font-size: 1.35rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.chat figcaption { margin-top: 14px; }
+
+.dc-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: clamp(48px, 6vw, 72px); }
 
 .svc {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 36px;
+  gap: 12px;
+  padding: 32px;
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   background: var(--card);
   box-shadow: var(--shadow-card);
 }
 
-.svc-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.svc-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 
 .svc-icon {
   display: grid;
@@ -264,9 +315,6 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 }
 
 .svc p { margin: 0; color: var(--text-dim); font-size: 1.02rem; line-height: 1.6; }
-
-.dc-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 36px; }
-.dc-note { color: var(--muted); font-size: 15px; }
 
 /* Cities strip */
 .cities { border-block: 1px solid var(--line); background: var(--card); }
@@ -382,8 +430,9 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
 /* Tablet and phone */
 @media (max-width: 960px) {
+  .dc-grid { grid-template-columns: 1fr; }
   .dc-cards { grid-template-columns: 1fr; gap: 16px; }
-  .svc { padding: 28px; }
+  .svc { padding: 26px; }
 }
 
 @media (max-width: 860px) {
@@ -395,12 +444,13 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
   .hero { grid-template-columns: 1fr; gap: 28px; padding-block: calc(var(--header-h) + 16px) 56px; }
   .hero-media { order: -1; }
-  /* Shorter photo, no caption or lead (the founder badge says it): the e-mail field must show on the first screen. */
-  .hero-media img { aspect-ratio: 3 / 2; object-position: 50% 60%; }
-  .hero-media figcaption, .lead { display: none; }
+  /* Phones: the navy part flows inline so the title stays at three lines. */
+  .hero h1 .t2 { display: inline; white-space: normal; }
+  .br-lg { display: none; }
+  /* Shorter photo: the e-mail field must show on the first screen. */
+  .hero-media img { aspect-ratio: 3 / 2; object-position: 50% 32%; }
+  .photo-chip { left: 12px; bottom: 12px; padding: 6px 12px; font-size: 13px; }
   .hero-badge { margin-bottom: 18px; }
-  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
-  .facts dd { font-size: 1.7rem; }
 
   .cities-row { flex-direction: column; align-items: flex-start; gap: 14px; }
   .cities ul { gap: 10px 24px; }
@@ -419,7 +469,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
 /* Short phones: wider photo, so the e-mail field stays on the first screen. */
 @media (max-width: 860px) and (max-height: 720px) {
-  .hero-media img { aspect-ratio: 2 / 1; object-position: 50% 58%; }
+  .hero-media img { aspect-ratio: 2 / 1; object-position: 50% 20%; }
   .hero { gap: 20px; }
   .hero-badge { margin-bottom: 14px; }
 }
