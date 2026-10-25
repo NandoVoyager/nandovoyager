@@ -72,15 +72,6 @@
     link.addEventListener("click", () => track("deepchina_click"));
   });
 
-  document.querySelectorAll("[data-whatsapp]").forEach((link) => {
-    if (config.whatsapp) {
-      link.href = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(config.whatsappMessage || "Olá! Vim pelo site.")}`;
-    } else {
-      link.hidden = true;
-    }
-    link.addEventListener("click", () => track("whatsapp_click"));
-  });
-
   document.querySelectorAll('a[href^="mailto:"]').forEach((link) => link.addEventListener("click", () => track("email_click")));
 
   // "Copiar e-mail": clipboard when allowed, otherwise select the address so it can be copied by hand.
