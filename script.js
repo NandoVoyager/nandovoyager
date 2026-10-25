@@ -72,8 +72,37 @@
     link.addEventListener("click", () => track("whatsapp_click"));
   });
 
+  document.querySelectorAll('a[href^="mailto:"]').forEach((link) => link.addEventListener("click", () => track("email_click")));
+
+  // "Copiar e-mail": clipboard when allowed, otherwise select the address so it can be copied by hand.
+  document.querySelectorAll("[data-copy]").forEach((button) => {
+    const label = button.textContent;
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        button.textContent = "Copiado!";
+        button.dataset.copied = "";
+        setTimeout(() => { button.textContent = label; delete button.dataset.copied; }, 2000);
+      } catch {
+        const link = button.previousElementSibling;
+        window.getSelection().selectAllChildren(link);
+      }
+      track("email_copy");
+    });
+  });
+
   // E-mail signup (Resend, via /api/subscribe).
   const form = document.querySelector("#signup-form");
+
+  // "Fale comigo" / "Deixar meu e-mail" bring the visitor back to the field in the hero and focus it.
+  document.querySelectorAll("[data-focus-signup]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (form.hidden) return;
+      event.preventDefault();
+      form.email.focus({ preventScroll: true });
+      form.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  });
   const message = document.querySelector("#form-message");
   const button = form.querySelector("button[type=submit]");
   const endpoint = config.signupEndpoint;
