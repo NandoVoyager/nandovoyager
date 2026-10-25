@@ -403,6 +403,9 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   background: linear-gradient(transparent, rgba(8, 14, 32, 0.7));
 }
 
+.tile figcaption b { display: block; font-weight: 600; }
+.tile figcaption span { display: block; margin-top: 2px; font-weight: 400; opacity: 0.85; }
+
 /* Contact: the e-mail address is the headline */
 .contact { padding-block: clamp(80px, 10vw, 128px); }
 .contact-lead { max-width: 34em; margin: 18px 0 0; color: var(--text-dim); font-size: 1.1rem; }
