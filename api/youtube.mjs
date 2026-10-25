@@ -91,7 +91,7 @@ export async function youtube(req, res) {
     const videos = await curate(parseFeed(await response.text()));
     res.writeHead(200, {
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, max-age=600, s-maxage=3600, stale-while-revalidate=86400"
+      "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
     }).end(JSON.stringify({ channel: `https://www.youtube.com/@${handle}`, videos }));
   } catch (error) {
     console.error("YouTube feed failed:", error.message);
