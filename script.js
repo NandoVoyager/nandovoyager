@@ -123,7 +123,7 @@
             <span class="yt-play">${play}</span>
           </span>
           <span class="yt-title">${esc(v.title)}</span>
-          <span class="yt-meta">${v.views ? `${compact.format(v.views)} visualizações · ` : ""}${ago(v.published)}</span>
+          <span class="yt-meta">${[v.views ? `${compact.format(v.views)} visualizações` : "", v.published ? ago(v.published) : ""].filter(Boolean).join(" · ") || "YouTube"}</span>
         </a>
       </li>`;
 

@@ -24,7 +24,7 @@ Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arqu
 
 ## Publicar (Vercel)
 
-Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/youtube.mjs` rodam como funções serverless (export default). A de YouTube lê o feed público do canal (sem chave de API), ignora Shorts e fica em cache na CDN da Vercel por 1 hora. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
+Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/youtube.mjs` rodam como funções serverless (export default). A de YouTube lê o feed público do canal (sem chave de API), ignora Shorts e fica em cache na CDN da Vercel por 1 hora. Para esconder ou fixar vídeos, edite `curation` no topo de `api/youtube.mjs` (por trecho do título; o `id` mantém um vídeo fixado mesmo quando ele sai do feed, depois que o YouTube confirma que é do canal). O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
 
 1. Importe este repositório na Vercel (preset "Other", sem build command).
 2. Cadastre as três variáveis acima em Settings → Environment Variables.

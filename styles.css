@@ -407,7 +407,6 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
 /* Contact: the e-mail address is the headline */
 .contact { padding-block: clamp(80px, 10vw, 128px); }
-.contact-lead { max-width: 34em; margin: 18px 0 0; color: var(--text-dim); font-size: 1.1rem; }
 
 .mail-row {
   display: flex;
