@@ -242,6 +242,8 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
 /* DeepChina AI: one compact card */
 .dc { padding-block: clamp(56px, 7vw, 88px); }
+/* Right after the video track: the track already leaves room below it. */
+.yt + .dc { padding-top: clamp(8px, 2vw, 24px); }
 
 .dc-card {
   display: flex;
