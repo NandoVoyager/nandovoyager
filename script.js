@@ -63,6 +63,15 @@
     });
   });
 
+  document.querySelectorAll("[data-deepchina]").forEach((link) => {
+    if (config.deepchinaUrl) {
+      link.href = config.deepchinaUrl;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+    }
+    link.addEventListener("click", () => track("deepchina_click"));
+  });
+
   document.querySelectorAll("[data-whatsapp]").forEach((link) => {
     if (config.whatsapp) {
       link.href = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(config.whatsappMessage || "Olá! Vim pelo site.")}`;
