@@ -281,6 +281,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 }
 
 .yt-arrow:hover { border-color: var(--navy); }
+.yt-arrow[hidden] { display: none; } /* display:grid above would otherwise override [hidden] */
 .yt-channel { height: 44px; margin-left: 8px; padding: 0 18px; font-size: 14px; }
 
 .yt-track {
