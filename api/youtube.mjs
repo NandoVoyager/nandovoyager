@@ -60,17 +60,20 @@ export function parseWatchStats(html) {
 const browser = { headers: { "User-Agent": "Mozilla/5.0", "Accept-Language": "pt-BR,pt;q=0.9", Cookie: "CONSENT=YES+1" } };
 
 // oEmbed gives a video's title and confirms it belongs to this channel; the watch page adds views and date.
-async function videoById(id) {
+async function videoById(id, log = () => {}) {
   const url = `https://www.youtube.com/watch?v=${id}`;
   const response = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`);
-  if (!response.ok) return null;
+  if (!response.ok) return log({ id, rejected: `oembed ${response.status}` }), null;
   const info = await response.json();
   const author = String(info.author_url || "").toLowerCase();
-  if (!author.endsWith(`/@${handle.toLowerCase()}`) && !(channelId && author.endsWith(`/channel/${channelId.toLowerCase()}`))) return null;
+  if (!author.endsWith(`/@${handle.toLowerCase()}`) && !(channelId && author.endsWith(`/channel/${channelId.toLowerCase()}`))) {
+    return log({ id, rejected: "outro canal", author: info.author_url, title: info.title }), null;
+  }
   const stats = await fetch(url, browser)
     .then((r) => (r.ok ? r.text() : ""))
     .then(parseWatchStats)
     .catch(() => ({ views: null, published: null }));
+  log({ id, title: info.title, ...stats });
   return { id, title: info.title, ...stats };
 }
 
@@ -93,7 +96,8 @@ export function parseVideosPage(html) {
 }
 
 const defaultLookup = {
-  byId: (id) => videoById(id).catch(() => null),
+  log: () => {},
+  byId(id) { return videoById(id, this.log).catch((error) => (this.log({ id, rejected: error.message }), null)); },
   channelVideos: () => fetch(`https://www.youtube.com/@${handle}/videos`, browser).then((r) => (r.ok ? r.text() : "")).then(parseVideosPage).catch(() => [])
 };
 
@@ -115,6 +119,7 @@ export async function curate(videos, rules = curation, lookup = defaultLookup) {
       if (hit) video = await lookup.byId(hit.id);
     }
     if (video) pins.push({ ...pin, video });
+    lookup.log?.({ pin: pin.title, found: video ? video.id : null });
   }
   for (const pin of pins.sort((a, b) => a.position - b.position)) {
     list.splice(Math.min(Math.max(pin.position - 1, 0), list.length), 0, pin.video);
@@ -134,17 +139,31 @@ async function resolveChannelId() {
 }
 
 export async function youtube(req, res) {
+  // /api/youtube?debug=1 shows what came from YouTube and how each pin was resolved (never cached).
+  const debug = new URL(req.url || "/", "http://localhost").searchParams.has("debug");
+  const report = [];
   try {
     const id = await resolveChannelId();
     const response = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`);
     if (!response.ok) throw new Error(`feed ${response.status}`);
-    const videos = await curate(parseFeed(await response.text()));
+    const feed = parseFeed(await response.text());
+    const videos = await curate(feed, curation, { ...defaultLookup, log: (entry) => report.push(entry) });
+    if (debug) {
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" })
+        .end(JSON.stringify({ channelId: id, feed: feed.map((v) => v.title), steps: report, result: videos.map((v) => `${v.title} | ${v.views ?? "-"} | ${v.published ?? "-"}`) }, null, 2));
+      return;
+    }
     res.writeHead(200, {
       "Content-Type": "application/json; charset=utf-8",
       "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
     }).end(JSON.stringify({ channel: `https://www.youtube.com/@${handle}`, videos }));
   } catch (error) {
     console.error("YouTube feed failed:", error.message);
+    if (debug) {
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" })
+        .end(JSON.stringify({ error: error.message, channelId, steps: report }, null, 2));
+      return;
+    }
     res.writeHead(502, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" })
       .end(JSON.stringify({ error: "Não foi possível carregar os vídeos agora." }));
   }
