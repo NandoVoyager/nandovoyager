@@ -100,6 +100,79 @@
     });
   });
 
+  // YouTube: latest videos from /api/youtube in a horizontal track (swipe on touch, drag or arrows on desktop).
+  const ytTrack = document.querySelector(".yt-track");
+  if (ytTrack) {
+    const channelUrl = config.socialLinks?.youtube?.web || "https://www.youtube.com/@NandoVoyager";
+    const esc = (text) => String(text).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    const compact = new Intl.NumberFormat("pt-BR", { notation: "compact", maximumFractionDigits: 1 });
+    const ago = (iso) => {
+      const days = Math.max(0, Math.floor((Date.now() - new Date(iso)) / 86400000));
+      if (days < 1) return "hoje";
+      if (days < 7) return days === 1 ? "há 1 dia" : `há ${days} dias`;
+      if (days < 30) return Math.floor(days / 7) === 1 ? "há 1 semana" : `há ${Math.floor(days / 7)} semanas`;
+      if (days < 365) return Math.floor(days / 30) === 1 ? "há 1 mês" : `há ${Math.floor(days / 30)} meses`;
+      return Math.floor(days / 365) === 1 ? "há 1 ano" : `há ${Math.floor(days / 365)} anos`;
+    };
+    const play = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>';
+    const card = (v) => `
+      <li class="yt-card">
+        <a href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noreferrer" data-video="${esc(v.id)}">
+          <span class="yt-thumb">
+            <img src="https://i.ytimg.com/vi/${esc(v.id)}/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" width="1280" height="720" alt="" loading="lazy" draggable="false" />
+            <span class="yt-play">${play}</span>
+          </span>
+          <span class="yt-title">${esc(v.title)}</span>
+          <span class="yt-meta">${v.views ? `${compact.format(v.views)} visualizações · ` : ""}${ago(v.published)}</span>
+        </a>
+      </li>`;
+
+    const showFallback = () => {
+      ytTrack.innerHTML = `<li class="yt-card yt-empty"><a href="${esc(channelUrl)}" target="_blank" rel="noreferrer"><span class="yt-thumb">${play}</span><span class="yt-title">Assista aos vídeos no canal @NandoVoyager</span><span class="yt-meta">YouTube</span></a></li>`;
+      document.querySelectorAll("[data-yt-prev], [data-yt-next]").forEach((b) => (b.hidden = true));
+    };
+
+    fetch("/api/youtube")
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
+      .then(({ videos }) => {
+        if (!videos?.length) return showFallback();
+        ytTrack.innerHTML = videos.map(card).join("");
+        // maxresdefault doesn't exist for every upload; YouTube serves a 120px grey placeholder instead.
+        ytTrack.querySelectorAll("img[data-fallback]").forEach((img) => {
+          const swap = () => { if (img.dataset.fallback) { img.src = img.dataset.fallback; delete img.dataset.fallback; } };
+          img.addEventListener("error", swap);
+          img.addEventListener("load", () => { if (img.naturalWidth <= 120) swap(); });
+        });
+      })
+      .catch(showFallback)
+      .finally(() => ytTrack.removeAttribute("aria-busy"));
+
+    const step = () => (ytTrack.querySelector(".yt-card")?.offsetWidth || 300) + 20;
+    document.querySelector("[data-yt-prev]")?.addEventListener("click", () => ytTrack.scrollBy({ left: -step() * 2, behavior: "smooth" }));
+    document.querySelector("[data-yt-next]")?.addEventListener("click", () => ytTrack.scrollBy({ left: step() * 2, behavior: "smooth" }));
+
+    // Mouse drag (touch already scrolls natively). A drag longer than a few pixels cancels the click.
+    let drag = null;
+    ytTrack.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      drag = { x: e.clientX, left: ytTrack.scrollLeft, moved: false };
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (!drag.moved && Math.abs(dx) > 5) { drag.moved = true; ytTrack.classList.add("is-dragging"); }
+      if (drag.moved) ytTrack.scrollLeft = drag.left - dx;
+    });
+    window.addEventListener("pointerup", () => {
+      if (!drag) return;
+      const moved = drag.moved;
+      drag = null;
+      ytTrack.classList.remove("is-dragging");
+      if (moved) ytTrack.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); }, { capture: true, once: true });
+    });
+    ytTrack.addEventListener("click", (e) => { const link = e.target.closest("[data-video]"); if (link) track("youtube_video_click", { video: link.dataset.video }); });
+  }
+
   // E-mail signup (Resend, via /api/subscribe).
   const form = document.querySelector("#signup-form");
 

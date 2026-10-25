@@ -2,12 +2,14 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { resolve, extname } from "node:path";
 import { subscribe } from "./api/subscribe.mjs";
+import { youtube } from "./api/youtube.mjs";
 
 const root = resolve(".");
 const mime = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp", ".ico": "image/x-icon", ".mp4": "video/mp4" };
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   if (url.pathname === "/api/subscribe" && req.method === "POST") return subscribe(req, res);
+  if (url.pathname === "/api/youtube" && req.method === "GET") return youtube(req, res);
   const pathname = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
   const file = resolve(root, `.${pathname}`);
   if (!file.startsWith(`${root}/`)) { res.writeHead(403).end("Forbidden"); return; }

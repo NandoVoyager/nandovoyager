@@ -316,6 +316,102 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
 .svc p { margin: 0; color: var(--text-dim); font-size: 1.02rem; line-height: 1.6; }
 
+/* YouTube: horizontal track that bleeds to the right edge, aligned with the content column on the left */
+.yt { padding-block: clamp(72px, 9vw, 112px); overflow: hidden; }
+.yt-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 32px; margin-bottom: 36px; }
+.yt-controls { display: flex; align-items: center; gap: 8px; }
+
+.yt-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--heading);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.yt-arrow:hover { border-color: var(--navy); }
+.yt-channel { height: 44px; margin-left: 8px; padding: 0 18px; font-size: 14px; }
+
+.yt-track {
+  --edge: max(var(--gutter), (100% - 1200px) / 2);
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 4px var(--edge) 12px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--edge);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+}
+
+.yt-track::-webkit-scrollbar { display: none; }
+.yt-track.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.yt-track.is-dragging a { pointer-events: none; }
+
+.yt-card { flex: 0 0 clamp(260px, 30vw, 380px); scroll-snap-align: start; }
+.yt-card a { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; }
+
+.yt-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--tint);
+  color: var(--navy);
+}
+
+.yt-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+.yt-play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--navy);
+  box-shadow: 0 8px 20px rgba(8, 14, 32, 0.25);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.yt-card a:hover .yt-thumb img { transform: scale(1.03); }
+.yt-card a:hover .yt-play, .yt-card a:focus-visible .yt-play { opacity: 1; transform: none; }
+
+.yt-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: var(--heading);
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.yt-meta { color: var(--muted); font-size: 14px; }
+
+.yt-card.is-loading .yt-thumb, .yt-line { background: linear-gradient(90deg, var(--tint) 30%, #eceef5 50%, var(--tint) 70%) 0 0 / 300% 100%; animation: shimmer 1.4s linear infinite; }
+.yt-line { display: block; height: 14px; margin-top: 12px; border-radius: 6px; }
+.yt-line.short { width: 50%; margin-top: 8px; }
+@keyframes shimmer { to { background-position: -100% 0; } }
+
+.yt-empty .yt-thumb { border: 1px dashed var(--line-strong); }
+.yt-empty .yt-thumb svg { width: 40px; height: 40px; }
+
 /* Cities strip */
 .cities { border-block: 1px solid var(--line); background: var(--card); }
 .cities-row { display: flex; align-items: center; gap: 40px; padding-block: 22px; }
@@ -462,6 +558,11 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   .tile-video { grid-column: span 2; grid-row: auto; aspect-ratio: 9 / 13; }
   .tile-wide { grid-column: span 2; aspect-ratio: 3 / 2; }
   .tile:not(.tile-video):not(.tile-wide) { aspect-ratio: 1; }
+
+  .yt-card { flex-basis: 78vw; }
+  .yt-arrow { display: none; }
+  .yt-channel { margin-left: 0; }
+  .yt-play { opacity: 1; transform: none; width: 44px; height: 44px; }
 
   .footer-row { flex-direction: column; align-items: flex-start; gap: 16px; }
   .footer-links { margin-left: 0; }
