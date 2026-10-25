@@ -540,9 +540,6 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
   .hero { grid-template-columns: 1fr; gap: 28px; padding-block: calc(var(--header-h) + 16px) 56px; }
   .hero-media { order: -1; }
-  /* Phones: the navy part flows inline so the title stays at three lines. */
-  .hero h1 .t2 { display: inline; white-space: normal; }
-  .br-lg { display: none; }
   /* Shorter photo: the e-mail field must show on the first screen. */
   .hero-media img { aspect-ratio: 3 / 2; object-position: 50% 32%; }
   .photo-chip { left: 12px; bottom: 12px; padding: 6px 12px; font-size: 13px; }
