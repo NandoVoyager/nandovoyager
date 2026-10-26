@@ -364,10 +364,6 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .story-head { max-width: 52rem; }
 .story-lead { max-width: 38em; margin: 20px 0 0; color: var(--text-dim); font-size: 1.1rem; }
 
-/* Flags: small images (flag emoji don't render on Windows), with a hairline so white flags keep an edge. */
-.flag { flex: none; width: 21px; height: 14px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(15, 33, 79, 0.12); object-fit: cover; }
-.tl-when .flag { display: inline-block; margin-right: 8px; vertical-align: -2px; }
-
 .route { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 28px 0 0; padding: 0; list-style: none; }
 .route li { display: flex; align-items: center; gap: 8px; color: var(--text-dim); font-size: 15px; font-weight: 500; }
 .route li:not(:last-child)::after { content: "→"; color: var(--muted); }
