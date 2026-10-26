@@ -427,6 +427,7 @@ html.menu-open { overflow: hidden; }
 
 /* Story: route of countries, then a timeline (period · dot on the line · title and text) */
 .story { padding-block: var(--section); }
+.yt + .story { padding-top: 0; } /* same background as the videos: their bottom padding is the gap */
 .story-head { max-width: 56rem; }
 .story-lead { margin: 16px 0 0; color: var(--text-dim); font-size: 1.1rem; }
 
