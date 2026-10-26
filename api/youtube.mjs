@@ -12,7 +12,8 @@ let channelId = process.env.YOUTUBE_CHANNEL_ID || "UCqW3NTDBn9esY-oD7iCQhAQ";
  * channel, matched to the pin by title) or, failing that, from the channel's videos page.
  */
 const curation = {
-  hide: ["todo mundo estudou em harvard", "desde quando ser honesto virou se gabar", "sem roteiro a noite em chongqing", "a china me deixou entrar"],
+  hide: ["todo mundo estudou em harvard", "desde quando ser honesto virou se gabar", "sem roteiro a noite em chongqing", "a china me deixou entrar",
+    "como eu falo isso tudo da china e continuo vivo", "a verdade sobre os influenciadores da china"],
   pin: [
     { title: "esse é o motivo que eu quero ficar rico", position: 2 },
     { title: "tentaram comprar minha alma", position: 4 },
@@ -20,7 +21,7 @@ const curation = {
   ],
   ids: ["5EB6yb3nOd8", "7B1WwaPGxBc", "k4PESsXzN1E"]
 };
-const LIMIT = 12;
+const LIMIT = 6; // videos shown in the carousel
 
 export default youtube;
 
