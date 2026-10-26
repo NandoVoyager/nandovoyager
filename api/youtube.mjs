@@ -22,6 +22,7 @@ const curation = {
   ids: ["5EB6yb3nOd8", "7B1WwaPGxBc", "k4PESsXzN1E"]
 };
 const LIMIT = 6; // videos shown in the carousel
+const BUDGET = 9000; // ms for the whole answer: Vercel stops a function after 10 s by default
 
 export default youtube;
 
@@ -121,7 +122,7 @@ function makeLookup(log = () => {}) {
     log,
     byId: (id) => videoById(id, log).catch((error) => (log({ id, rejected: error.message }), null)),
     channelVideos: () =>
-      (page ??= get(`https://www.youtube.com/@${handle}/videos?hl=pt-BR&gl=BR`, 4000, browser)
+      (page ??= get(`https://www.youtube.com/@${handle}/videos?hl=pt-BR&gl=BR`, 3500, browser)
         .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`página do canal ${r.status}`))))
         .then(parseVideosPage)
         .catch((error) => (log({ channelPage: error.message }), [])))
@@ -168,7 +169,7 @@ async function resolveChannelId() {
 // Latest uploads: the RSS feed, or the channel's videos page when the feed fails or comes back empty.
 async function latestVideos(id, lookup) {
   try {
-    const response = await get(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`, 5000);
+    const response = await get(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`, 3000);
     if (!response.ok) throw new Error(`feed ${response.status}`);
     const xml = await response.text();
     // A wrong channel ID would bring another channel's videos: check the feed's author before using it.
@@ -187,22 +188,24 @@ async function latestVideos(id, lookup) {
 
 // Every card shows its views. A video without a count (the channel page sometimes leaves it out) gets it from its own
 // page or, if YouTube doesn't answer there, from the Return YouTube Dislike API, which mirrors YouTube's count.
-async function statsOf(id) {
-  const page = await get(`https://www.youtube.com/watch?v=${id}`, 2500, browser)
+async function statsOf(id, ms) {
+  const page = await get(`https://www.youtube.com/watch?v=${id}`, Math.round(ms * 0.6), browser)
     .then((r) => (r.ok ? r.text() : ""))
     .then(parseWatchStats)
     .catch(() => ({ views: null, published: null }));
   if (page.views) return { ...page, from: "página do vídeo" };
-  const ryd = await get(`https://returnyoutubedislikeapi.com/votes?videoId=${id}`, 2000)
+  const ryd = await get(`https://returnyoutubedislikeapi.com/votes?videoId=${id}`, Math.round(ms * 0.4))
     .then((r) => (r.ok ? r.json() : {}))
     .catch(() => ({}));
   return { views: Number(ryd.viewCount) || null, published: page.published, from: "returnyoutubedislike" };
 }
 
-async function withViews(videos, log) {
+// ms: time left for this step; without enough of it the cards go out with the views text they already have.
+async function withViews(videos, log, ms) {
+  if (ms < 1500) return log({ views: `sem tempo (${ms} ms), sem busca de views` }), videos;
   return Promise.all(videos.map(async (video) => {
     if (video.views) return video;
-    const stats = await statsOf(video.id);
+    const stats = await statsOf(video.id, Math.min(ms, 4500));
     log({ id: video.id, views: stats.views, from: stats.from });
     return { ...video, views: stats.views, published: video.published ?? stats.published };
   }));
@@ -224,10 +227,13 @@ export async function youtube(req, res) {
   const debug = new URL(req.url || "/", "http://localhost").searchParams.has("debug");
   const report = [];
   const lookup = makeLookup((entry) => report.push(entry));
+  const started = Date.now();
+  const left = () => BUDGET - (Date.now() - started);
   try {
     const id = await resolveChannelId();
     const { source, videos: latest } = await latestVideos(id, lookup);
-    const videos = await withViews(await curateWithin(latest, lookup, 5000), lookup.log);
+    const curated = await curateWithin(latest, lookup, Math.max(0, Math.min(5000, left() - 3000)));
+    const videos = await withViews(curated, lookup.log, left() - 500);
     if (debug) {
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" })
         .end(JSON.stringify({
