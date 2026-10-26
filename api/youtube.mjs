@@ -2,6 +2,7 @@
 // Channel ID of @NandoVoyager; YOUTUBE_CHANNEL_ID overrides it. Without an ID it would be read from the handle's page,
 // which YouTube sometimes serves as a consent or bot-check page instead.
 const handle = process.env.YOUTUBE_HANDLE || "NandoVoyager";
+const channelName = process.env.YOUTUBE_CHANNEL_NAME || "Nando Voyager";
 let channelId = process.env.YOUTUBE_CHANNEL_ID || "UCqW3NTDBn9esY-oD7iCQhAQ";
 
 /*
@@ -165,7 +166,11 @@ async function latestVideos(id, lookup) {
   try {
     const response = await get(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`, 5000);
     if (!response.ok) throw new Error(`feed ${response.status}`);
-    const feed = parseFeed(await response.text());
+    const xml = await response.text();
+    // A wrong channel ID would bring another channel's videos: check the feed's author before using it.
+    const author = decode(pick(xml, /<author>\s*<name>([^<]*)<\/name>/));
+    if (author && !norm(author).includes(norm(channelName))) throw new Error(`feed de outro canal (${author})`);
+    const feed = parseFeed(xml);
     if (!feed.length) throw new Error("feed vazio");
     return { source: "feed", videos: feed };
   } catch (error) {
