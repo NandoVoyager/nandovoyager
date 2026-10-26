@@ -18,6 +18,16 @@ window.NANDO_SITE_CONFIG = {
       web: "https://www.instagram.com/nandovoyager/",
       ios: "instagram://user?username=nandovoyager",
       android: "com.instagram.android"
+    },
+    x: {
+      web: "https://x.com/NandoVoyager",
+      ios: "twitter://user?screen_name=NandoVoyager",
+      android: "com.twitter.android"
+    },
+    facebook: {
+      web: "https://www.facebook.com/nandovoyager1/",
+      ios: "fb://facewebmodal/f?href=https://www.facebook.com/nandovoyager1/",
+      android: "com.facebook.katana"
     }
   }
 };

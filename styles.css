@@ -192,6 +192,11 @@ html.menu-open { overflow: hidden; }
   .menu-btn { display: grid; }
 }
 
+/* Phones: YouTube and Instagram stay in the header; X and Facebook are in the menu. */
+@media (max-width: 600px) {
+  .header-icon-extra { display: none; }
+}
+
 /* Hero: navy ground, the photo on the right dissolving into it, white copy on the left. */
 .hero {
   --hero-bg: #0b1a40;
@@ -215,15 +220,17 @@ html.menu-open { overflow: hidden; }
   z-index: 1;
   background:
     linear-gradient(90deg, var(--hero-bg) 37.5%, rgba(11, 26, 64, 0.85) 51%, rgba(11, 26, 64, 0) 75%),
-    linear-gradient(0deg, rgba(11, 26, 64, 0.9), rgba(11, 26, 64, 0) 25%);
+    linear-gradient(0deg, var(--hero-bg), rgba(11, 26, 64, 0) 30%);
   pointer-events: none;
 }
 
 .hero-inner { position: relative; z-index: 2; display: flex; align-items: center; padding-block: calc(var(--header-h) + 48px) 48px; }
-.hero-copy { max-width: 37.5rem; }
+.hero-copy { max-width: 44rem; }
 
 .hero-badge { margin: 0 0 24px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.12); color: #dbe3ff; }
-.hero h1 { color: #fff; font-size: clamp(2.4rem, 4.7vw, 4.25rem); }
+/* Each line of the title stays whole: "Faço negócios na China." is ~10 em wide, so the size never passes 1/10.4 of the content width. */
+.hero h1 { color: #fff; font-size: min(clamp(2.4rem, 4.7vw, 4.25rem), (100vw - 2 * var(--gutter)) / 10.4); }
+.hero h1 .t1 { display: block; white-space: nowrap; }
 .hero h1 .t2 { color: #b7c5fb; white-space: nowrap; }
 .hero-badge a { margin-left: 4px; font-family: var(--display); font-weight: 500; font-size: 15px; color: #fff; text-decoration: none; }
 .hero-badge a:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -325,6 +332,8 @@ html.menu-open { overflow: hidden; }
 
 /* YouTube: horizontal track that bleeds to the right edge, aligned with the content column on the left */
 .yt { padding-block: var(--section); overflow: hidden; }
+/* Right after the navy hero: a smooth fade from the navy into the light page before the section starts. */
+.hero + .yt { padding-top: calc(var(--section) + 112px); background: linear-gradient(180deg, #0b1a40 0, var(--bg) 168px) no-repeat; }
 .yt-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 32px; margin-bottom: 28px; }
 .yt-controls { display: flex; align-items: center; gap: 8px; }
 
@@ -429,7 +438,6 @@ html.menu-open { overflow: hidden; }
 .story { padding-block: var(--section); }
 .yt + .story { padding-top: 0; } /* same background as the videos: their bottom padding is the gap */
 .story-head { max-width: 56rem; }
-.story-lead { margin: 16px 0 0; color: var(--text-dim); font-size: 1.1rem; }
 
 /* Flags only in the route row: small images (flag emoji don't render on Windows), hairline keeps white flags visible. */
 .flag { flex: none; width: 21px; height: 14px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(15, 33, 79, 0.12); object-fit: cover; }
@@ -665,7 +673,6 @@ html.menu-open { overflow: hidden; }
   .hero-stats li { font-size: 13px; }
   .hero-stats strong { font-size: 1.4rem; }
 
-  .story-lead br { display: none; }
   .timeline li { grid-template-columns: 1fr; gap: 0; }
   .tl-when { padding: 0 0 6px 28px; border-left: 1px solid var(--line-strong); text-align: left; }
   .tl-body { padding-left: 28px; }
