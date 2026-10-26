@@ -36,6 +36,7 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/yo
 - `img/` e `media/`: fotos em WebP (duas larguras cada, para o celular baixar a menor) e o vídeo dos bastidores em MP4 H.264, sem áudio, com pôster.
 - `privacidade.html`: política de privacidade (LGPD). `404.html`: página de erro que a Vercel mostra para links inexistentes.
 - `robots.txt` e `sitemap.xml`: indexação no Google.
+- `consultoria/index.html` + `apply.js` + `api/apply.mjs`: aplicação para a consultoria de importação (nandovoyager.com/consultoria). As respostas vão por e-mail pelo Resend para `LEADS_TO` (padrão contato@nandovoyager.com), enviadas de `LEADS_FROM`, que precisa ser de um domínio verificado no Resend (Domains → nandovoyager.com). Se o envio falhar, a página oferece mandar as mesmas respostas por e-mail.
 - Cadastro: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nada.
 - `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
 
