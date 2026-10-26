@@ -488,6 +488,7 @@ html.menu-open { overflow: hidden; }
 .service .badge { align-self: flex-start; margin: 0 0 20px; }
 .service h3 { font-size: 1.35rem; }
 .service p:not(.badge) { margin: 8px 0 0; color: var(--text-dim); }
+.service p.service-price { margin-top: 16px; color: var(--navy); font: 500 1.5rem/1.2 var(--display); letter-spacing: -0.015em; }
 .service-link { margin-top: auto; padding-top: 20px; color: var(--navy); font-weight: 500; text-decoration: none; }
 .service-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .service-link span { display: inline-block; transition: transform 0.2s; }
