@@ -12,7 +12,7 @@ let channelId = process.env.YOUTUBE_CHANNEL_ID || "UCqW3NTDBn9esY-oD7iCQhAQ";
  * channel, matched to the pin by title) or, failing that, from the channel's videos page.
  */
 const curation = {
-  hide: ["todo mundo estudou em harvard", "desde quando ser honesto virou se gabar", "sem roteiro a noite em chongqing"],
+  hide: ["todo mundo estudou em harvard", "desde quando ser honesto virou se gabar", "sem roteiro a noite em chongqing", "a china me deixou entrar"],
   pin: [
     { title: "esse é o motivo que eu quero ficar rico", position: 2 },
     { title: "tentaram comprar minha alma", position: 4 },
