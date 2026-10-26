@@ -630,9 +630,10 @@ html.menu-open { overflow: hidden; }
   .hero-badge { margin-bottom: 14px; }
 }
 
+/* Narrow phones: the button stays to the right of the field, just tighter. */
 @media (max-width: 520px) {
-  .signup { flex-direction: column; }
-  .signup button { width: 100%; }
+  .signup input { padding: 0 12px; }
+  .signup button { padding: 0 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
