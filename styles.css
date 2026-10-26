@@ -512,13 +512,15 @@ html.menu-open { overflow: hidden; }
 /* Contact: the e-mail address is the headline */
 .contact { padding-block: var(--section); }
 
+/* Address, note and copy button centred in one column: a symmetric card. */
 .mail-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  gap: 16px 28px;
+  gap: 20px;
   margin-top: 24px;
-  padding: clamp(24px, 3.4vw, 40px);
+  padding: clamp(28px, 3.6vw, 48px) clamp(24px, 3.4vw, 40px);
+  text-align: center;
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   background: var(--card);
@@ -527,7 +529,7 @@ html.menu-open { overflow: hidden; }
 
 .mail-row { container-type: inline-size; }
 
-.mail-text { min-width: 0; }
+.mail-text { min-width: 0; max-width: 100%; }
 .mail-note { margin: 10px 0 0; color: var(--text-dim); }
 
 .mail-big {
