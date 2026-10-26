@@ -47,6 +47,8 @@ a { color: inherit; }
 .skip { position: absolute; left: -999px; top: 8px; z-index: 20; padding: 8px 14px; background: var(--navy); color: #fff; }
 .skip:focus { left: 8px; }
 
+.nowrap { white-space: nowrap; }
+
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* Type */
@@ -112,7 +114,8 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
 .site-header.is-scrolled { border-bottom-color: var(--line); }
 
-.header-row { display: flex; align-items: center; gap: 32px; height: 100%; }
+/* Wordmark · centred section links · social icons. */
+.header-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; column-gap: 24px; height: 100%; }
 
 .wordmark {
   font-family: var(--display);
@@ -122,29 +125,64 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   color: var(--logo);
   text-decoration: none;
   white-space: nowrap;
+  justify-self: start;
 }
 
-.nav { display: flex; gap: 28px; margin-left: auto; }
+.nav { grid-column: 2; display: flex; gap: 28px; }
 .nav a, .footer-links a { color: #666; font-size: 15px; text-decoration: none; transition: color 0.2s; }
 .nav a:hover, .footer-links a:hover { color: var(--heading); }
 
-.header-social { display: flex; align-items: center; gap: 4px; }
-.header-social > a:not(.header-cta) { display: grid; place-items: center; width: 38px; height: 38px; color: #666; transition: color 0.2s; }
-.header-social > a:not(.header-cta):hover { color: var(--heading); }
+.header-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 4px; }
+.header-icon { display: grid; place-items: center; width: 38px; height: 38px; color: #666; transition: color 0.2s; }
+.header-icon:hover { color: var(--heading); }
+.header-icon:last-of-type { margin-right: -9px; } /* the glyph, not its tap area, lines up with the content edge */
 
-.header-cta {
-  margin-left: 12px;
-  padding: 10px 18px;
-  border-radius: 8px;
-  background: var(--navy);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background 0.2s;
+.menu-btn {
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px; /* the icon, not the tap area, lines up with the content edge */
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--heading);
+  cursor: pointer;
 }
 
-.header-cta:hover { background: var(--navy-hi); }
+.menu-close-icon, .menu-btn[aria-expanded="true"] .menu-open-icon { display: none; }
+.menu-btn[aria-expanded="true"] .menu-close-icon { display: block; }
+
+/* Menu on phones and tablets: a sheet under the header, the page dimmed behind it. */
+.menu { position: fixed; inset: var(--header-h) 0 0; z-index: 9; background: rgba(10, 14, 30, 0.35); }
+.menu[hidden] { display: none; }
+
+.menu-sheet {
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px var(--gutter) 28px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 24px 48px rgba(15, 33, 79, 0.14);
+}
+
+.menu-links { display: flex; flex-direction: column; }
+.menu-links a { padding: 16px 0; border-bottom: 1px solid var(--line); color: var(--heading); font: 500 1.35rem/1.2 var(--display); letter-spacing: -0.015em; text-decoration: none; }
+.menu-foot { margin-top: 24px; }
+.menu-mail { color: var(--navy); font: 500 1.2rem var(--display); text-decoration: none; }
+.menu-social { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+.menu-social .btn { height: 48px; padding: 0 16px; }
+
+html.menu-open { overflow: hidden; }
+.menu-open .site-header { background: var(--bg); border-bottom-color: var(--line); }
+
+@media (max-width: 1023px) {
+  .nav, .header-icon { display: none; }
+  .header-row { grid-template-columns: 1fr auto; }
+  .header-actions { grid-column: 2; gap: 8px; }
+  .menu-btn { display: grid; }
+}
 
 /* Hero */
 .hero {
@@ -297,6 +335,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .yt-arrow:hover { border-color: var(--navy); }
 .yt-arrow[hidden] { display: none; } /* display:grid above would otherwise override [hidden] */
 .yt-channel { height: 44px; margin-left: 8px; padding: 0 18px; font-size: 14px; }
+.yt-more { display: none; }
 
 .yt-track {
   --edge: max(var(--gutter), (100% - 1200px) / 2);
@@ -448,10 +487,13 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   box-shadow: var(--shadow-card);
 }
 
+.mail-row { container-type: inline-size; }
+
 .mail-big {
   min-width: 0;
   font-family: var(--display);
-  font-size: clamp(1.6rem, 5vw, 3.6rem);
+  font-size: clamp(1.4rem, 6vw, 3.6rem);
+  font-size: min(3.6rem, 8cqi); /* the address is ~12 em wide: 8% of the box keeps it on one line */
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -491,9 +533,6 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 /* Tablet and phone */
 @media (max-width: 860px) {
   :root { --header-h: 60px; --radius-card: 20px; }
-  .nav, .header-social > a:not(.header-cta) { display: none; }
-  .header-social { margin-left: auto; }
-  .header-cta { margin-left: 0; padding: 8px 16px; }
   .wordmark { font-size: 20px; }
 
   .hero { grid-template-columns: 1fr; gap: 28px; align-content: center; padding-block: calc(var(--header-h) + 16px) 32px; }
@@ -509,18 +548,19 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   .tl-body { padding-left: 28px; }
 
   .bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-  .tile-video { grid-column: span 2; grid-row: auto; aspect-ratio: 9 / 13; }
+  .tile-video { grid-column: span 2; grid-row: auto; aspect-ratio: 4 / 5; }
   .tile-wide { grid-column: span 2; aspect-ratio: 3 / 2; }
   .tile:not(.tile-video):not(.tile-wide) { aspect-ratio: 1; }
   .tile:not(.tile-video):not(.tile-wide) figcaption { padding: 28px 12px 10px; font-size: 13px; line-height: 1.3; }
 
   .yt-card { flex-basis: 78vw; }
-  .yt-arrow { display: none; }
-  .yt-channel { margin-left: 0; }
+  .yt-controls { display: none; }
+  .yt-more { display: block; margin-top: 20px; }
+  .yt-more .btn { width: 100%; }
   .yt-play { opacity: 1; transform: none; width: 44px; height: 44px; }
 
-  .footer-row { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .footer-links { margin-left: 0; }
+  .footer-row { flex-direction: column; align-items: flex-start; gap: 16px; padding-block: 28px; }
+  .footer-links { margin-left: 0; gap: 10px 20px; }
 }
 
 /* Short phones: wider photo, so the e-mail field stays on the first screen. */

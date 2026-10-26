@@ -13,6 +13,27 @@
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
+  // Phone and tablet menu: closes on a link, a tap on the dimmed page, Esc, or when the screen gets wide enough for the nav.
+  const menuButton = document.querySelector(".menu-btn");
+  const menu = document.querySelector("#menu");
+  const setMenu = (open) => {
+    menu.hidden = !open;
+    menuButton.setAttribute("aria-expanded", String(open));
+    menuButton.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+    document.documentElement.classList.toggle("menu-open", open);
+  };
+  menuButton.addEventListener("click", () => setMenu(menu.hidden));
+  menu.addEventListener("click", (event) => {
+    if (event.target === menu || event.target.closest("a")) setMenu(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !menu.hidden) {
+      setMenu(false);
+      menuButton.focus();
+    }
+  });
+  window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => event.matches && setMenu(false));
+
   // Behind-the-scenes clip: muted loop that plays only while on screen; with reduced motion it waits for a tap.
   const video = document.querySelector(".behind-video");
   if (video) {
