@@ -59,18 +59,20 @@ export function parseWatchStats(html) {
 }
 
 const browser = { headers: { "User-Agent": "Mozilla/5.0", "Accept-Language": "pt-BR,pt;q=0.9", Cookie: "CONSENT=YES+1" } };
+// Every call to YouTube has its own time limit, so one slow page can't push the function past Vercel's limit.
+const get = (url, ms, init = {}) => fetch(url, { ...init, signal: AbortSignal.timeout(ms) });
 
 // oEmbed gives a video's title and confirms it belongs to this channel; the watch page adds views and date.
 async function videoById(id, log = () => {}) {
   const url = `https://www.youtube.com/watch?v=${id}`;
-  const response = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`);
+  const response = await get(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`, 3000);
   if (!response.ok) return log({ id, rejected: `oembed ${response.status}` }), null;
   const info = await response.json();
   const author = String(info.author_url || "").toLowerCase();
   if (!author.endsWith(`/@${handle.toLowerCase()}`) && !(channelId && author.endsWith(`/channel/${channelId.toLowerCase()}`))) {
     return log({ id, rejected: "outro canal", author: info.author_url, title: info.title }), null;
   }
-  const stats = await fetch(url, browser)
+  const stats = await get(url, 3500, browser)
     .then((r) => (r.ok ? r.text() : ""))
     .then(parseWatchStats)
     .catch(() => ({ views: null, published: null }));
@@ -78,29 +80,50 @@ async function videoById(id, log = () => {}) {
   return { id, title: info.title, ...stats };
 }
 
-// Ids and titles from the channel's videos page (about 30 uploads, more than the feed's 15).
+// Videos from the channel's videos page (about 30 uploads, more than the feed's 15), with the views and date text as
+// YouTube shows them ("60 mil visualizações", "há 1 mês"). Used for pins and when the feed is down.
+const text = (t) => t?.simpleText ?? t?.runs?.map((r) => r.text).join("") ?? t?.content ?? "";
 export function parseVideosPage(html) {
   const raw = html.match(/ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/)?.[1];
   if (!raw) return [];
   const found = new Map();
+  const add = (id, title, viewsText, publishedText) => {
+    if (id && title && !found.has(id)) found.set(id, { id, title, viewsText: viewsText || null, publishedText: publishedText || null });
+  };
   const walk = (node) => {
     if (!node || typeof node !== "object") return;
     if (Array.isArray(node)) return node.forEach(walk);
-    const title = node.videoId && (node.title?.runs?.[0]?.text || node.title?.simpleText);
-    if (title && !found.has(node.videoId)) found.set(node.videoId, title);
-    const lockup = node.contentType === "LOCKUP_CONTENT_TYPE_VIDEO" && node.metadata?.lockupMetadataViewModel?.title?.content;
-    if (lockup && node.contentId && !found.has(node.contentId)) found.set(node.contentId, lockup);
+    if (node.videoId && node.title) {
+      add(node.videoId, text(node.title), text(node.shortViewCountText) || text(node.viewCountText), text(node.publishedTimeText));
+    }
+    if (node.contentType === "LOCKUP_CONTENT_TYPE_VIDEO" && node.contentId) {
+      const meta = node.metadata?.lockupMetadataViewModel;
+      const parts = (meta?.metadata?.contentMetadataViewModel?.metadataRows ?? [])
+        .flatMap((row) => row.metadataParts ?? [])
+        .map((part) => part.text?.content)
+        .filter(Boolean);
+      add(node.contentId, meta?.title?.content, parts.find((p) => /visualiza|views/i.test(p)), parts.find((p) => /^há |atrás|ago$/i.test(p)));
+    }
     Object.values(node).forEach(walk);
   };
   try { walk(JSON.parse(raw)); } catch { return []; }
-  return [...found].map(([id, title]) => ({ id, title }));
+  return [...found.values()];
 }
 
-const defaultLookup = {
-  log: () => {},
-  byId(id) { return videoById(id, this.log).catch((error) => (this.log({ id, rejected: error.message }), null)); },
-  channelVideos: () => fetch(`https://www.youtube.com/@${handle}/videos`, browser).then((r) => (r.ok ? r.text() : "")).then(parseVideosPage).catch(() => [])
-};
+function makeLookup(log = () => {}) {
+  let page = null;
+  return {
+    log,
+    byId: (id) => videoById(id, log).catch((error) => (log({ id, rejected: error.message }), null)),
+    channelVideos: () =>
+      (page ??= get(`https://www.youtube.com/@${handle}/videos?hl=pt-BR&gl=BR`, 4000, browser)
+        .then((r) => (r.ok ? r.text() : Promise.reject(new Error(`página do canal ${r.status}`))))
+        .then(parseVideosPage)
+        .catch((error) => (log({ channelPage: error.message }), [])))
+  };
+}
+const defaultLookup = makeLookup();
+const offline = { log: () => {}, byId: async () => null, channelVideos: async () => [] };
 
 export async function curate(videos, rules = curation, lookup = defaultLookup) {
   let list = videos.filter((video) => !rules.hide.some((title) => matches(video, title)));
@@ -130,28 +153,58 @@ export async function curate(videos, rules = curation, lookup = defaultLookup) {
 
 async function resolveChannelId() {
   if (channelId) return channelId;
-  const response = await fetch(`https://www.youtube.com/@${handle}`, {
-    headers: { "User-Agent": "Mozilla/5.0", "Accept-Language": "pt-BR,pt;q=0.9", Cookie: "CONSENT=YES+1" }
-  });
+  const response = await get(`https://www.youtube.com/@${handle}`, 4000, browser);
   const html = await response.text();
   channelId = pick(html, /"externalId":"(UC[\w-]{22})"/) || pick(html, /<link rel="canonical" href="https:\/\/www\.youtube\.com\/channel\/(UC[\w-]{22})"/);
   if (!channelId) throw new Error(`channel id not found for @${handle}`);
   return channelId;
 }
 
+// Latest uploads: the RSS feed, or the channel's videos page when the feed fails or comes back empty.
+async function latestVideos(id, lookup) {
+  try {
+    const response = await get(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`, 5000);
+    if (!response.ok) throw new Error(`feed ${response.status}`);
+    const feed = parseFeed(await response.text());
+    if (!feed.length) throw new Error("feed vazio");
+    return { source: "feed", videos: feed };
+  } catch (error) {
+    lookup.log({ feed: error.message, fallback: "página de vídeos do canal" });
+    const page = await lookup.channelVideos();
+    if (!page.length) throw new Error(`${error.message}; página do canal sem vídeos`);
+    return { source: "página do canal", videos: page };
+  }
+}
+
+// Pins that aren't in the list need extra calls to YouTube; if those take too long, answer without them.
+async function curateWithin(videos, lookup, ms) {
+  let timer;
+  const late = new Promise((resolve) => { timer = setTimeout(() => (lookup.log({ pins: `sem resposta em ${ms} ms, lista sem eles` }), resolve(curate(videos, curation, offline))), ms); });
+  try {
+    return await Promise.race([curate(videos, curation, lookup), late]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function youtube(req, res) {
   // /api/youtube?debug=1 shows what came from YouTube and how each pin was resolved (never cached).
   const debug = new URL(req.url || "/", "http://localhost").searchParams.has("debug");
   const report = [];
+  const lookup = makeLookup((entry) => report.push(entry));
   try {
     const id = await resolveChannelId();
-    const response = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`);
-    if (!response.ok) throw new Error(`feed ${response.status}`);
-    const feed = parseFeed(await response.text());
-    const videos = await curate(feed, curation, { ...defaultLookup, log: (entry) => report.push(entry) });
+    const { source, videos: latest } = await latestVideos(id, lookup);
+    const videos = await curateWithin(latest, lookup, 5000);
     if (debug) {
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" })
-        .end(JSON.stringify({ channelId: id, feed: feed.map((v) => v.title), steps: report, result: videos.map((v) => `${v.title} | ${v.views ?? "-"} | ${v.published ?? "-"}`) }, null, 2));
+        .end(JSON.stringify({
+          channelId: id,
+          source,
+          latest: latest.map((v) => v.title),
+          steps: report,
+          result: videos.map((v) => `${v.title} | ${v.views ?? v.viewsText ?? "-"} | ${v.published ?? v.publishedText ?? "-"}`)
+        }, null, 2));
       return;
     }
     res.writeHead(200, {
@@ -159,7 +212,7 @@ export async function youtube(req, res) {
       "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
     }).end(JSON.stringify({ channel: `https://www.youtube.com/@${handle}`, videos }));
   } catch (error) {
-    console.error("YouTube feed failed:", error.message);
+    console.error("YouTube feed failed:", error.message, JSON.stringify(report));
     if (debug) {
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" })
         .end(JSON.stringify({ error: error.message, channelId, steps: report }, null, 2));
