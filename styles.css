@@ -489,7 +489,8 @@ html.menu-open { overflow: hidden; }
 .service h3 { font-size: 1.35rem; }
 .service p:not(.badge) { margin: 8px 0 0; color: var(--text-dim); }
 .service p.service-price { margin-top: 16px; color: var(--navy); font: 500 1.5rem/1.2 var(--display); letter-spacing: -0.015em; }
-.service-price small { display: block; margin-top: 4px; color: var(--muted); font: 400 14px/1.4 var(--sans); letter-spacing: 0; }
+.service-price small { margin-left: 2px; color: var(--muted); font: 400 15px var(--sans); letter-spacing: 0; }
+.service p.service-note { margin-top: 4px; color: var(--muted); font-size: 13px; }
 .service-link { margin-top: auto; padding-top: 20px; color: var(--navy); font-weight: 500; text-decoration: none; }
 .service-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .service-link span { display: inline-block; transition: transform 0.2s; }
