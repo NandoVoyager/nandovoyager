@@ -1,7 +1,8 @@
 // Latest long-form videos from the channel's public RSS feed (no API key). Vercel's CDN caches the answer for an hour.
-// YOUTUBE_CHANNEL_ID (UC…) is optional: without it the channel ID is read once from the handle's page.
+// Channel ID of @NandoVoyager; YOUTUBE_CHANNEL_ID overrides it. Without an ID it would be read from the handle's page,
+// which YouTube sometimes serves as a consent or bot-check page instead.
 const handle = process.env.YOUTUBE_HANDLE || "NandoVoyager";
-let channelId = process.env.YOUTUBE_CHANNEL_ID || "";
+let channelId = process.env.YOUTUBE_CHANNEL_ID || "UCqW3NTDBn9esY-oD7iCQhAQ";
 
 /*
  * Curation on top of the automatic list. Titles match by a piece of the title (case and accents ignored).

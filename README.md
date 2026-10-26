@@ -20,7 +20,7 @@ Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arqu
 | `RESEND_API_KEY` | Chave da API do Resend (`re_…`). Só no servidor — nunca em `site-config.js` ou no navegador. |
 | `RESEND_SEGMENT_ID` | ID (UUID) do Segment do Resend onde entram os inscritos — não o nome dele. |
 | `SITE_ORIGIN` | Origens permitidas, separadas por vírgula, ex.: `https://nandovoyager.com,https://www.nandovoyager.com`. Vazio no ambiente local. |
-| `YOUTUBE_CHANNEL_ID` | Opcional. ID do canal (`UC…`) para a seção de vídeos. Sem ele, o ID é lido da página do @NandoVoyager. No YouTube: Configurações → Configurações avançadas → ID do canal. |
+| `YOUTUBE_CHANNEL_ID` | Opcional. ID do canal (`UC…`) para a seção de vídeos. O do @NandoVoyager (`UCqW3NTDBn9esY-oD7iCQhAQ`) já está no código; use a variável só para trocar de canal. |
 
 ## Publicar (Vercel)
 
