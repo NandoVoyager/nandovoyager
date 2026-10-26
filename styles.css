@@ -10,7 +10,7 @@
   --heading: #0a0a0a;
   --text: #2b2b2b;
   --text-dim: #616161;
-  --muted: #767676;
+  --muted: #6b6b6b; /* 4.5:1 or more on --bg, for small text */
   --navy: #0f214f;
   --navy-2: #1d3476;
   --navy-hi: #1a2f6b;
@@ -48,6 +48,8 @@ a { color: inherit; }
 .skip:focus { left: 8px; }
 
 .nowrap { white-space: nowrap; }
+
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; } /* honeypot field: people never see it, bots fill it */
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -169,7 +171,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .menu-links { display: flex; flex-direction: column; }
 .menu-links a { padding: 16px 0; border-bottom: 1px solid var(--line); color: var(--heading); font: 500 1.35rem/1.2 var(--display); letter-spacing: -0.015em; text-decoration: none; }
 .menu-foot { margin-top: 24px; }
-.menu-mail { color: var(--navy); font: 500 1.2rem var(--display); text-decoration: none; }
+.menu-mail { display: inline-block; padding-block: 8px; color: var(--navy); font: 500 1.2rem var(--display); text-decoration: none; }
 .menu-social { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
 .menu-social .btn { height: 48px; padding: 0 16px; }
 
@@ -548,7 +550,7 @@ html.menu-open { overflow: hidden; }
 .copy-btn[data-copied] { border-color: var(--navy); background: var(--badge); color: var(--navy); }
 
 .contact-alt { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 28px; }
-.text-link { color: var(--text-dim); font-size: 15px; text-underline-offset: 4px; text-decoration-color: var(--line-strong); }
+.text-link { padding-block: 10px; color: var(--text-dim); font-size: 15px; text-underline-offset: 4px; text-decoration-color: var(--line-strong); }
 .text-link:hover { color: var(--navy); }
 
 /* Footer */
@@ -556,6 +558,17 @@ html.menu-open { overflow: hidden; }
 .footer-row { display: flex; align-items: center; gap: 32px; padding-block: 32px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 24px; margin-left: auto; }
 .copy { color: var(--muted); font-size: 14px; }
+
+/* Legal and error pages (privacidade.html, 404.html) */
+.page { min-height: 100svh; padding-block: calc(var(--header-h) + 48px) var(--section); }
+.page .wrap { max-width: 44rem; }
+.page h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.1; }
+.page h2 { margin: 32px 0 8px; font-size: 1.25rem; letter-spacing: -0.01em; }
+.page p:not(.label), .page ul { margin: 0 0 12px; color: var(--text-dim); }
+.page ul { padding-left: 20px; }
+.page a:not(.btn) { color: var(--navy); text-underline-offset: 3px; }
+.page p.updated { margin-bottom: 32px; color: var(--muted); font-size: 14px; }
+.page .btn { margin-top: 16px; }
 
 /* Tablet and phone */
 @media (max-width: 860px) {
@@ -589,7 +602,8 @@ html.menu-open { overflow: hidden; }
   .yt-play { opacity: 1; transform: none; width: 44px; height: 44px; }
 
   .footer-row { flex-direction: column; align-items: flex-start; gap: 16px; padding-block: 28px; }
-  .footer-links { margin-left: 0; gap: 10px 20px; }
+  .footer-links { margin-left: 0; gap: 0 20px; }
+  .footer-links a { padding-block: 10px; } /* taller tap targets */
 }
 
 /* Short phones: wider photo, so the e-mail field stays on the first screen. */

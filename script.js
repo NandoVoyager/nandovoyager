@@ -21,6 +21,8 @@
     menuButton.setAttribute("aria-expanded", String(open));
     menuButton.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     document.documentElement.classList.toggle("menu-open", open);
+    // While open, the page behind can't be focused or read out; Tab stays in the header and the menu.
+    document.querySelectorAll("main, footer").forEach((el) => (el.inert = open));
   };
   menuButton.addEventListener("click", () => setMenu(menu.hidden));
   menu.addEventListener("click", (event) => {
@@ -229,7 +231,7 @@
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email, website: form.website.value })
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.error || "Não foi possível concluir sua inscrição.");

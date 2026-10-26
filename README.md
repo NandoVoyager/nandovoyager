@@ -1,6 +1,6 @@
 # Nando Voyager — landing page
 
-Landing page de branding pessoal de nandovoyager.com: abertura com foto e cadastro de e-mail (Resend), últimos vídeos do YouTube, resumo da DeepChina AI, sobre, bastidores (fotos e vídeo) e contato com o e-mail de parcerias. HTML/CSS/JS puro, sem etapa de build.
+Landing page de branding pessoal de nandovoyager.com: abertura com foto e cadastro de e-mail (Resend), últimos vídeos do YouTube, resumo da DeepChina AI, minha história, bastidores (fotos e vídeo), serviços e contato com o e-mail de parcerias. HTML/CSS/JS puro, sem etapa de build.
 
 ## Rodar localmente
 
@@ -24,7 +24,7 @@ Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arqu
 
 ## Publicar (Vercel)
 
-Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/youtube.mjs` rodam como funções serverless (export default). A de YouTube lê o feed público do canal (sem chave de API), ignora Shorts e fica em cache na CDN da Vercel por 1 hora. Para esconder ou fixar vídeos, edite `curation` no topo de `api/youtube.mjs`: `hide` e `pin` por trecho do título, `ids` com os links (IDs) dos vídeos fixados. Quando um vídeo fixado sai do feed, ele vem de `ids` (o título diz qual é qual, e o YouTube confirma que é do canal) ou, sem link, da página de vídeos do canal; views e data vêm da página do vídeo. Todo vídeo sem número de views o busca na página do vídeo ou, se o YouTube não responder, na API pública do Return YouTube Dislike. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
+Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/youtube.mjs` rodam como funções serverless (export default). A de YouTube lê o feed público do canal (sem chave de API), ignora Shorts e fica em cache na CDN da Vercel por 1 hora. Para esconder ou fixar vídeos, edite `curation` no topo de `api/youtube.mjs`: `hide` e `pin` por trecho do título, `ids` com os links (IDs) dos vídeos fixados. Quando um vídeo fixado sai do feed, ele vem de `ids` (o título diz qual é qual, e o YouTube confirma que é do canal) ou, sem link, da página de vídeos do canal; views e data vêm da página do vídeo. Todo vídeo sem número de views o busca na página do vídeo ou, se o YouTube não responder, na API pública do Return YouTube Dislike. A resposta inteira cabe em 9 s, dentro do limite padrão de 10 s da Vercel. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
 
 1. Importe este repositório na Vercel (preset "Other", sem build command).
 2. Cadastre as três variáveis acima em Settings → Environment Variables.
@@ -34,7 +34,9 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/yo
 
 - `site-config.js`: endpoint do cadastro, link do site da DeepChina (`deepchinaUrl`; vazio = o botão da DeepChina AI leva ao cadastro de e-mail) e redes, incluindo os links que abrem direto no app no celular.
 - `img/` e `media/`: fotos em WebP (duas larguras cada, para o celular baixar a menor) e o vídeo dos bastidores em MP4 H.264, sem áudio, com pôster.
-- `privacidade.html`: política de privacidade (LGPD).
+- `privacidade.html`: política de privacidade (LGPD). `404.html`: página de erro que a Vercel mostra para links inexistentes.
+- `robots.txt` e `sitemap.xml`: indexação no Google.
+- Cadastro: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nada.
 - `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
 
 ## Analytics
