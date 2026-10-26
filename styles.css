@@ -499,6 +499,7 @@ html.menu-open { overflow: hidden; }
 
 /* Contact: the e-mail address is the headline */
 .contact { padding-block: var(--section); }
+.contact-lead { margin: 12px 0 0; color: var(--text-dim); font-size: 1.1rem; }
 
 .mail-row {
   display: flex;
