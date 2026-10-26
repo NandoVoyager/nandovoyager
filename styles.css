@@ -243,30 +243,24 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 /* DeepChina AI: one compact card */
 .dc { padding-block: clamp(56px, 7vw, 88px); }
 /* Right after the video track: the track already leaves room below it. */
-.yt + .dc { padding-top: clamp(24px, 3vw, 40px); }
+.yt + .dc { padding-top: clamp(8px, 2vw, 24px); }
 
-/* Same layout as the other sections: text and button on the left, three capabilities on the right. */
-.dc-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); align-items: center; gap: 32px 72px; }
-.dc-text { min-width: 0; }
-.dc-text > p:not(.label) { max-width: 30em; margin: 18px 0 0; color: var(--text-dim); font-size: 1.1rem; }
-.dc-text .btn { margin-top: 28px; }
-
-.dc-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-.dc-list li { display: flex; align-items: center; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); }
-.dc-list b { display: block; color: var(--heading); font-family: var(--display); font-size: 1.15rem; font-weight: 500; }
-.dc-list li > span:last-child { color: var(--text-dim); font-size: 15px; line-height: 1.45; }
-
-.dc-icon {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 13px;
-  background: linear-gradient(160deg, var(--navy-2), var(--navy));
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(15, 33, 79, 0.18);
+.dc-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 48px;
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
 }
+
+.dc-text { flex: 1 1 32rem; min-width: 0; }
+.dc-text h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.dc-text > p:not(.label) { max-width: 38em; margin: 16px 0 0; color: var(--text-dim); font-size: 1.05rem; }
 
 /* YouTube: horizontal track that bleeds to the right edge, aligned with the content column on the left */
 .yt { padding-block: clamp(72px, 9vw, 112px); overflow: hidden; }
@@ -490,7 +484,6 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   .photo-chip { left: 12px; bottom: 12px; padding: 6px 12px; font-size: 13px; }
   .hero-badge { margin-bottom: 18px; }
 
-  .dc-grid { grid-template-columns: 1fr; }
   .story-lead br { display: none; }
   .timeline li { grid-template-columns: 1fr; gap: 0; }
   .tl-when { padding: 0 0 6px 28px; border-left: 1px solid var(--line-strong); text-align: left; }
