@@ -471,6 +471,31 @@ html.menu-open { overflow: hidden; }
   background: linear-gradient(transparent, rgba(8, 14, 32, 0.7));
 }
 
+/* Services: three cards, each with its own e-mail subject */
+.services { padding-block: var(--section); }
+.service-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+
+.service {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 2.6vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+}
+
+.service .badge { align-self: flex-start; margin: 0 0 20px; }
+.service h3 { font-size: 1.35rem; }
+.service p:not(.badge) { margin: 8px 0 0; color: var(--text-dim); }
+.service-link { margin-top: auto; padding-top: 20px; color: var(--navy); font-weight: 500; text-decoration: none; }
+.service-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.service-link span { display: inline-block; transition: transform 0.2s; }
+.service-link:hover span { transform: translateX(3px); }
+
+/* Same background as the contact section: one gap between them, not two. */
+.services + .contact { padding-top: 0; }
+
 /* Contact: the e-mail address is the headline */
 .contact { padding-block: var(--section); }
 
@@ -546,6 +571,8 @@ html.menu-open { overflow: hidden; }
   .timeline li { grid-template-columns: 1fr; gap: 0; }
   .tl-when { padding: 0 0 6px 28px; border-left: 1px solid var(--line-strong); text-align: left; }
   .tl-body { padding-left: 28px; }
+
+  .service-list { grid-template-columns: 1fr; gap: 12px; }
 
   .bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
   .tile-video { grid-column: span 2; grid-row: auto; aspect-ratio: 4 / 5; }
