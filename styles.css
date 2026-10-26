@@ -241,76 +241,32 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .hero-media { animation: rise 0.8s 0.1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
 /* DeepChina AI: one compact card */
-.dc { padding-block: clamp(40px, 5vw, 64px); }
+.dc { padding-block: clamp(56px, 7vw, 88px); }
 /* Right after the video track: the track already leaves room below it. */
-.yt + .dc { padding-top: clamp(8px, 2vw, 24px); }
+.yt + .dc { padding-top: clamp(24px, 3vw, 40px); }
 
-/* Navy card, the one dark block on the page: text and button on the left, the factory → sale route on the right. */
-.dc-card {
-  position: relative;
+/* Same layout as the other sections: text and button on the left, three capabilities on the right. */
+.dc-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); align-items: center; gap: 32px 72px; }
+.dc-text { min-width: 0; }
+.dc-text > p:not(.label) { max-width: 30em; margin: 18px 0 0; color: var(--text-dim); font-size: 1.1rem; }
+.dc-text .btn { margin-top: 28px; }
+
+.dc-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.dc-list li { display: flex; align-items: center; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.dc-list b { display: block; color: var(--heading); font-family: var(--display); font-size: 1.15rem; font-weight: 500; }
+.dc-list li > span:last-child { color: var(--text-dim); font-size: 15px; line-height: 1.45; }
+
+.dc-icon {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  align-items: center;
-  gap: 24px 48px;
-  padding: clamp(28px, 3.6vw, 44px) clamp(24px, 4vw, 52px);
-  overflow: hidden;
-  border-radius: var(--radius-card);
-  background:
-    radial-gradient(90% 120% at 100% 0%, rgba(77, 112, 214, 0.45), transparent 60%),
-    linear-gradient(160deg, #142a6b, var(--navy) 65%);
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: linear-gradient(160deg, var(--navy-2), var(--navy));
   color: #fff;
-  box-shadow: 0 20px 50px rgba(15, 33, 79, 0.22);
+  box-shadow: 0 8px 18px rgba(15, 33, 79, 0.18);
 }
-
-.dc-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1.3px);
-  background-size: 18px 18px;
-  -webkit-mask-image: linear-gradient(90deg, transparent 40%, #000 85%);
-  mask-image: linear-gradient(90deg, transparent 40%, #000 85%);
-  pointer-events: none;
-}
-
-.dc-text { position: relative; min-width: 0; }
-.dc-card .label { color: #a8b8f2; }
-.dc-text h2 { color: #fff; font-size: clamp(1.8rem, 3vw, 2.5rem); }
-.dc-card .t2 { color: #b7c5fb; }
-.dc-text > p:not(.label) { max-width: 34em; margin: 14px 0 0; color: rgba(255, 255, 255, 0.74); font-size: 1.04rem; }
-
-.btn-light { margin-top: 24px; background: #fff; color: var(--navy); }
-.btn-light:hover { background: #e8edf8; }
-
-.dc-route { position: relative; max-width: 420px; width: 100%; margin: 0 0 0 auto; }
-.dc-route svg { display: block; width: 100%; height: auto; overflow: visible; }
-
-.dc-chip {
-  position: absolute;
-  left: 50%;
-  top: 2%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.dc-arc { fill: none; stroke: rgba(255, 255, 255, 0.45); stroke-width: 1.6; stroke-dasharray: 3 7; stroke-linecap: round; }
-.dc-halo { fill: rgba(255, 255, 255, 0.12); }
-.dc-end { fill: #fff; }
-.dc-dot-glow { fill: rgba(183, 197, 251, 0.3); }
-.dc-dot-core { fill: #fff; }
-.dc-small { fill: rgba(255, 255, 255, 0.6); font: 500 13px var(--sans); }
-.dc-place { fill: #fff; font: 600 16px var(--display); }
 
 /* YouTube: horizontal track that bleeds to the right edge, aligned with the content column on the left */
 .yt { padding-block: clamp(72px, 9vw, 112px); overflow: hidden; }
@@ -534,8 +490,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   .photo-chip { left: 12px; bottom: 12px; padding: 6px 12px; font-size: 13px; }
   .hero-badge { margin-bottom: 18px; }
 
-  .dc-card { grid-template-columns: 1fr; }
-  .dc-route { max-width: 360px; margin: 8px auto 0; }
+  .dc-grid { grid-template-columns: 1fr; }
   .story-lead br { display: none; }
   .timeline li { grid-template-columns: 1fr; gap: 0; }
   .tl-when { padding: 0 0 6px 28px; border-left: 1px solid var(--line-strong); text-align: left; }
@@ -568,7 +523,6 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dc-dot { display: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
