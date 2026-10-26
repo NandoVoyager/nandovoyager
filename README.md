@@ -24,7 +24,7 @@ Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arqu
 
 ## Publicar (Vercel)
 
-Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/youtube.mjs` rodam como funções serverless (export default). A de YouTube lê o feed público do canal (sem chave de API), ignora Shorts e fica em cache na CDN da Vercel por 1 hora. Para esconder ou fixar vídeos, edite `curation` no topo de `api/youtube.mjs`: `hide` e `pin` por trecho do título, `ids` com os links (IDs) dos vídeos fixados. Quando um vídeo fixado sai do feed, ele vem de `ids` (o título diz qual é qual, e o YouTube confirma que é do canal) ou, sem link, da página de vídeos do canal; views e data vêm da página do vídeo. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
+Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/youtube.mjs` rodam como funções serverless (export default). A de YouTube lê o feed público do canal (sem chave de API), ignora Shorts e fica em cache na CDN da Vercel por 1 hora. Para esconder ou fixar vídeos, edite `curation` no topo de `api/youtube.mjs`: `hide` e `pin` por trecho do título, `ids` com os links (IDs) dos vídeos fixados. Quando um vídeo fixado sai do feed, ele vem de `ids` (o título diz qual é qual, e o YouTube confirma que é do canal) ou, sem link, da página de vídeos do canal; views e data vêm da página do vídeo. Todo vídeo sem número de views o busca na página do vídeo ou, se o YouTube não responder, na API pública do Return YouTube Dislike. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
 
 1. Importe este repositório na Vercel (preset "Other", sem build command).
 2. Cadastre as três variáveis acima em Settings → Environment Variables.

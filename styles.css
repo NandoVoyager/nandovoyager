@@ -152,7 +152,10 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: clamp(32px, 6vw, 88px);
   align-items: center;
-  padding-block: calc(var(--header-h) + 48px) 0; /* the YouTube section's top padding is the gap */
+  /* The hero fills the first screen, so the YouTube section starts below it. */
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-block: calc(var(--header-h) + 48px) 48px;
 }
 
 .hero-badge { margin: 0 0 24px; }
@@ -308,10 +311,14 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   scrollbar-width: none;
   overscroll-behavior-x: contain;
   cursor: grab;
+  /* Dragging the track scrolls it: no text selection or link dragging on the way. */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
+.yt-track a, .yt-track img { -webkit-user-drag: none; }
 .yt-track::-webkit-scrollbar { display: none; }
-.yt-track.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.yt-track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
 .yt-track.is-dragging a { pointer-events: none; }
 
 .yt-card { flex: 0 0 clamp(260px, 30vw, 380px); scroll-snap-align: start; }
@@ -489,7 +496,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
   .header-cta { margin-left: 0; padding: 8px 16px; }
   .wordmark { font-size: 20px; }
 
-  .hero { grid-template-columns: 1fr; gap: 28px; padding-block: calc(var(--header-h) + 16px) 0; }
+  .hero { grid-template-columns: 1fr; gap: 28px; align-content: center; padding-block: calc(var(--header-h) + 16px) 32px; }
   .hero-media { order: -1; }
   /* Shorter photo: the e-mail field must show on the first screen. */
   .hero-media img { aspect-ratio: 3 / 2; object-position: 50% 32%; }

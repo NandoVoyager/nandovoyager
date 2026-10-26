@@ -85,12 +85,15 @@ async function videoById(id, log = () => {}) {
 // Videos from the channel's videos page (about 30 uploads, more than the feed's 15), with the views and date text as
 // YouTube shows them ("60 mil visualizações", "há 1 mês"). Used for pins and when the feed is down.
 const text = (t) => t?.simpleText ?? t?.runs?.map((r) => r.text).join("") ?? t?.content ?? "";
+const VIEWS = /visualiza|exibi|views/i;
+// "há 3 sem." → "há 3 semanas", as the cards write it.
+const fullDate = (t) => t?.replace(/(\d+)\s*sem\.?$/, (_, n) => `${n} ${n === "1" ? "semana" : "semanas"}`);
 export function parseVideosPage(html) {
   const raw = html.match(/ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/)?.[1];
   if (!raw) return [];
   const found = new Map();
   const add = (id, title, viewsText, publishedText) => {
-    if (id && title && !found.has(id)) found.set(id, { id, title, viewsText: viewsText || null, publishedText: publishedText || null });
+    if (id && title && !found.has(id)) found.set(id, { id, title, viewsText: viewsText || null, publishedText: fullDate(publishedText) || null });
   };
   const walk = (node) => {
     if (!node || typeof node !== "object") return;
@@ -104,7 +107,7 @@ export function parseVideosPage(html) {
         .flatMap((row) => row.metadataParts ?? [])
         .map((part) => part.text?.content)
         .filter(Boolean);
-      add(node.contentId, meta?.title?.content, parts.find((p) => /visualiza|views/i.test(p)), parts.find((p) => /^há |atrás|ago$/i.test(p)));
+      add(node.contentId, meta?.title?.content, parts.find((p) => VIEWS.test(p)), parts.find((p) => /^há |atrás|ago$/i.test(p)));
     }
     Object.values(node).forEach(walk);
   };
@@ -182,6 +185,29 @@ async function latestVideos(id, lookup) {
   }
 }
 
+// Every card shows its views. A video without a count (the channel page sometimes leaves it out) gets it from its own
+// page or, if YouTube doesn't answer there, from the Return YouTube Dislike API, which mirrors YouTube's count.
+async function statsOf(id) {
+  const page = await get(`https://www.youtube.com/watch?v=${id}`, 2500, browser)
+    .then((r) => (r.ok ? r.text() : ""))
+    .then(parseWatchStats)
+    .catch(() => ({ views: null, published: null }));
+  if (page.views) return { ...page, from: "página do vídeo" };
+  const ryd = await get(`https://returnyoutubedislikeapi.com/votes?videoId=${id}`, 2000)
+    .then((r) => (r.ok ? r.json() : {}))
+    .catch(() => ({}));
+  return { views: Number(ryd.viewCount) || null, published: page.published, from: "returnyoutubedislike" };
+}
+
+async function withViews(videos, log) {
+  return Promise.all(videos.map(async (video) => {
+    if (video.views) return video;
+    const stats = await statsOf(video.id);
+    log({ id: video.id, views: stats.views, from: stats.from });
+    return { ...video, views: stats.views, published: video.published ?? stats.published };
+  }));
+}
+
 // Pins that aren't in the list need extra calls to YouTube; if those take too long, answer without them.
 async function curateWithin(videos, lookup, ms) {
   let timer;
@@ -201,7 +227,7 @@ export async function youtube(req, res) {
   try {
     const id = await resolveChannelId();
     const { source, videos: latest } = await latestVideos(id, lookup);
-    const videos = await curateWithin(latest, lookup, 5000);
+    const videos = await withViews(await curateWithin(latest, lookup, 5000), lookup.log);
     if (debug) {
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" })
         .end(JSON.stringify({
