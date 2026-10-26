@@ -7,9 +7,14 @@
     window.nandoAnalytics?.track?.(name, properties);
   };
 
-  // Header gets a solid background once the page scrolls past the top.
+  // Header: navy glass with white text over the hero, the light bar below it (and while the menu is open).
   const header = document.querySelector(".site-header");
-  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+  const hero = document.querySelector(".hero");
+  const onScroll = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
+    const overHero = window.scrollY < hero.offsetHeight - header.offsetHeight;
+    header.classList.toggle("on-dark", overHero && !document.documentElement.classList.contains("menu-open"));
+  };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -23,6 +28,7 @@
     document.documentElement.classList.toggle("menu-open", open);
     // While open, the page behind can't be focused or read out; Tab stays in the header and the menu.
     document.querySelectorAll("main, footer").forEach((el) => (el.inert = open));
+    onScroll();
   };
   menuButton.addEventListener("click", () => setMenu(menu.hidden));
   menu.addEventListener("click", (event) => {

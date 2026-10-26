@@ -116,6 +116,13 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 
 .site-header.is-scrolled { border-bottom-color: var(--line); }
 
+/* Over the navy hero: navy glass bar with white text; script.js drops it past the hero and while the menu is open. */
+.site-header.on-dark { background: rgba(11, 26, 64, 0.72); border-bottom-color: rgba(255, 255, 255, 0.1); }
+.on-dark .wordmark, .on-dark .header-icon, .on-dark .menu-btn { color: #fff; }
+.on-dark .nav a { color: rgba(255, 255, 255, 0.88); }
+.on-dark .nav a:hover, .on-dark .header-icon:hover { color: #fff; }
+.on-dark :focus-visible, .hero :focus-visible { outline-color: #fff; }
+
 /* Wordmark on the left; section links and social icons on the right. */
 .header-row { display: flex; align-items: center; gap: 24px; height: 100%; }
 
@@ -179,33 +186,52 @@ html.menu-open { overflow: hidden; }
 .menu-open .site-header { background: var(--bg); border-bottom-color: var(--line); }
 
 @media (max-width: 1023px) {
-  .nav, .header-icon { display: none; }
-  .header-actions { margin-left: auto; gap: 8px; }
+  .nav { display: none; }
+  .header-actions { margin-left: auto; gap: 4px; }
+  .header-icon:last-of-type { margin-right: 4px; }
   .menu-btn { display: grid; }
 }
 
-/* Hero */
+/* Hero: navy ground, the photo on the right dissolving into it, white copy on the left. */
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: clamp(32px, 6vw, 88px);
-  align-items: center;
+  --hero-bg: #0b1a40;
+  position: relative;
+  display: flex;
+  overflow: hidden;
   /* The hero fills the first screen, so the YouTube section starts below it. */
   min-height: 100vh;
   min-height: 100svh;
-  padding-block: calc(var(--header-h) + 48px) 48px;
+  background: var(--hero-bg);
+  color: #fff;
 }
 
-.hero-badge { margin: 0 0 24px; }
-.hero h1 { font-size: clamp(2.4rem, 4.5vw, 4rem); }
-.hero h1 .t2 { white-space: nowrap; }
-.hero-badge a { margin-left: 4px; font-family: var(--display); font-weight: 500; font-size: 15px; color: var(--logo); text-decoration: none; }
+.hero-photo { position: absolute; top: 0; right: 0; width: 62.5%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+
+/* Navy over the photo's left edge and along the bottom, so the copy and the numbers read on it. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, var(--hero-bg) 37.5%, rgba(11, 26, 64, 0.85) 51%, rgba(11, 26, 64, 0) 75%),
+    linear-gradient(0deg, rgba(11, 26, 64, 0.9), rgba(11, 26, 64, 0) 25%);
+  pointer-events: none;
+}
+
+.hero-inner { position: relative; z-index: 2; display: flex; align-items: center; padding-block: calc(var(--header-h) + 48px) 48px; }
+.hero-copy { max-width: 37.5rem; }
+
+.hero-badge { margin: 0 0 24px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.12); color: #dbe3ff; }
+.hero h1 { color: #fff; font-size: clamp(2.4rem, 4.7vw, 4.25rem); }
+.hero h1 .t2 { color: #b7c5fb; white-space: nowrap; }
+.hero-badge a { margin-left: 4px; font-family: var(--display); font-weight: 500; font-size: 15px; color: #fff; text-decoration: none; }
 .hero-badge a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 
 .signup-block { margin-top: 32px; max-width: 34rem; }
-.signup-intro { margin: 0 0 12px; color: var(--text-dim); font-size: 15px; }
-.signup-intro strong { color: var(--heading); font-weight: 500; }
+.signup-intro { margin: 0 0 12px; color: rgba(255, 255, 255, 0.72); font-size: 15px; }
+.signup-intro strong { color: #fff; font-weight: 500; }
 
 .signup { display: flex; gap: 8px; width: 100%; }
 
@@ -214,7 +240,7 @@ html.menu-open { overflow: hidden; }
   min-width: 0;
   height: 52px;
   padding: 0 16px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid transparent;
   border-radius: 8px;
   background: var(--card);
   color: var(--heading);
@@ -224,55 +250,38 @@ html.menu-open { overflow: hidden; }
 }
 
 .signup input::placeholder { color: #9a9a9a; }
-.signup input:focus { border-color: var(--navy-2); box-shadow: 0 0 0 3px rgba(29, 52, 118, 0.12); }
+.signup input:focus { border-color: #fff; box-shadow: 0 0 0 3px rgba(183, 197, 251, 0.45); }
 
 .signup button {
   height: 52px;
   padding: 0 22px;
   border: 0;
   border-radius: 8px;
-  background: var(--navy);
-  color: #fff;
-  font: 500 15px var(--sans);
+  background: #fff;
+  color: var(--navy);
+  font: 600 15px var(--sans);
   white-space: nowrap;
   cursor: pointer;
   transition: background 0.2s;
 }
 
-.signup button:hover { background: var(--navy-hi); }
+.signup button:hover { background: #e8edf8; }
 .signup button:disabled { opacity: 0.6; cursor: wait; }
 .signup[hidden] { display: none; }
 
-.form-message { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+.form-message { margin: 10px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.75); }
 .form-message:empty { display: none; }
-.form-message[data-state="error"] { color: #b4321f; }
-.form-message[data-state="success"] { color: var(--navy); font-family: var(--display); font-size: 1.3rem; font-weight: 500; line-height: 1.3; }
+.form-message[data-state="error"] { color: #ffb8ab; }
+.form-message[data-state="success"] { color: #fff; font-family: var(--display); font-size: 1.3rem; font-weight: 500; line-height: 1.3; }
 
-.hero-mail { margin: 14px 0 0; color: var(--muted); font-size: 14px; }
-.hero-mail a { color: var(--text-dim); text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
-.hero-mail a:hover { color: var(--navy); }
+.hero-mail { margin: 14px 0 0; color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+.hero-mail a { color: #fff; text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, 0.4); }
+.hero-mail a:hover { text-decoration-color: #fff; }
 
-
-
-.hero-media { position: relative; }
-.hero-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: var(--radius-card); }
-
-.photo-chip {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  margin: 0;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  color: var(--text-dim);
-  font-size: 14px;
-  box-shadow: 0 6px 18px rgba(8, 14, 32, 0.18);
-}
-
-.photo-chip b { color: var(--navy); font-weight: 600; }
+/* Numbers: bottom right on a computer, under the sign-up on a phone. */
+.hero-stats { position: absolute; right: 0; bottom: 56px; display: flex; gap: 40px; margin: 0; padding: 0; list-style: none; }
+.hero-stats li { color: rgba(255, 255, 255, 0.72); font-size: 14px; }
+.hero-stats strong { display: block; color: #fff; font: 500 1.875rem/1.15 var(--display); letter-spacing: -0.02em; }
 
 /* Load-in: elements end at their resting state, so a still frame is always complete. */
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
@@ -280,7 +289,7 @@ html.menu-open { overflow: hidden; }
 .hero-copy > :nth-child(2) { animation-delay: 0.05s; }
 .hero-copy > :nth-child(3) { animation-delay: 0.1s; }
 .hero-copy > :nth-child(4) { animation-delay: 0.15s; }
-.hero-media { animation: rise 0.8s 0.1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero-stats { animation: rise 0.8s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
 /* DeepChina AI: full-width navy band; text lines up with the other sections, the title keeps the h2 size. */
 .dc {
@@ -577,12 +586,16 @@ html.menu-open { overflow: hidden; }
   :root { --header-h: 60px; --radius-card: 20px; }
   .wordmark { font-size: 20px; }
 
-  .hero { grid-template-columns: 1fr; gap: 28px; align-content: center; padding-block: calc(var(--header-h) + 16px) 32px; }
-  .hero-media { order: -1; }
-  /* Shorter photo: the e-mail field must show on the first screen. */
-  .hero-media img { aspect-ratio: 3 / 2; object-position: 50% 32%; }
-  .photo-chip { left: 12px; bottom: 12px; padding: 6px 12px; font-size: 13px; }
+  /* Photo on top, under the header, fading into the navy; copy, sign-up and numbers below it. */
+  .hero { display: block; }
+  .hero::before { display: none; }
+  /* Short enough for the e-mail field to show on the first screen. */
+  .hero-photo { position: relative; width: 100%; height: auto; aspect-ratio: 4 / 3; object-position: 50% 32%; -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); mask-image: linear-gradient(180deg, #000 60%, transparent); }
+  .hero-inner { display: block; margin-top: -24px; padding-block: 0 40px; }
   .hero-badge { margin-bottom: 18px; }
+  .hero-stats { position: static; gap: 28px; margin-top: 32px; }
+  .hero-stats li { font-size: 13px; }
+  .hero-stats strong { font-size: 1.4rem; }
 
   .story-lead br { display: none; }
   .timeline li { grid-template-columns: 1fr; gap: 0; }
@@ -610,8 +623,7 @@ html.menu-open { overflow: hidden; }
 
 /* Short phones: wider photo, so the e-mail field stays on the first screen. */
 @media (max-width: 860px) and (max-height: 720px) {
-  .hero-media img { aspect-ratio: 2 / 1; object-position: 50% 20%; }
-  .hero { gap: 20px; }
+  .hero-photo { aspect-ratio: 2 / 1; object-position: 50% 20%; }
   .hero-badge { margin-bottom: 14px; }
 }
 
