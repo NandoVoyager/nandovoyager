@@ -34,6 +34,14 @@
   });
   window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => event.matches && setMenu(false));
 
+  // The wordmark goes back to the top of the page (closing the menu) and leaves no "#" in the address.
+  document.querySelector("[data-top]").addEventListener("click", (event) => {
+    event.preventDefault();
+    setMenu(false);
+    window.scrollTo({ top: 0 }); // follows the CSS scroll-behavior: smooth, or instant with reduced motion
+    history.replaceState(null, "", location.pathname + location.search);
+  });
+
   // Behind-the-scenes clip: muted loop that plays only while on screen; with reduced motion it waits for a tap.
   const video = document.querySelector(".behind-video");
   if (video) {
@@ -188,13 +196,13 @@
   // E-mail signup (Resend, via /api/subscribe).
   const form = document.querySelector("#signup-form");
 
-  // "Fale comigo" / "Deixar meu e-mail" bring the visitor back to the field in the hero and focus it.
+  // "Deixe seu e-mail ↑" goes back to the top of the page, where the field is, and focuses it.
   document.querySelectorAll("[data-focus-signup]").forEach((link) => {
     link.addEventListener("click", (event) => {
       if (form.hidden) return;
       event.preventDefault();
       form.email.focus({ preventScroll: true });
-      form.scrollIntoView({ behavior: "smooth", block: "center" });
+      window.scrollTo({ top: 0 });
     });
   });
   const message = document.querySelector("#form-message");
