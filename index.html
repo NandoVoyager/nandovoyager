@@ -94,27 +94,34 @@
     </div>
 
     <main id="conteudo">
-      <section class="hero wrap" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="badge hero-badge">Fundador da <a href="#deepchina">DeepChina AI</a></p>
-          <h1 id="hero-title">Faço negócios na China. <span class="t2">E te mostro como.</span></h1>
-          <div class="signup-block" id="cadastro">
-            <p class="signup-intro">Quer importar da China? <strong>Minha equipe entra em contato com você.</strong></p>
-            <form class="signup" id="signup-form" novalidate>
-              <label class="sr-only" for="email">Seu e-mail</label>
-              <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
-              <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-              <button type="submit">Quero contato <span aria-hidden="true">→</span></button>
-            </form>
-            <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
-            <p class="hero-mail">Publicidade e parcerias: <a href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20parceria">contato@nandovoyager.com</a></p>
+      <div class="hero-shell">
+        <section class="hero wrap" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="badge hero-badge">Fundador da <a href="#deepchina">DeepChina AI</a></p>
+            <h1 id="hero-title">Faço negócios na China. <span class="t2">E te mostro como.</span></h1>
+            <div class="signup-block" id="cadastro">
+              <p class="signup-intro">Quer importar da China? <strong>Minha equipe entra em contato com você.</strong></p>
+              <form class="signup" id="signup-form" novalidate>
+                <label class="sr-only" for="email">Seu e-mail</label>
+                <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
+                <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                <button type="submit">Quero contato <span aria-hidden="true">→</span></button>
+              </form>
+              <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+              <p class="hero-mail">Publicidade e parcerias: <a href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20parceria">contato@nandovoyager.com</a></p>
+            </div>
+            <ul class="hero-stats" aria-label="Em números">
+              <li><strong>+1,5 mi</strong> seguidores</li>
+              <li><strong>20+</strong> projetos milionários</li>
+              <li><strong>35+</strong> países</li>
+            </ul>
           </div>
-        </div>
-        <figure class="hero-media">
-          <img src="/img/shanghai-1245.webp" srcset="/img/shanghai-720.webp 720w, /img/shanghai-1245.webp 1245w" sizes="(max-width: 860px) 100vw, 44vw" width="1245" height="1245" alt="Nando Voyager à noite em Shanghai, com a torre Oriental Pearl iluminada ao fundo" fetchpriority="high" />
-          <p class="photo-chip"><b>+1,5 milhão</b> de seguidores</p>
-        </figure>
-      </section>
+          <figure class="hero-media">
+            <img src="/img/shanghai-1245.webp" srcset="/img/shanghai-720.webp 720w, /img/shanghai-1245.webp 1245w" sizes="(max-width: 860px) 100vw, 44vw" width="1245" height="1245" alt="Nando Voyager à noite em Shanghai, com a torre Oriental Pearl iluminada ao fundo" fetchpriority="high" />
+            <p class="photo-chip"><span class="pin" aria-hidden="true"></span>Shanghai, China</p>
+          </figure>
+        </section>
+      </div>
 
       <section class="yt" id="youtube" aria-labelledby="yt-title">
         <div class="wrap">
@@ -284,9 +291,11 @@
       <section class="contact wrap" id="contato" aria-labelledby="contato-title">
         <p class="label">Contato</p>
         <h2 id="contato-title">Publis, parcerias e negócios.</h2>
-        <p class="contact-lead">Envie um e-mail profissional com os detalhes do que você precisa.</p>
         <div class="mail-row">
-          <a class="mail-big" href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20parceria">contato@nandovoyager.com</a>
+          <div class="mail-text">
+            <a class="mail-big" href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20parceria">contato@nandovoyager.com</a>
+            <p class="mail-note">Envie um e-mail profissional com os detalhes do que você precisa.</p>
+          </div>
           <button class="copy-btn" type="button" data-copy="contato@nandovoyager.com">Copiar e-mail</button>
         </div>
         <div class="contact-alt">

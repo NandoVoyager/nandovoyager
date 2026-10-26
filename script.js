@@ -115,7 +115,7 @@
         button.dataset.copied = "";
         setTimeout(() => { button.textContent = label; delete button.dataset.copied; }, 2000);
       } catch {
-        const link = button.previousElementSibling;
+        const link = button.parentElement.querySelector(".mail-big");
         window.getSelection().selectAllChildren(link);
       }
       track("email_copy");
