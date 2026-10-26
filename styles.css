@@ -210,7 +210,23 @@ html.menu-open { overflow: hidden; }
   color: #fff;
 }
 
-.hero-photo { position: absolute; top: 0; right: 0; width: 62.5%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+/* A square anchored bottom right, a bit shorter than the hero, so the face isn't oversized on tall screens. */
+.hero-photo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: auto; /* not the width attribute: the height and the square ratio set it */
+  height: 86%;
+  aspect-ratio: 1;
+  max-width: 62.5%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  /* Fades in from the top and from the left, so no edge shows against the navy. */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%), linear-gradient(90deg, transparent, #000 30%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg, transparent, #000 22%), linear-gradient(90deg, transparent, #000 30%);
+  mask-composite: intersect;
+}
 
 /* Navy over the photo's left edge and along the bottom, so the copy and the numbers read on it. */
 .hero::before {
@@ -672,7 +688,7 @@ html.menu-open { overflow: hidden; }
      The photo takes all the height the copy leaves free, never less than 4:3 (2:1 on short phones, below). */
   .hero { flex-direction: column; }
   .hero::before { display: none; }
-  .hero-photo { position: relative; flex: 1 1 0; width: 100%; height: auto; min-height: 75vw; object-position: 50% 30%; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
+  .hero-photo { position: relative; flex: 1 1 0; width: 100%; max-width: none; height: auto; aspect-ratio: auto; min-height: 75vw; object-position: 50% 30%; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
   .hero-inner { display: block; margin-top: -24px; padding-block: 0 32px; }
   .hero-badge { margin-bottom: 18px; }
   .hero-stats { position: static; gap: 28px; margin-top: 32px; }
