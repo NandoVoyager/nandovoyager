@@ -448,30 +448,74 @@ html.menu-open { overflow: hidden; }
 .yt-empty .yt-thumb { border: 1px dashed var(--line-strong); }
 .yt-empty .yt-thumb svg { width: 40px; height: 40px; }
 
-/* Story: route of countries, then a timeline (period · dot on the line · title and text) */
+/* Story: the route of countries (flag stops on a dashed line), then the turn and today */
 .story { padding-block: var(--section); }
 .yt + .story { padding-top: 0; } /* same background as the videos: their bottom padding is the gap */
 .story-head { max-width: 56rem; }
 
-/* Flags only in the route row: small images (flag emoji don't render on Windows), hairline keeps white flags visible. */
-.flag { flex: none; width: 21px; height: 14px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(15, 33, 79, 0.12); object-fit: cover; }
+.route-map { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; list-style: none; }
+.route-map::before { content: ""; position: absolute; top: 32px; left: 8%; right: 8%; border-top: 2px dashed #c9d1e6; }
+.stop { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+/* Flags as images (flag emoji don't render on Windows), cropped to a circle; the ring keeps white flags visible. */
+.stop-flag { display: block; width: 64px; height: 64px; overflow: hidden; border: 3px solid #fff; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px var(--line-strong), 0 8px 20px rgba(15, 33, 79, 0.12); }
+.stop-flag img { width: 100%; height: 100%; object-fit: cover; }
+.stop-body { margin-top: 16px; }
+.stop-country { margin: 0; color: var(--heading); font: 500 18px/1.2 var(--display); }
+.stop-year { display: block; margin-top: 2px; color: var(--navy-2); font: 600 13px/1.4 var(--sans); }
+.stop h3 { margin: 12px 0 0; color: var(--heading); font: 500 14px/1.35 var(--sans); letter-spacing: 0; }
+.stop-body > p:last-child { margin: 6px 0 0; color: var(--text-dim); font-size: 13.5px; line-height: 1.5; }
 
-.route { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 20px 0 0; padding: 0; list-style: none; }
-.route li { display: flex; align-items: center; gap: 8px; color: var(--text-dim); font-size: 15px; font-weight: 500; }
-.route li:not(:last-child)::after { content: "→"; color: var(--muted); }
-.route li:last-child { color: var(--navy); font-weight: 600; }
+/* The turn (white) and today (navy, wider): the end of the story, leading into the DeepChina band below. */
+.story-end { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr); gap: 16px; margin-top: clamp(32px, 4vw, 48px); }
+.turn-card { display: flex; flex-direction: column; padding: clamp(24px, 2.6vw, 32px); border: 1px solid var(--line); border-radius: 20px; background: var(--card); box-shadow: var(--shadow-card); }
+.turn-top { display: flex; align-items: center; gap: 16px; }
+.turn-flag { flex: none; width: 52px; height: 52px; }
+.story-when { margin: 0; color: var(--navy-2); font-size: 13px; font-weight: 600; }
+.turn-card h3, .now-card h3 { margin: 6px 0 0; font-size: 1.6rem; }
+.turn-card h3 { margin-top: 2px; }
+.turn-text { margin: 16px 0 20px; color: var(--text-dim); }
+/* Pushed to the bottom so the numbers line up with the base of the taller "today" card. */
+.turn-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: auto 0 0; padding: 20px 0 0; border-top: 1px solid var(--line); list-style: none; }
+.turn-stats li { color: var(--text-dim); font-size: 14px; line-height: 1.35; }
+.turn-stats strong { display: block; margin-bottom: 4px; color: var(--navy); font: 500 clamp(2rem, 2.6vw, 2.5rem)/1 var(--display); letter-spacing: -0.02em; }
 
-.timeline { margin: clamp(32px, 4vw, 44px) 0 0; padding: 0; list-style: none; }
-.timeline li { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 40px; }
-
-.tl-when { margin: 0; padding-top: 3px; color: var(--navy-2); font-size: 14px; font-weight: 600; text-align: right; }
-
-.tl-body { position: relative; padding: 0 0 32px 36px; border-left: 1px solid var(--line-strong); }
-.timeline li:last-child .tl-body { padding-bottom: 0; border-left-color: transparent; }
-.tl-body::before { content: ""; position: absolute; left: -6px; top: 7px; width: 11px; height: 11px; border-radius: 50%; background: var(--card); border: 2px solid var(--navy); box-sizing: border-box; }
-.is-now .tl-body::before { left: -8px; top: 5px; width: 15px; height: 15px; border: 0; background: var(--navy); box-shadow: 0 0 0 5px var(--badge); }
-.tl-body h3 { font-size: 1.35rem; }
-.tl-body p { max-width: 40em; margin: 8px 0 0; color: var(--text-dim); }
+.now-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  overflow: hidden;
+  padding: clamp(24px, 2.6vw, 32px) clamp(24px, 3vw, 40px);
+  border-radius: 20px;
+  background:
+    radial-gradient(70% 120% at 100% 0%, rgba(77, 112, 214, 0.5), transparent 60%),
+    linear-gradient(160deg, #142a6b, var(--navy) 65%);
+  box-shadow: 0 18px 40px rgba(15, 33, 79, 0.25);
+  color: #fff;
+}
+.now-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1.3px);
+  background-size: 18px 18px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 35%, #000 90%);
+  mask-image: linear-gradient(90deg, transparent 35%, #000 90%);
+  pointer-events: none;
+}
+.now-card > * { position: relative; }
+.now-badge { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 5px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); color: #dbe3ff; font-size: 13px; font-weight: 600; }
+.now-dot { width: 8px; height: 8px; border-radius: 50%; background: #b7c5fb; box-shadow: 0 0 0 3px rgba(183, 197, 251, 0.25); }
+.now-card h3 { margin-top: 12px; color: #fff; }
+.now-text > p:not(.now-badge) { max-width: 30rem; margin: 8px 0 0; color: rgba(255, 255, 255, 0.78); }
+.now-link { display: inline-block; margin-top: 16px; color: #fff; font-weight: 500; text-underline-offset: 4px; text-decoration-color: rgba(255, 255, 255, 0.4); }
+.now-link:hover { text-decoration-color: #fff; }
+.now-journey { flex: none; text-align: right; }
+.now-flags { display: flex; justify-content: flex-end; padding-left: 10px; }
+.now-flags img { width: 40px; height: 40px; margin-left: -10px; border: 2px solid #142a6b; border-radius: 50%; object-fit: cover; }
+.now-journey p { margin: 10px 0 0; color: rgba(255, 255, 255, 0.72); font-size: 14px; }
+.now-journey b { color: #fff; font-weight: 600; }
 
 /* Behind the scenes */
 .behind { padding-block: var(--section); background: var(--card); border-block: 1px solid var(--line); }
@@ -695,9 +739,18 @@ html.menu-open { overflow: hidden; }
   .hero-stats li { font-size: 13px; }
   .hero-stats strong { font-size: 1.4rem; }
 
-  .timeline li { grid-template-columns: 1fr; gap: 0; }
-  .tl-when { padding: 0 0 6px 28px; border-left: 1px solid var(--line-strong); text-align: left; }
-  .tl-body { padding-left: 28px; }
+  /* The route turns vertical: flag on the left, the dashed line running down between the flags. */
+  .route-map { grid-template-columns: 1fr; gap: 0; }
+  .route-map::before { top: 28px; bottom: 48px; left: 27px; right: auto; border-top: 0; border-left: 2px dashed #c9d1e6; }
+  .stop { flex-direction: row; align-items: flex-start; gap: 16px; padding-bottom: 22px; text-align: left; }
+  .stop-flag { flex: none; width: 56px; height: 56px; }
+  .stop-body { margin-top: 4px; }
+  .stop-year { display: inline; margin: 0 0 0 6px; }
+  .stop h3 { margin-top: 6px; }
+  .story-end { grid-template-columns: 1fr; }
+  .now-card { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .now-journey { text-align: left; }
+  .now-flags { justify-content: flex-start; }
 
   .service-list { grid-template-columns: 1fr; gap: 12px; }
 
