@@ -479,7 +479,7 @@ html.menu-open { overflow: hidden; }
 .now-dot { width: 8px; height: 8px; border-radius: 50%; background: #b7c5fb; box-shadow: 0 0 0 3px rgba(183, 197, 251, 0.25); }
 .now-card h3 { margin-top: 12px; color: #fff; }
 .now-text { flex: 1 1 18rem; min-width: 0; }
-.now-text > p:not(.now-badge) { max-width: 30rem; margin: 8px 0 0; color: rgba(255, 255, 255, 0.78); }
+.now-text > p:not(.now-badge) { max-width: 30rem; margin: 8px 0 0; color: rgba(255, 255, 255, 0.78); text-wrap: pretty; }
 /* Same white button as the old DeepChina band; opens the DeepChina site (site-config.js). */
 .now-cta { flex: none; background: #fff; color: var(--navy); }
 .now-cta:hover { background: #e8edf8; }
