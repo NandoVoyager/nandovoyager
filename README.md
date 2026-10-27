@@ -1,6 +1,6 @@
 # Nando Voyager — landing page
 
-Landing page de branding pessoal de nandovoyager.com: abertura com foto e cadastro de e-mail (Resend), últimos vídeos do YouTube, minha história (terminando no que a DeepChina AI faz), bastidores (fotos e vídeo), serviços e contato com o e-mail de parcerias. HTML/CSS/JS puro, sem etapa de build.
+Landing page de branding pessoal de nandovoyager.com: abertura com foto e cadastro de e-mail (Resend), últimos vídeos do YouTube, minha história (terminando na DeepChina AI, com o botão para o site), bastidores (fotos e vídeo), serviços e contato com o e-mail de parcerias. HTML/CSS/JS puro, sem etapa de build.
 
 ## Rodar localmente
 
@@ -32,7 +32,7 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/yo
 
 ## Configuração
 
-- `site-config.js`: endpoint do cadastro, link do site da DeepChina (`deepchinaUrl`; vazio = o link da DeepChina AI no rodapé leva ao cartão "Hoje" da história) e redes, incluindo os links que abrem direto no app no celular.
+- `site-config.js`: endpoint do cadastro, link do site da DeepChina (`deepchinaUrl`; vazio = o botão da DeepChina AI leva ao cadastro de e-mail) e redes, incluindo os links que abrem direto no app no celular.
 - `img/` e `media/`: fotos em WebP (duas larguras cada, para o celular baixar a menor) e o vídeo dos bastidores em MP4 H.264, sem áudio, com pôster.
 - `privacidade.html`: política de privacidade (LGPD). `404.html`: página de erro que a Vercel mostra para links inexistentes.
 - `robots.txt` e `sitemap.xml`: indexação no Google.
