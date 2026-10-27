@@ -314,38 +314,6 @@ html.menu-open { overflow: hidden; }
 .hero-copy > :nth-child(4) { animation-delay: 0.15s; }
 .hero-stats { animation: rise 0.8s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
-/* DeepChina AI: full-width navy band; text lines up with the other sections, the title keeps the h2 size. */
-.dc {
-  position: relative;
-  overflow: hidden;
-  padding-block: var(--section);
-  background:
-    radial-gradient(60% 140% at 100% 0%, rgba(77, 112, 214, 0.45), transparent 60%),
-    linear-gradient(160deg, #142a6b, var(--navy) 65%);
-  color: #fff;
-}
-
-/* Dot texture fading in towards the right. */
-.dc::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1.3px);
-  background-size: 18px 18px;
-  -webkit-mask-image: linear-gradient(90deg, transparent 40%, #000 85%);
-  mask-image: linear-gradient(90deg, transparent 40%, #000 85%);
-  pointer-events: none;
-}
-
-.dc-inner { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 48px; }
-.dc-text { flex: 1 1 32rem; min-width: 0; }
-.dc .label { color: #a8b8f2; }
-.dc h2 { color: #fff; }
-.dc .t2 { color: #b7c5fb; }
-.dc-text > p:not(.label) { max-width: 38em; margin: 16px 0 0; color: rgba(255, 255, 255, 0.74); font-size: 1.1rem; }
-.dc .btn-primary { background: #fff; color: var(--navy); }
-.dc .btn-primary:hover { background: #e8edf8; }
-
 /* YouTube: horizontal track that bleeds to the right edge, aligned with the content column on the left */
 .yt { padding-block: var(--section); overflow: hidden; }
 .yt-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 32px; margin-bottom: 28px; }
@@ -481,10 +449,10 @@ html.menu-open { overflow: hidden; }
 
 .now-card {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+  gap: 24px clamp(24px, 3vw, 40px);
   overflow: hidden;
   padding: clamp(24px, 2.6vw, 32px) clamp(24px, 3vw, 40px);
   border-radius: 20px;
@@ -505,17 +473,20 @@ html.menu-open { overflow: hidden; }
   pointer-events: none;
 }
 .now-card > * { position: relative; }
+#deepchina { scroll-margin-top: 24px; } /* nav target: a little air under the fixed header */
 .now-badge { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 5px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); color: #dbe3ff; font-size: 13px; font-weight: 600; }
 .now-dot { width: 8px; height: 8px; border-radius: 50%; background: #b7c5fb; box-shadow: 0 0 0 3px rgba(183, 197, 251, 0.25); }
 .now-card h3 { margin-top: 12px; color: #fff; }
 .now-text > p:not(.now-badge) { max-width: 30rem; margin: 8px 0 0; color: rgba(255, 255, 255, 0.78); }
-.now-link { display: inline-block; margin-top: 16px; color: #fff; font-weight: 500; text-underline-offset: 4px; text-decoration-color: rgba(255, 255, 255, 0.4); }
-.now-link:hover { text-decoration-color: #fff; }
-.now-journey { flex: none; text-align: right; }
-.now-flags { display: flex; justify-content: flex-end; padding-left: 10px; }
-.now-flags img { width: 40px; height: 40px; margin-left: -10px; border: 2px solid #142a6b; border-radius: 50%; object-fit: cover; }
-.now-journey p { margin: 10px 0 0; color: rgba(255, 255, 255, 0.72); font-size: 14px; }
-.now-journey b { color: #fff; font-weight: 600; }
+/* What DeepChina AI does (this card replaced the separate DeepChina band). */
+.now-features { display: grid; margin: 0; padding: 0; list-style: none; }
+.now-features li { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.now-features li:first-child { border-top: 0; padding-top: 0; }
+.now-features li:last-child { padding-bottom: 0; }
+.now-icon { display: grid; flex: none; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); }
+.now-icon svg { width: 20px; height: 20px; fill: none; stroke: #dbe3ff; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.now-features p { margin: 0; color: rgba(255, 255, 255, 0.72); font-size: 14.5px; line-height: 1.4; }
+.now-features b { display: block; color: #fff; font-weight: 600; }
 
 /* Behind the scenes */
 .behind { padding-block: var(--section); background: var(--card); border-block: 1px solid var(--line); }
@@ -748,9 +719,7 @@ html.menu-open { overflow: hidden; }
   .stop-year { display: inline; margin: 0 0 0 6px; }
   .stop h3 { margin-top: 6px; }
   .story-end { grid-template-columns: 1fr; }
-  .now-card { flex-direction: column; align-items: flex-start; gap: 24px; }
-  .now-journey { text-align: left; }
-  .now-flags { justify-content: flex-start; }
+  .now-card { grid-template-columns: 1fr; }
 
   .service-list { grid-template-columns: 1fr; gap: 12px; }
 

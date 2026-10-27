@@ -1,7 +1,7 @@
 /* Configure these values before launch. Links are intentionally easy to replace. */
 window.NANDO_SITE_CONFIG = {
   signupEndpoint: "/api/subscribe",
-  /* Site da DeepChina. Enquanto estiver vazio, os botões da DeepChina levam ao cadastro de e-mail desta página. */
+  /* Site da DeepChina. Enquanto estiver vazio, o link da DeepChina AI no rodapé leva ao cartão "Hoje" da história. */
   deepchinaUrl: "",
   /*
    * web: normal link (desktop, and mobile browsers, which already hand off to the app).
