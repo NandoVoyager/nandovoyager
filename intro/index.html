@@ -47,7 +47,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .acts a i{width:6px;height:6px;border-radius:50%;background:currentColor}
 .acts a b{display:block;width:13px;height:7px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
 .acts a.contact{letter-spacing:.01em}
-.acts a.contact .gmail{flex:none;width:16px;height:12px}
+.acts a.contact .mail-ico{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* first frame only: tells the visitor that scrolling drives the page */
 #cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);padding:8px 12px;border:0;background:none;font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--mid);white-space:nowrap;cursor:pointer}
 #cue:hover{color:var(--ink)}
@@ -285,7 +285,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   #rule{display:none}
   /* the address has to fit next to the name, down to 360px wide */
   .acts a.contact{gap:6px;height:28px;padding:0 10px;font-size:clamp(9.5px,2.6vw,11px);letter-spacing:0}
-  .acts a.contact .gmail{width:13px;height:10px}
+  .acts a.contact .mail-ico{width:15px;height:15px}
   .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
   .tile{display:flex;align-items:center;gap:10px;aspect-ratio:auto;padding:6px 12px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
@@ -326,7 +326,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
         <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
       </span>
-      <a class="contact" href="mailto:contato@nandovoyager.com"><svg class="gmail" viewBox="52 42 88 66" aria-hidden="true"><path fill="currentColor" d="M58 108h14V74L52 59v43c0 3.32 2.69 6 6 6"/><path fill="currentColor" d="M120 108h14c3.32 0 6-2.69 6-6V59l-20 15"/><path fill="currentColor" d="M120 48v26l20-15v-8c0-7.42-8.47-11.65-14.4-7.2"/><path fill="currentColor" d="M72 74V48l24 18 24-18v26L96 92"/><path fill="currentColor" d="M52 51v8l20 15V48l-5.6-4.2c-5.94-4.45-14.4-.22-14.4 7.2"/></svg>contato@nandovoyager.com</a></nav>
+      <a class="contact" href="mailto:contato@nandovoyager.com"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg>contato@nandovoyager.com</a></nav>
   </header>
   <div class="hub">
     <nav class="socials socials-phone" id="socials" aria-label="Redes sociais">
@@ -543,17 +543,16 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 <script type="module">
 import * as THREE from 'three';
 
-// One card per link (same order as #tiles), then two more that only ride the ribbon.
+// One card per link (same order as #tiles), then the ones that only ride the ribbon.
 const WORK = [
   {img:'/img/deepchina-card.webp'}, // the DeepChina symbol on its navy (made from img/deepchina-symbol-white.svg)
   {img:'/img/canton-cracha-1200.webp'},
   {img:'/img/fabrica-900.webp', zoom:1.11, focus:[.45, .39]}, // both faces either side of the centre
   {img:'/img/historia-1000.webp', zoom:1.35, focus:[.37, .545], gain:1.15}, // close on the faces; a night photo, so a little brighter
   {img:'/img/moto-900.webp'},
+  {img:'/img/carro-1000.webp', focus:[.5, .4]},
+  {img:'/img/estrelas-1100.webp', zoom:1.2, focus:[.46, .5]},
   {img:'/media/bastidores-poster.webp', video:'/media/bastidores.mp4'},
-  {img:'/img/clientes-640.webp'},
-  {img:'/img/shanghai-720.webp'},
-  {img:'/img/canton-fachada-900.webp'},
 ];
 const config = window.NANDO_SITE_CONFIG || {};
 const $ = id => document.getElementById(id);
