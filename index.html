@@ -714,14 +714,14 @@ renderer.compile(scene, camera); // the cards' shader is ready before the first 
 /* ---------- timeline (ms after the first scroll) ---------- */
 // The name opens, the ribbon comes in, slows down each time a photo passes in front so every one can be seen,
 // then runs on, and the first four photos land on their links.
-const RIB0 = 150, FRONT = 1300, SHOW = 600, RUN = 1300, LAND = 650;
+const RIB0 = 150, FRONT = 1100, SHOW = 400, RUN = 1100, LAND = 650, DWELL = .7; // DWELL: how much a photo slows in front (0 to 1)
 let SHOW_END = 1, RIB1 = 1, DURATION = 1, leave = [];
 function headAt(t) { // how far along the rail the first photo is
   const last = FRONT_S + (cards.length - 1) * STEP, total = PATH_L + cards.length * STEP;
   if (t < FRONT) return FRONT_S * (1 - (1 - span(t, RIB0, FRONT)) ** 2); // comes in, easing into the front
-  if (t < SHOW_END) { // one photo after another: almost still in front, quicker in between
+  if (t < SHOW_END) { // one photo after another: slower in front, quicker in between
     const x = (t - FRONT) / SHOW;
-    return FRONT_S + STEP * (x - .92 / (2 * Math.PI) * Math.sin(2 * Math.PI * x));
+    return FRONT_S + STEP * (x - DWELL / (2 * Math.PI) * Math.sin(2 * Math.PI * x));
   }
   return mix(last, total, span(t, SHOW_END, RIB1) ** 2); // speeds off to the end of the rail
 }
@@ -750,8 +750,8 @@ function resize() {
   const box = stage.getBoundingClientRect();
   slots = tiles.map(t => { const r = t.querySelector('.tile-img').getBoundingClientRect(); return {x:r.left - box.left, y:r.top - box.top, w:r.width, h:r.height}; });
   if (cols > 1) $('rule').style.top = `${(slots[0].y + slots[0].h + slots[cols].y) / 2}px`;
-  // how close a photo comes when it passes in front: closer on a phone, so it fills most of the width
-  const n = mix(2.7, 4.4, span(asp, .6, 1.3));
+  // how close a photo comes when it passes in front: about half the width on a phone, a third on a computer
+  const n = mix(3.6, 4.9, span(asp, .6, 1.3));
   if (Math.abs(n - near) > .05) { near = n; buildPath(); }
 }
 addEventListener('resize', resize); resize();
