@@ -131,6 +131,70 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video path{stroke-dashoffset:0}
 @media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
 .top-socials svg,.socials svg{width:17px;height:17px}
+/* "Serviços" pop-up: a short lead filter in three steps (sent to /api/lead). A centred card on a wide screen, a sheet from the bottom on a phone. */
+.lead{width:min(480px,calc(100% - 32px));max-height:calc(100svh - 32px);margin:auto;padding:0;border:1px solid rgba(244,241,234,.16);border-radius:22px;background:#111112;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:auto}
+.lead::backdrop{background:rgba(5,5,6,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.lead[open]{animation:lead-in .4s cubic-bezier(.2,.7,.2,1)}
+.lead[open]::backdrop{animation:fade .3s ease}
+.lead.closing{animation:lead-out .22s ease forwards}
+.lead.closing::backdrop{animation:fade .22s ease reverse forwards}
+@keyframes lead-in{from{opacity:0;transform:translateY(18px) scale(.98)}}
+@keyframes lead-out{to{opacity:0;transform:translateY(12px) scale(.98)}}
+@keyframes fade{from{opacity:0}}
+.lead-in{display:flex;flex-direction:column;padding:20px 24px 24px}
+.lead-top{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.lead-step{font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--mid)}
+.lead-bar{flex:1;height:2px;border-radius:2px;background:rgba(244,241,234,.12);overflow:hidden}
+.lead-bar i{display:block;width:33%;height:100%;background:var(--ink);transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.lead-x{display:grid;place-items:center;width:34px;height:34px;margin:-6px -8px -6px 0;border:0;border-radius:50%;background:none;color:var(--mid);cursor:pointer}
+.lead-x:hover{background:rgba(244,241,234,.08);color:var(--ink)}
+.lead-x svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.lead-panel{min-width:0;margin:0;padding:0;border:0;animation:step-in .35s cubic-bezier(.2,.7,.2,1)}
+.lead-panel[hidden]{display:none}
+@keyframes step-in{from{opacity:0;transform:translateX(14px)}}
+.lead-q{float:left;width:100%;margin:0 0 12px;font-size:26px;font-weight:500;line-height:1.15;letter-spacing:-.02em}
+.lead-q .hand svg{display:none}
+.lead-q + *{clear:both}
+.lead-q + .lead-label{margin-top:4px}
+.lead-hint{margin:0;font-size:14px;color:var(--mid)}
+.lead-label{display:block;margin:20px 0 8px;font-size:13px;color:var(--mid)}
+.lead-field{width:100%;height:46px;padding:0 16px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0;transition:border-color .2s}
+.lead-field::placeholder{color:#5f5d59}
+.lead-field:focus{border-color:rgba(244,241,234,.6)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.lead-label + .chips{margin-top:0}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid rgba(244,241,234,.22);border-radius:99px;font-size:14px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.chip span:hover{border-color:rgba(244,241,234,.55)}
+.chip input:checked + span{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
+.lead .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.lead-done{display:flex;flex-direction:column;align-items:center;padding:12px 0 4px;text-align:center}
+.lead-done .done-check{width:56px;height:56px;margin-bottom:16px}
+.lead-done .done-check svg{width:28px;height:28px}
+.lead-done .lead-q{float:none;margin-bottom:8px}
+.lead-msg{margin:14px 0 0;font-size:13px;color:#ffb4a8}
+.lead-msg:empty{display:none}
+.lead-msg a{color:var(--ink)}
+.lead-actions{display:flex;align-items:center;gap:10px;margin-top:24px}
+.lead-back{height:46px;padding:0 6px;border:0;background:none;color:var(--mid);font:500 14px 'Inter Tight',system-ui,sans-serif;cursor:pointer}
+.lead-back:hover{color:var(--ink)}
+.lead-next{display:flex;align-items:center;gap:8px;height:46px;margin-left:auto;padding:0 22px;border:0;border-radius:99px;background:var(--ink);color:var(--bg);font:600 12.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.lead-next span{transition:transform .2s}
+.lead-next:hover span{transform:translateX(3px)}
+.lead-next:disabled{opacity:.6;cursor:default}
+@media (max-width:560px){
+  .lead{width:100%;max-width:100%;max-height:92svh;margin:auto 0 0;border-width:1px 0 0;border-radius:22px 22px 0 0}
+  .lead[open]{animation:sheet-in .4s cubic-bezier(.2,.7,.2,1)}
+  .lead.closing{animation:sheet-out .22s ease forwards}
+  @keyframes sheet-in{from{transform:translateY(100%)}}
+  @keyframes sheet-out{to{transform:translateY(100%)}}
+  .lead-in{padding:18px 18px calc(18px + env(safe-area-inset-bottom))}
+  .lead-q{font-size:24px}
+  .chip span{height:42px;padding:0 15px}
+}
+@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 @media (max-width:760px){
@@ -198,7 +262,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <ul class="tiles" id="tiles">
         <li><a class="tile" href="/#deepchina" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>Vá comigo à maior feira da China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="/#servicos"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Serviços</b><small>Consultoria e visita à fábrica</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Serviços</b><small>Consultoria, fábrica e frete</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="/#sobre"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Do Brasil a Hong&nbsp;Kong</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
       </ul>
     </nav>
@@ -219,6 +283,59 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </form>
   </div>
 </main>
+<dialog class="lead" id="lead" aria-labelledby="lead-q1">
+  <form class="lead-in" id="lead-form" novalidate>
+    <div class="lead-top">
+      <span class="lead-step" id="lead-step">1/3</span>
+      <span class="lead-bar" aria-hidden="true"><i id="lead-bar"></i></span>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+    </div>
+    <fieldset class="lead-panel" data-step="1">
+      <legend class="lead-q" id="lead-q1">Do que você <span class="hand">precisa?</span></legend>
+      <p class="lead-hint">Pode marcar mais de um.</p>
+      <div class="chips">
+          <label class="chip"><input type="checkbox" name="needs" value="Consultoria" /><span>Consultoria</span></label>
+          <label class="chip"><input type="checkbox" name="needs" value="Achar fábrica" /><span>Achar fábrica</span></label>
+          <label class="chip"><input type="checkbox" name="needs" value="Inspeção" /><span>Inspeção</span></label>
+          <label class="chip"><input type="checkbox" name="needs" value="Frete" /><span>Frete</span></label>
+          <label class="chip"><input type="checkbox" name="needs" value="Despacho" /><span>Despacho</span></label>
+          <label class="chip"><input type="checkbox" name="needs" value="Certificações" /><span>Certificações</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="2" hidden>
+      <legend class="lead-q">Sobre o seu <span class="hand">pedido</span></legend>
+      <label class="lead-label" for="lead-product">O que você quer importar?</label>
+      <input class="lead-field" id="lead-product" name="product" type="text" maxlength="300" placeholder="Ex.: roupas fitness, peças de moto" autocomplete="off" />
+      <p class="lead-label" id="lead-budget">Quanto pretende investir?</p>
+      <div class="chips" role="radiogroup" aria-labelledby="lead-budget">
+          <label class="chip"><input type="radio" name="budget" value="Até R$ 10 mil" /><span>Até R$ 10 mil</span></label>
+          <label class="chip"><input type="radio" name="budget" value="R$ 10 a 50 mil" /><span>R$ 10 a 50 mil</span></label>
+          <label class="chip"><input type="radio" name="budget" value="R$ 50 a 200 mil" /><span>R$ 50 a 200 mil</span></label>
+          <label class="chip"><input type="radio" name="budget" value="Mais de R$ 200 mil" /><span>Mais de R$ 200 mil</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="3" hidden>
+      <legend class="lead-q">Como falo com <span class="hand">você?</span></legend>
+      <label class="lead-label" for="lead-name">Nome</label>
+      <input class="lead-field" id="lead-name" name="name" type="text" maxlength="120" autocomplete="name" />
+      <label class="lead-label" for="lead-phone">WhatsApp com DDD</label>
+      <input class="lead-field" id="lead-phone" name="phone" type="tel" maxlength="40" placeholder="(11) 91234-5678" autocomplete="tel" inputmode="tel" />
+      <label class="lead-label" for="lead-email">E-mail</label>
+      <input class="lead-field" id="lead-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    </fieldset>
+    <div class="lead-panel lead-done" data-step="4" hidden>
+      <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+      <p class="lead-q">Pedido <span class="hand">recebido</span></p>
+      <p class="lead-hint">Minha equipe vai falar com você pelo WhatsApp.</p>
+    </div>
+    <p class="lead-msg" id="lead-msg" role="status" aria-live="polite"></p>
+    <div class="lead-actions">
+      <button class="lead-back" type="button" id="lead-back" hidden>← Voltar</button>
+      <button class="lead-next" type="submit" id="lead-next">CONTINUAR <span aria-hidden="true">→</span></button>
+    </div>
+  </form>
+</dialog>
 <script src="/site-config.js"></script>
 <script type="module">
 import * as THREE from 'three';
@@ -460,6 +577,82 @@ form.addEventListener('submit', async e => {
     say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
   } finally {
     button.disabled = false;
+  }
+});
+
+/* ---------- "Serviços" pop-up: a short lead filter sent to /api/lead ---------- */
+const lead = $('lead'), leadForm = $('lead-form'), leadMsg = $('lead-msg'), leadNext = $('lead-next'), leadBack = $('lead-back');
+const panels = [...leadForm.querySelectorAll('.lead-panel')];
+let step = 1;
+const leadAnswers = () => {
+  const d = new FormData(leadForm), get = n => (d.get(n) || '').toString().trim();
+  return {needs:d.getAll('needs').map(String), product:get('product'), budget:get('budget'), name:get('name'), phone:get('phone'), email:get('email'), website:get('website')};
+};
+// what a step still needs before moving on (the same rules as the server)
+function missing(n, a) {
+  if (n === 1 && !a.needs.length) return ['Escolha pelo menos uma opção.', leadForm.querySelector('[name=needs]')];
+  if (n === 2 && !a.product) return ['Conte o que você quer importar.', $('lead-product')];
+  if (n === 2 && !a.budget) return ['Escolha quanto pretende investir.', leadForm.querySelector('[name=budget]')];
+  if (n === 3 && !a.name) return ['Informe o seu nome.', $('lead-name')];
+  if (n === 3 && a.phone.replace(/\D/g, '').length < 8) return ['Informe um WhatsApp com DDD.', $('lead-phone')];
+  if (n === 3 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.email)) return ['Informe um e-mail válido.', $('lead-email')];
+  return null;
+}
+function show(n) {
+  step = n;
+  panels.forEach(p => { p.hidden = +p.dataset.step !== n; });
+  $('lead-step').textContent = n > 3 ? '3/3' : `${n}/3`;
+  $('lead-bar').style.width = `${Math.min(n, 3) / 3 * 100}%`;
+  leadBack.hidden = n === 1 || n > 3;
+  leadNext.hidden = false;
+  leadNext.innerHTML = n === 3 ? 'ENVIAR <span aria-hidden="true">→</span>' : n > 3 ? 'FECHAR' : 'CONTINUAR <span aria-hidden="true">→</span>';
+  leadMsg.textContent = '';
+  lead.setAttribute('aria-labelledby', '');
+  const q = panels[n - 1].querySelector('.lead-q'); if (q) { q.id ||= `lead-q${n}`; lead.setAttribute('aria-labelledby', q.id); }
+}
+function openLead() {
+  if (step > 3) { leadForm.reset(); show(1); }
+  lead.classList.remove('closing');
+  lead.showModal();
+}
+function closeLead() {
+  if (!lead.open || lead.classList.contains('closing')) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return lead.close();
+  lead.classList.add('closing');
+  // close when the pop-up's own exit animation ends (not one of its children's), or after it at the latest
+  const finish = () => { if (!lead.classList.contains('closing')) return; lead.classList.remove('closing'); lead.close(); };
+  lead.addEventListener('animationend', function ended(e) { if (e.target !== lead || e.pseudoElement) return; lead.removeEventListener('animationend', ended); finish(); });
+  setTimeout(finish, 400);
+}
+document.querySelectorAll('[data-lead]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openLead(); }));
+lead.addEventListener('cancel', e => { e.preventDefault(); closeLead(); });
+lead.addEventListener('click', e => { if (e.target === lead || e.target.closest('[data-close]')) closeLead(); });
+leadBack.addEventListener('click', () => show(step - 1));
+leadForm.addEventListener('input', () => { if (step <= 3) leadMsg.textContent = ''; }); // a fixed answer clears its warning
+// the answers by e-mail, when the form can't send them
+const leadMail = a => {
+  const body = [`Preciso de: ${a.needs.join(', ')}`, `Quero importar: ${a.product}`, `Investimento: ${a.budget}`, `Nome: ${a.name}`, `WhatsApp: ${a.phone}`, `E-mail: ${a.email}`].join('\n');
+  const link = document.createElement('a');
+  link.href = `mailto:contato@nandovoyager.com?subject=${encodeURIComponent('Serviços')}&body=${encodeURIComponent(body)}`;
+  link.textContent = 'Enviar as respostas por e-mail';
+  return link;
+};
+leadForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (step > 3) return closeLead();
+  const a = leadAnswers(), problem = missing(step, a);
+  if (problem) { leadMsg.textContent = problem[0]; problem[1].focus(); return; }
+  if (step < 3) { show(step + 1); panels[step - 1].querySelector('input:not(.hp)')?.focus({preventScroll:true}); return; }
+  leadNext.disabled = true; leadMsg.textContent = '';
+  try {
+    const r = await fetch('/api/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(a)});
+    const result = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(result.error || 'Não foi possível enviar agora.');
+    show(4);
+  } catch (error) {
+    leadMsg.replaceChildren(`${error.message || 'Algo deu errado.'} `, leadMail(a), '.');
+  } finally {
+    leadNext.disabled = false;
   }
 });
 
