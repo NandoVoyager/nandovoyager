@@ -30,9 +30,25 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" />
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
 <style>
-:root{--bg:#0a0a0b;--ink:#f4f1ea;--mid:#8d8b86;--line:rgba(244,241,234,.14)}
+:root{--bg:#0a0a0b;--ink:#f4f1ea;--mid:#8d8b86;--line:rgba(244,241,234,.14);--spring:cubic-bezier(.3,1.4,.5,1);color-scheme:dark}
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--bg)}
+html{background:var(--bg);-webkit-tap-highlight-color:transparent}
+::selection{background:var(--ink);color:var(--bg)}
+/* one focus ring for the keyboard, in the site's colour; none for a mouse or a finger */
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+:focus:not(:focus-visible){outline:none}
+a,button,label{touch-action:manipulation}
+/* pressing gives way a little, like a real button */
+.lead-next,.join button,.lead-x,.top-socials a{transition:transform .15s ease,background .2s,color .2s}
+.lead-next:active,.join button:active,.lead-x:active,.acts a:active,.top-socials a:active,.socials a:active .ico{transform:scale(.95)}
+.letter-attach:active{transform:scale(.985)}
+/* sending: the arrow gives way to a small spinner */
+.busy span{display:none}
+.busy:after{content:"";width:13px;height:13px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:turn .7s linear infinite}
+@keyframes turn{to{transform:rotate(1turn)}}
+/* a wrong or missing answer shakes once */
+.shake{animation:shake .38s ease}
+@keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
 body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow:hidden}
 /* One screen: the first scroll plays the whole animation, which ends on the links (see the script). */
 .stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
@@ -64,7 +80,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .logo-text b{font-size:16px;font-weight:600;line-height:1;letter-spacing:-.01em}
 .logo-text small{font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.03em;color:var(--mid)}
 .acts{display:flex;align-items:center;gap:7px;pointer-events:auto}
-.acts a{display:flex;align-items:center;gap:9px;height:32px;padding:0 15px;border:1px solid rgba(244,241,234,.55);border-radius:99px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:background .2s,color .2s}
+.acts a{display:flex;align-items:center;gap:9px;height:32px;padding:0 15px;border:1px solid rgba(244,241,234,.55);border-radius:99px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:background .2s,color .2s,transform .15s}
 .acts a:hover{background:var(--ink);color:var(--bg)}
 .acts a i{width:6px;height:6px;border-radius:50%;background:currentColor}
 .acts a b{display:block;width:13px;height:7px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
@@ -140,7 +156,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .count{font:500 12px 'IBM Plex Mono',monospace;letter-spacing:.02em}
 .socials{display:none;gap:14px;justify-content:center;pointer-events:auto}
 .socials a{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);text-decoration:none}
-.socials .ico{width:44px;height:44px;border:1px solid rgba(244,241,234,.35);border-radius:50%;transition:background .2s,color .2s,border-color .2s}
+.socials .ico{width:44px;height:44px;border:1px solid rgba(244,241,234,.35);border-radius:50%;transition:background .2s,color .2s,border-color .2s,transform .15s}
 .socials a:hover .ico{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .socials .count{font-size:11.5px;color:var(--mid)}
 .top-socials a[hidden],.socials a[hidden]{display:none}
@@ -164,12 +180,14 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1s infinite}
 @keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
 .is-open .new-video path{stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){.top,.cue-line:after{animation:none}.hub,#gl,#rule{transition:none}.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.top,.cue-line:after,.shake,.chip input:checked + span:before,.opt input:checked + span:after{animation:none}.agree span:after{transition:none}.hub,#gl,#rule{transition:none}.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
 .top-socials svg,.socials svg{width:17px;height:17px}
 /* only YouTube in its colour (with the play in white), the rest follow the text */
 .top-socials [data-social=youtube] svg,.socials [data-social=youtube] svg{color:#ff0033}
 /* "Serviços" pop-up: a short lead filter in three steps (sent to /api/lead). A centred card on a wide screen, a sheet from the bottom on a phone. */
 .lead{width:min(480px,calc(100% - 32px));max-height:calc(100svh - 32px);margin:auto;padding:0;border:1px solid rgba(244,241,234,.16);border-radius:22px;background:#111112;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:auto}
+.lead:focus{outline:none}
+.lead{overscroll-behavior:contain;transition:transform .35s cubic-bezier(.2,.7,.2,1)} /* springs back after a short drag */
 .lead::backdrop{background:rgba(5,5,6,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .lead[open]{animation:lead-in .4s cubic-bezier(.2,.7,.2,1)}
 .lead[open]::backdrop{animation:fade .3s ease}
@@ -183,7 +201,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lead-step{font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--mid)}
 .lead-bar{flex:1;height:2px;border-radius:2px;background:rgba(244,241,234,.12);overflow:hidden}
 .lead-bar i{display:block;width:33%;height:100%;background:var(--ink);transition:width .4s cubic-bezier(.2,.7,.2,1)}
-.lead-x{display:grid;place-items:center;width:34px;height:34px;margin:-6px -8px -6px 0;border:0;border-radius:50%;background:none;color:var(--mid);cursor:pointer}
+.lead-x{display:grid;place-items:center;flex:none;width:34px;height:34px;margin:-6px -8px -6px 0;border:0;border-radius:50%;background:none;color:var(--mid);cursor:pointer}
 .lead-x:hover{background:rgba(244,241,234,.08);color:var(--ink)}
 .lead-x svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
 .lead-panel{min-width:0;margin:0;padding:0;border:0;animation:step-in .35s cubic-bezier(.2,.7,.2,1)}
@@ -196,22 +214,28 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lead-q + .lead-label{margin-top:4px}
 .lead-hint{margin:0;font-size:14px;color:var(--mid)}
 .lead-label{display:block;margin:20px 0 8px;font-size:13px;color:var(--mid)}
-.lead-field{width:100%;height:46px;padding:0 16px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0;transition:border-color .2s}
+.lead-field{width:100%;height:46px;padding:0 16px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0;transition:border-color .2s,box-shadow .2s,background .2s}
 .lead-field::placeholder{color:#5f5d59}
-.lead-field:focus{border-color:rgba(244,241,234,.6)}
+.lead-field:focus{border-color:rgba(244,241,234,.6);background:rgba(244,241,234,.06);box-shadow:0 0 0 4px rgba(244,241,234,.07)}
+.lead-field[aria-invalid=true]{border-color:#ffb4a8;box-shadow:0 0 0 4px rgba(255,180,168,.1)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .lead-label + .chips{margin-top:0}
 .chip{position:relative}
 .chip input{position:absolute;opacity:0;width:1px;height:1px}
-.chip span{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid rgba(244,241,234,.22);border-radius:99px;font-size:14px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.chip span{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px 0 12px;border:1px solid rgba(244,241,234,.22);border-radius:99px;font-size:14px;cursor:pointer;user-select:none;transition:background .18s,color .18s,border-color .18s,transform .15s}
+.chip span:before,.opt span:after{content:"";flex:none;width:16px;height:16px;border:1.5px solid rgba(244,241,234,.4);border-radius:50%;transition:background-color .18s,border-color .18s}
 .chip span:hover{border-color:rgba(244,241,234,.55)}
+.chip span:active,.opt span:active{transform:scale(.97)}
 .chip input:checked + span{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.chip input:checked + span:before,.opt input:checked + span:after{border-color:var(--bg);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 12.5l3.8 3.8 7.2-8' fill='none' stroke='%23f4f1ea' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat;animation:tick .3s var(--spring)}
+@keyframes tick{from{transform:scale(.5)}}
 .chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
 /* option rows with a line of detail (the Canton Fair phases), chosen like the chips */
 .opts{display:grid;gap:8px;margin-top:16px}
 .opt{position:relative}
 .opt input{position:absolute;opacity:0;width:1px;height:1px}
-.opt span{display:block;padding:11px 16px;border:1px solid rgba(244,241,234,.22);border-radius:14px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.opt span{position:relative;display:block;padding:11px 48px 11px 16px;border:1px solid rgba(244,241,234,.22);border-radius:14px;cursor:pointer;user-select:none;transition:background .18s,color .18s,border-color .18s,transform .15s}
+.opt span:after{position:absolute;right:16px;top:50%;width:18px;height:18px;margin-top:-9px}
 .opt span:hover{border-color:rgba(244,241,234,.55)}
 .opt b{display:block;font-size:14.5px;font-weight:500}
 .opt small{display:block;margin-top:2px;font-size:12.5px;color:var(--mid);transition:color .18s}
@@ -225,12 +249,18 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lead-note b{font-weight:500;color:var(--ink)}
 .agree{position:relative;display:block;margin-top:18px}
 .agree input{position:absolute;opacity:0;width:1px;height:1px}
-.agree span{display:grid;grid-template-columns:22px 1fr;column-gap:12px;padding:12px 14px;border:1px solid rgba(244,241,234,.22);border-radius:12px;cursor:pointer;transition:border-color .18s}
-.agree span:before{content:"";grid-row:1/3;width:20px;height:20px;margin-top:1px;border:1.5px solid rgba(244,241,234,.5);border-radius:6px;transition:background .18s,border-color .18s}
+.agree span{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:14px;padding:12px 14px;border:1px solid rgba(244,241,234,.22);border-radius:12px;cursor:pointer;user-select:none;transition:border-color .2s,background .2s}
+.agree b,.agree small{grid-column:1}
 .agree b{font-size:14px;font-weight:500}
 .agree small{font-size:12.5px;color:var(--mid)}
-.agree input:checked + span{border-color:var(--ink)}
-.agree input:checked + span:before{border-color:var(--ink);background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 12.5l3.8 3.8 7.2-8' fill='none' stroke='%230a0a0b' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+/* the track and its knob share the right-hand cell; the knob springs across when it turns on */
+.agree span:before,.agree span:after{content:"";grid-column:2;grid-row:1/3;border-radius:99px}
+.agree span:before{width:46px;height:28px;background:rgba(244,241,234,.16);transition:background .25s}
+.agree span:after{justify-self:start;width:22px;height:22px;margin-left:3px;background:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.4);transition:transform .32s var(--spring),background .25s}
+.agree span:hover:before{background:rgba(244,241,234,.24)}
+.agree input:checked + span{border-color:var(--ink);background:rgba(244,241,234,.04)}
+.agree input:checked + span:before{background:var(--ink)}
+.agree input:checked + span:after{transform:translateX(18px);background:var(--bg)}
 .agree input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
 .lead-legal{margin:14px 0 0;font-size:12px;color:var(--mid)}
 .lead-legal a{color:inherit;text-underline-offset:2px}
@@ -257,7 +287,10 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   @keyframes sheet-out{to{transform:translateY(100%)}}
   .lead-in{padding:18px 18px calc(18px + env(safe-area-inset-bottom))}
   .lead-q{font-size:24px}
-  .chip span{height:42px;padding:0 15px}
+  .chip span{height:42px;padding:0 15px 0 12px}
+  .lead-top,.letter-top{position:relative;touch-action:none}
+  .lead-top:before,.letter-top:before{content:"";position:absolute;left:50%;top:-11px;width:36px;height:4px;margin-left:-18px;border-radius:2px;background:rgba(244,241,234,.2)}
+  .letter-top:before{top:6px}
 }
 /* "Minha história": a personal e-mail in the pop-up shell (header stays while the letter scrolls) */
 .letter{width:min(600px,calc(100% - 32px))}
@@ -276,7 +309,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-body ol li{margin:6px 0}
 .letter-h{margin:24px 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
 /* the DeepChina link, like an e-mail attachment */
-.letter-attach{display:flex;align-items:center;gap:14px;margin:4px 0 18px;padding:10px 16px 10px 10px;border:1px solid rgba(244,241,234,.18);border-radius:14px;background:rgba(244,241,234,.04);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s}
+.letter-attach{display:flex;align-items:center;gap:14px;margin:4px 0 18px;padding:10px 16px 10px 10px;border:1px solid rgba(244,241,234,.18);border-radius:14px;background:rgba(244,241,234,.04);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
 .letter-attach:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
 .letter-attach img{flex:none;width:72px;height:45px;border-radius:8px;object-fit:cover}
 .letter-attach .att-fab{object-position:42% 30%}
@@ -393,7 +426,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </form>
   </div>
 </main>
-<dialog class="lead" id="lead-servicos" data-form="servicos" data-last="ENVIAR">
+<dialog class="lead" id="lead-servicos" data-form="servicos" data-last="ENVIAR" tabindex="-1">
   <form class="lead-in" novalidate>
     <div class="lead-top">
       <span class="lead-step" data-count>1/3</span>
@@ -449,7 +482,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </div>
   </form>
 </dialog>
-<dialog class="lead" id="lead-canton" data-form="canton" data-last="MARCAR CALL">
+<dialog class="lead" id="lead-canton" data-form="canton" data-last="MARCAR CALL" tabindex="-1">
   <form class="lead-in" novalidate>
     <div class="lead-top">
       <span class="lead-step" data-count>1/2</span>
@@ -490,7 +523,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </div>
   </form>
 </dialog>
-<dialog class="lead letter" id="letter" aria-labelledby="letter-subject">
+<dialog class="lead letter" id="letter" aria-labelledby="letter-subject" tabindex="-1">
   <div class="letter-in">
     <div class="letter-top">
       <img src="/img/avatar-160.webp" width="40" height="40" alt="" />
@@ -851,7 +884,7 @@ document.querySelectorAll('form.join').forEach(form => {
     if (!form.reportValidity()) return;
     const email = form.email.value.trim();
     if (!config.signupEndpoint) return say('Inscrições ainda não estão conectadas.', 'error');
-    button.disabled = true; say('Enviando…');
+    button.disabled = true; button.classList.add('busy'); say('Enviando…');
     try {
       const r = await fetch(config.signupEndpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, website:form.website.value})});
       const result = await r.json().catch(() => ({}));
@@ -867,7 +900,7 @@ document.querySelectorAll('form.join').forEach(form => {
     } catch (error) {
       say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
     } finally {
-      button.disabled = false;
+      button.disabled = false; button.classList.remove('busy');
     }
   });
 });
@@ -929,6 +962,14 @@ function leadDialog(dialog) {
     dialog.setAttribute('aria-labelledby', q.id);
   }
   const close = () => closeDialog(dialog);
+  // a missing answer: say so, mark it, shake it once and put the cursor there
+  const warn = ([text, el]) => {
+    msg.textContent = text;
+    el.setAttribute('aria-invalid', 'true');
+    const box = el.closest('.chips, .opts, .agree') || el;
+    box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+    el.focus();
+  };
   // the answers by e-mail, when the form can't send them
   const mailLink = a => {
     const link = document.createElement('a');
@@ -942,18 +983,22 @@ function leadDialog(dialog) {
     if (step > last) { form.reset(); show(1); }
     dialog.classList.remove('closing');
     dialog.showModal();
+    dialog.focus();
   }));
   dialog.addEventListener('cancel', e => { e.preventDefault(); close(); });
   dialog.addEventListener('click', e => { if (e.target === dialog || e.target.closest('[data-close]')) close(); });
   back.addEventListener('click', () => show(step - 1));
-  form.addEventListener('input', () => { if (step <= last) msg.textContent = ''; }); // a fixed answer clears its warning
+  form.addEventListener('input', () => { // a fixed answer clears its warning
+    if (step <= last) msg.textContent = '';
+    form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+  });
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (step > last) return close();
     const a = answers(), problem = missing(step, a);
-    if (problem) { msg.textContent = problem[0]; problem[1].focus(); return; }
+    if (problem) { warn(problem); return; }
     if (step < last) { show(step + 1); panels[step - 1].querySelector('input:not(.hp)')?.focus({preventScroll:true}); return; }
-    next.disabled = true; msg.textContent = '';
+    next.disabled = true; next.classList.add('busy'); msg.textContent = '';
     try {
       const r = await fetch('/api/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(a)});
       const result = await r.json().catch(() => ({}));
@@ -962,7 +1007,7 @@ function leadDialog(dialog) {
     } catch (error) {
       msg.replaceChildren(`${error.message || 'Algo deu errado.'} `, mailLink(a), '.');
     } finally {
-      next.disabled = false;
+      next.disabled = false; next.classList.remove('busy');
     }
   });
   show(1);
@@ -974,11 +1019,36 @@ document.querySelectorAll('[data-letter]').forEach(a => a.addEventListener('clic
   e.preventDefault();
   letter.classList.remove('closing');
   letter.showModal();
+  letter.focus();
   letter.scrollTop = 0;
 }));
 letter.addEventListener('cancel', e => { e.preventDefault(); closeDialog(letter); });
 // the services card opens its pop-up (its own handler) in place of the letter
 letter.addEventListener('click', e => { if (e.target === letter || e.target.closest('[data-close], [data-lead]')) closeDialog(letter); });
+// On a phone the pop-ups are sheets from the bottom: drag the top down to close one (far enough, or quickly).
+const sheetSize = matchMedia('(max-width: 560px)');
+document.querySelectorAll('dialog.lead').forEach(d => {
+  const grip = d.querySelector('.lead-top, .letter-top');
+  let y0 = null, dy = 0, t0 = 0;
+  grip.addEventListener('pointerdown', e => {
+    if (!sheetSize.matches || e.pointerType === 'mouse' || e.target.closest('button')) return;
+    y0 = e.clientY; dy = 0; t0 = performance.now();
+    try { grip.setPointerCapture(e.pointerId); } catch {} // keep the drag even when the finger leaves the top
+    d.style.transition = 'none';
+  });
+  grip.addEventListener('pointermove', e => {
+    if (y0 === null) return;
+    dy = Math.max(0, e.clientY - y0); d.style.transform = `translateY(${dy}px)`;
+  });
+  const release = () => {
+    if (y0 === null) return;
+    y0 = null; d.style.transition = '';
+    if (dy > 110 || (dy > 24 && dy / (performance.now() - t0) > .6)) closeDialog(d); // slides on down from where it is
+    else d.style.transform = ''; // springs back (the transition below)
+  };
+  grip.addEventListener('pointerup', release); grip.addEventListener('pointercancel', release);
+  d.addEventListener('close', () => { d.style.transform = ''; });
+});
 
 /* ---------- loop ---------- */
 function loop(now) {
