@@ -5,7 +5,7 @@ const allowedOrigins = (process.env.SITE_ORIGIN || "").split(",").map((o) => o.t
 // The same services as DeepChina AI, with short names, plus mentoring. Every service starts with a paid
 // one-hour call (R$ 500, credited if they hire), which the visitor has to agree to.
 export const options = {
-  needs: ["Consultoria", "Achar fábrica", "Inspeção", "Frete", "Despacho", "Certificações", "Mentoria"],
+  needs: ["Consultoria", "Achar fábrica", "Inspeção", "Frete", "Despacho", "Mentoria"],
   budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"]
 };
 
