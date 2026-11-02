@@ -31,11 +31,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .top{position:absolute;left:32px;right:32px;top:26px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
 .top{justify-content:flex-start}.acts{margin-left:auto}
-#pager{display:flex;margin:-26px 0 0 28px;pointer-events:auto}
-#pager span{display:grid;place-items:center;width:44px;height:50px;border:1px solid var(--line);border-top:0;margin-left:-1px;font:400 11px 'IBM Plex Mono',monospace;color:var(--mid)}
 #glow{position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(rgba(244,241,234,.1),rgba(244,241,234,0))}
-#cross{position:absolute;left:32px;right:32px;top:37.5%;height:1px;background:var(--line)}
-#cross i{position:absolute;left:50%;top:-.62em;margin-left:-.3em;font:400 13px 'IBM Plex Mono',monospace;color:var(--mid);background:var(--bg);padding:0 .3em;line-height:1.2}
 .logo{display:flex;align-items:center;gap:9px;font-size:19px;font-weight:600;letter-spacing:.09em;color:var(--ink);text-decoration:none;pointer-events:auto}
 .acts{display:flex;align-items:center;gap:7px;pointer-events:auto}
 .acts a{display:flex;align-items:center;gap:9px;height:32px;padding:0 15px;border:1px solid rgba(244,241,234,.55);border-radius:99px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:background .2s,color .2s}
@@ -98,11 +94,11 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 
 @media (max-width:760px){
   .top{left:18px;right:18px;top:18px}#cue{bottom:18px}
-  #pager{display:none}
 }
 /* Phones (portrait): a link-in-bio column, the cards land as thumbnails on the left of each row. */
 @media (max-aspect-ratio:9/10){
-  #rule,.acts a.site{display:none}
+  .hl{font-size:15vw}
+  #rule{display:none}
   .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
   .tile{display:flex;align-items:center;gap:12px;aspect-ratio:auto;padding:6px 16px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
@@ -128,13 +124,11 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     <div class="hl" id="l2" aria-hidden="true"><span>VOYAGER</span></div>
   </h1>
   <div id="glow"></div>
-  <div id="cross"><i>+</i></div>
   <div id="rule"></div>
   <canvas id="gl" aria-hidden="true"></canvas>
   <button id="cue" type="button">ROLE PARA VER &nbsp;↓</button>
   <header class="top">
-    <a class="logo" href="/">NANDO VOYAGER</a>
-    <div id="pager" aria-hidden="true"><span>←</span><span>→</span></div>
+    <span class="logo">NANDO VOYAGER</span>
     <nav class="acts" aria-label="Atalhos">
       <span class="top-socials">
         <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8zM10 15V9l5.2 3z" fill="currentColor" /></svg></a>
@@ -143,7 +137,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></a>
         <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></a>
       </span>
-      <a class="contact" href="mailto:contato@nandovoyager.com"><i></i>CONTATO</a><a class="site" href="/">SITE<b></b></a></nav>
+      <a class="contact" href="mailto:contato@nandovoyager.com"><i></i>CONTATO</a></nav>
   </header>
   <div class="hub">
     <nav class="socials socials-phone" id="socials" aria-label="Redes sociais">
@@ -345,22 +339,24 @@ function showTile(el, q) {
   el.style.opacity = o; el.style.visibility = o > .02 ? 'visible' : 'hidden';
 }
 
-const RIB_A = .14, RIB_B = .63;
-function render() {
+const RIB_A = .04, RIB_B = .63, TEASE = 7.2 * STEP; // the first cards already show at the start of the rail
+const loaded = performance.now();
+function render(now) {
   const pp = p;
-  // headline runs right across the page in opposite directions
-  const rise = 1 - out(span(pp, 0, .12));
-  const run = mix(-50, 76, span(pp, 0, .58));
-  $('l1').style.transform = `translate3d(${run}vw,${rise * 34}vh,0)`;
-  $('l2').style.transform = `translate3d(${-run}vw,${rise * 34}vh,0)`;
-  $('l1').style.opacity = $('l2').style.opacity = 1 - span(pp, .56, .62);
+  // on load the name rises into place and the ribbon slides in; the first scroll sends the two lines apart
+  const enter = out(clamp((now - loaded - 150) / 1100));
+  const run = mix(0, 76, span(pp, 0, .58));
+  $('l1').style.transform = `translate3d(${run}vw,${(1 - enter) * 12}vh,0)`;
+  $('l2').style.transform = `translate3d(${-run}vw,${(1 - enter) * 12}vh,0)`;
+  $('l1').style.opacity = $('l2').style.opacity = enter * (1 - span(pp, .5, .6));
   const intro = 1 - span(pp, 0, .05);
-  for (const id of ['cue', 'pager', 'cross', 'glow']) $(id).style.opacity = intro;
+  $('glow').style.opacity = intro;
+  $('cue').style.opacity = intro * span(enter, .6, 1);
   $('cue').style.visibility = intro > 0 ? '' : 'hidden';
   $('rule').style.transform = `scaleX(${ease(span(pp, .72, .86))})`;
   stage.classList.toggle('is-open', pp > .8);
   // ribbon, then the links
-  const pr = span(pp, RIB_A, RIB_B), head = mix(0, PATH_L + cards.length * STEP, pr);
+  const total = PATH_L + cards.length * STEP, head = mix(TEASE * enter, total, span(pp, RIB_A, RIB_B));
   for (const c of cards) {
     const s = head - c.i * STEP, end = PATH_L - CARD_W;
     if (s < end) {
@@ -369,7 +365,7 @@ function render() {
       if (tiles[c.i]) showTile(tiles[c.i], 0);
     } else if (c.i < tiles.length) {
       // each card flies to its slot the moment it leaves the rail
-      const st = mix(RIB_A, RIB_B, (end + c.i * STEP) / (PATH_L + cards.length * STEP)), q = out(span(pp, st, st + .13));
+      const st = mix(RIB_A, RIB_B, (end + c.i * STEP - TEASE) / (total - TEASE)), q = out(span(pp, st, st + .13));
       c.mesh.visible = q > .001;
       if (c.mesh.visible) poseGrid(c, q);
       showTile(tiles[c.i], q);
@@ -417,7 +413,7 @@ function loop(now) {
     if (c.mesh.visible && c.v.paused) c.v.play().catch(() => {});
     else if (!c.mesh.visible && !c.v.paused) c.v.pause();
   }
-  render();
+  render(now);
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
