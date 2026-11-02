@@ -601,11 +601,11 @@ function showTile(el, q) {
   el.style.opacity = o; el.style.visibility = o > .02 ? 'visible' : 'hidden';
 }
 
-const RIB_A = .04, RIB_B = .63, TEASE = 7.2 * STEP; // the first cards already show at the start of the rail
+const RIB_A = .04, RIB_B = .63; // nothing on the rail until the first scroll
 const loaded = performance.now();
 function render(now) {
   const pp = p;
-  // on load the name rises into place and the ribbon slides in; the first scroll sends the two lines apart
+  // on load the name rises into place; the first scroll sends the two lines apart and starts the ribbon
   const enter = out(clamp((now - loaded - 150) / 1100));
   const run = mix(0, 76, span(pp, 0, .58));
   $('l1').style.transform = `translate3d(${run}vw,${(1 - enter) * 12}vh,0)`;
@@ -618,7 +618,7 @@ function render(now) {
   $('rule').style.transform = `scaleX(${ease(span(pp, .72, .86))})`;
   stage.classList.toggle('is-open', pp > .6); // while the last links are still landing
   // ribbon, then the links
-  const total = PATH_L + cards.length * STEP, head = mix(TEASE * enter, total, span(pp, RIB_A, RIB_B));
+  const total = PATH_L + cards.length * STEP, head = mix(0, total, span(pp, RIB_A, RIB_B));
   for (const c of cards) {
     const s = head - c.i * STEP, end = PATH_L - CARD_W;
     if (s < end) {
@@ -627,7 +627,7 @@ function render(now) {
       if (tiles[c.i]) showTile(tiles[c.i], 0);
     } else if (c.i < tiles.length) {
       // each card flies to its slot the moment it leaves the rail
-      const st = mix(RIB_A, RIB_B, (end + c.i * STEP - TEASE) / (total - TEASE)), q = out(span(pp, st, st + .13));
+      const st = mix(RIB_A, RIB_B, (end + c.i * STEP) / total), q = out(span(pp, st, st + .13));
       c.mesh.visible = q > .001;
       if (c.mesh.visible) poseGrid(c, q);
       showTile(tiles[c.i], q);
