@@ -244,8 +244,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .opt input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
 .lead-q + .lead-hint + .opts{margin-top:14px}
 /* every service starts with the paid call: said in step 1, agreed to in step 3 */
-.lead-note{display:flex;gap:7px;align-items:flex-start;margin:16px 0 0;font-size:12px;line-height:1.45;color:var(--mid)}
-.lead-note svg{flex:none;width:14px;height:14px;margin-top:1.5px;fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round}
+.lead-note{display:flex;gap:10px;align-items:flex-start;margin:18px 0 0;padding:12px 14px;border-radius:12px;background:rgba(244,241,234,.06);font-size:13px;line-height:1.4;color:var(--mid)}
+.lead-note svg{flex:none;width:18px;height:18px;margin-top:1px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round}
 .lead-note b{font-weight:500;color:var(--ink)}
 .agree{position:relative;display:block;margin-top:18px}
 .agree input{position:absolute;opacity:0;width:1px;height:1px}
@@ -456,7 +456,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <label class="chip"><input type="checkbox" name="needs" value="Mentoria" /><span>Mentoria</span></label>
         <label class="chip"><input type="checkbox" name="needs" value="Outro" /><span>Outro</span></label>
       </div>
-      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg><span><b>Tudo começa com uma consultoria de importação: 1 hora comigo.</b> R$&nbsp;1.000, creditados no serviço se você fechar.</span></p>
+      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg><span><b>Tudo começa com 1 hora de consultoria.</b> R$&nbsp;1.000, creditados se você fechar.</span></p>
     </fieldset>
     <fieldset class="lead-panel" data-step="2" hidden>
       <legend class="lead-q">Sobre o seu <span class="hand">pedido</span></legend>
