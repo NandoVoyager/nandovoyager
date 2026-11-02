@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Nando Voyager</title>
-<meta name="description" content="Nando Voyager: DeepChina AI, Imersão Canton Fair, meus serviços e minha história." />
+<meta name="description" content="Nando Voyager: DeepChina AI, Imersão Canton Fair, meus serviços e a minha história." />
 <!-- Test page for a new opening: kept out of search until it replaces the current one. -->
 <meta name="robots" content="noindex" />
 <meta name="theme-color" content="#0a0a0b" />
@@ -138,6 +138,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video path{stroke-dashoffset:0}
 @media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
 .top-socials svg,.socials svg{width:17px;height:17px}
+/* only YouTube in its colour (with the play in white), the rest follow the text */
+.top-socials [data-social=youtube] svg,.socials [data-social=youtube] svg{color:#ff0033}
 /* "Serviços" pop-up: a short lead filter in three steps (sent to /api/lead). A centred card on a wide screen, a sheet from the bottom on a phone. */
 .lead{width:min(480px,calc(100% - 32px));max-height:calc(100svh - 32px);margin:auto;padding:0;border:1px solid rgba(244,241,234,.16);border-radius:22px;background:#111112;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:auto}
 .lead::backdrop{background:rgba(5,5,6,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
@@ -227,6 +229,33 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .lead-q{font-size:24px}
   .chip span{height:42px;padding:0 15px}
 }
+/* "Minha história": a personal e-mail in the pop-up shell (header stays while the letter scrolls) */
+.letter{width:min(600px,calc(100% - 32px))}
+.letter-in{padding:0 28px 24px}
+.letter-top{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:12px;margin:0 -28px;padding:18px 28px 14px;background:#111112;border-bottom:1px solid rgba(244,241,234,.08)}
+.letter-top img{width:40px;height:40px;border-radius:50%}
+.letter-from{flex:1;display:flex;flex-direction:column;gap:2px;margin:0;font-size:14.5px}
+.letter-from b{font-weight:600}
+.letter-from span{font-size:12.5px;color:var(--mid)}
+.letter-subject{margin:22px 0 0;font-size:26px;font-weight:500;line-height:1.2;letter-spacing:-.02em}
+.letter-subject .hand svg{display:none}
+.letter-body{margin-top:16px;font-size:15.5px;line-height:1.65;color:rgba(244,241,234,.86)}
+.letter-body p{margin:0 0 14px}
+.letter-body b{font-weight:600;color:var(--ink)}
+.letter-body ul{margin:0 0 16px;padding-left:20px}
+.letter-body li{margin:3px 0}
+.letter-body li::marker{color:var(--mid)}
+.letter-sign{margin-top:22px!important;color:var(--ink)}
+.letter-sign .hand{font-size:1.5em}
+.letter-actions{display:flex;justify-content:flex-end;margin-top:8px}
+.letter-actions .lead-next{text-decoration:none}
+@media (max-width:560px){
+  .letter{width:100%}
+  .letter-in{padding:0 20px calc(20px + env(safe-area-inset-bottom))}
+  .letter-top{margin:0 -20px;padding:16px 20px 12px}
+  .letter-subject{font-size:23px}
+  .letter-body{font-size:15px}
+}
 @media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -277,18 +306,18 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <span class="top-socials">
         <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,1 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.1M</span></a>
         <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook, mais de 280 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+280k</span></a>
-        <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 23 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8zM10 15V9l5.2 3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
+        <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 23 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+23k</span></a>
         <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok, mais de 45 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+45k</span></a>
         <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
         <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
       </span>
-      <a class="contact" href="mailto:contato@nandovoyager.com"><svg class="gmail" viewBox="52 42 88 66" aria-hidden="true"><path fill="#4285f4" d="M58 108h14V74L52 59v43c0 3.32 2.69 6 6 6"/><path fill="#34a853" d="M120 108h14c3.32 0 6-2.69 6-6V59l-20 15"/><path fill="#fbbc04" d="M120 48v26l20-15v-8c0-7.42-8.47-11.65-14.4-7.2"/><path fill="#ea4335" d="M72 74V48l24 18 24-18v26L96 92"/><path fill="#c5221f" d="M52 51v8l20 15V48l-5.6-4.2c-5.94-4.45-14.4-.22-14.4 7.2"/></svg>contato@nandovoyager.com</a></nav>
+      <a class="contact" href="mailto:contato@nandovoyager.com"><svg class="gmail" viewBox="52 42 88 66" aria-hidden="true"><path fill="currentColor" d="M58 108h14V74L52 59v43c0 3.32 2.69 6 6 6"/><path fill="currentColor" d="M120 108h14c3.32 0 6-2.69 6-6V59l-20 15"/><path fill="currentColor" d="M120 48v26l20-15v-8c0-7.42-8.47-11.65-14.4-7.2"/><path fill="currentColor" d="M72 74V48l24 18 24-18v26L96 92"/><path fill="currentColor" d="M52 51v8l20 15V48l-5.6-4.2c-5.94-4.45-14.4-.22-14.4 7.2"/></svg>contato@nandovoyager.com</a></nav>
   </header>
   <div class="hub">
     <nav class="socials socials-phone" id="socials" aria-label="Redes sociais">
       <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,1 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.1M</span></a>
       <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook, mais de 280 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+280k</span></a>
-      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 23 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8zM10 15V9l5.2 3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
+      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 23 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+23k</span></a>
       <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok, mais de 45 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+45k</span></a>
       <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
       <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
@@ -298,7 +327,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <li><a class="tile" href="/#deepchina" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>Vá comigo à maior feira da China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Meus serviços</b><small>Consultoria, fábrica e frete</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="/#sobre"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Do Brasil a Hong&nbsp;Kong</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="/#sobre" data-letter aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Um e-mail pessoal pra você</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
       </ul>
     </nav>
     <form class="join" id="join" novalidate>
@@ -421,6 +450,45 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <button class="lead-next" type="submit" data-next>CONTINUAR <span aria-hidden="true">→</span></button>
     </div>
   </form>
+</dialog>
+<dialog class="lead letter" id="letter" aria-labelledby="letter-subject">
+  <div class="letter-in">
+    <div class="letter-top">
+      <img src="/img/avatar-160.webp" width="40" height="40" alt="" />
+      <p class="letter-from"><b>Nando Voyager</b><span>para você</span></p>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+    </div>
+    <h2 class="letter-subject" id="letter-subject">Minha história <span class="hand">(até aqui)</span></h2>
+    <div class="letter-body">
+      <p>Oi,</p>
+      <p>Muita gente me pergunta como eu vim parar na China. Então resolvi te contar direito, do começo.</p>
+      <p>O que aconteceu até aqui:</p>
+      <ul>
+        <li>Nasci no Brasil e estudei aviação</li>
+        <li>Saí do país com 18 anos, sozinho, com uma mala</li>
+        <li>Morei um ano nos Estados Unidos</li>
+        <li>Fui voluntário numa fazenda na Itália para conquistar a minha cidadania</li>
+        <li>Dei aula de inglês na Coreia do Sul, onde conheci a Wonny</li>
+        <li>Trabalhei pesado na Austrália: construção civil, minas e uma base militar</li>
+        <li>Abri minha empresa e comecei a importar da China</li>
+        <li>Em Hong Kong veio a virada: mais de 20 projetos milionários</li>
+        <li>Hoje estou construindo a DeepChina AI</li>
+      </ul>
+      <p>Agora, o que eu aprendi em cada fase.</p>
+      <p><b>Sair sozinho:</b> ninguém vai te dar permissão. Com 18 anos eu tinha uma mala e nenhum plano B. Morar sozinho me ensinou a resolver tudo sem ninguém por perto.</p>
+      <p><b>Itália:</b> nem todo passo é bonito. Trabalhar numa fazenda não era o sonho, mas abriu uma porta que eu uso até hoje.</p>
+      <p><b>Coreia:</b> ensinar me deu coragem de falar com qualquer pessoa. E foi lá que conheci a Wonny.</p>
+      <p><b>Austrália:</b> trabalho pesado ensina o que nenhum curso ensina. Disciplina é acordar cansado e ir mesmo assim.</p>
+      <p><b>China:</b> foi aqui que tudo fez sentido. Fábrica, negociação, importação. O melhor preço está sempre na fonte, e a fonte está aqui.</p>
+      <p><b>Hong Kong:</b> quando os números cresceram, eu entendi que o que mais vale é mostrar o processo de verdade. Foi isso que fez as pessoas confiarem em mim.</p>
+      <p><b>DeepChina AI:</b> tudo o que eu aprendi importando virou um copiloto com IA, que acompanha cada etapa, da fábrica até a venda no Brasil.</p>
+      <p>Se você leu até aqui, obrigado. Me responde contando a sua história, eu leio.</p>
+      <p class="letter-sign">Nando, <span class="hand">de Hong Kong</span></p>
+    </div>
+    <div class="letter-actions">
+      <a class="lead-next" href="mailto:contato@nandovoyager.com?subject=Re%3A%20Minha%20hist%C3%B3ria">RESPONDER <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
 </dialog>
 <script src="/site-config.js"></script>
 <script type="module">
@@ -693,6 +761,15 @@ const FORMS = {
     lines: a => [`Fase: ${a.phases.join(', ')}`, `Preciso de: ${a.support.join(', ')}`, 'Quero marcar a call']
   }
 };
+// close a pop-up when its own exit animation ends (not one of its children's), or after it at the latest
+function closeDialog(dialog) {
+  if (!dialog.open || dialog.classList.contains('closing')) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return dialog.close();
+  dialog.classList.add('closing');
+  const finish = () => { if (!dialog.classList.contains('closing')) return; dialog.classList.remove('closing'); dialog.close(); };
+  dialog.addEventListener('animationend', function ended(e) { if (e.target !== dialog || e.pseudoElement) return; dialog.removeEventListener('animationend', ended); finish(); });
+  setTimeout(finish, 400);
+}
 function leadDialog(dialog) {
   const kind = FORMS[dialog.dataset.form], form = dialog.querySelector('form'), msg = form.querySelector('.lead-msg');
   const next = form.querySelector('[data-next]'), back = form.querySelector('[data-back]'), panels = [...form.querySelectorAll('.lead-panel')];
@@ -718,15 +795,7 @@ function leadDialog(dialog) {
     q.id ||= `${dialog.id}-q${n}`;
     dialog.setAttribute('aria-labelledby', q.id);
   }
-  function close() {
-    if (!dialog.open || dialog.classList.contains('closing')) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return dialog.close();
-    dialog.classList.add('closing');
-    // close when the pop-up's own exit animation ends (not one of its children's), or after it at the latest
-    const finish = () => { if (!dialog.classList.contains('closing')) return; dialog.classList.remove('closing'); dialog.close(); };
-    dialog.addEventListener('animationend', function ended(e) { if (e.target !== dialog || e.pseudoElement) return; dialog.removeEventListener('animationend', ended); finish(); });
-    setTimeout(finish, 400);
-  }
+  const close = () => closeDialog(dialog);
   // the answers by e-mail, when the form can't send them
   const mailLink = a => {
     const link = document.createElement('a');
@@ -771,7 +840,17 @@ function leadDialog(dialog) {
   });
   show(1);
 }
-document.querySelectorAll('dialog.lead').forEach(leadDialog);
+document.querySelectorAll('dialog.lead[data-form]').forEach(leadDialog);
+// "Minha história": the letter, read from the top each time
+const letter = $('letter');
+document.querySelectorAll('[data-letter]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  letter.classList.remove('closing');
+  letter.showModal();
+  letter.scrollTop = 0;
+}));
+letter.addEventListener('cancel', e => { e.preventDefault(); closeDialog(letter); });
+letter.addEventListener('click', e => { if (e.target === letter || e.target.closest('[data-close]')) closeDialog(letter); });
 
 /* ---------- loop ---------- */
 function loop(now) {
