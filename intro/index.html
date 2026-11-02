@@ -60,18 +60,30 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .tile:active .tile-go{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 
 /* E-mail signup: bottom centre on a wide screen, under the links on a phone. */
-.join{position:relative;width:min(440px,100%);pointer-events:auto}
-.join label{display:block;margin-bottom:8px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);text-align:center}
-.join-row{display:flex;gap:6px}
-.join input{flex:1;min-width:0;height:40px;padding:0 16px;border:1px solid rgba(244,241,234,.35);border-radius:99px;background:rgba(244,241,234,.04);color:var(--ink);font:400 14px 'Inter Tight',system-ui,sans-serif;outline:0}
+.join{position:relative;width:min(460px,100%);text-align:center;pointer-events:auto}
+.join-title{font-size:clamp(20px,1.7vw,25px);font-weight:500;line-height:1.2;letter-spacing:-.02em}
+/* "minha mente" in handwriting, underlined by a stroke that draws itself once the signup opens */
+.hand{position:relative;display:inline-block;margin-left:.08em;font:600 1.4em/1 'Caveat',cursive;letter-spacing:0}
+.hand svg{position:absolute;left:0;bottom:-.3em;width:100%;height:.42em;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round}
+.hand path{stroke-dasharray:130;stroke-dashoffset:130;transition:stroke-dashoffset .9s ease .9s}
+.is-open .hand path{stroke-dashoffset:0}
+.join-sub{margin:10px 0 14px;font-size:13px;line-height:1.4;color:var(--mid)}
+/* field and button in one pill; a light keeps running around its border */
+@property --spin{syntax:'<angle>';inherits:false;initial-value:0deg}
+.join-row{display:flex;align-items:center;gap:6px;padding:5px;border:1px solid transparent;border-radius:99px;background:linear-gradient(#141415,#141415) padding-box,conic-gradient(from var(--spin),rgba(244,241,234,.16) 0 55%,rgba(244,241,234,.95) 78%,rgba(244,241,234,.16) 100%) border-box;animation:spin 4s linear infinite;transition:box-shadow .2s}
+.join-row:focus-within{box-shadow:0 0 0 4px rgba(244,241,234,.1)}
+@keyframes spin{to{--spin:360deg}}
+.join input{flex:1;min-width:0;height:42px;padding:0 14px;border:0;background:none;color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0}
 .join input::placeholder{color:var(--mid)}
-.join input:focus{border-color:var(--ink)}
-.join button{flex:none;height:40px;padding:0 18px;border:0;border-radius:99px;background:var(--ink);color:var(--bg);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.06em;cursor:pointer}
+.join button{flex:none;display:flex;align-items:center;gap:8px;height:42px;padding:0 20px;border:0;border-radius:99px;background:var(--ink);color:var(--bg);font:600 12.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.join button span{transition:transform .2s}
+.join button:hover span{transform:translateX(3px)}
 .join button:disabled{opacity:.6;cursor:default}
 .join .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .join-msg{position:absolute;left:0;right:0;top:100%;margin-top:6px;font-size:12px;text-align:center;color:var(--mid)}
 .join-msg[data-state=error]{color:#ffb4a8}
-.join-msg[data-state=success]{position:static;margin:0;font-size:13px;color:var(--ink)}
+.join-msg[data-state=success]{position:static;margin:14px 0 0;font-size:14px;color:var(--ink)}
+.join-row[hidden]{display:none}
 /* Social icons: in the top bar on a wide screen, a row above the links on a phone. LinkedIn shows once site-config.js has it. */
 .top-socials{display:flex;align-items:center;gap:2px;margin-right:10px}
 .top-socials a{position:relative;display:flex;align-items:center;gap:7px;height:36px;padding:0 9px;border:0;border-radius:99px;color:rgba(244,241,234,.78)}
@@ -102,7 +114,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1.6s infinite}
 @keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
 .is-open .new-video path{stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path{transition:none;animation:none}}
+@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row{transition:none;animation:none}}
 .top-socials svg,.socials svg{width:17px;height:17px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -125,7 +137,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .tile-text small{margin-top:2px;font-size:12.5px;color:var(--mid)}
   .tile-go{position:static;flex:none;width:34px;height:34px;border-color:rgba(244,241,234,.28);font-size:14px;color:var(--ink)}
   .join{width:auto}
-  .join label{font:400 13px 'Inter Tight',system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--ink)}
+  .join-sub{margin:8px 0 12px}
   .join input,.join button{height:44px}
   .top-socials{display:none}
   .socials{display:flex;margin-top:40px}
@@ -172,11 +184,13 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       </ul>
     </nav>
     <form class="join" id="join" novalidate>
-      <label for="email">Quer importar da China? Deixe seu e-mail</label>
+      <p class="join-title">Entre na <span class="hand">minha mente<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span></p>
+      <p class="join-sub">Ideias sobre negócios, China e dinheiro, direto no seu e-mail.</p>
+      <label class="sr-only" for="email">Seu e-mail</label>
       <div class="join-row">
-        <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
+        <input id="email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
         <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit">QUERO CONTATO →</button>
+        <button type="submit">ENTRAR <span aria-hidden="true">→</span></button>
       </div>
       <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
     </form>
@@ -301,6 +315,8 @@ function resize() {
   if (cols > 1) $('rule').style.top = `${(slots[0].y + slots[0].h + slots[cols].y) / 2}px`;
 }
 addEventListener('resize', resize); resize(); buildPath();
+// the signup changes height (after sending, the field gives way to a message): the links move, so measure again
+new ResizeObserver(() => resize()).observe($('join'));
 document.fonts.ready.then(resize);
 function grid(i) {
   const vh = 2 * GZ * tanH, vw = vh * asp, s = slots[i];
@@ -409,8 +425,8 @@ form.addEventListener('submit', async e => {
     const r = await fetch(config.signupEndpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, website:form.website.value})});
     const result = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(result.error || 'Não foi possível concluir sua inscrição.');
-    form.querySelector('.join-row').hidden = true; form.querySelector('label').hidden = true;
-    say('Recebido! Minha equipe vai entrar em contato com você.', 'success');
+    form.querySelector('.join-row').hidden = true; form.querySelector('.join-sub').hidden = true;
+    say('Pronto, você está dentro. Fique de olho no seu e-mail.', 'success');
   } catch (error) {
     say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
   } finally {
