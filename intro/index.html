@@ -59,7 +59,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .tile-n{position:absolute;left:14px;top:12px;font:400 11px 'IBM Plex Mono',monospace;font-style:normal;letter-spacing:.06em;color:rgba(244,241,234,.8);text-shadow:0 1px 6px rgba(0,0,0,.4)}
 .tile-text{position:absolute;left:16px;right:56px;bottom:14px}
 .tile-text b{display:block;font-size:clamp(18px,1.8vw,30px);font-weight:500;line-height:1.1;letter-spacing:-.02em}
-.tile-text small{display:block;margin-top:4px;font-size:12.5px;line-height:1.3;color:rgba(244,241,234,.74)}
+.tile-text small{display:block;margin-top:4px;overflow:hidden;font-size:12.5px;line-height:1.3;color:rgba(244,241,234,.74);white-space:nowrap;text-overflow:ellipsis}
 .tile-go{position:absolute;right:14px;bottom:14px;display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(244,241,234,.55);border-radius:50%;font-size:14px;transition:background .2s,color .2s}
 /* hover only where there is a mouse: on a phone a tap would leave it stuck */
 @media (hover:hover){.tile:hover{transform:scale(1.03)}.tile:hover .tile-go{background:var(--ink);color:var(--bg)}}
@@ -147,15 +147,15 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .acts a.contact i{display:none}
   .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
-  .tile{display:flex;align-items:center;gap:12px;aspect-ratio:auto;padding:6px 16px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
+  .tile{display:flex;align-items:center;gap:10px;aspect-ratio:auto;padding:6px 16px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
   .tile:hover{transform:none}
   .tile:active{background:rgba(244,241,234,.07)}
   .tile:before,.tile-n{display:none}
-  .tile-img{position:relative;inset:auto;flex:none;width:clamp(72px,13svh,112px);aspect-ratio:2.1/1.32;border-radius:8px}
+  .tile-img{position:relative;inset:auto;flex:none;width:clamp(64px,10.5svh,100px);aspect-ratio:2.1/1.32;border-radius:8px}
   .tile-text{position:static;flex:1;min-width:0}
   .tile-text b{font-size:17px}
-  .tile-text small{margin-top:2px;font-size:12.5px;color:var(--mid)}
-  .tile-go{position:static;flex:none;width:34px;height:34px;border-color:rgba(244,241,234,.28);font-size:14px;color:var(--ink)}
+  .tile-text small{margin-top:2px;font-size:clamp(11.5px,3.4vw,12.5px);color:var(--mid)}
+  .tile-go{position:static;flex:none;width:32px;height:32px;border-color:rgba(244,241,234,.28);font-size:14px;color:var(--ink)}
   .join{width:auto}
   .join input,.join button{height:44px}
   .top-socials{display:none}
@@ -196,9 +196,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </nav>
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
-        <li><a class="tile" href="/#deepchina" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Minha inteligência artificial para importar</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>Vá comigo à maior feira da China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="/#servicos"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Serviços</b><small>Consultoria e mentoria na China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="/#deepchina" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>IA para importar da China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>Vá comigo à maior feira</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="/#servicos"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Serviços</b><small>Consultoria e visita à fábrica</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="/#sobre"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Do Brasil a Hong&nbsp;Kong</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
       </ul>
     </nav>
