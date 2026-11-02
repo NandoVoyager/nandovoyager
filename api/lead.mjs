@@ -2,10 +2,10 @@
 // Resend, like api/apply.mjs. LEADS_TO: who gets them (default contato@nandovoyager.com). LEADS_FROM: the sender.
 const allowedOrigins = (process.env.SITE_ORIGIN || "").split(",").map((o) => o.trim()).filter(Boolean);
 
-// The same services as DeepChina AI, with short names, plus mentoring. Every service starts with a paid
+// Short names for the DeepChina AI services, plus mentoring and "Outro". Every service starts with a paid
 // one-hour call (R$ 500, credited if they hire), which the visitor has to agree to.
 export const options = {
-  needs: ["Consultoria", "Achar fábrica", "Inspeção", "Frete", "Despacho", "Mentoria"],
+  needs: ["Consultoria", "Achar fábrica", "Inspeção", "Frete", "Mentoria", "Outro"],
   budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"]
 };
 
