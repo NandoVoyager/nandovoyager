@@ -22,9 +22,12 @@ html{background:var(--bg)}
 body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow:hidden}
 /* One screen: the first scroll plays the whole animation, which ends on the links (see the script). */
 .stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
-.hl{position:absolute;left:0;right:0;font-weight:400;font-size:clamp(40px,6.7vw,130px);line-height:1;letter-spacing:-.055em;white-space:nowrap;text-align:center;will-change:transform}
-#l1{top:calc(50% - .98em)}
-#l2{top:calc(50% + .03em)}
+/* the name in the same handwriting as "minha mente" and "vídeo novo" */
+.hl{position:absolute;left:0;right:0;font:600 clamp(56px,9vw,176px)/1 'Caveat',cursive;letter-spacing:0;white-space:nowrap;text-align:center;will-change:transform}
+#l1{top:calc(50% - .9em)}
+#l2{top:calc(50% - .1em)}
+#l1 span{transform:rotate(-4deg)}
+#l2 span{transform:rotate(-2deg)}
 #l1 span,#l2 span{display:inline-block}
 #l1 span{margin-right:15vw}
 #l2 span{margin-left:15vw}
@@ -232,7 +235,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 }
 /* Phones (portrait): a link-in-bio column, the cards land as thumbnails on the left of each row. */
 @media (max-aspect-ratio:9/10){
-  .hl{font-size:15vw}
+  .hl{font-size:21vw}
   .logo{gap:9px}
   .logo-text b{font-size:clamp(14px,4.1vw,16px)}
   #rule{display:none}
@@ -261,8 +264,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 <body>
 <main class="stage" id="stage">
   <h1 aria-label="Nando Voyager">
-    <div class="hl" id="l1" aria-hidden="true"><span>NANDO</span></div>
-    <div class="hl" id="l2" aria-hidden="true"><span>VOYAGER</span></div>
+    <div class="hl" id="l1" aria-hidden="true"><span>Nando</span></div>
+    <div class="hl" id="l2" aria-hidden="true"><span>Voyager</span></div>
   </h1>
   <div id="glow"></div>
   <div id="rule"></div>
