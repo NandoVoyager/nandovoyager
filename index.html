@@ -41,14 +41,13 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 #l1{top:calc(50% - .9em)}
 #l2{top:calc(50% - .1em)}
 /* On load the name writes itself: a soft mask uncovers each word letter by letter, with a light at the pen (see the
-   script), then a swash signs it. --e is where the mask ends, --f how soft its edge is. */
+   script). --e is where the mask ends, --f how soft its edge is. */
 .rot{position:relative;display:inline-block}
 #l1 .rot{transform:rotate(-4deg);margin-right:15vw}
 #l2 .rot{transform:rotate(-2deg);margin-left:15vw}
 .ink{display:inline-block;margin:-.3em;padding:.3em;-webkit-mask-image:linear-gradient(90deg,#000 calc(var(--e,0px) - var(--f,0px)),transparent var(--e,0px));mask-image:linear-gradient(90deg,#000 calc(var(--e,0px) - var(--f,0px)),transparent var(--e,0px))}
 .ink.done{-webkit-mask-image:none;mask-image:none}
 .pen{position:absolute;left:0;top:0;width:1em;height:1em;margin:-.5em 0 0 -.5em;border-radius:50%;background:radial-gradient(closest-side,rgba(255,247,230,.34),rgba(255,247,230,.07) 45%,transparent);opacity:0;pointer-events:none}
-.swash{position:absolute;left:4%;top:100%;width:100%;height:auto;margin-top:-.02em;overflow:visible;fill:none;stroke:var(--ink);stroke-width:4.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
 /* a light that follows the mouse (and drifts on its own on phones) and a little film grain, only on the opening */
 #light{position:absolute;left:0;top:0;width:min(130vw,1150px);aspect-ratio:1;margin:calc(min(130vw,1150px) / -2) 0 0 calc(min(130vw,1150px) / -2);border-radius:50%;background:radial-gradient(closest-side,rgba(244,241,234,.075),rgba(244,241,234,.025) 55%,transparent);opacity:0;pointer-events:none;will-change:transform}
 #grain{position:absolute;inset:-60px;opacity:0;pointer-events:none;animation:grain .6s steps(1) infinite}
@@ -340,7 +339,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   <div id="light"></div>
   <h1 aria-label="Nando Voyager">
     <div class="hl" id="l1" aria-hidden="true"><span class="rot"><span class="ink">Nando</span><i class="pen"></i></span></div>
-    <div class="hl" id="l2" aria-hidden="true"><span class="rot"><span class="ink">Voyager</span><i class="pen"></i><svg class="swash" viewBox="0 0 300 34"><path pathLength="1" d="M3 15C60 27 150 31 228 22S288 8 297 3" /></svg></span></div>
+    <div class="hl" id="l2" aria-hidden="true"><span class="rot"><span class="ink">Voyager</span><i class="pen"></i></span></div>
   </h1>
   <div id="glow"></div>
   <div id="grain"></div>
@@ -744,8 +743,8 @@ function showTile(el, q) {
 // Each word is uncovered letter by letter, a hand's pace: a wide letter takes longer. The letters' edges come from the
 // font itself (canvas measureText, same font and size), in the mask's coordinates.
 const lines = [$('l1'), $('l2')], inks = [...document.querySelectorAll('.ink')], pens = [...document.querySelectorAll('.pen')];
-const swash = document.querySelector('.swash path'), meter = document.createElement('canvas').getContext('2d');
-const WRITE = [[0, 1050], [820, 2150]], SWASH = [1950, 2600], CUE = [2250, 2950]; // ms after the font is ready
+const meter = document.createElement('canvas').getContext('2d');
+const WRITE = [[0, 1050], [820, 2150]], CUE = [2150, 2850]; // ms after the font is ready
 let words = [], writeStart = null;
 function measureInk() {
   words = inks.map(el => {
@@ -801,9 +800,6 @@ function render(now) {
   // time since the writing began; a scroll finishes it quickly, a visitor who asked for less motion gets it written
   const t = calm ? Infinity : writeStart === null ? -1 : now - writeStart + (start === null ? 0 : (now - start) * 4);
   WRITE.forEach(([a, b], i) => write(i, span(t, a, b)));
-  const drawn = out(span(t, ...SWASH)) * (1 - ease(span(pp, 0, .18)));
-  swash.style.strokeDashoffset = 1 - drawn;
-  swash.style.visibility = drawn > .002 ? '' : 'hidden'; // a round cap would show a dot before the line starts
   // the name floats and leans towards the mouse; the first scroll sends the two lines apart, blurring as they go
   sx += (mx - sx) * .05; sy += (my - sy) * .05;
   const float = calm ? 0 : Math.sin(now / 1700) * 4, run = mix(0, 76, span(pp, 0, .58)) * W / 100;

@@ -1,6 +1,6 @@
 # Nando Voyager — site
 
-Página única de nandovoyager.com, em fundo preto. Abre com "Nando Voyager" se escrevendo sozinho em letra de mão, letra por letra, com uma assinatura embaixo, uma luz que segue o mouse e um leve grão de filme; a primeira rolagem toca uma animação 3D (three.js) em que uma fita de fotos passa pela tela e pousa em quatro atalhos:
+Página única de nandovoyager.com, em fundo preto. Abre com "Nando Voyager" se escrevendo sozinho em letra de mão, letra por letra, com uma luz que segue o mouse e um leve grão de filme; a primeira rolagem toca uma animação 3D (three.js) em que uma fita de fotos passa pela tela e pousa em quatro atalhos:
 
 - **DeepChina AI**: abre o site da DeepChina (`deepchinaUrl` em `site-config.js`); enquanto estiver vazio, leva ao cadastro de e-mail.
 - **Imersão Canton Fair**: formulário curto em popup (fase da feira e contato) para marcar uma call gratuita.
