@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nando Voyager — Negócios na China</title>
+<meta name="description" content="YouTube, DeepChina AI, serviços, minha história e contato do Nando Voyager em uma página só." />
+<!-- Test page for a new opening: kept out of search until it replaces the current one. -->
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0a0a0b" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/icon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" />
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<style>
+:root{--bg:#0a0a0b;--ink:#f4f1ea;--mid:#8d8b86;--line:rgba(244,241,234,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow:hidden}
+/* One screen, no scroll: the animation plays by itself (see the script) instead of following the scroll. */
+.stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
+.hl{position:absolute;left:0;right:0;font-weight:400;font-size:clamp(40px,6.7vw,130px);line-height:1;letter-spacing:-.055em;white-space:nowrap;text-align:center;will-change:transform}
+#l1{top:calc(50% - .98em)}
+#l2{top:calc(50% + .03em)}
+#l1 span,#l2 span{display:inline-block}
+#l1 span{margin-right:15vw}
+#l2 span{margin-left:15vw}
+#cap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:15em;text-align:center;font-size:clamp(9px,.74vw,13px);font-weight:500;line-height:1.3;letter-spacing:.03em;text-transform:uppercase;color:var(--ink)}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.top{position:absolute;left:32px;right:32px;top:26px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.top{justify-content:flex-start}.acts{margin-left:auto}
+#pager{display:flex;margin:-26px 0 0 28px;pointer-events:auto}
+#pager span{display:grid;place-items:center;width:44px;height:50px;border:1px solid var(--line);border-top:0;margin-left:-1px;font:400 11px 'IBM Plex Mono',monospace;color:var(--mid)}
+#glow{position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(rgba(244,241,234,.1),rgba(244,241,234,0))}
+#cross{position:absolute;left:32px;right:32px;top:37.5%;height:1px;background:var(--line)}
+#cross i{position:absolute;left:50%;top:-.62em;margin-left:-.3em;font:400 13px 'IBM Plex Mono',monospace;color:var(--mid);background:var(--bg);padding:0 .3em;line-height:1.2}
+.logo{display:flex;align-items:center;gap:9px;font-size:19px;font-weight:600;letter-spacing:.09em;color:var(--ink);text-decoration:none;pointer-events:auto}
+.acts{display:flex;align-items:center;gap:7px;pointer-events:auto}
+.acts a{display:flex;align-items:center;gap:9px;height:32px;padding:0 15px;border:1px solid rgba(244,241,234,.55);border-radius:99px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:background .2s,color .2s}
+.acts a:hover{background:var(--ink);color:var(--bg)}
+.acts a i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.acts a b{display:block;width:13px;height:7px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
+#hint{position:absolute;left:50%;top:33px;transform:translateX(-50%);font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--ink);padding-bottom:6px;border-bottom:1px solid var(--line)}
+.bot{position:absolute;left:32px;right:32px;bottom:26px;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;font-size:12.5px;line-height:1.35;pointer-events:none}
+.bot p{color:var(--ink);max-width:21em}
+.bot .r{justify-self:end;display:flex;gap:12px;align-items:center;font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em}
+.bot .r:after{content:"";width:22px;height:1px;background:var(--ink)}
+#rule{position:absolute;left:3.5vw;right:3.5vw;top:50%;height:1px;background:var(--line);transform-origin:left;transform:scaleX(0)}
+
+/* The links: each card of the ribbon lands in one of these slots (.tile-img) and the label sits on top. */
+.hub{position:absolute;inset:0;pointer-events:none}
+.hub-bio{display:none}
+.tiles{--gw:min(74vw,(100svh - 300px) * 2.3);position:absolute;left:50%;top:calc(50% - 14px);transform:translate(-50%,-50%);width:var(--gw);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(var(--gw) * .0272) calc(var(--gw) * .017);list-style:none}
+.tile{position:relative;display:block;aspect-ratio:2.1/1.32;border-radius:6px;color:var(--ink);text-decoration:none;opacity:0;visibility:hidden;pointer-events:auto;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.tile:hover{transform:scale(1.03)}
+.tile:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.tile-img{position:absolute;inset:0;border-radius:inherit}
+.tile:before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(rgba(10,10,11,0) 38%,rgba(10,10,11,.8))}
+.tile-n{position:absolute;left:14px;top:12px;font:400 11px 'IBM Plex Mono',monospace;font-style:normal;letter-spacing:.06em;color:rgba(244,241,234,.8);text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.tile-text{position:absolute;left:16px;right:56px;bottom:14px}
+.tile-text b{display:block;font-size:clamp(17px,1.55vw,26px);font-weight:500;line-height:1.1;letter-spacing:-.02em}
+.tile-text small{display:block;margin-top:4px;font-size:12.5px;line-height:1.3;color:rgba(244,241,234,.74)}
+.tile-go{position:absolute;right:14px;bottom:14px;display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(244,241,234,.55);border-radius:50%;font-size:14px;transition:background .2s,color .2s}
+.tile:hover .tile-go{background:var(--ink);color:var(--bg)}
+
+/* E-mail signup: bottom centre on a wide screen, under the links on a phone. */
+.join{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:min(400px,36vw);opacity:0;visibility:hidden;pointer-events:auto}
+.join label{display:block;margin-bottom:8px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);text-align:center}
+.join-row{display:flex;gap:6px}
+.join input{flex:1;min-width:0;height:40px;padding:0 16px;border:1px solid rgba(244,241,234,.35);border-radius:99px;background:rgba(244,241,234,.04);color:var(--ink);font:400 14px 'Inter Tight',system-ui,sans-serif;outline:0}
+.join input::placeholder{color:var(--mid)}
+.join input:focus{border-color:var(--ink)}
+.join button{flex:none;height:40px;padding:0 18px;border:0;border-radius:99px;background:var(--ink);color:var(--bg);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.06em;cursor:pointer}
+.join button:disabled{opacity:.6;cursor:default}
+.join .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.join-msg{position:absolute;left:0;right:0;top:100%;margin-top:6px;font-size:12px;text-align:center;color:var(--mid)}
+.join-msg[data-state=error]{color:#ffb4a8}
+.join-msg[data-state=success]{position:static;margin:0;font-size:13px;color:var(--ink)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:760px){
+  .top{left:18px;right:18px;top:18px}.bot{left:18px;right:18px;bottom:18px;grid-template-columns:1fr auto}
+  #hint,#pager{display:none}.bot p{max-width:17em;font-size:11px}
+}
+/* Phones (portrait): a link-in-bio column, the cards land as thumbnails on the left of each row. */
+@media (max-aspect-ratio:9/10){
+  .bot,#rule,.acts a.contact{display:none}
+  .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:16px}
+  .hub-bio{display:block;opacity:0;visibility:hidden;font-size:14px;line-height:1.4;color:var(--mid);text-align:center}
+  .hub-bio b{display:block;margin-bottom:4px;font-size:clamp(20px,6vw,24px);font-weight:500;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+  .tiles{position:static;transform:none;width:auto;display:flex;flex-direction:column;gap:8px}
+  .tile{display:flex;align-items:center;gap:12px;aspect-ratio:auto;padding:6px 16px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
+  .tile:hover{transform:none}
+  .tile:before,.tile-n{display:none}
+  .tile-img{position:relative;inset:auto;flex:none;width:clamp(60px,10svh,84px);aspect-ratio:2.1/1.32;border-radius:8px}
+  .tile-text{position:static;flex:1;min-width:0}
+  .tile-text b{font-size:16px}
+  .tile-text small{margin-top:2px;font-size:12.5px;color:var(--mid)}
+  .tile-go{position:static;width:auto;height:auto;border:0;font-size:15px;color:var(--mid)}
+  .join{position:relative;left:auto;bottom:auto;transform:none;width:auto}
+  .join label{font:400 13px 'Inter Tight',system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--ink)}
+  .join input,.join button{height:44px}
+}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+  <h1 aria-label="Negócios na China">
+    <div class="hl" id="l1" aria-hidden="true"><span>NEGÓCIOS NA</span></div>
+    <div class="hl" id="l2" aria-hidden="true"><span>CHINA</span></div>
+  </h1>
+  <div id="cap" aria-hidden="true">Faço negócios na China e te mostro como.</div>
+  <div id="glow"></div>
+  <div id="cross"><i>+</i></div>
+  <div id="rule"></div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div id="hint" aria-hidden="true">QUERO IMPORTAR DA CHINA &nbsp;→</div>
+  <header class="top">
+    <a class="logo" href="/">NANDO VOYAGER</a>
+    <div id="pager" aria-hidden="true"><span>←</span><span>→</span></div>
+    <nav class="acts" aria-label="Atalhos"><a class="contact" href="mailto:contato@nandovoyager.com"><i></i>CONTATO</a><a href="/">SITE<b></b></a></nav>
+  </header>
+  <div class="hub">
+    <p class="hub-bio"><b>Faço negócios na China e te mostro como.</b>Empresário em Hong Kong e fundador da DeepChina AI.</p>
+    <nav aria-label="Links">
+      <ul class="tiles" id="tiles">
+        <li><a class="tile" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer"><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>YouTube</b><small>Negócios na China, em vídeo</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="/#deepchina" data-deepchina><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>DeepChina AI</b><small>Minha inteligência artificial para importar</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="/#servicos"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Serviços</b><small>Publis, mentoria e consultoria</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="/#sobre"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Do Brasil a Hong Kong</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="mailto:contato@nandovoyager.com"><span class="tile-img"></span><i class="tile-n">05</i><span class="tile-text"><b>Contato</b><small>contato@nandovoyager.com</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer"><span class="tile-img"></span><i class="tile-n">06</i><span class="tile-text"><b>Instagram</b><small>@nandovoyager</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+      </ul>
+    </nav>
+    <form class="join" id="join" novalidate>
+      <label for="email">Quer importar da China? Deixe seu e-mail</label>
+      <div class="join-row">
+        <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit">QUERO CONTATO →</button>
+      </div>
+      <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+  <footer class="bot">
+    <p>Empresário em Hong Kong e fundador da DeepChina AI.</p>
+    <div></div>
+    <div class="r">+1,5 MI DE SEGUIDORES</div>
+  </footer>
+</main>
+<script src="/site-config.js"></script>
+<script type="module">
+import * as THREE from 'three';
+
+// One card per link (same order as #tiles), then two more that only ride the ribbon.
+const WORK = [
+  {img:'/media/bastidores-poster.webp', video:'/media/bastidores.mp4'},
+  {img:'/img/shanghai-720.webp'},
+  {img:'/img/fabrica-900.webp'},
+  {img:'/img/canton-fachada-900.webp'},
+  {img:'/img/clientes-640.webp'},
+  {img:'/img/og.jpg'},
+  {img:'/img/canton-fachada-1600.webp'},
+  {img:'/img/shanghai-1245.webp'},
+];
+const config = window.NANDO_SITE_CONFIG || {};
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, t) => a + (b - a) * t;
+const ease = t => t * t * (3 - 2 * t);
+const out = t => 1 - (1 - t) ** 3;
+const span = (p, a, b) => clamp((p - a) / (b - a));
+
+const stage = $('stage'), tiles = [...document.querySelectorAll('.tile')];
+if (config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(a => { a.href = config.deepchinaUrl; a.target = '_blank'; a.rel = 'noreferrer'; });
+
+/* ---------- renderer ---------- */
+const canvas = $('gl');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setClearColor(0, 0);
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+const scene = new THREE.Scene();
+const FOV = 35, camera = new THREE.PerspectiveCamera(FOV, 1, .1, 100);
+
+/* ---------- ribbon path ---------- */
+let path, PATH_L = 1;
+const SAMPLES = 1200, pathP = [], pathT = [];
+const PH0 = -1.5, PH1 = Math.PI * 2 + 1.35;
+function buildPath() {
+  const pts = [];
+  for (let i = 0; i <= 160; i++) {
+    const t = i / 160, ph = mix(PH0, PH1, t), cs = Math.cos(ph), u = 2 * t - 1;
+    // a shallow arc close to the camera, then long runs far behind it
+    const depth = cs > 0 ? 7.6 + 16.4 * cs ** .9 : 7.6 + 2.2 * cs;
+    const edge = .84 + .5 * span(.14 - t, 0, .14) + .8 * span(t, .84, 1);
+    pts.push(new THREE.Vector3(edge * Math.sin(ph) * depth * .561, .5 * Math.sign(u) * Math.abs(u) ** 1.4 * depth * .63, -depth));
+  }
+  path = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+  path.arcLengthDivisions = 1500;
+  PATH_L = path.getLength(); pathP.length = pathT.length = 0;
+  for (let i = 0; i <= SAMPLES; i++) { const u = i / SAMPLES; pathP.push(path.getPointAt(u)); pathT.push(path.getTangentAt(u)); }
+}
+const at = (s, op, ot) => {
+  const f = clamp(s / PATH_L) * SAMPLES, i = Math.min(SAMPLES - 1, Math.floor(f)), k = f - i;
+  op.lerpVectors(pathP[i], pathP[i + 1], k); ot.lerpVectors(pathT[i], pathT[i + 1], k).normalize();
+};
+
+/* ---------- cards ---------- */
+const CARD_W = 2.1, CARD_H = 1.32, GAP = .03, STEP = CARD_W + GAP, NX = 28, NY = 3, RADIUS = .018;
+const vs = `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
+const fs = `uniform sampler2D map;uniform vec2 cover;uniform float aspect,ready,radius;varying vec2 vUv;
+void main(){
+  vec2 q=(abs(vUv-.5)-.5)*vec2(aspect,1.)+radius;
+  float d=length(max(q,0.))+min(max(q.x,q.y),0.)-radius;
+  float px=fwidth(d),a=1.-smoothstep(-px,px,d);
+  if(a<.01)discard;
+  vec2 uv=vUv;if(!gl_FrontFacing)uv.x=1.-uv.x;
+  vec3 c=mix(vec3(.075),texture2D(map,(uv-.5)*cover+.5).rgb,ready);
+  float edge=smoothstep(-.012-px,-.012,d);
+  gl_FragColor=vec4(mix(c,vec3(1.),edge*.1),a);
+}`;
+// cover fit from the picture's aspect ratio, then show it
+const fit = (c, w, h) => {
+  const va = w / h, ca = CARD_W / CARD_H;
+  c.mat.uniforms.cover.value.set(va > ca ? ca / va : 1, va > ca ? 1 : va / ca);
+  c.mat.uniforms.ready.value = 1;
+};
+const cards = WORK.map(({img, video}, i) => {
+  // still pictures get mipmaps, so they stay clean when the ribbon is far away
+  const tex = new THREE.Texture();
+  tex.colorSpace = THREE.NoColorSpace; tex.minFilter = THREE.LinearMipmapLinearFilter; tex.magFilter = THREE.LinearFilter;
+  const geo = new THREE.PlaneGeometry(1, 1, NX, NY);
+  const mat = new THREE.ShaderMaterial({vertexShader:vs, fragmentShader:fs, transparent:true, side:THREE.DoubleSide,
+    uniforms:{map:{value:tex}, cover:{value:new THREE.Vector2(1, 1)}, aspect:{value:CARD_W / CARD_H}, ready:{value:0}, radius:{value:RADIUS}}});
+  const mesh = new THREE.Mesh(geo, mat); mesh.frustumCulled = false; scene.add(mesh);
+  const c = {i, v:null, tex, geo, mat, mesh, hover:0, hoverT:0};
+  const pic = new Image();
+  pic.onload = () => { if (c.v && c.v.readyState >= 2) return; tex.image = pic; tex.needsUpdate = true; fit(c, pic.naturalWidth, pic.naturalHeight); };
+  pic.src = img;
+  if (video) {
+    // the poster shows until the video can play, then the card runs the video
+    const v = c.v = document.createElement('video');
+    Object.assign(v, {crossOrigin:'anonymous', muted:true, loop:true, playsInline:true, preload:'auto', src:video});
+    v.setAttribute('playsinline', '');
+    v.addEventListener('loadeddata', () => {
+      const vt = new THREE.VideoTexture(v);
+      vt.colorSpace = THREE.NoColorSpace; vt.minFilter = THREE.LinearFilter; vt.magFilter = THREE.LinearFilter; vt.generateMipmaps = false;
+      mat.uniforms.map.value = vt; fit(c, v.videoWidth, v.videoHeight);
+    }, {once:true});
+  }
+  return c;
+});
+
+/* ---------- layout ---------- */
+const GZ = 8, phone = matchMedia('(max-aspect-ratio: 9/10)');
+let W = 1, H = 1, asp = 1, cols = 3, rows = 2, tanH = .3153, slots = [];
+function resize() {
+  W = stage.clientWidth; H = stage.clientHeight; asp = W / H;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(W, H, false);
+  camera.aspect = asp; camera.fov = asp < 16 / 9 ? Math.atan(.561 / asp) * 360 / Math.PI : FOV; camera.updateProjectionMatrix();
+  tanH = Math.tan(camera.fov * Math.PI / 360);
+  cols = phone.matches ? 1 : 3; rows = Math.ceil(tiles.length / cols);
+  // the HTML lays out the links; each card lands exactly on its slot
+  const box = stage.getBoundingClientRect();
+  slots = tiles.map(t => { const r = t.querySelector('.tile-img').getBoundingClientRect(); return {x:r.left - box.left, y:r.top - box.top, w:r.width, h:r.height}; });
+  if (cols === 3) $('rule').style.top = `${(slots[0].y + slots[0].h + slots[3].y) / 2}px`;
+}
+addEventListener('resize', resize); resize(); buildPath();
+document.fonts.ready.then(resize);
+function grid(i) {
+  const vh = 2 * GZ * tanH, vw = vh * asp, s = slots[i];
+  return {x:((s.x + s.w / 2) / W - .5) * vw, y:(.5 - (s.y + s.h / 2) / H) * vh, w:s.w / W * vw, h:s.h / H * vh, px:s.h, vw, vh, c:i % cols, r:Math.floor(i / cols)};
+}
+
+/* ---------- time (no scroll) ---------- */
+// The page doesn't scroll: progress runs from 0 to 1 on its own. Any tap, click, wheel or key jumps to the links,
+// and so does a second visit in the same session or a visitor who asked for less motion.
+const DELAY = 500, DURATION = 5600;
+let seen = false;
+try { seen = sessionStorage.getItem('nv-intro') === '1'; } catch {}
+let skip = seen || matchMedia('(prefers-reduced-motion: reduce)').matches, start = performance.now();
+let target = 0, p = skip ? 1 : 0;
+const jump = () => { skip = true; };
+for (const type of ['pointerdown', 'wheel', 'touchstart', 'keydown']) addEventListener(type, jump, {passive:true, once:true});
+
+/* ---------- pose ---------- */
+const op = new THREE.Vector3(), ot = new THREE.Vector3(), up = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), vp = new THREE.Vector3();
+function poseRibbon(c, head) {
+  const pos = c.geo.attributes.position, centre = head - c.i * STEP;
+  c.mat.uniforms.radius.value = RADIUS;
+  for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
+    const k = iy * (NX + 1) + ix, lu = ix / NX - .5, lv = .5 - iy / NY;
+    at(centre + lu * CARD_W, op, ot);
+    // keep the sheet upright, leaning a little into the turn
+    up.copy(Y).addScaledVector(ot, -Y.dot(ot)).normalize();
+    vp.copy(op).addScaledVector(up, lv * CARD_H);
+    pos.setXYZ(k, vp.x, vp.y, vp.z);
+  }
+  pos.needsUpdate = true;
+}
+function poseGrid(c, q) {
+  const g = grid(c.i), pos = c.geo.attributes.position, mid = (cols - 1) / 2;
+  const dx = (g.c - mid) * 1.2, dy = g.r < rows / 2 ? 1 : -1;
+  const ox = dx * g.vw * .62 * (1 - q), oy = dy * g.vh * (cols === 3 && g.c === 1 ? .95 : .34) * (1 - q), tilt = (1 - q) * .22 * (g.c - 1 || .5) * dy;
+  const cs = Math.cos(tilt), sn = Math.sin(tilt), grow = 1 + .03 * c.hover; // grows with its tile on hover
+  // corners round off to the slot's radius as the card lands (6px on the grid, 8px on the phone rows)
+  c.mat.uniforms.radius.value = mix(RADIUS, (cols === 3 ? 6 : 8) / g.px, q);
+  for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
+    const k = iy * (NX + 1) + ix, x = (ix / NX - .5) * g.w * grow, y = (.5 - iy / NY) * g.h * grow;
+    pos.setXYZ(k, g.x + ox + x * cs - y * sn, g.y + oy + x * sn + y * cs, -GZ - (1 - q) * .6 * Math.sin(ix / NX * Math.PI));
+  }
+  pos.needsUpdate = true;
+}
+// a tile's label shows once its card has landed under it
+function showTile(el, q) {
+  const o = span(q, .97, 1);
+  el.style.opacity = o; el.style.visibility = o > .02 ? 'visible' : 'hidden';
+}
+
+const RIB_A = .14, RIB_B = .63;
+function render() {
+  const pp = p;
+  // headline runs right across the page in opposite directions
+  const rise = 1 - out(span(pp, 0, .12));
+  const run = mix(-50, 76, span(pp, 0, .58));
+  $('l1').style.transform = `translate3d(${run}vw,${rise * 34}vh,0)`;
+  $('l2').style.transform = `translate3d(${-run}vw,${rise * 34}vh,0)`;
+  $('l1').style.opacity = $('l2').style.opacity = 1 - span(pp, .56, .62);
+  const capA = 1 - span(pp, .52, .57);
+  $('cap').style.opacity = capA; $('cap').style.transform = `translate(-50%,calc(-50% + ${rise * 34}vh))`;
+  const intro = 1 - span(pp, 0, .05);
+  for (const id of ['hint', 'pager', 'cross', 'glow']) $(id).style.opacity = intro;
+  $('rule').style.transform = `scaleX(${ease(span(pp, .72, .86))})`;
+  for (const el of [$('join'), document.querySelector('.hub-bio')]) showTile(el, span(pp, .74, .86));
+  // ribbon, then the links
+  const pr = span(pp, RIB_A, RIB_B), head = mix(0, PATH_L + cards.length * STEP, pr);
+  for (const c of cards) {
+    const s = head - c.i * STEP, end = PATH_L - CARD_W;
+    if (s < end) {
+      c.mesh.visible = s > CARD_W;
+      if (c.mesh.visible) poseRibbon(c, head);
+      if (tiles[c.i]) showTile(tiles[c.i], 0);
+    } else if (c.i < tiles.length) {
+      // each card flies to its slot the moment it leaves the rail
+      const st = mix(RIB_A, RIB_B, (end + c.i * STEP) / (PATH_L + cards.length * STEP)), q = out(span(pp, st, st + .13));
+      c.mesh.visible = q > .001;
+      if (c.mesh.visible) poseGrid(c, q);
+      showTile(tiles[c.i], q);
+    } else c.mesh.visible = false;
+  }
+  renderer.render(scene, camera);
+}
+
+/* ---------- hover ---------- */
+tiles.forEach((t, i) => {
+  t.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && cols === 3) cards[i].hoverT = 1; });
+  t.addEventListener('pointerleave', () => { cards[i].hoverT = 0; });
+});
+
+/* ---------- e-mail signup (same endpoint and answers as the main page) ---------- */
+const form = $('join'), msg = $('join-msg'), button = form.querySelector('button');
+const say = (text, state) => { msg.textContent = text; if (state) msg.dataset.state = state; else delete msg.dataset.state; };
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!form.reportValidity()) return;
+  const email = form.email.value.trim();
+  if (!config.signupEndpoint) return say('Inscrições ainda não estão conectadas.', 'error');
+  button.disabled = true; say('Enviando…');
+  try {
+    const r = await fetch(config.signupEndpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, website:form.website.value})});
+    const result = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(result.error || 'Não foi possível concluir sua inscrição.');
+    form.querySelector('.join-row').hidden = true; form.querySelector('label').hidden = true;
+    say('Recebido! Minha equipe vai entrar em contato com você.', 'success');
+  } catch (error) {
+    say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
+  } finally {
+    button.disabled = false;
+  }
+});
+
+/* ---------- loop ---------- */
+function loop(now) {
+  target = skip ? 1 : clamp((now - start - DELAY) / DURATION);
+  p += (target - p) * (skip ? .12 : .09);
+  if (Math.abs(target - p) < .00005) p = target;
+  if (p === 1) { try { sessionStorage.setItem('nv-intro', '1'); } catch {} }
+  for (const c of cards) {
+    c.hover += (c.hoverT - c.hover) * .18;
+    if (!c.v) continue;
+    if (c.mesh.visible && c.v.paused) c.v.play().catch(() => {});
+    else if (!c.mesh.visible && !c.v.paused) c.v.pause();
+  }
+  render();
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
