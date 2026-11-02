@@ -428,7 +428,7 @@ const WORK = [
   {img:'/img/deepchina-card.webp'}, // the DeepChina symbol on its navy (made from img/deepchina-symbol-white.svg)
   {img:'/img/canton-cracha-1200.webp'},
   {img:'/img/fabrica-900.webp', zoom:1.11, focus:[.45, .39]}, // both faces either side of the centre
-  {img:'/img/historia-1000.webp', zoom:1.1, focus:[.42, .44]}, // faces and the skyline
+  {img:'/img/historia-1000.webp', zoom:1.35, focus:[.37, .545], gain:1.15}, // close on the faces; a night photo, so a little brighter
   {img:'/media/bastidores-poster.webp', video:'/media/bastidores.mp4'},
   {img:'/img/clientes-640.webp'},
   {img:'/img/shanghai-720.webp'},
@@ -480,19 +480,19 @@ const at = (s, op, ot) => {
 /* ---------- cards ---------- */
 const CARD_W = 2.1, CARD_H = 1.32, GAP = .03, STEP = CARD_W + GAP, NX = 28, NY = 3, RADIUS = .018;
 const vs = `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
-const fs = `uniform sampler2D map;uniform vec2 cover,shift;uniform float aspect,ready,radius;varying vec2 vUv;
+const fs = `uniform sampler2D map;uniform vec2 cover,shift;uniform float aspect,ready,radius,gain;varying vec2 vUv;
 void main(){
   vec2 q=(abs(vUv-.5)-.5)*vec2(aspect,1.)+radius;
   float d=length(max(q,0.))+min(max(q.x,q.y),0.)-radius;
   float px=fwidth(d),a=1.-smoothstep(-px,px,d);
   if(a<.01)discard;
   vec2 uv=vUv;if(!gl_FrontFacing)uv.x=1.-uv.x;
-  vec3 c=mix(vec3(.075),texture2D(map,(uv-.5)*cover+.5+shift).rgb,ready);
+  vec3 c=mix(vec3(.075),min(texture2D(map,(uv-.5)*cover+.5+shift).rgb*gain,1.),ready);
   float edge=smoothstep(-.012-px,-.012,d);
   gl_FragColor=vec4(mix(c,vec3(1.),edge*.1),a);
 }`;
 // cover fit from the picture's aspect ratio, then show it. A card can zoom in and move its crop towards a focus point
-// (fractions of the picture from its top left), as far as the picture allows.
+// (fractions of the picture from its top left), as far as the picture allows, and brighten a dark photo (gain).
 const fit = (c, w, h) => {
   const va = w / h, ca = CARD_W / CARD_H, z = c.zoom || 1, [fx, fy] = c.focus || [.5, .5];
   const cx = (va > ca ? ca / va : 1) / z, cy = (va > ca ? 1 : va / ca) / z;
@@ -501,13 +501,13 @@ const fit = (c, w, h) => {
   c.mat.uniforms.shift.value.set(room(cx, fx), -room(cy, fy)); // texture rows run bottom up
   c.mat.uniforms.ready.value = 1;
 };
-const cards = WORK.map(({img, video, zoom, focus}, i) => {
+const cards = WORK.map(({img, video, zoom, focus, gain}, i) => {
   // still pictures get mipmaps, so they stay clean when the ribbon is far away
   const tex = new THREE.Texture();
   tex.colorSpace = THREE.NoColorSpace; tex.minFilter = THREE.LinearMipmapLinearFilter; tex.magFilter = THREE.LinearFilter;
   const geo = new THREE.PlaneGeometry(1, 1, NX, NY);
   const mat = new THREE.ShaderMaterial({vertexShader:vs, fragmentShader:fs, transparent:true, side:THREE.DoubleSide,
-    uniforms:{map:{value:tex}, cover:{value:new THREE.Vector2(1, 1)}, shift:{value:new THREE.Vector2()}, aspect:{value:CARD_W / CARD_H}, ready:{value:0}, radius:{value:RADIUS}}});
+    uniforms:{map:{value:tex}, cover:{value:new THREE.Vector2(1, 1)}, shift:{value:new THREE.Vector2()}, gain:{value:gain || 1}, aspect:{value:CARD_W / CARD_H}, ready:{value:0}, radius:{value:RADIUS}}});
   const mesh = new THREE.Mesh(geo, mat); mesh.frustumCulled = false; scene.add(mesh);
   const c = {i, v:null, zoom, focus, tex, geo, mat, mesh, hover:0, hoverT:0};
   const pic = new Image();
