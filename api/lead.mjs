@@ -5,7 +5,7 @@ const allowedOrigins = (process.env.SITE_ORIGIN || "").split(",").map((o) => o.t
 // Short names for the DeepChina AI services, plus mentoring and "Outro". Every service starts with a paid
 // one-hour call (R$ 500, credited if they hire), which the visitor has to agree to.
 export const options = {
-  needs: ["Consultoria", "Achar fábrica", "Inspeção", "Frete", "Mentoria", "Outro"],
+  needs: ["Consultoria", "Achar fábrica", "Auditoria de fábrica", "Frete", "Mentoria", "Outro"],
   budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"]
 };
 
@@ -17,7 +17,7 @@ const clean = (value, max) => String(value ?? "").trim().slice(0, max);
 // The answers as the visitor gave them, or the first problem found (in Portuguese, shown in the pop-up).
 export function validate(data) {
   const request = {
-    needs: Array.isArray(data.needs) ? data.needs.map((v) => clean(v, 40)).filter((v) => options.needs.includes(v)) : [],
+    needs: Array.isArray(data.needs) ? data.needs.map((v) => clean(v, 60)).filter((v) => options.needs.includes(v)) : [],
     product: clean(data.product, 300),
     budget: clean(data.budget, 40),
     name: clean(data.name, 120),
