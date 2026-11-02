@@ -1,346 +1,936 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b1a40" />
-    <meta name="description" content="Nando Voyager, empresário em Hong Kong e fundador da DeepChina AI, o copiloto de importação China → Brasil. Mais de 1,5 milhão de seguidores acompanham os negócios na China." />
-    <link rel="canonical" href="https://nandovoyager.com/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nandovoyager.com/" />
-    <meta property="og:site_name" content="Nando Voyager" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:title" content="Nando Voyager — Faço negócios na China. E te mostro como." />
-    <meta property="og:description" content="Feiras, fábricas e negociações na China, acompanhadas por mais de 1,5 milhão de seguidores." />
-    <meta property="og:image" content="https://nandovoyager.com/img/og.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Nando Voyager em frente ao complexo da 140ª Canton Fair, em Guangzhou." />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@NandoVoyager" />
-    <title>Nando Voyager — Negócios na China</title>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Nando Voyager",
-        "url": "https://nandovoyager.com/",
-        "image": "https://nandovoyager.com/img/og.jpg",
-        "jobTitle": "Fundador da DeepChina AI",
-        "email": "mailto:contato@nandovoyager.com",
-        "sameAs": ["https://www.youtube.com/@NandoVoyager", "https://www.instagram.com/nandovoyager/", "https://www.facebook.com/nandovoyager1/", "https://x.com/NandoVoyager"]
-      }
-    </script>
-    <link rel="icon" href="/favicon.ico?v=20261004-framing" sizes="48x48" />
-    <link rel="icon" href="/icon.png?v=20261004-framing" type="image/png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261004-framing" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="preload" as="image" href="/img/shanghai-1245.webp" imagesrcset="/img/shanghai-720.webp 720w, /img/shanghai-1245.webp 1245w" imagesizes="(max-width: 860px) 100vw, 63vw" />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nando Voyager — Negócios na China</title>
+<meta name="description" content="Nando Voyager, empresário em Hong Kong e fundador da DeepChina AI. Consultoria de importação, Imersão Canton Fair e a minha história, do Brasil a Hong Kong." />
+<link rel="canonical" href="https://nandovoyager.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://nandovoyager.com/" />
+<meta property="og:site_name" content="Nando Voyager" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:title" content="Nando Voyager — Negócios na China" />
+<meta property="og:description" content="DeepChina AI, Imersão Canton Fair, consultoria de importação e a minha história." />
+<meta property="og:image" content="https://nandovoyager.com/img/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Nando Voyager em frente ao complexo da 140ª Canton Fair, em Guangzhou." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@NandoVoyager" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Nando Voyager","url":"https://nandovoyager.com/","image":"https://nandovoyager.com/img/og.jpg","jobTitle":"Fundador da DeepChina AI","email":"mailto:contato@nandovoyager.com","sameAs":["https://www.instagram.com/nandovoyager/","https://www.facebook.com/nandovoyager1/","https://www.youtube.com/@NandoVoyager","https://www.tiktok.com/@nandovoyager","https://x.com/NandoVoyager"]}
+</script>
+<meta name="theme-color" content="#0a0a0b" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/icon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" />
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<style>
+:root{--bg:#0a0a0b;--ink:#f4f1ea;--mid:#8d8b86;--line:rgba(244,241,234,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow:hidden}
+/* One screen: the first scroll plays the whole animation, which ends on the links (see the script). */
+.stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
+/* the name in the same handwriting as "minha mente" and "vídeo novo" */
+.hl{position:absolute;left:0;right:0;font:600 clamp(56px,9vw,176px)/1 'Caveat',cursive;letter-spacing:0;white-space:nowrap;text-align:center;will-change:transform}
+#l1{top:calc(50% - .9em)}
+#l2{top:calc(50% - .1em)}
+#l1 span{transform:rotate(-4deg)}
+#l2 span{transform:rotate(-2deg)}
+#l1 span,#l2 span{display:inline-block}
+#l1 span{margin-right:15vw}
+#l2 span{margin-left:15vw}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.top{position:absolute;left:32px;right:32px;top:26px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.top{justify-content:flex-start}.acts{margin-left:auto}
+#glow{position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(rgba(244,241,234,.1),rgba(244,241,234,0))}
+/* name with a round photo, the way a profile shows it */
+.logo{display:flex;align-items:center;gap:11px;color:var(--ink);pointer-events:auto}
+.logo img{width:36px;height:36px;border-radius:50%;box-shadow:0 0 0 1px rgba(244,241,234,.28),0 0 0 3px var(--bg),0 0 0 4px rgba(244,241,234,.12)}
+.logo-text{display:flex;flex-direction:column;gap:3px}
+.logo-text b{font-size:16px;font-weight:600;line-height:1;letter-spacing:-.01em}
+.logo-text small{font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.03em;color:var(--mid)}
+.acts{display:flex;align-items:center;gap:7px;pointer-events:auto}
+.acts a{display:flex;align-items:center;gap:9px;height:32px;padding:0 15px;border:1px solid rgba(244,241,234,.55);border-radius:99px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:background .2s,color .2s}
+.acts a:hover{background:var(--ink);color:var(--bg)}
+.acts a i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.acts a b{display:block;width:13px;height:7px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
+.acts a.contact{letter-spacing:.01em}
+.acts a.contact .mail-ico{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+/* first frame only: tells the visitor that scrolling drives the page */
+#cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);padding:8px 12px;border:0;background:none;font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--mid);white-space:nowrap;cursor:pointer}
+#cue:hover{color:var(--ink)}
+#rule{position:absolute;left:3.5vw;right:3.5vw;top:50%;height:1px;background:var(--line);transform-origin:left;transform:scaleX(0)}
 
-    <header class="site-header on-dark">
-      <div class="wrap header-row">
-        <a class="wordmark" href="#" aria-label="Nando Voyager, início" data-top>Nando Voyager</a>
-        <nav class="nav" aria-label="Seções">
-          <a href="#sobre">Minha história</a>
-          <a href="#deepchina">DeepChina AI</a>
-          <a href="#bastidores">Bastidores</a>
-          <a href="#servicos">Serviços</a>
-        </nav>
-        <div class="header-actions">
-          <a class="header-icon" data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube @NandoVoyager">
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8zM10 15V9l5.2 3z" fill="currentColor" /></svg>
-          </a>
-          <a class="header-icon" data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram @nandovoyager">
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg>
-          </a>
-          <a class="header-icon header-icon-extra" data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook Nando Voyager">
-            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg>
-          </a>
-          <a class="header-icon header-icon-extra" data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn Nando Voyager" hidden>
-            <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg>
-          </a>
-          <a class="header-icon header-icon-extra" data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X @NandoVoyager">
-            <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg>
-          </a>
-          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
-            <svg class="menu-open-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
-            <svg class="menu-close-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
-          </button>
-        </div>
-      </div>
-    </header>
+/* The links: each card of the ribbon lands in one of these slots (.tile-img) and the label sits on top. */
+.hub{position:absolute;top:84px;bottom:24px;left:32px;right:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;pointer-events:none}
+.tiles{--gw:min(56vw,(100svh - 320px) * 1.55);width:var(--gw);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--gw) * .0272) calc(var(--gw) * .017);list-style:none}
+.tile{position:relative;display:block;aspect-ratio:2.1/1.32;border-radius:6px;color:var(--ink);text-decoration:none;opacity:0;visibility:hidden;pointer-events:auto;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.tile:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.tile-img{position:absolute;inset:0;border-radius:inherit}
+.tile:before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(rgba(10,10,11,0) 38%,rgba(10,10,11,.8))}
+.tile-n{position:absolute;left:14px;top:12px;font:400 11px 'IBM Plex Mono',monospace;font-style:normal;letter-spacing:.06em;color:rgba(244,241,234,.8);text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.tile-text{position:absolute;left:16px;right:56px;bottom:14px}
+.tile-text b{display:block;font-size:clamp(18px,1.8vw,30px);font-weight:500;line-height:1.1;letter-spacing:-.02em}
+.tile-text small{display:block;margin-top:4px;overflow:hidden;font-size:12.5px;line-height:1.3;color:rgba(244,241,234,.74);white-space:nowrap;text-overflow:ellipsis}
+.tile-go{position:absolute;right:14px;bottom:14px;display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(244,241,234,.55);border-radius:50%;font-size:14px;transition:background .2s,color .2s}
+/* hover only where there is a mouse: on a phone a tap would leave it stuck */
+@media (hover:hover){.tile:hover{transform:scale(1.03)}.tile:hover .tile-go{background:var(--ink);color:var(--bg)}}
+.tile:active .tile-go{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 
-    <!-- Phone and tablet menu, opened by the button in the header. Outside the header: its backdrop-filter would trap a fixed child. -->
-    <div class="menu" id="menu" hidden>
-      <div class="menu-sheet">
-        <nav class="menu-links" aria-label="Menu">
-          <a href="#sobre">Minha história</a>
-          <a href="#deepchina">DeepChina AI</a>
-          <a href="#bastidores">Bastidores</a>
-          <a href="#servicos">Serviços</a>
-        </nav>
-        <div class="menu-foot">
-          <a class="menu-mail" href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20parceria">contato@nandovoyager.com</a>
-          <div class="menu-social">
-            <a class="btn btn-ghost" data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8zM10 15V9l5.2 3z" fill="currentColor" /></svg>
-              YouTube
-            </a>
-            <a class="btn btn-ghost" data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg>
-              Instagram
-            </a>
-            <a class="btn btn-ghost" data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg>
-              Facebook
-            </a>
-            <a class="btn btn-ghost" data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg>
-              X
-            </a>
-            <a class="btn btn-ghost" data-social="linkedin" href="#" target="_blank" rel="noreferrer" hidden>
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg>
-              LinkedIn
-            </a>
-          </div>
-        </div>
+/* E-mail signup: bottom centre on a wide screen, under the links on a phone. */
+.join{position:relative;width:min(460px,100%);text-align:center;pointer-events:auto}
+.join-title{margin-bottom:18px;font-size:clamp(20px,1.7vw,25px);font-weight:500;line-height:1.2;letter-spacing:-.02em}
+/* "minha mente" in handwriting, underlined by a stroke that draws itself once the signup opens */
+.hand{position:relative;display:inline-block;margin-left:.08em;font:600 1.4em/1 'Caveat',cursive;letter-spacing:0}
+.hand svg{position:absolute;left:0;bottom:-.3em;width:100%;height:.42em;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round}
+.hand-colon{margin-left:.06em;font:600 1.4em/1 'Caveat',cursive}
+.hand path{stroke-dasharray:130;stroke-dashoffset:130;transition:stroke-dashoffset .7s ease .35s}
+.is-open .hand path{stroke-dashoffset:0}
+/* field and button in one pill; a light keeps running around its border */
+@property --spin{syntax:'<angle>';inherits:false;initial-value:0deg}
+.join-row,.join-done{display:flex;align-items:center;gap:6px;padding:5px;border:1px solid transparent;border-radius:99px;background:linear-gradient(#141415,#141415) padding-box,conic-gradient(from var(--spin),rgba(244,241,234,.16) 0 55%,rgba(244,241,234,.95) 78%,rgba(244,241,234,.16) 100%) border-box;animation:spin 4s linear infinite;transition:box-shadow .2s}
+.join-row:focus-within{box-shadow:0 0 0 4px rgba(244,241,234,.1)}
+@keyframes spin{to{--spin:360deg}}
+.join input{flex:1;min-width:0;height:42px;padding:0 14px;border:0;background:none;color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0}
+.join input::placeholder{color:var(--mid)}
+.join button{flex:none;display:flex;align-items:center;gap:8px;height:42px;padding:0 20px;border:0;border-radius:99px;background:var(--ink);color:var(--bg);font:600 12.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.join button span{transition:transform .2s}
+.join button:hover span{transform:translateX(3px)}
+.join button:disabled{opacity:.6;cursor:default}
+.join .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.join-msg{position:absolute;left:0;right:0;top:100%;margin-top:6px;font-size:12px;text-align:center;color:var(--mid)}
+.join-msg[data-state=error]{color:#ffb4a8}
+.join-row[hidden],.join-done[hidden]{display:none}
+/* after sending: the field gives way to a confirmation pill, the check draws itself and the title turns to "Você está dentro" */
+.join-done{gap:12px;padding-right:18px;animation:spin 4s linear infinite,pop .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.97)}}
+.done-check{display:grid;flex:none;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--ink)}
+.done-check svg{width:22px;height:22px;fill:none;stroke:var(--bg);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.done-check path{stroke-dasharray:20;stroke-dashoffset:20;animation:draw .45s ease .3s forwards}
+.done-mail{flex:1;min-width:0;overflow:hidden;font-size:15px;text-align:left;text-overflow:ellipsis;white-space:nowrap}
+.done-tag{flex:none;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;color:var(--mid)}
+.t-done .hand path{animation:draw .8s ease .35s both}
+@keyframes draw{from{stroke-dashoffset:var(--len,20)}to{stroke-dashoffset:0}}
+.t-done .hand path{--len:130}
+/* Social icons: in the top bar on a wide screen, a row above the links on a phone. LinkedIn shows once site-config.js has it. */
+.top-socials{display:flex;align-items:center;gap:2px;margin-right:10px}
+.top-socials a{position:relative;display:flex;align-items:center;gap:7px;height:36px;padding:0 9px;border:0;border-radius:99px;color:rgba(244,241,234,.78)}
+.top-socials a:hover{background:none;color:var(--ink)}
+.ico{display:grid;place-items:center}
+.count{font:500 12px 'IBM Plex Mono',monospace;letter-spacing:.02em}
+.socials{display:none;gap:14px;justify-content:center;pointer-events:auto}
+.socials a{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);text-decoration:none}
+.socials .ico{width:44px;height:44px;border:1px solid rgba(244,241,234,.35);border-radius:50%;transition:background .2s,color .2s,border-color .2s}
+.socials a:hover .ico{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.socials .count{font-size:11.5px;color:var(--mid)}
+.top-socials a[hidden],.socials a[hidden]{display:none}
+@media (max-width:920px){.top-socials .count{display:none}} /* narrow windows: the icons alone, so they never reach the name */
+/* Signup and icons open once the links have landed (.is-open): the signup rises, then the icons one after another. */
+.join,.socials a,.top-socials a{opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .5s cubic-bezier(.2,.7,.2,1),transform .5s cubic-bezier(.2,.7,.2,1),visibility 0s .5s,background .2s,color .2s,border-color .2s}
+.top-socials a{transform:translateY(-8px)}
+.is-open .join,.is-open .socials a,.is-open .top-socials a{opacity:1;visibility:visible;transform:none;transition-delay:var(--d,0s),var(--d,0s),0s,0s,0s,0s}
+.socials a:nth-child(1),.top-socials a:nth-child(1){--d:.05s}
+.socials a:nth-child(2),.top-socials a:nth-child(2){--d:.10s}
+.socials a:nth-child(3),.top-socials a:nth-child(3){--d:.15s}
+.socials a:nth-child(4),.top-socials a:nth-child(4){--d:.20s}
+.socials a:nth-child(5),.top-socials a:nth-child(5){--d:.25s}
+.socials a:nth-child(6),.top-socials a:nth-child(6){--d:.30s}
+/* "vídeo novo": a hand-drawn arrow at the YouTube icon (under it in the top bar, above it on a phone); it draws itself once the icons are open */
+.new-video{position:absolute;left:50%;top:100%;display:flex;flex-direction:column-reverse;align-items:center;margin-top:-2px;transform:translateX(-50%);pointer-events:none;opacity:0;transition:opacity .4s ease .35s}
+.new-video em{font:600 19px/1 'Caveat',cursive;color:var(--ink);white-space:nowrap;transform:rotate(-4deg)}
+.top-socials .new-video svg,.socials .new-video svg{width:18px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.top-socials .new-video svg{transform:scaleY(-1)}
+.new-video path{stroke-dasharray:40;stroke-dashoffset:40;transition:stroke-dashoffset .5s ease .45s}
+.is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1s infinite}
+@keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
+.is-open .new-video path{stroke-dashoffset:0}
+@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
+.top-socials svg,.socials svg{width:17px;height:17px}
+/* only YouTube in its colour (with the play in white), the rest follow the text */
+.top-socials [data-social=youtube] svg,.socials [data-social=youtube] svg{color:#ff0033}
+/* "Serviços" pop-up: a short lead filter in three steps (sent to /api/lead). A centred card on a wide screen, a sheet from the bottom on a phone. */
+.lead{width:min(480px,calc(100% - 32px));max-height:calc(100svh - 32px);margin:auto;padding:0;border:1px solid rgba(244,241,234,.16);border-radius:22px;background:#111112;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:auto}
+.lead::backdrop{background:rgba(5,5,6,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.lead[open]{animation:lead-in .4s cubic-bezier(.2,.7,.2,1)}
+.lead[open]::backdrop{animation:fade .3s ease}
+.lead.closing{animation:lead-out .22s ease forwards}
+.lead.closing::backdrop{animation:fade .22s ease reverse forwards}
+@keyframes lead-in{from{opacity:0;transform:translateY(18px) scale(.98)}}
+@keyframes lead-out{to{opacity:0;transform:translateY(12px) scale(.98)}}
+@keyframes fade{from{opacity:0}}
+.lead-in{display:flex;flex-direction:column;padding:20px 24px 24px}
+.lead-top{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.lead-step{font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--mid)}
+.lead-bar{flex:1;height:2px;border-radius:2px;background:rgba(244,241,234,.12);overflow:hidden}
+.lead-bar i{display:block;width:33%;height:100%;background:var(--ink);transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.lead-x{display:grid;place-items:center;width:34px;height:34px;margin:-6px -8px -6px 0;border:0;border-radius:50%;background:none;color:var(--mid);cursor:pointer}
+.lead-x:hover{background:rgba(244,241,234,.08);color:var(--ink)}
+.lead-x svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.lead-panel{min-width:0;margin:0;padding:0;border:0;animation:step-in .35s cubic-bezier(.2,.7,.2,1)}
+.lead-panel[hidden]{display:none}
+@keyframes step-in{from{opacity:0;transform:translateX(14px)}}
+.lead-q{float:left;width:100%;margin:0 0 12px;font-size:26px;font-weight:500;line-height:1.15;letter-spacing:-.02em}
+.lead-q .hand svg{display:none}
+.lead-q .hand{margin-right:.14em} /* the handwriting leans into the next word */
+.lead-q + *{clear:both}
+.lead-q + .lead-label{margin-top:4px}
+.lead-hint{margin:0;font-size:14px;color:var(--mid)}
+.lead-label{display:block;margin:20px 0 8px;font-size:13px;color:var(--mid)}
+.lead-field{width:100%;height:46px;padding:0 16px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0;transition:border-color .2s}
+.lead-field::placeholder{color:#5f5d59}
+.lead-field:focus{border-color:rgba(244,241,234,.6)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.lead-label + .chips{margin-top:0}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid rgba(244,241,234,.22);border-radius:99px;font-size:14px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.chip span:hover{border-color:rgba(244,241,234,.55)}
+.chip input:checked + span{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
+/* option rows with a line of detail (the Canton Fair phases), chosen like the chips */
+.opts{display:grid;gap:8px;margin-top:16px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:block;padding:11px 16px;border:1px solid rgba(244,241,234,.22);border-radius:14px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.opt span:hover{border-color:rgba(244,241,234,.55)}
+.opt b{display:block;font-size:14.5px;font-weight:500}
+.opt small{display:block;margin-top:2px;font-size:12.5px;color:var(--mid);transition:color .18s}
+.opt input:checked + span{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.opt input:checked + span small{color:rgba(10,10,11,.6)}
+.opt input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
+.lead-q + .lead-hint + .opts{margin-top:14px}
+/* every service starts with the paid call: said in step 1, agreed to in step 3 */
+.lead-note{display:flex;gap:10px;align-items:flex-start;margin:18px 0 0;padding:12px 14px;border-radius:12px;background:rgba(244,241,234,.06);font-size:13px;line-height:1.4;color:var(--mid)}
+.lead-note svg{flex:none;width:18px;height:18px;margin-top:1px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round}
+.lead-note b{font-weight:500;color:var(--ink)}
+.agree{position:relative;display:block;margin-top:18px}
+.agree input{position:absolute;opacity:0;width:1px;height:1px}
+.agree span{display:grid;grid-template-columns:22px 1fr;column-gap:12px;padding:12px 14px;border:1px solid rgba(244,241,234,.22);border-radius:12px;cursor:pointer;transition:border-color .18s}
+.agree span:before{content:"";grid-row:1/3;width:20px;height:20px;margin-top:1px;border:1.5px solid rgba(244,241,234,.5);border-radius:6px;transition:background .18s,border-color .18s}
+.agree b{font-size:14px;font-weight:500}
+.agree small{font-size:12.5px;color:var(--mid)}
+.agree input:checked + span{border-color:var(--ink)}
+.agree input:checked + span:before{border-color:var(--ink);background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 12.5l3.8 3.8 7.2-8' fill='none' stroke='%230a0a0b' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+.agree input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
+.lead-legal{margin:14px 0 0;font-size:12px;color:var(--mid)}
+.lead-legal a{color:inherit;text-underline-offset:2px}
+.letter-join .lead-legal{margin-top:26px}
+.lead .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.lead-done{display:flex;flex-direction:column;align-items:center;padding:12px 0 4px;text-align:center}
+.lead-done .done-check{width:56px;height:56px;margin-bottom:16px}
+.lead-done .done-check svg{width:28px;height:28px}
+.lead-done .lead-q{float:none;margin-bottom:8px}
+.lead-msg{margin:14px 0 0;font-size:13px;color:#ffb4a8}
+.lead-msg:empty{display:none}
+.lead-msg a{color:var(--ink)}
+.lead-actions{display:flex;align-items:center;gap:10px;margin-top:24px}
+.lead-back{height:46px;padding:0 6px;border:0;background:none;color:var(--mid);font:500 14px 'Inter Tight',system-ui,sans-serif;cursor:pointer}
+.lead-back:hover{color:var(--ink)}
+.lead-next{display:flex;align-items:center;gap:8px;height:46px;margin-left:auto;padding:0 22px;border:0;border-radius:99px;background:var(--ink);color:var(--bg);font:600 12.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.lead-next span{transition:transform .2s}
+.lead-next:hover span{transform:translateX(3px)}
+.lead-next:disabled{opacity:.6;cursor:default}
+@media (max-width:560px){
+  .lead{width:100%;max-width:100%;max-height:92svh;margin:auto 0 0;border-width:1px 0 0;border-radius:22px 22px 0 0}
+  .lead[open]{animation:sheet-in .4s cubic-bezier(.2,.7,.2,1)}
+  .lead.closing{animation:sheet-out .22s ease forwards}
+  @keyframes sheet-in{from{transform:translateY(100%)}}
+  @keyframes sheet-out{to{transform:translateY(100%)}}
+  .lead-in{padding:18px 18px calc(18px + env(safe-area-inset-bottom))}
+  .lead-q{font-size:24px}
+  .chip span{height:42px;padding:0 15px}
+}
+/* "Minha história": a personal e-mail in the pop-up shell (header stays while the letter scrolls) */
+.letter{width:min(600px,calc(100% - 32px))}
+.letter-in{padding:0 28px 24px}
+.letter-top{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:12px;margin:0 -28px;padding:18px 28px 14px;background:#111112;border-bottom:1px solid rgba(244,241,234,.08)}
+.letter-top img{width:40px;height:40px;border-radius:50%}
+.letter-from{flex:1;display:flex;flex-direction:column;gap:2px;margin:0;font-size:14.5px}
+.letter-from b{font-weight:600}
+.letter-from span{font-size:12.5px;color:var(--mid)}
+.letter-subject{margin:22px 0 0;font-size:26px;font-weight:500;line-height:1.2;letter-spacing:-.02em}
+.letter-subject .hand svg{display:none}
+.letter-body{margin-top:16px;font-size:15.5px;line-height:1.65;color:rgba(244,241,234,.86)}
+.letter-body p{margin:0 0 14px}
+.letter-body b{font-weight:600;color:var(--ink)}
+.letter-body ul,.letter-body ol{margin:0 0 16px;padding-left:20px}
+.letter-body ol li{margin:6px 0}
+.letter-h{margin:24px 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+/* the DeepChina link, like an e-mail attachment */
+.letter-attach{display:flex;align-items:center;gap:14px;margin:4px 0 18px;padding:10px 16px 10px 10px;border:1px solid rgba(244,241,234,.18);border-radius:14px;background:rgba(244,241,234,.04);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s}
+.letter-attach:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
+.letter-attach img{flex:none;width:72px;height:45px;border-radius:8px;object-fit:cover}
+.letter-attach .att-fab{object-position:42% 30%}
+.letter-attach > span{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.letter-attach b{font-size:15px}
+.letter-attach small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
+.letter-attach em{flex:none;font:600 11.5px 'Inter Tight',system-ui,sans-serif;font-style:normal;letter-spacing:.08em;white-space:nowrap}
+.letter-body li{margin:3px 0}
+.letter-body li::marker{color:var(--mid)}
+.letter-sign{margin:22px 0 4px!important;color:var(--ink)}
+.letter-sign .hand{font-size:1.5em}
+/* the signup inside the letter: always shown (the page's version waits for the animation) */
+.letter .letter-join{width:100%;margin:6px 0 30px;text-align:left;opacity:1;visibility:visible;transform:none}
+.letter-join .letter-h{margin-top:18px!important}
+.letter-join p:not(.letter-h):not(.join-msg){margin-bottom:12px}
+.letter-join .join-msg{text-align:left}
+@media (max-width:560px){
+  .letter{width:100%}
+  .letter-in{padding:0 20px calc(20px + env(safe-area-inset-bottom))}
+  .letter-top{margin:0 -20px;padding:16px 20px 12px}
+  .letter-subject{font-size:23px}
+  .letter-body{font-size:15px}
+  .letter-attach em{display:none}
+}
+@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:760px){
+  .top{left:18px;right:18px;top:18px}#cue{bottom:18px}
+}
+/* Phones (portrait): a link-in-bio column, the cards land as thumbnails on the left of each row. */
+@media (max-aspect-ratio:9/10){
+  .hl{font-size:21vw}
+  .logo{gap:9px}
+  .logo-text b{font-size:clamp(14px,4.1vw,16px)}
+  #rule{display:none}
+  /* the address has to fit next to the name, down to 360px wide */
+  .acts a.contact{gap:6px;height:28px;padding:0 10px;font-size:clamp(9.5px,2.6vw,11px);letter-spacing:0}
+  .acts a.contact .mail-ico{width:15px;height:15px}
+  .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
+  .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
+  .tile{display:flex;align-items:center;gap:10px;aspect-ratio:auto;padding:6px 12px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
+  .tile:hover{transform:none}
+  .tile:active{background:rgba(244,241,234,.07)}
+  .tile:before,.tile-n{display:none}
+  .tile-img{position:relative;inset:auto;flex:none;width:clamp(60px,min(9.5svh,20vw),100px);aspect-ratio:2.1/1.32;border-radius:8px}
+  .tile-text{position:static;flex:1;min-width:0}
+  .tile-text b{font-size:17px}
+  .tile-text small{margin-top:2px;font-size:clamp(11px,3.2vw,12.5px);color:var(--mid)}
+  .tile-go{position:static;flex:none;width:30px;height:30px;border-color:rgba(244,241,234,.28);font-size:14px;color:var(--ink)}
+  .join{width:auto}
+  .join input,.join button{height:44px}
+  .top-socials{display:none}
+  .socials{display:flex;margin-top:40px}
+  .socials .new-video{top:auto;bottom:100%;flex-direction:column;margin:0 0 2px}
+}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+  <h1 aria-label="Nando Voyager">
+    <div class="hl" id="l1" aria-hidden="true"><span>Nando</span></div>
+    <div class="hl" id="l2" aria-hidden="true"><span>Voyager</span></div>
+  </h1>
+  <div id="glow"></div>
+  <div id="rule"></div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <button id="cue" type="button">ROLE PARA VER &nbsp;↓</button>
+  <header class="top">
+    <span class="logo"><img src="/img/avatar-160.webp" width="36" height="36" alt="" /><span class="logo-text"><b>Nando Voyager</b><small>@nandovoyager</small></span></span>
+    <nav class="acts" aria-label="Atalhos">
+      <span class="top-socials">
+        <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,1 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.1M</span></a>
+        <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook, mais de 280 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+280k</span></a>
+        <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 23 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+23k</span></a>
+        <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok, mais de 45 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+45k</span></a>
+        <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
+        <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
+      </span>
+      <a class="contact" href="mailto:contato@nandovoyager.com"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg>contato@nandovoyager.com</a></nav>
+  </header>
+  <div class="hub">
+    <nav class="socials socials-phone" id="socials" aria-label="Redes sociais">
+      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,1 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.1M</span></a>
+      <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook, mais de 280 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+280k</span></a>
+      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 23 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+23k</span></a>
+      <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok, mais de 45 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+45k</span></a>
+      <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
+      <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
+    </nav>
+    <nav aria-label="Links">
+      <ul class="tiles" id="tiles">
+        <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>Vá comigo à maior feira da China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Meus serviços</b><small>Consultoria de importação</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="#letter" data-letter aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Um e-mail pessoal pra você</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+      </ul>
+    </nav>
+    <form class="join" id="join" novalidate>
+      <p class="join-title"><span class="t-in">Entre na <span class="hand">minha mente<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span><span class="hand-colon">:</span></span><span class="t-done" hidden>Você está <span class="hand">dentro<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span></span></p>
+      <label class="sr-only" for="email">Seu e-mail</label>
+      <div class="join-row">
+        <input id="email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit">ENTRAR <span aria-hidden="true">→</span></button>
       </div>
+      <div class="join-done" hidden>
+        <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+        <span class="done-mail"></span>
+        <span class="done-tag">INSCRITO</span>
+      </div>
+      <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</main>
+<dialog class="lead" id="lead-servicos" data-form="servicos" data-last="ENVIAR">
+  <form class="lead-in" novalidate>
+    <div class="lead-top">
+      <span class="lead-step" data-count>1/3</span>
+      <span class="lead-bar" aria-hidden="true"><i data-bar></i></span>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
     </div>
-
-    <main id="conteudo">
-      <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-photo" src="/img/shanghai-1245.webp" srcset="/img/shanghai-720.webp 720w, /img/shanghai-1245.webp 1245w" sizes="(max-width: 860px) 100vw, 63vw" width="1245" height="1245" alt="Nando Voyager à noite em Shanghai, com a torre Oriental Pearl iluminada ao fundo" fetchpriority="high" />
-        <div class="wrap hero-inner">
-          <div class="hero-copy">
-            <p class="badge hero-badge">Fundador da <a href="#deepchina">DeepChina AI</a></p>
-            <h1 id="hero-title"><span class="t1">Faço negócios na China.</span> <span class="t2">E te mostro como.</span></h1>
-            <div class="signup-block" id="cadastro">
-              <p class="signup-intro">Quer importar da China? <strong>Minha equipe entra em contato com você.</strong></p>
-              <form class="signup" id="signup-form" novalidate>
-                <label class="sr-only" for="email">Seu e-mail</label>
-                <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
-                <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                <button type="submit">Quero contato <span aria-hidden="true">→</span></button>
-              </form>
-              <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
-              <p class="hero-mail">Publicidade e parcerias: <a href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20parceria">contato@nandovoyager.com</a></p>
-            </div>
-          </div>
-          <ul class="hero-stats" aria-label="Em números">
-            <li><strong>+1,5 mi</strong> seguidores</li>
-            <li><strong>20+</strong> projetos milionários</li>
-            <li><strong>35+</strong> países</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="yt" id="youtube" aria-labelledby="yt-title">
-        <div class="wrap">
-          <header class="yt-head">
-            <div>
-              <p class="label">YouTube · @NandoVoyager</p>
-              <h2 id="yt-title">Vídeos mais recentes <span class="t2">no meu canal.</span></h2>
-            </div>
-            <div class="yt-controls">
-              <button class="yt-arrow" type="button" data-yt-prev aria-label="Vídeos anteriores"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
-              <button class="yt-arrow" type="button" data-yt-next aria-label="Próximos vídeos"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
-              <a class="btn btn-ghost yt-channel" data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer">Ver canal</a>
-            </div>
-          </header>
-        </div>
-        <!-- Filled by script.js from /api/youtube (latest videos, Shorts excluded). -->
-        <ul class="yt-track" aria-busy="true" aria-label="Vídeos do YouTube">
-          <li class="yt-card is-loading" aria-hidden="true"><span class="yt-thumb"></span><span class="yt-line"></span><span class="yt-line short"></span></li>
-          <li class="yt-card is-loading" aria-hidden="true"><span class="yt-thumb"></span><span class="yt-line"></span><span class="yt-line short"></span></li>
-          <li class="yt-card is-loading" aria-hidden="true"><span class="yt-thumb"></span><span class="yt-line"></span><span class="yt-line short"></span></li>
-          <li class="yt-card is-loading" aria-hidden="true"><span class="yt-thumb"></span><span class="yt-line"></span><span class="yt-line short"></span></li>
-        </ul>
-        <div class="wrap yt-more">
-          <a class="btn btn-ghost" data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer">Ver todos os vídeos no canal</a>
-        </div>
-      </section>
-
-      <section class="story wrap" id="sobre" aria-labelledby="sobre-title">
-        <header class="story-head">
-          <p class="label">Minha história</p>
-          <h2 id="sobre-title">Comecei do zero. <span class="t2">Aos 22 anos, faço negócios no mundo todo.</span></h2>
-        </header>
-        <ol class="route-map" aria-label="Países onde morei, em ordem">
-          <li class="stop">
-            <span class="stop-flag"><img src="/img/flags/br.svg" width="64" height="64" alt="" /></span>
-            <div class="stop-body">
-              <p class="stop-country">Brasil <span class="stop-year">2004</span></p>
-              <h3>O começo</h3>
-              <p>Nasci no Brasil e estudei aviação antes de sair do país.</p>
-            </div>
-          </li>
-          <li class="stop">
-            <span class="stop-flag"><img src="/img/flags/us.svg" width="64" height="64" alt="" /></span>
-            <div class="stop-body">
-              <p class="stop-country">Estados Unidos <span class="stop-year">18 anos</span></p>
-              <h3>Saí sozinho, com uma mala</h3>
-              <p>Um ano morando sozinho: a primeira experiência de independência.</p>
-            </div>
-          </li>
-          <li class="stop">
-            <span class="stop-flag"><img src="/img/flags/it.svg" width="64" height="64" alt="" /></span>
-            <div class="stop-body">
-              <p class="stop-country">Itália <span class="stop-year">2024</span></p>
-              <h3>Voluntário em uma fazenda</h3>
-              <p>Fui voluntário para conquistar minha cidadania italiana.</p>
-            </div>
-          </li>
-          <li class="stop">
-            <span class="stop-flag"><img src="/img/flags/kr.svg" width="64" height="64" alt="" /></span>
-            <div class="stop-body">
-              <p class="stop-country">Coreia do Sul <span class="stop-year">2024</span></p>
-              <h3>Professor de inglês</h3>
-              <p>Ensinei inglês e conheci a minha namorada, a Wonny.</p>
-            </div>
-          </li>
-          <li class="stop">
-            <span class="stop-flag"><img src="/img/flags/au.svg" width="64" height="64" alt="" /></span>
-            <div class="stop-body">
-              <p class="stop-country">Austrália <span class="stop-year">2025</span></p>
-              <h3>Trabalho pesado e disciplina</h3>
-              <p>Construção civil, minas e uma base militar em Queensland.</p>
-            </div>
-          </li>
-          <li class="stop">
-            <span class="stop-flag"><img src="/img/flags/cn.svg" width="64" height="64" alt="" /></span>
-            <div class="stop-body">
-              <p class="stop-country">China <span class="stop-year">2025</span></p>
-              <h3>Negócios na China</h3>
-              <p>Abri minha empresa e comecei a importar de fornecedores chineses.</p>
-            </div>
-          </li>
-        </ol>
-        <div class="story-end">
-          <article class="turn-card">
-            <div class="turn-top">
-              <span class="stop-flag turn-flag"><img src="/img/flags/hk.svg" width="64" height="64" alt="" /></span>
-              <div>
-                <p class="story-when">2026 · Hong Kong</p>
-                <h3>A virada</h3>
-              </div>
-            </div>
-            <p class="turn-text">Os negócios e o canal ganharam escala.</p>
-            <ul class="turn-stats">
-              <li><strong>20+</strong>projetos milionários</li>
-              <li><strong>1,5 mi</strong>seguidores</li>
-            </ul>
-          </article>
-          <article class="now-card" id="deepchina" aria-labelledby="dc-title">
-            <div class="now-text">
-              <p class="now-badge"><span class="now-dot" aria-hidden="true"></span>Hoje</p>
-              <h3 id="dc-title">Construindo a DeepChina AI</h3>
-              <p>Minha inteligência artificial para importar da China: um copiloto que acompanha cada etapa, da fábrica até a venda no Brasil.</p>
-            </div>
-            <a class="btn btn-primary now-cta" data-deepchina href="#cadastro">Conhecer a DeepChina AI <span aria-hidden="true">→</span></a>
-          </article>
-        </div>
-      </section>
-
-      <section class="behind" id="bastidores" aria-labelledby="bastidores-title">
-        <div class="wrap">
-          <header class="section-head">
-            <p class="label">Bastidores</p>
-            <h2 id="bastidores-title">Nas feiras, nas fábricas <span class="t2">e nas ruas da China.</span></h2>
-          </header>
-          <div class="bento">
-            <figure class="tile tile-video">
-              <video class="behind-video" muted loop playsinline preload="metadata" poster="/media/bastidores-poster.webp" aria-label="Bastidores da entrevista para o Made-in-China.com, em frente à Canton Fair">
-                <source src="/media/bastidores.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Entrevista para Made-in-China.com</figcaption>
-            </figure>
-            <figure class="tile tile-wide">
-              <img src="/img/canton-fachada-1600.webp" srcset="/img/canton-fachada-900.webp 900w, /img/canton-fachada-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 64vw" width="1600" height="1066" alt="Nando Voyager de costas, olhando o letreiro China Import and Export Fair" loading="lazy" />
-              <figcaption>China Import and Export Fair</figcaption>
-            </figure>
-            <figure class="tile">
-              <img src="/img/fabrica-900.webp" srcset="/img/fabrica-600.webp 600w, /img/fabrica-900.webp 900w" sizes="(max-width: 860px) 100vw, 32vw" width="900" height="860" alt="Nando Voyager conversando com um parceiro em uma fábrica na China" loading="lazy" />
-              <figcaption>Negociação em fábrica</figcaption>
-            </figure>
-            <figure class="tile">
-              <img class="tile-clientes" src="/img/clientes-1100.webp" srcset="/img/clientes-640.webp 640w, /img/clientes-1100.webp 1100w" sizes="(max-width: 860px) 50vw, 32vw" width="1100" height="1467" alt="Nando Voyager em uma selfie com um cliente numa rua da China, depois das compras" loading="lazy" />
-              <figcaption>Com clientes na China</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section class="services" id="servicos" aria-labelledby="servicos-title">
-        <div class="wrap">
-          <header class="section-head">
-            <p class="label">Serviços</p>
-            <h2 id="servicos-title">O que eu faço <span class="t2">para marcas e empreendedores.</span></h2>
-          </header>
-          <ul class="service-list">
-            <li class="service">
-              <p class="badge">Para marcas</p>
-              <h3>Publis e parcerias</h3>
-              <p>Vídeos e posts no YouTube e no Instagram para mais de 1,5 milhão de seguidores.</p>
-              <a class="service-link" href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20publi">Enviar proposta <span aria-hidden="true">→</span></a>
-            </li>
-            <li class="service">
-              <p class="badge">Para empreendedores</p>
-              <h3>Mentoria</h3>
-              <p>Te ensino a fazer o que eu faço: encontrar as fábricas, negociar na China e fechar negócios com fornecedores.</p>
-              <p class="service-price">R$ 50 mil</p>
-              <a class="service-link" href="mailto:contato@nandovoyager.com?subject=Mentoria">Quero a mentoria <span aria-hidden="true">→</span></a>
-            </li>
-            <li class="service">
-              <p class="badge">Para importadores</p>
-              <h3>Consultoria de importação</h3>
-              <p>Ajudo você a aumentar sua margem de lucro: conecto você direto à fábrica, negocio e faço auditoria.</p>
-              <p class="service-price">R$ 1 mil <small>/ call de 30 min</small></p>
-              <p class="service-note">Descontado se você fechar a consultoria.</p>
-              <a class="service-link" href="/consultoria/">Agendar call <span aria-hidden="true">→</span></a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="contact wrap" id="contato" aria-labelledby="contato-title">
-        <p class="label">Contato</p>
-        <h2 id="contato-title">Publis, parcerias e negócios.</h2>
-        <div class="mail-row">
-          <div class="mail-line">
-            <a class="mail-big" href="mailto:contato@nandovoyager.com?subject=Proposta%20de%20parceria">contato@nandovoyager.com</a>
-            <button class="copy-btn" type="button" data-copy="contato@nandovoyager.com">Copiar e-mail</button>
-          </div>
-          <p class="mail-note">Envie um e-mail profissional com os detalhes do que você precisa.</p>
-        </div>
-        <div class="contact-alt">
-          <a class="text-link" href="#cadastro" data-focus-signup>Quer importar da China? Deixe seu <span class="nowrap">e-mail <span aria-hidden="true">↑</span></span></a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="wrap footer-row">
-        <span class="wordmark">Nando Voyager</span>
-        <nav class="footer-links" aria-label="Redes e informações">
-          <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer">YouTube</a>
-          <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer">Instagram</a>
-          <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer">Facebook</a>
-          <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer">X</a>
-          <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" hidden>LinkedIn</a>
-          <a data-deepchina href="#deepchina">DeepChina AI</a>
-          <a href="/privacidade.html">Política de Privacidade</a>
-        </nav>
-        <span class="copy">© <span id="year"></span> Nando Voyager</span>
+    <fieldset class="lead-panel" data-step="1">
+      <legend class="lead-q">Do que você <span class="hand">precisa?</span></legend>
+      <p class="lead-hint">Pode marcar mais de um.</p>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" name="needs" value="Consultoria de importação" /><span>Consultoria de importação</span></label>
+        <label class="chip"><input type="checkbox" name="needs" value="Achar fábrica" /><span>Achar fábrica</span></label>
+        <label class="chip"><input type="checkbox" name="needs" value="Auditoria de fábrica" /><span>Auditoria de fábrica</span></label>
+        <label class="chip"><input type="checkbox" name="needs" value="Frete" /><span>Frete</span></label>
+        <label class="chip"><input type="checkbox" name="needs" value="Mentoria" /><span>Mentoria</span></label>
+        <label class="chip"><input type="checkbox" name="needs" value="Outro" /><span>Outro</span></label>
       </div>
-    </footer>
+      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg><span><b>Tudo começa com uma consultoria de importação: 1 hora comigo.</b> R$&nbsp;1.000, creditados no serviço se você fechar.</span></p>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="2" hidden>
+      <legend class="lead-q">Sobre o seu <span class="hand">pedido</span></legend>
+      <label class="lead-label" for="s-product">O que você quer importar?</label>
+      <input class="lead-field" id="s-product" name="product" type="text" maxlength="300" placeholder="Ex.: roupas fitness, peças de moto" autocomplete="off" />
+      <p class="lead-label" id="s-budget">Quanto pretende investir?</p>
+      <div class="chips" role="radiogroup" aria-labelledby="s-budget">
+        <label class="chip"><input type="radio" name="budget" value="Até R$ 10 mil" /><span>Até R$ 10 mil</span></label>
+        <label class="chip"><input type="radio" name="budget" value="R$ 10 a 50 mil" /><span>R$ 10 a 50 mil</span></label>
+        <label class="chip"><input type="radio" name="budget" value="R$ 50 a 200 mil" /><span>R$ 50 a 200 mil</span></label>
+        <label class="chip"><input type="radio" name="budget" value="Mais de R$ 200 mil" /><span>Mais de R$ 200 mil</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="3" hidden>
+      <legend class="lead-q">Como falo com <span class="hand">você?</span></legend>
+      <label class="lead-label" for="s-name">Nome</label>
+      <input class="lead-field" id="s-name" name="name" type="text" maxlength="120" autocomplete="name" />
+      <label class="lead-label" for="s-phone">WhatsApp com DDD</label>
+      <input class="lead-field" id="s-phone" name="phone" type="tel" maxlength="40" placeholder="(11) 91234-5678" autocomplete="tel" inputmode="tel" />
+      <label class="lead-label" for="s-email">E-mail</label>
+      <input class="lead-field" id="s-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <label class="agree"><input type="checkbox" name="call" value="sim" /><span><b>Topo a consultoria de 1 hora por R$&nbsp;1.000</b><small>Creditados no serviço se eu fechar.</small></span></label>
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="lead-legal">Ao enviar, você concorda com a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
+    </fieldset>
+    <div class="lead-panel lead-done" data-step="4" hidden>
+      <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+      <p class="lead-q">Pedido <span class="hand">recebido</span></p>
+      <p class="lead-hint">Pelo WhatsApp, você recebe o link para agendar e pagar a consultoria.</p>
+    </div>
+    <p class="lead-msg" role="status" aria-live="polite"></p>
+    <div class="lead-actions">
+      <button class="lead-back" type="button" data-back hidden>← Voltar</button>
+      <button class="lead-next" type="submit" data-next>CONTINUAR <span aria-hidden="true">→</span></button>
+    </div>
+  </form>
+</dialog>
+<dialog class="lead" id="lead-canton" data-form="canton" data-last="MARCAR CALL">
+  <form class="lead-in" novalidate>
+    <div class="lead-top">
+      <span class="lead-step" data-count>1/3</span>
+      <span class="lead-bar" aria-hidden="true"><i data-bar></i></span>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+    </div>
+    <fieldset class="lead-panel" data-step="1">
+      <legend class="lead-q">Qual <span class="hand">fase</span> da feira?</legend>
+      <p class="lead-hint">Pode marcar mais de uma.</p>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="phases" value="Fase 1" /><span><b>Fase 1</b><small>Eletrônicos, máquinas e ferramentas</small></span></label>
+        <label class="opt"><input type="checkbox" name="phases" value="Fase 2" /><span><b>Fase 2</b><small>Casa, presentes e móveis</small></span></label>
+        <label class="opt"><input type="checkbox" name="phases" value="Fase 3" /><span><b>Fase 3</b><small>Moda, brinquedos e têxteis</small></span></label>
+        <label class="opt"><input type="checkbox" name="phases" value="Ainda não sei" /><span><b>Ainda não sei</b></span></label>
+      </div>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="2" hidden>
+      <legend class="lead-q">Do que você <span class="hand">precisa?</span></legend>
+      <p class="lead-hint">Pode marcar mais de um.</p>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" name="support" value="Hotel" /><span>Hotel</span></label>
+        <label class="chip"><input type="checkbox" name="support" value="Passagens" /><span>Passagens</span></label>
+        <label class="chip"><input type="checkbox" name="support" value="Só a feira e apoio" data-solo /><span>Só a feira e apoio</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="3" hidden>
+      <legend class="lead-q">Como falo com <span class="hand">você?</span></legend>
+      <label class="lead-label" for="c-name">Nome</label>
+      <input class="lead-field" id="c-name" name="name" type="text" maxlength="120" autocomplete="name" />
+      <label class="lead-label" for="c-phone">WhatsApp com DDD</label>
+      <input class="lead-field" id="c-phone" name="phone" type="tel" maxlength="40" placeholder="(11) 91234-5678" autocomplete="tel" inputmode="tel" />
+      <label class="lead-label" for="c-email">E-mail</label>
+      <input class="lead-field" id="c-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg><span><b>A call é gratuita.</b> Nela, a gente planeja a sua ida à feira.</span></p>
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="lead-legal">Ao enviar, você concorda com a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
+    </fieldset>
+    <div class="lead-panel lead-done" data-step="4" hidden>
+      <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+      <p class="lead-q">Pedido <span class="hand">recebido</span></p>
+      <p class="lead-hint">Pelo WhatsApp, você recebe o link para marcar a call.</p>
+    </div>
+    <p class="lead-msg" role="status" aria-live="polite"></p>
+    <div class="lead-actions">
+      <button class="lead-back" type="button" data-back hidden>← Voltar</button>
+      <button class="lead-next" type="submit" data-next>CONTINUAR <span aria-hidden="true">→</span></button>
+    </div>
+  </form>
+</dialog>
+<dialog class="lead letter" id="letter" aria-labelledby="letter-subject">
+  <div class="letter-in">
+    <div class="letter-top">
+      <img src="/img/avatar-160.webp" width="40" height="40" alt="" />
+      <p class="letter-from"><b>Nando Voyager</b><span>para você</span></p>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+    </div>
+    <h2 class="letter-subject" id="letter-subject">Minha história <span class="hand">(até aqui)</span></h2>
+    <div class="letter-body">
+      <p>Oi,</p>
+      <p>Muita gente me pergunta como um brasileiro de 22 anos foi parar fazendo negócios na China. A resposta curta é: um passo de cada vez, quase nenhum deles bonito. A longa está aqui embaixo, e no fim tem o que eu faria se começasse a importar hoje.</p>
+      <p class="letter-h">O que aconteceu até aqui</p>
+      <ul>
+        <li>Nasci no Brasil em 2004 e estudei aviação</li>
+        <li>Saí do país com 18 anos, sozinho, com uma mala</li>
+        <li>Morei um ano nos Estados Unidos</li>
+        <li>Fui voluntário numa fazenda na Itália para conquistar a minha cidadania</li>
+        <li>Dei aula de inglês na Coreia do Sul, onde conheci a Wonny, minha namorada coreana</li>
+        <li>Trabalhei na construção civil, nas minas e numa base militar na Austrália</li>
+        <li>Abri minha empresa e comecei a importar de fornecedores chineses</li>
+        <li>Em Hong Kong veio a virada: mais de 20 projetos milionários e 1,5 milhão de seguidores</li>
+        <li>Hoje estou construindo a DeepChina AI</li>
+      </ul>
+      <p class="letter-h">O que cada fase me ensinou</p>
+      <p><b>Sair sozinho:</b> ninguém vai te dar permissão. Com 18 anos eu tinha uma mala e nenhum plano B. Um ano morando sozinho me ensinou a resolver tudo sem ninguém por perto, e é exatamente isso que você precisa para negociar do outro lado do mundo.</p>
+      <p><b>Itália:</b> nem todo passo é bonito. Trabalhar numa fazenda não era o sonho, mas foi o caminho para a cidadania. Às vezes o atalho para um objetivo grande passa por um trabalho pequeno.</p>
+      <p><b>Coreia:</b> dar aula me ensinou a explicar qualquer coisa de um jeito simples. Hoje uso isso em cada vídeo e em cada negociação: quem explica bem, vende bem. E foi lá que eu conheci a Wonny.</p>
+      <p><b>Austrália:</b> trabalho pesado ensina o que nenhum curso ensina. Disciplina é acordar cansado e ir mesmo assim. Depois das minas, nenhuma reunião com fábrica me assusta.</p>
+      <p><b>China:</b> foi aqui que tudo fez sentido. Descobri que a maior parte do lucro de quem importa se perde em intermediário, frete mal calculado e fornecedor errado. O melhor preço está sempre na fonte.</p>
+      <p><b>Hong Kong:</b> quando os números cresceram, eu entendi que o que mais vale é mostrar o processo de verdade, inclusive os erros. Foi isso que fez as pessoas confiarem em mim.</p>
+      <p class="letter-h">Se eu começasse a importar hoje</p>
+      <ol>
+        <li><b>Um produto, um pedido teste.</b> Comece pequeno, valide a venda e só depois aumente o volume.</li>
+        <li><b>Direto na fábrica.</b> Confira se é fábrica mesmo e não um intermediário: peça a licença, uma videochamada da linha de produção e uma amostra.</li>
+        <li><b>Custo final antes de fechar.</b> Produto, frete, impostos e câmbio. O preço que o fornecedor passa é só o começo da conta.</li>
+        <li><b>Negocie sempre.</b> O primeiro preço é ponto de partida. Volume, prazo e forma de pagamento mudam tudo.</li>
+      </ol>
+      <p class="letter-h">Por que eu criei a DeepChina AI</p>
+      <p>Cada um desses passos eu fazia na mão, caso por caso. Então juntei tudo o que aprendi num copiloto de importação com inteligência artificial: ele acha a fábrica direto nas bases chinesas, calcula o custo até o Brasil e ajuda a negociar sem cair em golpe. Tudo em português.</p>
+      <a class="letter-attach" href="#join" data-deepchina>
+        <img src="/img/deepchina-card.webp" width="72" height="45" alt="" />
+        <span><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span>
+        <em>VER MINHA IA <span aria-hidden="true">→</span></em>
+      </a>
+      <p class="letter-h">Se você quiser fazer comigo</p>
+      <p>Também trabalho direto com quem importa: consultoria de importação, achar e auditar a fábrica e cuidar do frete. Tudo começa com uma consultoria de 1 hora comigo, por R$&nbsp;1.000, que são creditados no serviço se você fechar.</p>
+      <p>E uma coisa importante: eu não vendo curso, pelo menos por enquanto. O que eu faço é trabalhar junto com você, no seu pedido.</p>
+      <a class="letter-attach" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">
+        <img class="att-fab" src="/img/fabrica-900.webp" width="72" height="45" alt="" />
+        <span><b>Meus serviços</b><small>Consultoria de importação</small></span>
+        <em>VER MEUS SERVIÇOS <span aria-hidden="true">→</span></em>
+      </a>
+      <form class="join letter-join" novalidate>
+        <p class="letter-h">Faça parte, é grátis</p>
+        <p>Deixe seu e-mail e eu te mando o que eu aprendo fazendo negócios na China, direto da fonte.</p>
+        <label class="sr-only" for="letter-email">Seu e-mail</label>
+        <div class="join-row">
+          <input id="letter-email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
+          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">FAZER PARTE <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="join-done" hidden>
+          <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+          <span class="done-mail"></span>
+          <span class="done-tag">INSCRITO</span>
+        </div>
+        <p class="join-msg" role="status" aria-live="polite"></p>
+        <p class="lead-legal">Sem spam. Veja a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
+      </form>
+      <p>Se você leu até aqui, obrigado.</p>
+      <p class="letter-sign">Nando, <span class="hand">de Hong Kong</span></p>
+    </div>
+  </div>
+</dialog>
+<script src="/site-config.js"></script>
+<script type="module">
+import * as THREE from 'three';
 
-    <script src="/site-config.js"></script>
-    <script src="/script.js" defer></script>
-  </body>
+// One card per link (same order as #tiles), then the ones that only ride the ribbon.
+const WORK = [
+  {img:'/img/deepchina-card.webp'}, // the DeepChina symbol on its navy (made from img/deepchina-symbol-white.svg)
+  {img:'/img/canton-cracha-1200.webp'},
+  {img:'/img/fabrica-900.webp', zoom:1.11, focus:[.45, .39]}, // both faces either side of the centre
+  {img:'/img/historia-1000.webp', zoom:1.35, focus:[.37, .545], gain:1.15}, // close on the faces; a night photo, so a little brighter
+  {img:'/img/moto-900.webp'},
+  {img:'/img/carro-1000.webp', focus:[.5, .4]},
+  {img:'/img/estrelas-1100.webp', zoom:1.2, focus:[.46, .5]},
+  {img:'/img/cachoeira-1000.webp', focus:[.38, .42]},
+];
+const config = window.NANDO_SITE_CONFIG || {};
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const mix = (a, b, t) => a + (b - a) * t;
+const ease = t => t * t * (3 - 2 * t);
+const out = t => 1 - (1 - t) ** 3;
+const span = (p, a, b) => clamp((p - a) / (b - a));
+
+const stage = $('stage'), tiles = [...document.querySelectorAll('.tile')];
+document.querySelectorAll('[data-social]').forEach(a => { const web = config.socialLinks?.[a.dataset.social]?.web; if (web) { a.href = web; a.hidden = false; } });
+if (config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(a => { a.href = config.deepchinaUrl; a.target = '_blank'; a.rel = 'noreferrer'; });
+// Until the DeepChina site is set, its links lead to the e-mail signup (handled below, once the animation code exists).
+
+/* ---------- renderer ---------- */
+const canvas = $('gl');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setClearColor(0, 0);
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+const scene = new THREE.Scene();
+const FOV = 35, camera = new THREE.PerspectiveCamera(FOV, 1, .1, 100);
+
+/* ---------- ribbon path ---------- */
+let path, PATH_L = 1;
+const SAMPLES = 1200, pathP = [], pathT = [];
+const PH0 = -1.5, PH1 = Math.PI * 2 + 1.35;
+function buildPath() {
+  const pts = [];
+  for (let i = 0; i <= 160; i++) {
+    const t = i / 160, ph = mix(PH0, PH1, t), cs = Math.cos(ph), u = 2 * t - 1;
+    // a shallow arc close to the camera, then long runs far behind it
+    const depth = cs > 0 ? 7.6 + 16.4 * cs ** .9 : 7.6 + 2.2 * cs;
+    const edge = .84 + .5 * span(.14 - t, 0, .14) + .8 * span(t, .84, 1);
+    pts.push(new THREE.Vector3(edge * Math.sin(ph) * depth * .561, .5 * Math.sign(u) * Math.abs(u) ** 1.4 * depth * .63, -depth));
+  }
+  path = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+  path.arcLengthDivisions = 1500;
+  PATH_L = path.getLength(); pathP.length = pathT.length = 0;
+  for (let i = 0; i <= SAMPLES; i++) { const u = i / SAMPLES; pathP.push(path.getPointAt(u)); pathT.push(path.getTangentAt(u)); }
+}
+const at = (s, op, ot) => {
+  const f = clamp(s / PATH_L) * SAMPLES, i = Math.min(SAMPLES - 1, Math.floor(f)), k = f - i;
+  op.lerpVectors(pathP[i], pathP[i + 1], k); ot.lerpVectors(pathT[i], pathT[i + 1], k).normalize();
+};
+
+/* ---------- cards ---------- */
+const CARD_W = 2.1, CARD_H = 1.32, GAP = .03, STEP = CARD_W + GAP, NX = 28, NY = 3, RADIUS = .018;
+const vs = `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
+const fs = `uniform sampler2D map;uniform vec2 cover,shift;uniform float aspect,ready,radius,gain;varying vec2 vUv;
+void main(){
+  vec2 q=(abs(vUv-.5)-.5)*vec2(aspect,1.)+radius;
+  float d=length(max(q,0.))+min(max(q.x,q.y),0.)-radius;
+  float px=fwidth(d),a=1.-smoothstep(-px,px,d);
+  if(a<.01)discard;
+  vec2 uv=vUv;if(!gl_FrontFacing)uv.x=1.-uv.x;
+  vec3 c=mix(vec3(.075),min(texture2D(map,(uv-.5)*cover+.5+shift).rgb*gain,1.),ready);
+  float edge=smoothstep(-.012-px,-.012,d);
+  gl_FragColor=vec4(mix(c,vec3(1.),edge*.1),a);
+}`;
+// cover fit from the picture's aspect ratio, then show it. A card can zoom in and move its crop towards a focus point
+// (fractions of the picture from its top left), as far as the picture allows, and brighten a dark photo (gain).
+const fit = (c, w, h) => {
+  const va = w / h, ca = CARD_W / CARD_H, z = c.zoom || 1, [fx, fy] = c.focus || [.5, .5];
+  const cx = (va > ca ? ca / va : 1) / z, cy = (va > ca ? 1 : va / ca) / z;
+  const room = (cover, f) => Math.max(-(1 - cover) / 2, Math.min((1 - cover) / 2, f - .5));
+  c.mat.uniforms.cover.value.set(cx, cy);
+  c.mat.uniforms.shift.value.set(room(cx, fx), -room(cy, fy)); // texture rows run bottom up
+  c.mat.uniforms.ready.value = 1;
+};
+const cards = WORK.map(({img, zoom, focus, gain}, i) => {
+  // still pictures get mipmaps, so they stay clean when the ribbon is far away
+  const tex = new THREE.Texture();
+  tex.colorSpace = THREE.NoColorSpace; tex.minFilter = THREE.LinearMipmapLinearFilter; tex.magFilter = THREE.LinearFilter;
+  const geo = new THREE.PlaneGeometry(1, 1, NX, NY);
+  const mat = new THREE.ShaderMaterial({vertexShader:vs, fragmentShader:fs, transparent:true, side:THREE.DoubleSide,
+    uniforms:{map:{value:tex}, cover:{value:new THREE.Vector2(1, 1)}, shift:{value:new THREE.Vector2()}, gain:{value:gain || 1}, aspect:{value:CARD_W / CARD_H}, ready:{value:0}, radius:{value:RADIUS}}});
+  const mesh = new THREE.Mesh(geo, mat); mesh.frustumCulled = false; scene.add(mesh);
+  const c = {i, zoom, focus, tex, geo, mat, mesh, hover:0, hoverT:0};
+  const pic = new Image();
+  pic.onload = () => { tex.image = pic; tex.needsUpdate = true; fit(c, pic.naturalWidth, pic.naturalHeight); };
+  pic.src = img;
+  return c;
+});
+
+/* ---------- layout ---------- */
+const GZ = 8, phone = matchMedia('(max-aspect-ratio: 9/10)');
+let W = 1, H = 1, asp = 1, cols = 3, rows = 2, tanH = .3153, slots = [];
+function resize() {
+  W = stage.clientWidth; H = stage.clientHeight; asp = W / H;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(W, H, false);
+  camera.aspect = asp; camera.fov = asp < 16 / 9 ? Math.atan(.561 / asp) * 360 / Math.PI : FOV; camera.updateProjectionMatrix();
+  tanH = Math.tan(camera.fov * Math.PI / 360);
+  cols = phone.matches ? 1 : 2; rows = Math.ceil(tiles.length / cols);
+  // the HTML lays out the links; each card lands exactly on its slot
+  const box = stage.getBoundingClientRect();
+  slots = tiles.map(t => { const r = t.querySelector('.tile-img').getBoundingClientRect(); return {x:r.left - box.left, y:r.top - box.top, w:r.width, h:r.height}; });
+  if (cols > 1) $('rule').style.top = `${(slots[0].y + slots[0].h + slots[cols].y) / 2}px`;
+}
+addEventListener('resize', resize); resize(); buildPath();
+// the signup changes height (after sending, the field gives way to a message): the links move, so measure again
+new ResizeObserver(() => resize()).observe($('join'));
+document.fonts.ready.then(resize);
+function grid(i) {
+  const vh = 2 * GZ * tanH, vw = vh * asp, s = slots[i];
+  return {x:((s.x + s.w / 2) / W - .5) * vw, y:(.5 - (s.y + s.h / 2) / H) * vh, w:s.w / W * vw, h:s.h / H * vh, px:s.h, vw, vh, c:i % cols, r:Math.floor(i / cols)};
+}
+
+/* ---------- progress ---------- */
+// One scroll down (wheel, swipe or key), or the "role para ver" button, plays the whole animation; it ends with
+// every link open and stays there. A visitor who asked for less motion gets the links at once.
+const DURATION = 4800;
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let start = null, target = 0, p = 0;
+const play = () => { if (start === null) start = calm ? -Infinity : performance.now(); };
+// DeepChina links without a site: finish the animation at once, close any pop-up and put the cursor in the signup
+if (!config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  start = -Infinity;
+  document.querySelectorAll('dialog[open]').forEach(d => d.close());
+  requestAnimationFrame(() => requestAnimationFrame(() => $('email').focus({preventScroll:true})));
+}));
+addEventListener('wheel', e => { if (e.deltaY > 0) play(); }, {passive:true});
+let touchY = null;
+addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive:true});
+addEventListener('touchmove', e => { if (touchY !== null && touchY - e.touches[0].clientY > 12) play(); }, {passive:true});
+addEventListener('keydown', e => { if (['ArrowDown', 'PageDown', 'End', ' '].includes(e.key) && !e.target.closest('input')) play(); });
+$('cue').addEventListener('click', play);
+
+/* ---------- pose ---------- */
+const op = new THREE.Vector3(), ot = new THREE.Vector3(), up = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), vp = new THREE.Vector3();
+function poseRibbon(c, head) {
+  const pos = c.geo.attributes.position, centre = head - c.i * STEP;
+  c.mat.uniforms.radius.value = RADIUS;
+  for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
+    const k = iy * (NX + 1) + ix, lu = ix / NX - .5, lv = .5 - iy / NY;
+    at(centre + lu * CARD_W, op, ot);
+    // keep the sheet upright, leaning a little into the turn
+    up.copy(Y).addScaledVector(ot, -Y.dot(ot)).normalize();
+    vp.copy(op).addScaledVector(up, lv * CARD_H);
+    pos.setXYZ(k, vp.x, vp.y, vp.z);
+  }
+  pos.needsUpdate = true;
+}
+function poseGrid(c, q) {
+  const g = grid(c.i), pos = c.geo.attributes.position, mid = (cols - 1) / 2;
+  const dx = (g.c - mid) * 1.2, dy = g.r < rows / 2 ? 1 : -1;
+  const ox = dx * g.vw * .62 * (1 - q), oy = dy * g.vh * (cols === 3 && g.c === 1 ? .95 : .34) * (1 - q), tilt = (1 - q) * .22 * (g.c - mid || .5) * dy;
+  const cs = Math.cos(tilt), sn = Math.sin(tilt), grow = 1 + .03 * c.hover; // grows with its tile on hover
+  // corners round off to the slot's radius as the card lands (6px on the grid, 8px on the phone rows)
+  c.mat.uniforms.radius.value = mix(RADIUS, (cols > 1 ? 6 : 8) / g.px, q);
+  for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
+    const k = iy * (NX + 1) + ix, x = (ix / NX - .5) * g.w * grow, y = (.5 - iy / NY) * g.h * grow;
+    pos.setXYZ(k, g.x + ox + x * cs - y * sn, g.y + oy + x * sn + y * cs, -GZ - (1 - q) * .6 * Math.sin(ix / NX * Math.PI));
+  }
+  pos.needsUpdate = true;
+}
+// a tile's label shows once its card has landed under it
+function showTile(el, q) {
+  const o = span(q, .97, 1);
+  el.style.opacity = o; el.style.visibility = o > .02 ? 'visible' : 'hidden';
+}
+
+const RIB_A = .04, RIB_B = .63; // nothing on the rail until the first scroll
+const loaded = performance.now();
+function render(now) {
+  const pp = p;
+  // on load the name rises into place; the first scroll sends the two lines apart and starts the ribbon
+  const enter = out(clamp((now - loaded - 150) / 1100));
+  const run = mix(0, 76, span(pp, 0, .58));
+  $('l1').style.transform = `translate3d(${run}vw,${(1 - enter) * 12}vh,0)`;
+  $('l2').style.transform = `translate3d(${-run}vw,${(1 - enter) * 12}vh,0)`;
+  $('l1').style.opacity = $('l2').style.opacity = enter * (1 - span(pp, .5, .6));
+  const intro = 1 - span(pp, 0, .05);
+  $('glow').style.opacity = intro;
+  $('cue').style.opacity = intro * span(enter, .6, 1);
+  $('cue').style.visibility = intro > 0 ? '' : 'hidden';
+  $('rule').style.transform = `scaleX(${ease(span(pp, .72, .86))})`;
+  stage.classList.toggle('is-open', pp > .6); // while the last links are still landing
+  // ribbon, then the links
+  const total = PATH_L + cards.length * STEP, head = mix(0, total, span(pp, RIB_A, RIB_B));
+  for (const c of cards) {
+    const s = head - c.i * STEP, end = PATH_L - CARD_W;
+    if (s < end) {
+      c.mesh.visible = s > CARD_W;
+      if (c.mesh.visible) poseRibbon(c, head);
+      if (tiles[c.i]) showTile(tiles[c.i], 0);
+    } else if (c.i < tiles.length) {
+      // each card flies to its slot the moment it leaves the rail
+      const st = mix(RIB_A, RIB_B, (end + c.i * STEP) / total), q = out(span(pp, st, st + .13));
+      c.mesh.visible = q > .001;
+      if (c.mesh.visible) poseGrid(c, q);
+      showTile(tiles[c.i], q);
+    } else c.mesh.visible = false;
+  }
+  renderer.render(scene, camera);
+}
+
+/* ---------- hover ---------- */
+tiles.forEach((t, i) => {
+  t.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && cols > 1) cards[i].hoverT = 1; });
+  t.addEventListener('pointerleave', () => { cards[i].hoverT = 0; });
+});
+
+/* ---------- e-mail signup (same endpoint and answers as the main page): the page's form and the letter's ---------- */
+document.querySelectorAll('form.join').forEach(form => {
+  const msg = form.querySelector('.join-msg'), button = form.querySelector('button');
+  const say = (text, state) => { msg.textContent = text; if (state) msg.dataset.state = state; else delete msg.dataset.state; };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const email = form.email.value.trim();
+    if (!config.signupEndpoint) return say('Inscrições ainda não estão conectadas.', 'error');
+    button.disabled = true; say('Enviando…');
+    try {
+      const r = await fetch(config.signupEndpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, website:form.website.value})});
+      const result = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(result.error || 'Não foi possível concluir sua inscrição.');
+      form.querySelector('.join-row').hidden = true;
+      const before = form.querySelector('.t-in'), after = form.querySelector('.t-done');
+      if (before) { before.hidden = true; after.hidden = false; } // the page's title turns to "Você está dentro"
+      const done = form.querySelector('.join-done');
+      done.querySelector('.done-mail').textContent = email;
+      done.hidden = false;
+      msg.classList.add('sr-only'); // the pill says it on screen; screen readers still hear it
+      say(`Pronto, ${email} está inscrito.`, 'success');
+    } catch (error) {
+      say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
+    } finally {
+      button.disabled = false;
+    }
+  });
+});
+
+/* ---------- pop-up forms ("Meus serviços", "Imersão Canton Fair"): short lead filters sent to /api/lead ---------- */
+const MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// per form: its answers, what step 1, 2 or 3 still needs (the same rules as the server) and the lines for the e-mail
+const FORMS = {
+  servicos: {
+    subject: 'Serviços',
+    answers: (d, get) => ({needs:d.getAll('needs').map(String), product:get('product'), budget:get('budget'), call:get('call') === 'sim'}),
+    missing: (n, a, f) =>
+      n === 1 && !a.needs.length ? ['Escolha pelo menos uma opção.', f.querySelector('[name=needs]')]
+      : n === 2 && !a.product ? ['Conte o que você quer importar.', f.elements.product]
+      : n === 2 && !a.budget ? ['Escolha quanto pretende investir.', f.querySelector('[name=budget]')]
+      : n === 3 && !a.call ? ['Todo serviço começa com a consultoria de 1 hora. Marque para continuar.', f.elements.call] : null,
+    lines: a => [`Preciso de: ${a.needs.join(', ')}`, `Quero importar: ${a.product}`, `Investimento: ${a.budget}`, 'Topo a consultoria de importação de 1 hora (R$ 1.000, creditados se eu fechar)']
+  },
+  canton: {
+    subject: 'Imersão Canton Fair',
+    answers: d => ({phases:d.getAll('phases').map(String), support:d.getAll('support').map(String)}),
+    missing: (n, a, f) =>
+      n === 1 && !a.phases.length ? ['Escolha a fase da feira.', f.querySelector('[name=phases]')]
+      : n === 2 && !a.support.length ? ['Escolha do que você precisa.', f.querySelector('[name=support]')] : null,
+    lines: a => [`Fase: ${a.phases.join(', ')}`, `Preciso de: ${a.support.join(', ')}`, 'Quero marcar a call']
+  }
+};
+// close a pop-up when its own exit animation ends (not one of its children's), or after it at the latest
+function closeDialog(dialog) {
+  if (!dialog.open || dialog.classList.contains('closing')) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return dialog.close();
+  dialog.classList.add('closing');
+  const finish = () => { if (!dialog.classList.contains('closing')) return; dialog.classList.remove('closing'); dialog.close(); };
+  dialog.addEventListener('animationend', function ended(e) { if (e.target !== dialog || e.pseudoElement) return; dialog.removeEventListener('animationend', ended); finish(); });
+  setTimeout(finish, 400);
+}
+function leadDialog(dialog) {
+  const kind = FORMS[dialog.dataset.form], form = dialog.querySelector('form'), msg = form.querySelector('.lead-msg');
+  const next = form.querySelector('[data-next]'), back = form.querySelector('[data-back]'), panels = [...form.querySelectorAll('.lead-panel')];
+  let step = 1;
+  const answers = () => {
+    const d = new FormData(form), get = n => (d.get(n) || '').toString().trim();
+    return {form:dialog.dataset.form, ...kind.answers(d, get), name:get('name'), phone:get('phone'), email:get('email'), website:get('website')};
+  };
+  const missing = (n, a) =>
+    n === 3 && !a.name ? ['Informe o seu nome.', form.elements.name]
+    : n === 3 && a.phone.replace(/\D/g, '').length < 8 ? ['Informe um WhatsApp com DDD.', form.elements.phone]
+    : n === 3 && !MAIL.test(a.email) ? ['Informe um e-mail válido.', form.elements.email]
+    : kind.missing(n, a, form);
+  function show(n) {
+    step = n;
+    panels.forEach(p => { p.hidden = +p.dataset.step !== n; });
+    form.querySelector('[data-count]').textContent = `${Math.min(n, 3)}/3`;
+    form.querySelector('[data-bar]').style.width = `${Math.min(n, 3) / 3 * 100}%`;
+    back.hidden = n === 1 || n > 3;
+    next.innerHTML = n === 3 ? `${dialog.dataset.last} <span aria-hidden="true">→</span>` : n > 3 ? 'FECHAR' : 'CONTINUAR <span aria-hidden="true">→</span>';
+    msg.textContent = '';
+    const q = panels[n - 1].querySelector('.lead-q');
+    q.id ||= `${dialog.id}-q${n}`;
+    dialog.setAttribute('aria-labelledby', q.id);
+  }
+  const close = () => closeDialog(dialog);
+  // the answers by e-mail, when the form can't send them
+  const mailLink = a => {
+    const link = document.createElement('a');
+    const body = [...kind.lines(a), `Nome: ${a.name}`, `WhatsApp: ${a.phone}`, `E-mail: ${a.email}`].join('\n');
+    link.href = `mailto:contato@nandovoyager.com?subject=${encodeURIComponent(kind.subject)}&body=${encodeURIComponent(body)}`;
+    link.textContent = 'Enviar as respostas por e-mail';
+    return link;
+  };
+  document.querySelectorAll(`[data-lead="${dialog.dataset.form}"]`).forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    if (step > 3) { form.reset(); show(1); }
+    dialog.classList.remove('closing');
+    dialog.showModal();
+  }));
+  dialog.addEventListener('cancel', e => { e.preventDefault(); close(); });
+  dialog.addEventListener('click', e => { if (e.target === dialog || e.target.closest('[data-close]')) close(); });
+  back.addEventListener('click', () => show(step - 1));
+  form.addEventListener('input', () => { if (step <= 3) msg.textContent = ''; }); // a fixed answer clears its warning
+  // "Só a feira e apoio" can't go with hotel or flights
+  form.addEventListener('change', e => {
+    const solo = form.querySelector('[data-solo]');
+    if (!solo || e.target.name !== solo.name || !e.target.checked) return;
+    form.querySelectorAll(`[name="${solo.name}"]`).forEach(i => { if (i !== e.target && (i === solo || e.target === solo)) i.checked = false; });
+  });
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (step > 3) return close();
+    const a = answers(), problem = missing(step, a);
+    if (problem) { msg.textContent = problem[0]; problem[1].focus(); return; }
+    if (step < 3) { show(step + 1); panels[step - 1].querySelector('input:not(.hp)')?.focus({preventScroll:true}); return; }
+    next.disabled = true; msg.textContent = '';
+    try {
+      const r = await fetch('/api/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(a)});
+      const result = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(result.error || 'Não foi possível enviar agora.');
+      show(4);
+    } catch (error) {
+      msg.replaceChildren(`${error.message || 'Algo deu errado.'} `, mailLink(a), '.');
+    } finally {
+      next.disabled = false;
+    }
+  });
+  show(1);
+}
+document.querySelectorAll('dialog.lead[data-form]').forEach(leadDialog);
+// "Minha história": the letter, read from the top each time
+const letter = $('letter');
+document.querySelectorAll('[data-letter]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  letter.classList.remove('closing');
+  letter.showModal();
+  letter.scrollTop = 0;
+}));
+letter.addEventListener('cancel', e => { e.preventDefault(); closeDialog(letter); });
+// the services card opens its pop-up (its own handler) in place of the letter
+letter.addEventListener('click', e => { if (e.target === letter || e.target.closest('[data-close], [data-lead]')) closeDialog(letter); });
+
+/* ---------- loop ---------- */
+function loop(now) {
+  target = start === null ? 0 : clamp((now - start) / DURATION);
+  p = start === -Infinity ? 1 : p + (target - p) * .09;
+  if (Math.abs(target - p) < .00005) p = target;
+  for (const c of cards) c.hover += (c.hoverT - c.hover) * .18;
+  render(now);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
 </html>

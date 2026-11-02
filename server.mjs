@@ -2,8 +2,6 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { resolve, extname } from "node:path";
 import { subscribe } from "./api/subscribe.mjs";
-import { youtube } from "./api/youtube.mjs";
-import { apply } from "./api/apply.mjs";
 import { lead } from "./api/lead.mjs";
 
 const root = resolve(".");
@@ -11,11 +9,9 @@ const mime = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=u
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   if (url.pathname === "/api/subscribe" && req.method === "POST") return subscribe(req, res);
-  if (url.pathname === "/api/youtube" && req.method === "GET") return youtube(req, res);
-  if (url.pathname === "/api/apply" && req.method === "POST") return apply(req, res);
   if (url.pathname === "/api/lead" && req.method === "POST") return lead(req, res);
   let pathname = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
-  if (!extname(pathname)) pathname = pathname.replace(/\/?$/, "/index.html"); // /consultoria → consultoria/index.html, as on Vercel
+  if (!extname(pathname)) pathname = pathname.replace(/\/?$/, "/index.html"); // /pasta → pasta/index.html, as on Vercel
   const file = resolve(root, `.${pathname}`);
   if (!file.startsWith(`${root}/`)) { res.writeHead(403).end("Forbidden"); return; }
   try {

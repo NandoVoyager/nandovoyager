@@ -1,6 +1,13 @@
-# Nando Voyager — landing page
+# Nando Voyager — site
 
-Landing page de branding pessoal de nandovoyager.com: abertura com foto e cadastro de e-mail (Resend), últimos vídeos do YouTube, minha história (terminando na DeepChina AI, com o botão para o site), bastidores (fotos e vídeo), serviços e contato com o e-mail de parcerias. HTML/CSS/JS puro, sem etapa de build.
+Página única de nandovoyager.com, em fundo preto. Abre com "Nando Voyager" em letra de mão; a primeira rolagem toca uma animação 3D (three.js) em que uma fita de fotos passa pela tela e pousa em quatro atalhos:
+
+- **DeepChina AI**: abre o site da DeepChina (`deepchinaUrl` em `site-config.js`); enquanto estiver vazio, leva ao cadastro de e-mail.
+- **Imersão Canton Fair**: formulário curto em popup (fase da feira, hotel/passagens/só a feira e contato) para marcar uma call gratuita.
+- **Meus serviços**: formulário curto em popup (do que precisa, o que quer importar, investimento e contato). Todo serviço começa com uma consultoria de importação de 1 hora por R$ 1.000, creditados se a pessoa fechar, e o formulário só envia com esse aceite.
+- **Minha história**: carta pessoal em formato de e-mail, com dicas de importação, a DeepChina AI, os serviços e um cadastro de e-mail.
+
+Também tem o cadastro "Entre na minha mente" e os ícones das redes com o número de seguidores. HTML/CSS/JS puro em um arquivo só (`index.html`), sem etapa de build.
 
 ## Rodar localmente
 
@@ -11,36 +18,31 @@ cp .env.example .env   # depois preencha os valores
 npm start
 ```
 
-Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arquivos estáticos, o `POST /api/subscribe` e o `GET /api/youtube`.
+Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arquivos estáticos, o `POST /api/subscribe` e o `POST /api/lead`.
 
 ## Variáveis de ambiente
 
 | Nome | O que é |
 | --- | --- |
-| `RESEND_API_KEY` | Chave da API do Resend (`re_…`). Só no servidor — nunca em `site-config.js` ou no navegador. |
-| `RESEND_SEGMENT_ID` | ID (UUID) do Segment do Resend onde entram os inscritos — não o nome dele. |
+| `RESEND_API_KEY` | Chave da API do Resend (`re_…`). Só no servidor, nunca em `site-config.js` ou no navegador. |
+| `RESEND_SEGMENT_ID` | ID (UUID) do Segment do Resend onde entram os inscritos, não o nome dele. |
 | `SITE_ORIGIN` | Origens permitidas, separadas por vírgula, ex.: `https://nandovoyager.com,https://www.nandovoyager.com`. Vazio no ambiente local. |
-| `YOUTUBE_CHANNEL_ID` | Opcional. ID do canal (`UC…`) para a seção de vídeos. O do @NandoVoyager (`UCqW3NTDBn9esY-oD7iCQhAQ`) já está no código; use a variável só para trocar de canal. |
+| `LEADS_TO` | Quem recebe os pedidos dos formulários (padrão contato@nandovoyager.com). |
+| `LEADS_FROM` | Remetente desses e-mails, de um domínio verificado no Resend (Domains → nandovoyager.com). |
 
 ## Publicar (Vercel)
 
-Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/youtube.mjs` rodam como funções serverless (export default). A de YouTube lê o feed público do canal (sem chave de API), ignora Shorts e fica em cache na CDN da Vercel por 1 hora. Para esconder ou fixar vídeos, edite `curation` no topo de `api/youtube.mjs`: `hide` e `pin` por trecho do título, `ids` com os links (IDs) dos vídeos fixados. Quando um vídeo fixado sai do feed, ele vem de `ids` (o título diz qual é qual, e o YouTube confirma que é do canal) ou, sem link, da página de vídeos do canal; views e data vêm da página do vídeo. Todo vídeo sem número de views o busca na página do vídeo ou, se o YouTube não responder, na API pública do Return YouTube Dislike. A resposta inteira cabe em 9 s, dentro do limite padrão de 10 s da Vercel. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
+Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/lead.mjs` rodam como funções serverless (export default). O `vercel.json` redireciona os endereços antigos (`/intro` e `/consultoria`) para a página principal. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
 
 1. Importe este repositório na Vercel (preset "Other", sem build command).
-2. Cadastre as três variáveis acima em Settings → Environment Variables.
+2. Cadastre as variáveis acima em Settings → Environment Variables.
 3. Adicione `nandovoyager.com` e `www.nandovoyager.com` em Settings → Domains e crie no registrador os registros DNS que a Vercel mostrar.
 
 ## Configuração
 
-- `site-config.js`: endpoint do cadastro, link do site da DeepChina (`deepchinaUrl`; vazio = o botão da DeepChina AI leva ao cadastro de e-mail) e redes, incluindo os links que abrem direto no app no celular.
-- `img/` e `media/`: fotos em WebP (duas larguras cada, para o celular baixar a menor) e o vídeo dos bastidores em MP4 H.264, sem áudio, com pôster.
+- `site-config.js`: endpoint do cadastro, link do site da DeepChina (`deepchinaUrl`) e redes (o LinkedIn aparece quando `socialLinks.linkedin.web` for preenchido).
+- `index.html`: textos, atalhos, formulários e a carta. As fotos da fita ficam na lista `WORK` do script (as quatro primeiras são as dos atalhos; cada uma pode ter `zoom`, `focus` e `gain` para o recorte). Os números de seguidores ficam nos ícones do topo e da fileira do celular.
+- `img/`: fotos em WebP. Fotos do iPhone (HEIC) precisam ser convertidas antes.
 - `privacidade.html`: política de privacidade (LGPD). `404.html`: página de erro que a Vercel mostra para links inexistentes.
-- `robots.txt` e `sitemap.xml`: indexação no Google.
-- `consultoria/index.html` + `apply.js` + `api/apply.mjs`: aplicação para a consultoria de importação (nandovoyager.com/consultoria). As respostas vão por e-mail pelo Resend para `LEADS_TO` (padrão contato@nandovoyager.com), enviadas de `LEADS_FROM`, que precisa ser de um domínio verificado no Resend (Domains → nandovoyager.com). Se o envio falhar, a página oferece mandar as mesmas respostas por e-mail.
-- `intro/index.html` + `api/lead.mjs`: página de links (nandovoyager.com/intro). Os cartões "Meus serviços" e "Imersão Canton Fair" abrem formulários curtos em popup: serviços (do que precisa, o que quer importar, investimento, contato e o aceite da call de 1 hora de R$ 500) e Canton Fair (fase da feira, hotel/passagens/só a feira e contato, para marcar uma call gratuita). "Minha história" abre uma carta pessoal em formato de e-mail, com botão para responder. As respostas vão por e-mail pelo Resend, com os mesmos `LEADS_TO` e `LEADS_FROM`; se o envio falhar, o formulário oferece mandar as mesmas respostas por e-mail.
-- Cadastro: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nada.
-- `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
-
-## Analytics
-
-O `script.js` chama `window.nandoAnalytics.track(evento, propriedades)` se algum provedor de analytics definir essa função. Eventos: `social_click`, `deepchina_click`, `email_click`, `email_copy`, `youtube_video_click`, `newsletter_signup` (só depois que a API confirma).
+- `robots.txt` e `sitemap.xml`: indexação no Google. `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
+- Formulários: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nem envia nada. Se o envio de um pedido falhar, o formulário oferece mandar as mesmas respostas por e-mail.
