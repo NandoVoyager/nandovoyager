@@ -63,7 +63,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .tile:hover .tile-go{background:var(--ink);color:var(--bg)}
 
 /* E-mail signup: bottom centre on a wide screen, under the links on a phone. */
-.join{position:relative;width:min(440px,100%);opacity:0;visibility:hidden;pointer-events:auto}
+.join{position:relative;width:min(440px,100%);pointer-events:auto}
 .join label{display:block;margin-bottom:8px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);text-align:center}
 .join-row{display:flex;gap:6px}
 .join input{flex:1;min-width:0;height:40px;padding:0 16px;border:1px solid rgba(244,241,234,.35);border-radius:99px;background:rgba(244,241,234,.04);color:var(--ink);font:400 14px 'Inter Tight',system-ui,sans-serif;outline:0}
@@ -79,10 +79,20 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .top-socials{display:flex;align-items:center;margin-right:10px}
 .top-socials a{display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;color:rgba(244,241,234,.78)}
 .top-socials a:hover{background:none;color:var(--ink)}
-.socials{display:none;gap:10px;justify-content:center;opacity:0;visibility:hidden;pointer-events:auto}
+.socials{display:none;gap:10px;justify-content:center;pointer-events:auto}
 .socials a{display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(244,241,234,.35);border-radius:50%;color:var(--ink);transition:background .2s,color .2s,border-color .2s}
 .socials a:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .top-socials a[hidden],.socials a[hidden]{display:none}
+/* Signup and icons open once the links have landed (.is-open): the signup rises, then the icons one after another. */
+.join,.socials a,.top-socials a{opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1),visibility 0s .7s,background .2s,color .2s,border-color .2s}
+.top-socials a{transform:translateY(-8px)}
+.is-open .join,.is-open .socials a,.is-open .top-socials a{opacity:1;visibility:visible;transform:none;transition-delay:var(--d,0s),var(--d,0s),0s,0s,0s,0s}
+.socials a:nth-child(1),.top-socials a:nth-child(1){--d:.18s}
+.socials a:nth-child(2),.top-socials a:nth-child(2){--d:.25s}
+.socials a:nth-child(3),.top-socials a:nth-child(3){--d:.32s}
+.socials a:nth-child(4),.top-socials a:nth-child(4){--d:.39s}
+.socials a:nth-child(5),.top-socials a:nth-child(5){--d:.46s}
+@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a{transition:none}}
 .top-socials svg,.socials svg{width:17px;height:17px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -348,7 +358,7 @@ function render() {
   for (const id of ['cue', 'pager', 'cross', 'glow']) $(id).style.opacity = intro;
   $('cue').style.visibility = intro > 0 ? '' : 'hidden';
   $('rule').style.transform = `scaleX(${ease(span(pp, .72, .86))})`;
-  for (const id of ['join', 'socials']) showTile($(id), span(pp, .74, .86));
+  stage.classList.toggle('is-open', pp > .8);
   // ribbon, then the links
   const pr = span(pp, RIB_A, RIB_B), head = mix(0, PATH_L + cards.length * STEP, pr);
   for (const c of cards) {
