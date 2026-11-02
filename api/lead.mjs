@@ -1,51 +1,70 @@
-// Services request from the "Serviços" pop-up (intro/index.html): a short lead filter e-mailed to the team through
-// Resend, like api/apply.mjs. LEADS_TO: who gets them (default contato@nandovoyager.com). LEADS_FROM: the sender.
+// Requests from the intro pop-ups (intro/index.html): "Meus serviços" and "Imersão Canton Fair", short lead filters
+// e-mailed to the team through Resend, like api/apply.mjs. LEADS_TO: who gets them (default contato@nandovoyager.com).
+// LEADS_FROM: the sender, on a domain verified in Resend.
 const allowedOrigins = (process.env.SITE_ORIGIN || "").split(",").map((o) => o.trim()).filter(Boolean);
 
-// Short names for the DeepChina AI services, plus mentoring and "Outro". Every service starts with a paid
-// one-hour call (R$ 500, credited if they hire), which the visitor has to agree to.
 export const options = {
+  // Services: short names for the DeepChina AI services, plus mentoring and "Outro". Every service starts with a paid
+  // one-hour call (R$ 500, credited if they hire), which the visitor has to agree to.
   needs: ["Consultoria", "Achar fábrica", "Auditoria de fábrica", "Frete", "Mentoria", "Outro"],
-  budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"]
+  budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"],
+  // Canton Fair trip: which phase and what help; it ends with a free call, so no prices.
+  phases: ["Fase 1", "Fase 2", "Fase 3", "Ainda não sei"],
+  support: ["Hotel", "Passagens", "Só a feira e apoio"]
 };
 
 export default lead;
 
 const json = (res, status, body) => res.writeHead(status, { "Content-Type": "application/json" }).end(JSON.stringify(body));
 const clean = (value, max) => String(value ?? "").trim().slice(0, max);
+const picked = (value, allowed) => (Array.isArray(value) ? value.map((v) => clean(v, 60)).filter((v) => allowed.includes(v)) : []);
 
 // The answers as the visitor gave them, or the first problem found (in Portuguese, shown in the pop-up).
 export function validate(data) {
   const request = {
-    needs: Array.isArray(data.needs) ? data.needs.map((v) => clean(v, 60)).filter((v) => options.needs.includes(v)) : [],
-    product: clean(data.product, 300),
-    budget: clean(data.budget, 40),
+    form: data.form === "canton" ? "canton" : "servicos",
     name: clean(data.name, 120),
     phone: clean(data.phone, 40),
-    email: clean(data.email, 254),
-    call: data.call === true
+    email: clean(data.email, 254)
   };
-  if (!request.needs.length) return { error: "Escolha pelo menos uma opção." };
-  if (!request.product) return { error: "Conte o que você quer importar." };
-  if (!options.budget.includes(request.budget)) return { error: "Escolha quanto pretende investir." };
+  if (request.form === "canton") {
+    request.phases = picked(data.phases, options.phases);
+    request.support = picked(data.support, options.support);
+    if (!request.phases.length) return { error: "Escolha a fase da feira." };
+    if (!request.support.length) return { error: "Escolha do que você precisa." };
+  } else {
+    request.needs = picked(data.needs, options.needs);
+    request.product = clean(data.product, 300);
+    request.budget = clean(data.budget, 40);
+    if (!request.needs.length) return { error: "Escolha pelo menos uma opção." };
+    if (!request.product) return { error: "Conte o que você quer importar." };
+    if (!options.budget.includes(request.budget)) return { error: "Escolha quanto pretende investir." };
+  }
   if (!request.name) return { error: "Informe o seu nome." };
   if (request.phone.replace(/\D/g, "").length < 8) return { error: "Informe um WhatsApp com DDD." };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(request.email)) return { error: "Informe um e-mail válido." };
-  if (!request.call) return { error: "Todo serviço começa com a call de 1 hora. Marque para continuar." };
+  if (request.form === "servicos" && data.call !== true) return { error: "Todo serviço começa com a call de 1 hora. Marque para continuar." };
   return { request };
 }
 
 export function requestText(request) {
+  const contact = [`Nome: ${request.name}`, `WhatsApp: ${request.phone}`, `E-mail: ${request.email}`];
+  if (request.form === "canton") {
+    return [`Fase: ${request.phases.join(", ")}`, `Precisa de: ${request.support.join(", ")}`, ...contact, "Quer marcar a call (gratuita)"].join("\n");
+  }
   return [
     `Precisa de: ${request.needs.join(", ")}`,
     `Quer importar: ${request.product}`,
     `Investimento: ${request.budget}`,
-    `Nome: ${request.name}`,
-    `WhatsApp: ${request.phone}`,
-    `E-mail: ${request.email}`,
+    ...contact,
     "Topou a call de 1 hora (R$ 500, creditados se fechar)"
   ].join("\n");
 }
+
+const subject = (request) =>
+  request.form === "canton"
+    ? `Imersão Canton Fair: ${request.name} (${request.phases.join(", ")})`
+    : `Serviços: ${request.name} (${request.budget})`;
 
 export async function lead(req, res) {
   if (req.method !== "POST") return json(res, 405, { error: "Método não permitido." });
@@ -74,13 +93,7 @@ export async function lead(req, res) {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: request.email,
-        subject: `Serviços: ${request.name} (${request.budget})`,
-        text: requestText(request)
-      })
+      body: JSON.stringify({ from, to: [to], reply_to: request.email, subject: subject(request), text: requestText(request) })
     });
     if (!response.ok) {
       const result = await response.json().catch(() => ({}));

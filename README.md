@@ -37,7 +37,7 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/yo
 - `privacidade.html`: política de privacidade (LGPD). `404.html`: página de erro que a Vercel mostra para links inexistentes.
 - `robots.txt` e `sitemap.xml`: indexação no Google.
 - `consultoria/index.html` + `apply.js` + `api/apply.mjs`: aplicação para a consultoria de importação (nandovoyager.com/consultoria). As respostas vão por e-mail pelo Resend para `LEADS_TO` (padrão contato@nandovoyager.com), enviadas de `LEADS_FROM`, que precisa ser de um domínio verificado no Resend (Domains → nandovoyager.com). Se o envio falhar, a página oferece mandar as mesmas respostas por e-mail.
-- `intro/index.html` + `api/lead.mjs`: página de links (nandovoyager.com/intro). O cartão "Serviços" abre um formulário curto (do que precisa, o que quer importar, investimento e contato) que vai por e-mail pelo Resend, com os mesmos `LEADS_TO` e `LEADS_FROM`. Se o envio falhar, o formulário oferece mandar as mesmas respostas por e-mail.
+- `intro/index.html` + `api/lead.mjs`: página de links (nandovoyager.com/intro). Os cartões "Meus serviços" e "Imersão Canton Fair" abrem formulários curtos em popup: serviços (do que precisa, o que quer importar, investimento, contato e o aceite da call de 1 hora de R$ 500) e Canton Fair (fase da feira, hotel/passagens/só a feira e contato, para marcar uma call gratuita). As respostas vão por e-mail pelo Resend, com os mesmos `LEADS_TO` e `LEADS_FROM`; se o envio falhar, o formulário oferece mandar as mesmas respostas por e-mail.
 - Cadastro: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nada.
 - `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
 
