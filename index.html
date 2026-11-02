@@ -611,7 +611,7 @@ const WORK = [
   {img:'/img/fabrica-900.webp', zoom:1.11, focus:[.45, .39]}, // both faces either side of the centre
   {img:'/img/moto-900.webp', focus:[.5, .4]},
   {img:'/img/carro-1000.webp', zoom:1.15, focus:[.55, .38]},
-  {img:'/img/historia-1000.webp', zoom:1.35, focus:[.37, .545], gain:1.15}, // close on the faces; a night photo, so a little brighter
+  {img:'/img/historia-1000.webp', focus:[.5, .42], gain:1.15}, // the two of them with the towers behind; a night photo, so a little brighter
   {img:'/img/estrelas-1100.webp', zoom:1.2, focus:[.46, .5]},
   {img:'/img/cachoeira-1000.webp', focus:[.38, .42]},
 ];
@@ -639,13 +639,13 @@ const FOV = 35, camera = new THREE.PerspectiveCamera(FOV, 1, .1, 100);
 /* ---------- ribbon path ---------- */
 let path, PATH_L = 1, FRONT_S = 0, near = 0;
 const SAMPLES = 1200, pathP = [], pathT = [];
-const PH0 = -1.5, PH1 = Math.PI * 2 + 1.35;
+const PH0 = -1.5, PH1 = Math.PI * 2 + 1.35, FAR = 9;
 function buildPath() {
   const pts = [];
   for (let i = 0; i <= 160; i++) {
     const t = i / 160, ph = mix(PH0, PH1, t), cs = Math.cos(ph), u = 2 * t - 1;
-    // an arc that comes close to the camera (as close as `near`), then long runs far behind it
-    const depth = cs > 0 ? 7.6 + 16.4 * cs ** .9 : 7.6 + (7.6 - near) * cs;
+    // an arc that comes close to the camera (as close as `near`) from the far sides, then long runs far behind it
+    const depth = cs > 0 ? FAR + 16.4 * cs ** .9 : FAR + (FAR - near) * cs;
     const edge = .84 + .5 * span(.14 - t, 0, .14) + .8 * span(t, .84, 1);
     pts.push(new THREE.Vector3(edge * Math.sin(ph) * depth * .561, .5 * Math.sign(u) * Math.abs(u) ** 1.4 * depth * .63, -depth));
   }
@@ -657,6 +657,7 @@ function buildPath() {
   let k = 0;
   pathP.forEach((q, i) => { if (q.z > pathP[k].z) k = i; });
   FRONT_S = k / SAMPLES * PATH_L;
+  for (const c of cards) c.mat.uniforms.fogNear.value = near + .8;
   timing();
 }
 const at = (s, op, ot) => {
@@ -666,8 +667,9 @@ const at = (s, op, ot) => {
 
 /* ---------- cards ---------- */
 const CARD_W = 2.1, CARD_H = 1.32, GAP = .03, STEP = CARD_W + GAP, NX = 28, NY = 3, RADIUS = .018;
-const vs = `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
-const fs = `uniform sampler2D map;uniform vec2 cover,shift;uniform float aspect,ready,radius,gain;varying vec2 vUv;
+const vs = `varying vec2 vUv;varying float vDepth;void main(){vUv=uv;vec4 mv=modelViewMatrix*vec4(position,1.);vDepth=-mv.z;gl_Position=projectionMatrix*mv;}`;
+// fog darkens what is far, so the photo coming to the front stands out (off once a card lands on its link)
+const fs = `uniform sampler2D map;uniform vec2 cover,shift;uniform float aspect,ready,radius,gain,fog,fogNear;varying vec2 vUv;varying float vDepth;
 void main(){
   vec2 q=(abs(vUv-.5)-.5)*vec2(aspect,1.)+radius;
   float d=length(max(q,0.))+min(max(q.x,q.y),0.)-radius;
@@ -675,6 +677,7 @@ void main(){
   if(a<.01)discard;
   vec2 uv=vUv;if(!gl_FrontFacing)uv.x=1.-uv.x;
   vec3 c=mix(vec3(.075),min(texture2D(map,(uv-.5)*cover+.5+shift).rgb*gain,1.),ready);
+  c=mix(c,vec3(.04),fog*.78*smoothstep(fogNear,18.,vDepth));
   float edge=smoothstep(-.012-px,-.012,d);
   gl_FragColor=vec4(mix(c,vec3(1.),edge*.1),a);
 }`;
@@ -694,7 +697,7 @@ const cards = WORK.map(({img, zoom, focus, gain}, i) => {
   tex.colorSpace = THREE.NoColorSpace; tex.minFilter = THREE.LinearMipmapLinearFilter; tex.magFilter = THREE.LinearFilter;
   const geo = new THREE.PlaneGeometry(1, 1, NX, NY);
   const mat = new THREE.ShaderMaterial({vertexShader:vs, fragmentShader:fs, transparent:true, side:THREE.DoubleSide,
-    uniforms:{map:{value:tex}, cover:{value:new THREE.Vector2(1, 1)}, shift:{value:new THREE.Vector2()}, gain:{value:gain || 1}, aspect:{value:CARD_W / CARD_H}, ready:{value:0}, radius:{value:RADIUS}}});
+    uniforms:{map:{value:tex}, cover:{value:new THREE.Vector2(1, 1)}, shift:{value:new THREE.Vector2()}, gain:{value:gain || 1}, aspect:{value:CARD_W / CARD_H}, ready:{value:0}, radius:{value:RADIUS}, fog:{value:1}, fogNear:{value:4}}});
   const mesh = new THREE.Mesh(geo, mat); mesh.frustumCulled = false; scene.add(mesh);
   const c = {i, zoom, focus, tex, geo, mat, mesh, hover:0, hoverT:0};
   // decoded off the main thread, then handed to the GPU later, one per frame (see upload), so the opening never stutters
@@ -714,7 +717,7 @@ renderer.compile(scene, camera); // the cards' shader is ready before the first 
 /* ---------- timeline (ms after the first scroll) ---------- */
 // The name opens, the ribbon comes in, slows down each time a photo passes in front so every one can be seen,
 // then runs on, and the first four photos land on their links.
-const RIB0 = 150, FRONT = 1100, SHOW = 400, RUN = 1100, LAND = 650, DWELL = .7; // DWELL: how much a photo slows in front (0 to 1)
+const RIB0 = 150, FRONT = 1100, SHOW = 420, RUN = 1100, LAND = 650, DWELL = .35; // DWELL: how much a photo slows in front (0 to 1)
 let SHOW_END = 1, RIB1 = 1, DURATION = 1, leave = [];
 function headAt(t) { // how far along the rail the first photo is
   const last = FRONT_S + (cards.length - 1) * STEP, total = PATH_L + cards.length * STEP;
@@ -743,15 +746,17 @@ let W = 1, H = 1, asp = 1, cols = 3, rows = 2, tanH = .3153, slots = [];
 function resize() {
   W = stage.clientWidth; H = stage.clientHeight; asp = W / H;
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(W, H, false);
-  camera.aspect = asp; camera.fov = asp < 16 / 9 ? Math.atan(.561 / asp) * 360 / Math.PI : FOV; camera.updateProjectionMatrix();
+  // the same width of the scene fits the screen down to 16:9; a phone frames it tighter, so the photos come bigger
+  const frame = mix(.42, .561, span(asp, .6, 1.3));
+  camera.aspect = asp; camera.fov = asp < 16 / 9 ? Math.atan(frame / asp) * 360 / Math.PI : FOV; camera.updateProjectionMatrix();
   tanH = Math.tan(camera.fov * Math.PI / 360);
   cols = phone.matches ? 1 : 2; rows = Math.ceil(tiles.length / cols);
   // the HTML lays out the links; each card lands exactly on its slot
   const box = stage.getBoundingClientRect();
   slots = tiles.map(t => { const r = t.querySelector('.tile-img').getBoundingClientRect(); return {x:r.left - box.left, y:r.top - box.top, w:r.width, h:r.height}; });
   if (cols > 1) $('rule').style.top = `${(slots[0].y + slots[0].h + slots[cols].y) / 2}px`;
-  // how close a photo comes when it passes in front: about half the width on a phone, a third on a computer
-  const n = mix(3.6, 4.9, span(asp, .6, 1.3));
+  // how close a photo comes as it passes in front: about 70% of the width on a phone, half on a computer
+  const n = mix(2.7, 3.6, span(asp, .6, 1.3));
   if (Math.abs(n - near) > .05) { near = n; buildPath(); }
 }
 addEventListener('resize', resize); resize();
@@ -796,7 +801,7 @@ $('cue').addEventListener('click', play);
 const op = new THREE.Vector3(), ot = new THREE.Vector3(), up = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), vp = new THREE.Vector3();
 function poseRibbon(c, head) {
   const pos = c.geo.attributes.position, centre = head - c.i * STEP;
-  c.mat.uniforms.radius.value = RADIUS;
+  c.mat.uniforms.radius.value = RADIUS; c.mat.uniforms.fog.value = 1;
   for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
     const k = iy * (NX + 1) + ix, lu = ix / NX - .5, lv = .5 - iy / NY;
     at(centre + lu * CARD_W, op, ot);
@@ -813,7 +818,7 @@ function poseGrid(c, q) {
   const ox = dx * g.vw * .62 * (1 - q), oy = dy * g.vh * (cols === 3 && g.c === 1 ? .95 : .34) * (1 - q), tilt = (1 - q) * .22 * (g.c - mid || .5) * dy;
   const cs = Math.cos(tilt), sn = Math.sin(tilt), grow = 1 + .03 * c.hover; // grows with its tile on hover
   // corners round off to the slot's radius as the card lands (6px on the grid, 8px on the phone rows)
-  c.mat.uniforms.radius.value = mix(RADIUS, (cols > 1 ? 6 : 8) / g.px, q);
+  c.mat.uniforms.radius.value = mix(RADIUS, (cols > 1 ? 6 : 8) / g.px, q); c.mat.uniforms.fog.value = 1 - q;
   for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
     const k = iy * (NX + 1) + ix, x = (ix / NX - .5) * g.w * grow, y = (.5 - iy / NY) * g.h * grow;
     pos.setXYZ(k, g.x + ox + x * cs - y * sn, g.y + oy + x * sn + y * cs, -GZ - (1 - q) * .6 * Math.sin(ix / NX * Math.PI));
@@ -912,6 +917,9 @@ function render(now) {
       showTile(tiles[c.i], q);
     } else c.mesh.visible = false;
   }
+  const sway = 1 - span(ms, leave[0] - 300, leave[0] + LAND * .6); // the links need the camera straight
+  camera.position.set((mouse ? sx * .5 : Math.sin(now / 2100) * .3) * sway, (mouse ? -sy * .3 : Math.sin(now / 2900) * .15) * sway, 0);
+  camera.lookAt(0, 0, -8);
   renderer.render(scene, camera);
 }
 
