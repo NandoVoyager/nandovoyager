@@ -40,11 +40,19 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .hl{position:absolute;left:0;right:0;font:600 clamp(56px,9vw,176px)/1 'Caveat',cursive;letter-spacing:0;white-space:nowrap;text-align:center;will-change:transform}
 #l1{top:calc(50% - .9em)}
 #l2{top:calc(50% - .1em)}
-#l1 span{transform:rotate(-4deg)}
-#l2 span{transform:rotate(-2deg)}
-#l1 span,#l2 span{display:inline-block}
-#l1 span{margin-right:15vw}
-#l2 span{margin-left:15vw}
+/* On load the name writes itself: a soft mask uncovers each word letter by letter, with a light at the pen (see the
+   script), then a swash signs it. --e is where the mask ends, --f how soft its edge is. */
+.rot{position:relative;display:inline-block}
+#l1 .rot{transform:rotate(-4deg);margin-right:15vw}
+#l2 .rot{transform:rotate(-2deg);margin-left:15vw}
+.ink{display:inline-block;margin:-.3em;padding:.3em;-webkit-mask-image:linear-gradient(90deg,#000 calc(var(--e,0px) - var(--f,0px)),transparent var(--e,0px));mask-image:linear-gradient(90deg,#000 calc(var(--e,0px) - var(--f,0px)),transparent var(--e,0px))}
+.ink.done{-webkit-mask-image:none;mask-image:none}
+.pen{position:absolute;left:0;top:0;width:1em;height:1em;margin:-.5em 0 0 -.5em;border-radius:50%;background:radial-gradient(closest-side,rgba(255,247,230,.34),rgba(255,247,230,.07) 45%,transparent);opacity:0;pointer-events:none}
+.swash{position:absolute;left:4%;top:100%;width:100%;height:auto;margin-top:-.02em;overflow:visible;fill:none;stroke:var(--ink);stroke-width:4.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+/* a light that follows the mouse (and drifts on its own on phones) and a little film grain, only on the opening */
+#light{position:absolute;left:0;top:0;width:min(130vw,1150px);aspect-ratio:1;margin:calc(min(130vw,1150px) / -2) 0 0 calc(min(130vw,1150px) / -2);border-radius:50%;background:radial-gradient(closest-side,rgba(244,241,234,.075),rgba(244,241,234,.025) 55%,transparent);opacity:0;pointer-events:none;will-change:transform}
+#grain{position:absolute;inset:-60px;opacity:0;pointer-events:none;animation:grain .6s steps(1) infinite}
+@keyframes grain{20%{transform:translate(-23px,14px)}40%{transform:translate(17px,-29px)}60%{transform:translate(-9px,31px)}80%{transform:translate(28px,6px)}}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .top{position:absolute;left:32px;right:32px;top:26px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
 .top{justify-content:flex-start}.acts{margin-left:auto}
@@ -63,8 +71,14 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .acts a.contact{letter-spacing:.01em}
 .acts a.contact .mail-ico{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* first frame only: tells the visitor that scrolling drives the page */
-#cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);padding:8px 12px;border:0;background:none;font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--mid);white-space:nowrap;cursor:pointer}
+#cue{position:absolute;left:50%;bottom:22px;display:flex;flex-direction:column;align-items:center;gap:12px;transform:translateX(-50%);padding:8px 12px;border:0;background:none;font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--mid);white-space:nowrap;cursor:pointer}
 #cue:hover{color:var(--ink)}
+/* a thin line under the cue, with a light running down it */
+.cue-line{position:relative;width:1px;height:40px;overflow:hidden;background:rgba(244,241,234,.14)}
+.cue-line:after{content:"";position:absolute;left:0;top:0;width:100%;height:45%;background:linear-gradient(rgba(244,241,234,0),var(--ink));transform:translateY(-100%);animation:drip 2.2s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes drip{to{transform:translateY(225%)}}
+/* the bar at the top comes in once the name is written */
+.top{animation:fade .9s ease 2.3s both}
 #rule{position:absolute;left:3.5vw;right:3.5vw;top:50%;height:1px;background:var(--line);transform-origin:left;transform:scaleX(0)}
 
 /* The links: each card of the ribbon lands in one of these slots (.tile-img) and the label sits on top. */
@@ -150,7 +164,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1s infinite}
 @keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
 .is-open .new-video path{stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.top,#grain,.cue-line:after{animation:none}.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
 .top-socials svg,.socials svg{width:17px;height:17px}
 /* only YouTube in its colour (with the play in white), the rest follow the text */
 .top-socials [data-social=youtube] svg,.socials [data-social=youtube] svg{color:#ff0033}
@@ -291,7 +305,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 @media (max-width:760px){
-  .top{left:18px;right:18px;top:18px}#cue{bottom:18px}
+  .top{left:18px;right:18px;top:18px}#cue{bottom:14px}
 }
 /* Phones (portrait): a link-in-bio column, the cards land as thumbnails on the left of each row. */
 @media (max-aspect-ratio:9/10){
@@ -323,14 +337,16 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 </head>
 <body>
 <main class="stage" id="stage">
+  <div id="light"></div>
   <h1 aria-label="Nando Voyager">
-    <div class="hl" id="l1" aria-hidden="true"><span>Nando</span></div>
-    <div class="hl" id="l2" aria-hidden="true"><span>Voyager</span></div>
+    <div class="hl" id="l1" aria-hidden="true"><span class="rot"><span class="ink">Nando</span><i class="pen"></i></span></div>
+    <div class="hl" id="l2" aria-hidden="true"><span class="rot"><span class="ink">Voyager</span><i class="pen"></i><svg class="swash" viewBox="0 0 300 34"><path pathLength="1" d="M3 15C60 27 150 31 228 22S288 8 297 3" /></svg></span></div>
   </h1>
   <div id="glow"></div>
+  <div id="grain"></div>
   <div id="rule"></div>
   <canvas id="gl" aria-hidden="true"></canvas>
-  <button id="cue" type="button">ROLE PARA VER &nbsp;↓</button>
+  <button id="cue" type="button">ROLE PARA VER<i class="cue-line"></i></button>
   <header class="top">
     <span class="logo"><img src="/img/avatar-160.webp" width="36" height="36" alt="" /><span class="logo-text"><b>Nando Voyager</b><small>@nandovoyager</small></span></span>
     <nav class="acts" aria-label="Atalhos">
@@ -724,19 +740,88 @@ function showTile(el, q) {
   el.style.opacity = o; el.style.visibility = o > .02 ? 'visible' : 'hidden';
 }
 
+/* ---------- the opening: the name writes itself ---------- */
+// Each word is uncovered letter by letter, a hand's pace: a wide letter takes longer. The letters' edges come from the
+// font itself (canvas measureText, same font and size), in the mask's coordinates.
+const lines = [$('l1'), $('l2')], inks = [...document.querySelectorAll('.ink')], pens = [...document.querySelectorAll('.pen')];
+const swash = document.querySelector('.swash path'), meter = document.createElement('canvas').getContext('2d');
+const WRITE = [[0, 1050], [820, 2150]], SWASH = [1950, 2600], CUE = [2250, 2950]; // ms after the font is ready
+let words = [], writeStart = null;
+function measureInk() {
+  words = inks.map(el => {
+    const cs = getComputedStyle(el), pad = parseFloat(cs.paddingLeft), size = parseFloat(cs.fontSize), text = el.textContent;
+    meter.font = `600 ${size}px Caveat`;
+    const xs = [0];
+    for (let i = 1; i <= text.length; i++) xs.push(meter.measureText(text.slice(0, i)).width);
+    const k = (el.clientWidth - 2 * pad) / xs[xs.length - 1], feather = .42 * size;
+    // a last stretch past the end of the word, so the soft edge leaves it whole
+    const edges = [...xs.map(x => pad + x * k), el.clientWidth + feather / 2];
+    edges[0] = Math.max(0, pad - feather / 2); // a stroke can start a little left of the letter's origin
+    const dur = edges.slice(1).map((x, i) => (x - edges[i]) ** .6 + .05 * size), sum = dur.reduce((a, b) => a + b);
+    const times = [0]; dur.forEach(d => times.push(times[times.length - 1] + d / sum));
+    return {pad, size, feather, edges, times};
+  });
+}
+// writing starts once the handwriting font is there, so the name never shows in another font
+Promise.race([document.fonts.ready.then(() => document.fonts.load('600 100px Caveat')), new Promise(r => setTimeout(r, 2500))])
+  .then(() => { measureInk(); writeStart = performance.now() + 150; });
+addEventListener('resize', () => { if (words.length) measureInk(); });
+function write(i, u) {
+  const w = words[i], el = inks[i], pen = pens[i];
+  if (!w || u >= 1) { el.classList.toggle('done', !!w); pen.style.opacity = 0; return; }
+  el.classList.remove('done');
+  if (u <= 0) { el.style.setProperty('--e', '0px'); pen.style.opacity = 0; return; }
+  let k = 0;
+  while (k < w.times.length - 2 && u >= w.times[k + 1]) k++;
+  const f = span(u, w.times[k], w.times[k + 1]), x = mix(w.edges[k], w.edges[k + 1], mix(f, ease(f), .55));
+  el.style.setProperty('--e', `${x + w.feather / 2}px`); el.style.setProperty('--f', `${w.feather}px`);
+  // the light at the pen goes up and down a little with each letter
+  pen.style.opacity = Math.min(1, u * 12, (1 - u) * 10);
+  pen.style.transform = `translate3d(${x - w.pad}px,${w.size * (.56 + .1 * Math.sin(f * Math.PI * 2 + k))}px,0)`;
+}
+// the mouse moves a light and tilts the name a little; on a phone the light drifts on its own
+let mx = 0, my = 0, sx = 0, sy = 0, mouse = false;
+addEventListener('pointermove', e => {
+  if (e.pointerType !== 'mouse') return;
+  mouse = true; mx = e.clientX / innerWidth * 2 - 1; my = e.clientY / innerHeight * 2 - 1;
+}, {passive:true});
+// a small tile of noise for the grain
+{
+  const g = document.createElement('canvas'), n = 140, x = g.getContext('2d'), d = x.createImageData(n, n);
+  g.width = g.height = n;
+  for (let i = 0; i < d.data.length; i += 4) { d.data[i] = d.data[i + 1] = d.data[i + 2] = Math.random() * 255; d.data[i + 3] = 255; }
+  x.putImageData(d, 0, 0);
+  $('grain').style.backgroundImage = `url(${g.toDataURL()})`;
+}
+
 const RIB_A = .04, RIB_B = .63; // nothing on the rail until the first scroll
 const loaded = performance.now();
 function render(now) {
   const pp = p;
-  // on load the name rises into place; the first scroll sends the two lines apart and starts the ribbon
-  const enter = out(clamp((now - loaded - 150) / 1100));
-  const run = mix(0, 76, span(pp, 0, .58));
-  $('l1').style.transform = `translate3d(${run}vw,${(1 - enter) * 12}vh,0)`;
-  $('l2').style.transform = `translate3d(${-run}vw,${(1 - enter) * 12}vh,0)`;
-  $('l1').style.opacity = $('l2').style.opacity = enter * (1 - span(pp, .5, .6));
-  const intro = 1 - span(pp, 0, .05);
+  // time since the writing began; a scroll finishes it quickly, a visitor who asked for less motion gets it written
+  const t = calm ? Infinity : writeStart === null ? -1 : now - writeStart + (start === null ? 0 : (now - start) * 4);
+  WRITE.forEach(([a, b], i) => write(i, span(t, a, b)));
+  const drawn = out(span(t, ...SWASH)) * (1 - ease(span(pp, 0, .18)));
+  swash.style.strokeDashoffset = 1 - drawn;
+  swash.style.visibility = drawn > .002 ? '' : 'hidden'; // a round cap would show a dot before the line starts
+  // the name floats and leans towards the mouse; the first scroll sends the two lines apart, blurring as they go
+  sx += (mx - sx) * .05; sy += (my - sy) * .05;
+  const float = calm ? 0 : Math.sin(now / 1700) * 4, run = mix(0, 76, span(pp, 0, .58)) * W / 100;
+  const blur = 9 * ease(span(pp, .03, .4)), grow = 1 + .14 * ease(span(pp, 0, .5));
+  lines.forEach((l, i) => {
+    const dir = i ? -1 : 1, depth = i ? .6 : 1;
+    l.style.transform = `translate3d(${dir * run + sx * 16 * depth}px,${float * depth + sy * 10 * depth}px,0) scale(${grow})`;
+    l.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
+    l.style.opacity = 1 - span(pp, .45, .6);
+  });
+  const intro = 1 - span(pp, 0, .05), glow = (calm ? 1 : out(span(now - loaded, 200, 1600))) * (1 - span(pp, 0, .35));
+  const lx = mouse ? (sx + 1) / 2 * W : W * (.5 + .16 * Math.sin(now / 4300)), ly = mouse ? (sy + 1) / 2 * H : H * (.48 + .09 * Math.sin(now / 3100));
+  $('light').style.opacity = glow;
+  $('light').style.transform = `translate3d(${lx}px,${ly}px,0) scale(${1 + .6 * ease(span(pp, 0, .35))})`;
+  $('grain').style.opacity = .055 * glow;
+  $('light').style.visibility = $('grain').style.visibility = glow > 0 ? '' : 'hidden';
   $('glow').style.opacity = intro;
-  $('cue').style.opacity = intro * span(enter, .6, 1);
+  $('cue').style.opacity = intro * span(t, ...CUE);
   $('cue').style.visibility = intro > 0 ? '' : 'hidden';
   $('rule').style.transform = `scaleX(${ease(span(pp, .72, .86))})`;
   stage.classList.toggle('is-open', pp > .6); // while the last links are still landing
