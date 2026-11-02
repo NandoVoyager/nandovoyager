@@ -28,6 +28,11 @@ window.NANDO_SITE_CONFIG = {
       web: "https://www.facebook.com/nandovoyager1/",
       ios: "fb://facewebmodal/f?href=https://www.facebook.com/nandovoyager1/",
       android: "com.facebook.katana"
+    },
+    /* Perfil do LinkedIn. Enquanto estiver vazio, os ícones do LinkedIn ficam escondidos. */
+    linkedin: {
+      web: "",
+      android: "com.linkedin.android"
     }
   }
 };

@@ -143,6 +143,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .header-actions { display: flex; align-items: center; gap: 4px; }
 .header-icon { display: grid; place-items: center; width: 38px; height: 38px; color: #666; transition: color 0.2s; }
 .header-icon:hover { color: var(--heading); }
+.header-icon[hidden], .menu-social .btn[hidden] { display: none; } /* display rules above would override [hidden] */
 .header-icon:last-of-type { margin-right: -9px; } /* the glyph, not its tap area, lines up with the content edge */
 
 .menu-btn {
@@ -181,6 +182,7 @@ figcaption { margin-top: 12px; color: var(--muted); font-size: 14px; }
 .menu-mail { display: inline-block; padding-block: 8px; color: var(--navy); font: 500 1.2rem var(--display); text-decoration: none; }
 .menu-social { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
 .menu-social .btn { height: 48px; padding: 0 16px; }
+.menu-social .btn:last-child:nth-child(odd) { grid-column: span 2; } /* fifth network: full row */
 
 html.menu-open { overflow: hidden; }
 .menu-open .site-header { background: var(--bg); border-bottom-color: var(--line); }

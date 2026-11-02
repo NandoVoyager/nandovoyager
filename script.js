@@ -86,7 +86,10 @@
   document.querySelectorAll("[data-social]").forEach((link) => {
     const network = link.dataset.social;
     const social = config.socialLinks?.[network];
-    if (social?.web) link.href = social.web;
+    if (social?.web) {
+      link.href = social.web;
+      link.hidden = false; // links waiting for a profile (LinkedIn) start hidden
+    }
     link.addEventListener("click", (event) => {
       track("social_click", { network });
       if (!social?.web) return;
