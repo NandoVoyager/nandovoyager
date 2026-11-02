@@ -242,12 +242,24 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-body{margin-top:16px;font-size:15.5px;line-height:1.65;color:rgba(244,241,234,.86)}
 .letter-body p{margin:0 0 14px}
 .letter-body b{font-weight:600;color:var(--ink)}
-.letter-body ul{margin:0 0 16px;padding-left:20px}
+.letter-body ul,.letter-body ol{margin:0 0 16px;padding-left:20px}
+.letter-body ol li{margin:6px 0}
+.letter-h{margin:24px 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+/* the DeepChina link, like an e-mail attachment */
+.letter-attach{display:flex;align-items:center;gap:14px;margin:4px 0 18px;padding:10px 16px 10px 10px;border:1px solid rgba(244,241,234,.18);border-radius:14px;background:rgba(244,241,234,.04);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s}
+.letter-attach:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
+.letter-attach img{flex:none;width:72px;height:45px;border-radius:8px;object-fit:cover}
+.letter-attach > span{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.letter-attach b{font-size:15px}
+.letter-attach small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
+.letter-attach em{flex:none;font:600 11.5px 'Inter Tight',system-ui,sans-serif;font-style:normal;letter-spacing:.08em;white-space:nowrap}
 .letter-body li{margin:3px 0}
 .letter-body li::marker{color:var(--mid)}
 .letter-sign{margin-top:22px!important;color:var(--ink)}
 .letter-sign .hand{font-size:1.5em}
-.letter-actions{display:flex;justify-content:flex-end;margin-top:8px}
+.letter-actions{display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:8px}
+.letter-reply{color:var(--mid);font-size:14px;font-weight:500;text-decoration:none}
+.letter-reply:hover{color:var(--ink)}
 .letter-actions .lead-next{text-decoration:none}
 @media (max-width:560px){
   .letter{width:100%}
@@ -255,6 +267,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .letter-top{margin:0 -20px;padding:16px 20px 12px}
   .letter-subject{font-size:23px}
   .letter-body{font-size:15px}
+  .letter-attach em{display:none}
 }
 @media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -461,32 +474,46 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     <h2 class="letter-subject" id="letter-subject">Minha história <span class="hand">(até aqui)</span></h2>
     <div class="letter-body">
       <p>Oi,</p>
-      <p>Muita gente me pergunta como eu vim parar na China. Então resolvi te contar direito, do começo.</p>
-      <p>O que aconteceu até aqui:</p>
+      <p>Muita gente me pergunta como um brasileiro de 22 anos foi parar fazendo negócios na China. A resposta curta é: um passo de cada vez, quase nenhum deles bonito. A longa está aqui embaixo, e no fim tem o que eu faria se começasse a importar hoje.</p>
+      <p class="letter-h">O que aconteceu até aqui</p>
       <ul>
-        <li>Nasci no Brasil e estudei aviação</li>
+        <li>Nasci no Brasil em 2004 e estudei aviação</li>
         <li>Saí do país com 18 anos, sozinho, com uma mala</li>
         <li>Morei um ano nos Estados Unidos</li>
         <li>Fui voluntário numa fazenda na Itália para conquistar a minha cidadania</li>
         <li>Dei aula de inglês na Coreia do Sul, onde conheci a Wonny</li>
-        <li>Trabalhei pesado na Austrália: construção civil, minas e uma base militar</li>
-        <li>Abri minha empresa e comecei a importar da China</li>
-        <li>Em Hong Kong veio a virada: mais de 20 projetos milionários</li>
+        <li>Trabalhei na construção civil, nas minas e numa base militar na Austrália</li>
+        <li>Abri minha empresa e comecei a importar de fornecedores chineses</li>
+        <li>Em Hong Kong veio a virada: mais de 20 projetos milionários e 1,5 milhão de seguidores</li>
         <li>Hoje estou construindo a DeepChina AI</li>
       </ul>
-      <p>Agora, o que eu aprendi em cada fase.</p>
-      <p><b>Sair sozinho:</b> ninguém vai te dar permissão. Com 18 anos eu tinha uma mala e nenhum plano B. Morar sozinho me ensinou a resolver tudo sem ninguém por perto.</p>
-      <p><b>Itália:</b> nem todo passo é bonito. Trabalhar numa fazenda não era o sonho, mas abriu uma porta que eu uso até hoje.</p>
-      <p><b>Coreia:</b> ensinar me deu coragem de falar com qualquer pessoa. E foi lá que conheci a Wonny.</p>
-      <p><b>Austrália:</b> trabalho pesado ensina o que nenhum curso ensina. Disciplina é acordar cansado e ir mesmo assim.</p>
-      <p><b>China:</b> foi aqui que tudo fez sentido. Fábrica, negociação, importação. O melhor preço está sempre na fonte, e a fonte está aqui.</p>
-      <p><b>Hong Kong:</b> quando os números cresceram, eu entendi que o que mais vale é mostrar o processo de verdade. Foi isso que fez as pessoas confiarem em mim.</p>
-      <p><b>DeepChina AI:</b> tudo o que eu aprendi importando virou um copiloto com IA, que acompanha cada etapa, da fábrica até a venda no Brasil.</p>
-      <p>Se você leu até aqui, obrigado. Me responde contando a sua história, eu leio.</p>
+      <p class="letter-h">O que cada fase me ensinou</p>
+      <p><b>Sair sozinho:</b> ninguém vai te dar permissão. Com 18 anos eu tinha uma mala e nenhum plano B. Um ano morando sozinho me ensinou a resolver tudo sem ninguém por perto, e é exatamente isso que você precisa para negociar do outro lado do mundo.</p>
+      <p><b>Itália:</b> nem todo passo é bonito. Trabalhar numa fazenda não era o sonho, mas foi o caminho para a cidadania. Às vezes o atalho para um objetivo grande passa por um trabalho pequeno.</p>
+      <p><b>Coreia:</b> dar aula me ensinou a explicar qualquer coisa de um jeito simples. Hoje uso isso em cada vídeo e em cada negociação: quem explica bem, vende bem. E foi lá que eu conheci a Wonny.</p>
+      <p><b>Austrália:</b> trabalho pesado ensina o que nenhum curso ensina. Disciplina é acordar cansado e ir mesmo assim. Depois das minas, nenhuma reunião com fábrica me assusta.</p>
+      <p><b>China:</b> foi aqui que tudo fez sentido. Descobri que a maior parte do lucro de quem importa se perde em intermediário, frete mal calculado e fornecedor errado. O melhor preço está sempre na fonte.</p>
+      <p><b>Hong Kong:</b> quando os números cresceram, eu entendi que o que mais vale é mostrar o processo de verdade, inclusive os erros. Foi isso que fez as pessoas confiarem em mim.</p>
+      <p class="letter-h">Se eu começasse a importar hoje</p>
+      <ol>
+        <li><b>Um produto, um pedido teste.</b> Comece pequeno, valide a venda e só depois aumente o volume.</li>
+        <li><b>Direto na fábrica.</b> Confira se é fábrica mesmo e não um intermediário: peça a licença, uma videochamada da linha de produção e uma amostra.</li>
+        <li><b>Custo final antes de fechar.</b> Produto, frete, impostos e câmbio. O preço que o fornecedor passa é só o começo da conta.</li>
+        <li><b>Negocie sempre.</b> O primeiro preço é ponto de partida. Volume, prazo e forma de pagamento mudam tudo.</li>
+      </ol>
+      <p class="letter-h">Por que eu criei a DeepChina AI</p>
+      <p>Cada um desses passos eu fazia na mão, caso por caso. Então juntei tudo o que aprendi num copiloto de importação com inteligência artificial: ele acha a fábrica direto nas bases chinesas, calcula o custo até o Brasil e ajuda a negociar sem cair em golpe. Tudo em português.</p>
+      <a class="letter-attach" href="/#deepchina" data-deepchina>
+        <img src="/img/deepchina-card.webp" width="72" height="45" alt="" />
+        <span><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span>
+        <em>VER MINHA IA <span aria-hidden="true">→</span></em>
+      </a>
+      <p>Se você leu até aqui, obrigado. Me responde contando o que você quer importar, eu leio.</p>
       <p class="letter-sign">Nando, <span class="hand">de Hong Kong</span></p>
     </div>
     <div class="letter-actions">
-      <a class="lead-next" href="mailto:contato@nandovoyager.com?subject=Re%3A%20Minha%20hist%C3%B3ria">RESPONDER <span aria-hidden="true">→</span></a>
+      <a class="letter-reply" href="mailto:contato@nandovoyager.com?subject=Re%3A%20Minha%20hist%C3%B3ria">Responder</a>
+      <a class="lead-next" href="/#deepchina" data-deepchina>VER MINHA IA <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </dialog>
