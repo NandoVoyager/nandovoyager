@@ -256,17 +256,13 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-attach em{flex:none;font:600 11.5px 'Inter Tight',system-ui,sans-serif;font-style:normal;letter-spacing:.08em;white-space:nowrap}
 .letter-body li{margin:3px 0}
 .letter-body li::marker{color:var(--mid)}
-.letter-sign{margin-top:22px!important;color:var(--ink)}
+.letter-sign{margin:22px 0 4px!important;color:var(--ink)}
 .letter-sign .hand{font-size:1.5em}
 /* the signup inside the letter: always shown (the page's version waits for the animation) */
 .letter .letter-join{width:100%;margin:6px 0 30px;text-align:left;opacity:1;visibility:visible;transform:none}
 .letter-join .letter-h{margin-top:18px!important}
 .letter-join p:not(.letter-h):not(.join-msg){margin-bottom:12px}
 .letter-join .join-msg{text-align:left}
-.letter-actions{display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:8px}
-.letter-reply{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border:1px solid rgba(244,241,234,.35);border-radius:99px;color:var(--ink);font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;transition:background .2s,color .2s}
-.letter-reply:hover{background:var(--ink);color:var(--bg)}
-.letter-actions .lead-next{text-decoration:none}
 @media (max-width:560px){
   .letter{width:100%}
   .letter-in{padding:0 20px calc(20px + env(safe-area-inset-bottom))}
@@ -538,11 +534,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         </div>
         <p class="join-msg" role="status" aria-live="polite"></p>
       </form>
-      <p>Se você leu até aqui, obrigado. Me responde contando o que você quer importar, eu leio.</p>
+      <p>Se você leu até aqui, obrigado.</p>
       <p class="letter-sign">Nando, <span class="hand">de Hong Kong</span></p>
-    </div>
-    <div class="letter-actions">
-      <a class="letter-reply" href="mailto:contato@nandovoyager.com?subject=Re%3A%20Minha%20hist%C3%B3ria">Responder <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </dialog>
