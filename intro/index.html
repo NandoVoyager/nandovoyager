@@ -75,7 +75,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .hand path{stroke-dashoffset:0}
 /* field and button in one pill; a light keeps running around its border */
 @property --spin{syntax:'<angle>';inherits:false;initial-value:0deg}
-.join-row{display:flex;align-items:center;gap:6px;padding:5px;border:1px solid transparent;border-radius:99px;background:linear-gradient(#141415,#141415) padding-box,conic-gradient(from var(--spin),rgba(244,241,234,.16) 0 55%,rgba(244,241,234,.95) 78%,rgba(244,241,234,.16) 100%) border-box;animation:spin 4s linear infinite;transition:box-shadow .2s}
+.join-row,.join-done{display:flex;align-items:center;gap:6px;padding:5px;border:1px solid transparent;border-radius:99px;background:linear-gradient(#141415,#141415) padding-box,conic-gradient(from var(--spin),rgba(244,241,234,.16) 0 55%,rgba(244,241,234,.95) 78%,rgba(244,241,234,.16) 100%) border-box;animation:spin 4s linear infinite;transition:box-shadow .2s}
 .join-row:focus-within{box-shadow:0 0 0 4px rgba(244,241,234,.1)}
 @keyframes spin{to{--spin:360deg}}
 .join input{flex:1;min-width:0;height:42px;padding:0 14px;border:0;background:none;color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0}
@@ -87,8 +87,18 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .join .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .join-msg{position:absolute;left:0;right:0;top:100%;margin-top:6px;font-size:12px;text-align:center;color:var(--mid)}
 .join-msg[data-state=error]{color:#ffb4a8}
-.join-msg[data-state=success]{position:static;margin:0;font-size:14px;color:var(--ink)}
-.join-row[hidden]{display:none}
+.join-row[hidden],.join-done[hidden]{display:none}
+/* after sending: the field gives way to a confirmation pill, the check draws itself and the title turns to "Você está dentro" */
+.join-done{gap:12px;padding-right:18px;animation:spin 4s linear infinite,pop .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.97)}}
+.done-check{display:grid;flex:none;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--ink)}
+.done-check svg{width:22px;height:22px;fill:none;stroke:var(--bg);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.done-check path{stroke-dasharray:20;stroke-dashoffset:20;animation:draw .45s ease .3s forwards}
+.done-mail{flex:1;min-width:0;overflow:hidden;font-size:15px;text-align:left;text-overflow:ellipsis;white-space:nowrap}
+.done-tag{flex:none;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;color:var(--mid)}
+.t-done .hand path{animation:draw .8s ease .35s both}
+@keyframes draw{from{stroke-dashoffset:var(--len,20)}to{stroke-dashoffset:0}}
+.t-done .hand path{--len:130}
 /* Social icons: in the top bar on a wide screen, a row above the links on a phone. LinkedIn shows once site-config.js has it. */
 .top-socials{display:flex;align-items:center;gap:2px;margin-right:10px}
 .top-socials a{position:relative;display:flex;align-items:center;gap:7px;height:36px;padding:0 9px;border:0;border-radius:99px;color:rgba(244,241,234,.78)}
@@ -119,7 +129,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1.6s infinite}
 @keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
 .is-open .new-video path{stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row{transition:none;animation:none}}
+@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
 .top-socials svg,.socials svg{width:17px;height:17px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -193,12 +203,17 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       </ul>
     </nav>
     <form class="join" id="join" novalidate>
-      <p class="join-title">Entre na <span class="hand">minha mente<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span></p>
+      <p class="join-title"><span class="t-in">Entre na <span class="hand">minha mente<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span></span><span class="t-done" hidden>Você está <span class="hand">dentro<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span></span></p>
       <label class="sr-only" for="email">Seu e-mail</label>
       <div class="join-row">
         <input id="email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
         <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit">ENTRAR <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="join-done" hidden>
+        <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+        <span class="done-mail"></span>
+        <span class="done-tag">INSCRITO</span>
       </div>
       <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
     </form>
@@ -434,7 +449,13 @@ form.addEventListener('submit', async e => {
     const result = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(result.error || 'Não foi possível concluir sua inscrição.');
     form.querySelector('.join-row').hidden = true;
-    say('Pronto, você está dentro. Fique de olho no seu e-mail.', 'success');
+    form.querySelector('.t-in').hidden = true;
+    form.querySelector('.t-done').hidden = false;
+    const done = form.querySelector('.join-done');
+    done.querySelector('.done-mail').textContent = email;
+    done.hidden = false;
+    msg.classList.add('sr-only'); // the pill says it on screen; screen readers still hear it
+    say(`Pronto, ${email} está inscrito.`, 'success');
   } catch (error) {
     say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
   } finally {
