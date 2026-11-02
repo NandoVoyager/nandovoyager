@@ -47,7 +47,10 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 /* first frame only: tells the visitor that scrolling drives the page */
 #cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);padding:8px 12px;border:0;background:none;font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--mid);white-space:nowrap;cursor:pointer}
 #cue:hover{color:var(--ink)}
-#rule{position:absolute;left:3.5vw;right:3.5vw;top:50%;height:1px;background:var(--line);transform-origin:left;transform:scaleX(0)}
+#rule{position:absolute;left:3.5vw;right:3.5vw;top:50%;height:1px;overflow:hidden;background:var(--line);transform-origin:left;transform:scaleX(0)}
+/* a glint keeps travelling along the line between the two rows */
+#rule:after{content:"";position:absolute;top:0;left:-20%;width:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(244,241,234,.85),transparent);animation:glint 5s linear infinite}
+@keyframes glint{to{left:100%}}
 
 /* The links: each card of the ribbon lands in one of these slots (.tile-img) and the label sits on top. */
 .hub{position:absolute;top:84px;bottom:24px;left:32px;right:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;pointer-events:none}
@@ -64,6 +67,11 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 /* hover only where there is a mouse: on a phone a tap would leave it stuck */
 @media (hover:hover){.tile:hover{transform:scale(1.03)}.tile:hover .tile-go{background:var(--ink);color:var(--bg)}}
 .tile:active .tile-go{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+/* the same running light as the "minha mente" signup, as each link's outline (a masked ring, so the photo shows through) */
+.tile:after{content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;background:conic-gradient(from var(--spin),rgba(244,241,234,.16) 0 55%,rgba(244,241,234,.9) 78%,rgba(244,241,234,.16) 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:spin 6s linear infinite;pointer-events:none}
+.tiles li:nth-child(2) .tile:after{animation-delay:-1.5s}
+.tiles li:nth-child(3) .tile:after{animation-delay:-3s}
+.tiles li:nth-child(4) .tile:after{animation-delay:-4.5s}
 
 /* E-mail signup: bottom centre on a wide screen, under the links on a phone. */
 .join{position:relative;width:min(460px,100%);text-align:center;pointer-events:auto}
@@ -129,7 +137,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1.6s infinite}
 @keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
 .is-open .new-video path{stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done,.tile:after,#rule:after{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
 .top-socials svg,.socials svg{width:17px;height:17px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -147,7 +155,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .acts a.contact i{display:none}
   .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
-  .tile{display:flex;align-items:center;gap:12px;aspect-ratio:auto;padding:6px 16px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
+  .tile{display:flex;align-items:center;gap:12px;aspect-ratio:auto;padding:6px 16px 6px 6px;border:1px solid transparent;border-radius:14px;background:rgba(244,241,234,.035)}
+  .tile:after{inset:-1px}
   .tile:hover{transform:none}
   .tile:active{background:rgba(244,241,234,.07)}
   .tile:before,.tile-n{display:none}
