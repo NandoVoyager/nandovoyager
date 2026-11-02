@@ -249,6 +249,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-attach{display:flex;align-items:center;gap:14px;margin:4px 0 18px;padding:10px 16px 10px 10px;border:1px solid rgba(244,241,234,.18);border-radius:14px;background:rgba(244,241,234,.04);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s}
 .letter-attach:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
 .letter-attach img{flex:none;width:72px;height:45px;border-radius:8px;object-fit:cover}
+.letter-attach .att-fab{object-position:42% 30%}
 .letter-attach > span{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
 .letter-attach b{font-size:15px}
 .letter-attach small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
@@ -257,9 +258,14 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-body li::marker{color:var(--mid)}
 .letter-sign{margin-top:22px!important;color:var(--ink)}
 .letter-sign .hand{font-size:1.5em}
+/* the signup inside the letter: always shown (the page's version waits for the animation) */
+.letter .letter-join{width:100%;margin:6px 0 30px;text-align:left;opacity:1;visibility:visible;transform:none}
+.letter-join .letter-h{margin-top:18px!important}
+.letter-join p:not(.letter-h):not(.join-msg){margin-bottom:12px}
+.letter-join .join-msg{text-align:left}
 .letter-actions{display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:8px}
-.letter-reply{color:var(--mid);font-size:14px;font-weight:500;text-decoration:none}
-.letter-reply:hover{color:var(--ink)}
+.letter-reply{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border:1px solid rgba(244,241,234,.35);border-radius:99px;color:var(--ink);font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;transition:background .2s,color .2s}
+.letter-reply:hover{background:var(--ink);color:var(--bg)}
 .letter-actions .lead-next{text-decoration:none}
 @media (max-width:560px){
   .letter{width:100%}
@@ -481,7 +487,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <li>Saí do país com 18 anos, sozinho, com uma mala</li>
         <li>Morei um ano nos Estados Unidos</li>
         <li>Fui voluntário numa fazenda na Itália para conquistar a minha cidadania</li>
-        <li>Dei aula de inglês na Coreia do Sul, onde conheci a Wonny</li>
+        <li>Dei aula de inglês na Coreia do Sul, onde conheci a Wonny, minha namorada coreana</li>
         <li>Trabalhei na construção civil, nas minas e numa base militar na Austrália</li>
         <li>Abri minha empresa e comecei a importar de fornecedores chineses</li>
         <li>Em Hong Kong veio a virada: mais de 20 projetos milionários e 1,5 milhão de seguidores</li>
@@ -508,12 +514,35 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <span><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span>
         <em>VER MINHA IA <span aria-hidden="true">→</span></em>
       </a>
+      <p class="letter-h">Se você quiser fazer comigo</p>
+      <p>Também trabalho direto com quem importa: consultoria, achar e auditar a fábrica e cuidar do frete. Tudo começa com uma call de 1 hora comigo, por R$&nbsp;500, que são creditados no serviço se você fechar.</p>
+      <p>E uma coisa importante: eu não vendo curso, pelo menos por enquanto. O que eu faço é trabalhar junto com você, no seu pedido.</p>
+      <a class="letter-attach" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">
+        <img class="att-fab" src="/img/fabrica-900.webp" width="72" height="45" alt="" />
+        <span><b>Meus serviços</b><small>Consultoria, fábrica e frete</small></span>
+        <em>VER MEUS SERVIÇOS <span aria-hidden="true">→</span></em>
+      </a>
+      <form class="join letter-join" novalidate>
+        <p class="letter-h">Faça parte, é grátis</p>
+        <p>Deixe seu e-mail e eu te mando o que eu aprendo fazendo negócios na China, direto da fonte.</p>
+        <label class="sr-only" for="letter-email">Seu e-mail</label>
+        <div class="join-row">
+          <input id="letter-email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
+          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">FAZER PARTE <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="join-done" hidden>
+          <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+          <span class="done-mail"></span>
+          <span class="done-tag">INSCRITO</span>
+        </div>
+        <p class="join-msg" role="status" aria-live="polite"></p>
+      </form>
       <p>Se você leu até aqui, obrigado. Me responde contando o que você quer importar, eu leio.</p>
       <p class="letter-sign">Nando, <span class="hand">de Hong Kong</span></p>
     </div>
     <div class="letter-actions">
-      <a class="letter-reply" href="mailto:contato@nandovoyager.com?subject=Re%3A%20Minha%20hist%C3%B3ria">Responder</a>
-      <a class="lead-next" href="/#deepchina" data-deepchina>VER MINHA IA <span aria-hidden="true">→</span></a>
+      <a class="letter-reply" href="mailto:contato@nandovoyager.com?subject=Re%3A%20Minha%20hist%C3%B3ria">Responder <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </dialog>
@@ -737,32 +766,34 @@ tiles.forEach((t, i) => {
   t.addEventListener('pointerleave', () => { cards[i].hoverT = 0; });
 });
 
-/* ---------- e-mail signup (same endpoint and answers as the main page) ---------- */
-const form = $('join'), msg = $('join-msg'), button = form.querySelector('button');
-const say = (text, state) => { msg.textContent = text; if (state) msg.dataset.state = state; else delete msg.dataset.state; };
-form.addEventListener('submit', async e => {
-  e.preventDefault();
-  if (!form.reportValidity()) return;
-  const email = form.email.value.trim();
-  if (!config.signupEndpoint) return say('Inscrições ainda não estão conectadas.', 'error');
-  button.disabled = true; say('Enviando…');
-  try {
-    const r = await fetch(config.signupEndpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, website:form.website.value})});
-    const result = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(result.error || 'Não foi possível concluir sua inscrição.');
-    form.querySelector('.join-row').hidden = true;
-    form.querySelector('.t-in').hidden = true;
-    form.querySelector('.t-done').hidden = false;
-    const done = form.querySelector('.join-done');
-    done.querySelector('.done-mail').textContent = email;
-    done.hidden = false;
-    msg.classList.add('sr-only'); // the pill says it on screen; screen readers still hear it
-    say(`Pronto, ${email} está inscrito.`, 'success');
-  } catch (error) {
-    say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
-  } finally {
-    button.disabled = false;
-  }
+/* ---------- e-mail signup (same endpoint and answers as the main page): the page's form and the letter's ---------- */
+document.querySelectorAll('form.join').forEach(form => {
+  const msg = form.querySelector('.join-msg'), button = form.querySelector('button');
+  const say = (text, state) => { msg.textContent = text; if (state) msg.dataset.state = state; else delete msg.dataset.state; };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const email = form.email.value.trim();
+    if (!config.signupEndpoint) return say('Inscrições ainda não estão conectadas.', 'error');
+    button.disabled = true; say('Enviando…');
+    try {
+      const r = await fetch(config.signupEndpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, website:form.website.value})});
+      const result = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(result.error || 'Não foi possível concluir sua inscrição.');
+      form.querySelector('.join-row').hidden = true;
+      const before = form.querySelector('.t-in'), after = form.querySelector('.t-done');
+      if (before) { before.hidden = true; after.hidden = false; } // the page's title turns to "Você está dentro"
+      const done = form.querySelector('.join-done');
+      done.querySelector('.done-mail').textContent = email;
+      done.hidden = false;
+      msg.classList.add('sr-only'); // the pill says it on screen; screen readers still hear it
+      say(`Pronto, ${email} está inscrito.`, 'success');
+    } catch (error) {
+      say(error.message || 'Algo deu errado. Tente novamente em instantes.', 'error');
+    } finally {
+      button.disabled = false;
+    }
+  });
 });
 
 /* ---------- pop-up forms ("Meus serviços", "Imersão Canton Fair"): short lead filters sent to /api/lead ---------- */
@@ -877,7 +908,8 @@ document.querySelectorAll('[data-letter]').forEach(a => a.addEventListener('clic
   letter.scrollTop = 0;
 }));
 letter.addEventListener('cancel', e => { e.preventDefault(); closeDialog(letter); });
-letter.addEventListener('click', e => { if (e.target === letter || e.target.closest('[data-close]')) closeDialog(letter); });
+// the services card opens its pop-up (its own handler) in place of the letter
+letter.addEventListener('click', e => { if (e.target === letter || e.target.closest('[data-close], [data-lead]')) closeDialog(letter); });
 
 /* ---------- loop ---------- */
 function loop(now) {
