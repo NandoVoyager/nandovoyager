@@ -169,6 +169,19 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .chip span:hover{border-color:rgba(244,241,234,.55)}
 .chip input:checked + span{border-color:var(--ink);background:var(--ink);color:var(--bg)}
 .chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
+/* every service starts with the paid call: said in step 1, agreed to in step 3 */
+.lead-note{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;padding:12px 14px;border-radius:12px;background:rgba(244,241,234,.06);font-size:13px;line-height:1.4;color:var(--mid)}
+.lead-note svg{flex:none;width:18px;height:18px;margin-top:1px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round}
+.lead-note b{font-weight:500;color:var(--ink)}
+.agree{position:relative;display:block;margin-top:18px}
+.agree input{position:absolute;opacity:0;width:1px;height:1px}
+.agree span{display:grid;grid-template-columns:22px 1fr;column-gap:12px;padding:12px 14px;border:1px solid rgba(244,241,234,.22);border-radius:12px;cursor:pointer;transition:border-color .18s}
+.agree span:before{content:"";grid-row:1/3;width:20px;height:20px;margin-top:1px;border:1.5px solid rgba(244,241,234,.5);border-radius:6px;transition:background .18s,border-color .18s}
+.agree b{font-size:14px;font-weight:500}
+.agree small{font-size:12.5px;color:var(--mid)}
+.agree input:checked + span{border-color:var(--ink)}
+.agree input:checked + span:before{border-color:var(--ink);background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 12.5l3.8 3.8 7.2-8' fill='none' stroke='%230a0a0b' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+.agree input:focus-visible + span{outline:2px solid var(--ink);outline-offset:3px}
 .lead .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .lead-done{display:flex;flex-direction:column;align-items:center;padding:12px 0 4px;text-align:center}
 .lead-done .done-check{width:56px;height:56px;margin-bottom:16px}
@@ -300,7 +313,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
           <label class="chip"><input type="checkbox" name="needs" value="Frete" /><span>Frete</span></label>
           <label class="chip"><input type="checkbox" name="needs" value="Despacho" /><span>Despacho</span></label>
           <label class="chip"><input type="checkbox" name="needs" value="Certificações" /><span>Certificações</span></label>
+          <label class="chip"><input type="checkbox" name="needs" value="Mentoria" /><span>Mentoria</span></label>
       </div>
+      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg><span><b>Tudo começa com uma call de 1 hora comigo.</b> R$&nbsp;500, creditados no serviço se você fechar.</span></p>
     </fieldset>
     <fieldset class="lead-panel" data-step="2" hidden>
       <legend class="lead-q">Sobre o seu <span class="hand">pedido</span></legend>
@@ -322,12 +337,13 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <input class="lead-field" id="lead-phone" name="phone" type="tel" maxlength="40" placeholder="(11) 91234-5678" autocomplete="tel" inputmode="tel" />
       <label class="lead-label" for="lead-email">E-mail</label>
       <input class="lead-field" id="lead-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <label class="agree"><input type="checkbox" name="call" value="sim" id="lead-call" /><span><b>Topo a call de 1 hora por R$&nbsp;500</b><small>Creditados no serviço se eu fechar.</small></span></label>
       <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
     </fieldset>
     <div class="lead-panel lead-done" data-step="4" hidden>
       <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
       <p class="lead-q">Pedido <span class="hand">recebido</span></p>
-      <p class="lead-hint">Minha equipe vai falar com você pelo WhatsApp.</p>
+      <p class="lead-hint">Pelo WhatsApp, você recebe o link para agendar e pagar a call.</p>
     </div>
     <p class="lead-msg" id="lead-msg" role="status" aria-live="polite"></p>
     <div class="lead-actions">
@@ -586,7 +602,7 @@ const panels = [...leadForm.querySelectorAll('.lead-panel')];
 let step = 1;
 const leadAnswers = () => {
   const d = new FormData(leadForm), get = n => (d.get(n) || '').toString().trim();
-  return {needs:d.getAll('needs').map(String), product:get('product'), budget:get('budget'), name:get('name'), phone:get('phone'), email:get('email'), website:get('website')};
+  return {needs:d.getAll('needs').map(String), product:get('product'), budget:get('budget'), name:get('name'), phone:get('phone'), email:get('email'), call:get('call') === 'sim', website:get('website')};
 };
 // what a step still needs before moving on (the same rules as the server)
 function missing(n, a) {
@@ -596,6 +612,7 @@ function missing(n, a) {
   if (n === 3 && !a.name) return ['Informe o seu nome.', $('lead-name')];
   if (n === 3 && a.phone.replace(/\D/g, '').length < 8) return ['Informe um WhatsApp com DDD.', $('lead-phone')];
   if (n === 3 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.email)) return ['Informe um e-mail válido.', $('lead-email')];
+  if (n === 3 && !a.call) return ['Todo serviço começa com a call de 1 hora. Marque para continuar.', $('lead-call')];
   return null;
 }
 function show(n) {
@@ -631,7 +648,7 @@ leadBack.addEventListener('click', () => show(step - 1));
 leadForm.addEventListener('input', () => { if (step <= 3) leadMsg.textContent = ''; }); // a fixed answer clears its warning
 // the answers by e-mail, when the form can't send them
 const leadMail = a => {
-  const body = [`Preciso de: ${a.needs.join(', ')}`, `Quero importar: ${a.product}`, `Investimento: ${a.budget}`, `Nome: ${a.name}`, `WhatsApp: ${a.phone}`, `E-mail: ${a.email}`].join('\n');
+  const body = [`Preciso de: ${a.needs.join(', ')}`, `Quero importar: ${a.product}`, `Investimento: ${a.budget}`, `Nome: ${a.name}`, `WhatsApp: ${a.phone}`, `E-mail: ${a.email}`, 'Topo a call de 1 hora (R$ 500, creditados se eu fechar)'].join('\n');
   const link = document.createElement('a');
   link.href = `mailto:contato@nandovoyager.com?subject=${encodeURIComponent('Serviços')}&body=${encodeURIComponent(body)}`;
   link.textContent = 'Enviar as respostas por e-mail';

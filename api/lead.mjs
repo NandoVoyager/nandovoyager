@@ -2,9 +2,10 @@
 // Resend, like api/apply.mjs. LEADS_TO: who gets them (default contato@nandovoyager.com). LEADS_FROM: the sender.
 const allowedOrigins = (process.env.SITE_ORIGIN || "").split(",").map((o) => o.trim()).filter(Boolean);
 
-// The same services as DeepChina AI, with short names.
+// The same services as DeepChina AI, with short names, plus mentoring. Every service starts with a paid
+// one-hour call (R$ 500, credited if they hire), which the visitor has to agree to.
 export const options = {
-  needs: ["Consultoria", "Achar fábrica", "Inspeção", "Frete", "Despacho", "Certificações"],
+  needs: ["Consultoria", "Achar fábrica", "Inspeção", "Frete", "Despacho", "Certificações", "Mentoria"],
   budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"]
 };
 
@@ -21,7 +22,8 @@ export function validate(data) {
     budget: clean(data.budget, 40),
     name: clean(data.name, 120),
     phone: clean(data.phone, 40),
-    email: clean(data.email, 254)
+    email: clean(data.email, 254),
+    call: data.call === true
   };
   if (!request.needs.length) return { error: "Escolha pelo menos uma opção." };
   if (!request.product) return { error: "Conte o que você quer importar." };
@@ -29,6 +31,7 @@ export function validate(data) {
   if (!request.name) return { error: "Informe o seu nome." };
   if (request.phone.replace(/\D/g, "").length < 8) return { error: "Informe um WhatsApp com DDD." };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(request.email)) return { error: "Informe um e-mail válido." };
+  if (!request.call) return { error: "Todo serviço começa com a call de 1 hora. Marque para continuar." };
   return { request };
 }
 
@@ -39,7 +42,8 @@ export function requestText(request) {
     `Investimento: ${request.budget}`,
     `Nome: ${request.name}`,
     `WhatsApp: ${request.phone}`,
-    `E-mail: ${request.email}`
+    `E-mail: ${request.email}`,
+    "Topou a call de 1 hora (R$ 500, creditados se fechar)"
   ].join("\n");
 }
 
