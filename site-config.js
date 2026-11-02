@@ -19,6 +19,10 @@ window.NANDO_SITE_CONFIG = {
       ios: "instagram://user?username=nandovoyager",
       android: "com.instagram.android"
     },
+    tiktok: {
+      web: "https://www.tiktok.com/@nandovoyager",
+      android: "com.zhiliaoapp.musically"
+    },
     x: {
       web: "https://x.com/NandoVoyager",
       ios: "twitter://user?screen_name=NandoVoyager",
