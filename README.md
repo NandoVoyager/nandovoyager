@@ -3,7 +3,7 @@
 Página única de nandovoyager.com, em fundo preto. Abre com "Nando Voyager" em letra de mão; a primeira rolagem toca uma animação 3D (three.js) em que uma fita de fotos passa pela tela e pousa em quatro atalhos:
 
 - **DeepChina AI**: abre o site da DeepChina (`deepchinaUrl` em `site-config.js`); enquanto estiver vazio, leva ao cadastro de e-mail.
-- **Imersão Canton Fair**: formulário curto em popup (fase da feira, hotel/passagens/só a feira e contato) para marcar uma call gratuita.
+- **Imersão Canton Fair**: formulário curto em popup (fase da feira e contato) para marcar uma call gratuita.
 - **Meus serviços**: formulário curto em popup (do que precisa, o que quer importar, investimento e contato). Todo serviço começa com uma consultoria de importação de 1 hora por R$ 1.000, creditados se a pessoa fechar, e o formulário só envia com esse aceite.
 - **Minha história**: carta pessoal em formato de e-mail, com dicas de importação, a DeepChina AI, os serviços e um cadastro de e-mail.
 

@@ -437,7 +437,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 <dialog class="lead" id="lead-canton" data-form="canton" data-last="MARCAR CALL">
   <form class="lead-in" novalidate>
     <div class="lead-top">
-      <span class="lead-step" data-count>1/3</span>
+      <span class="lead-step" data-count>1/2</span>
       <span class="lead-bar" aria-hidden="true"><i data-bar></i></span>
       <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
     </div>
@@ -452,15 +452,6 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       </div>
     </fieldset>
     <fieldset class="lead-panel" data-step="2" hidden>
-      <legend class="lead-q">Do que você <span class="hand">precisa?</span></legend>
-      <p class="lead-hint">Pode marcar mais de um.</p>
-      <div class="chips">
-        <label class="chip"><input type="checkbox" name="support" value="Hotel" /><span>Hotel</span></label>
-        <label class="chip"><input type="checkbox" name="support" value="Passagens" /><span>Passagens</span></label>
-        <label class="chip"><input type="checkbox" name="support" value="Só a feira e apoio" data-solo /><span>Só a feira e apoio</span></label>
-      </div>
-    </fieldset>
-    <fieldset class="lead-panel" data-step="3" hidden>
       <legend class="lead-q">Como falo com <span class="hand">você?</span></legend>
       <label class="lead-label" for="c-name">Nome</label>
       <input class="lead-field" id="c-name" name="name" type="text" maxlength="120" autocomplete="name" />
@@ -472,7 +463,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <p class="lead-legal">Ao enviar, você concorda com a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
     </fieldset>
-    <div class="lead-panel lead-done" data-step="4" hidden>
+    <div class="lead-panel lead-done" data-step="3" hidden>
       <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
       <p class="lead-q">Pedido <span class="hand">recebido</span></p>
       <p class="lead-hint">Pelo WhatsApp, você recebe o link para marcar a call.</p>
@@ -820,11 +811,9 @@ const FORMS = {
   },
   canton: {
     subject: 'Imersão Canton Fair',
-    answers: d => ({phases:d.getAll('phases').map(String), support:d.getAll('support').map(String)}),
-    missing: (n, a, f) =>
-      n === 1 && !a.phases.length ? ['Escolha a fase da feira.', f.querySelector('[name=phases]')]
-      : n === 2 && !a.support.length ? ['Escolha do que você precisa.', f.querySelector('[name=support]')] : null,
-    lines: a => [`Fase: ${a.phases.join(', ')}`, `Preciso de: ${a.support.join(', ')}`, 'Quero marcar a call']
+    answers: d => ({phases:d.getAll('phases').map(String)}),
+    missing: (n, a, f) => n === 1 && !a.phases.length ? ['Escolha a fase da feira.', f.querySelector('[name=phases]')] : null,
+    lines: a => [`Fase: ${a.phases.join(', ')}`, 'Quero marcar a call']
   }
 };
 // close a pop-up when its own exit animation ends (not one of its children's), or after it at the latest
@@ -839,23 +828,24 @@ function closeDialog(dialog) {
 function leadDialog(dialog) {
   const kind = FORMS[dialog.dataset.form], form = dialog.querySelector('form'), msg = form.querySelector('.lead-msg');
   const next = form.querySelector('[data-next]'), back = form.querySelector('[data-back]'), panels = [...form.querySelectorAll('.lead-panel')];
+  const last = panels.length - 1; // the step that asks for the contact; the one after it is the confirmation
   let step = 1;
   const answers = () => {
     const d = new FormData(form), get = n => (d.get(n) || '').toString().trim();
     return {form:dialog.dataset.form, ...kind.answers(d, get), name:get('name'), phone:get('phone'), email:get('email'), website:get('website')};
   };
   const missing = (n, a) =>
-    n === 3 && !a.name ? ['Informe o seu nome.', form.elements.name]
-    : n === 3 && a.phone.replace(/\D/g, '').length < 8 ? ['Informe um WhatsApp com DDD.', form.elements.phone]
-    : n === 3 && !MAIL.test(a.email) ? ['Informe um e-mail válido.', form.elements.email]
+    n === last && !a.name ? ['Informe o seu nome.', form.elements.name]
+    : n === last && a.phone.replace(/\D/g, '').length < 8 ? ['Informe um WhatsApp com DDD.', form.elements.phone]
+    : n === last && !MAIL.test(a.email) ? ['Informe um e-mail válido.', form.elements.email]
     : kind.missing(n, a, form);
   function show(n) {
     step = n;
     panels.forEach(p => { p.hidden = +p.dataset.step !== n; });
-    form.querySelector('[data-count]').textContent = `${Math.min(n, 3)}/3`;
-    form.querySelector('[data-bar]').style.width = `${Math.min(n, 3) / 3 * 100}%`;
-    back.hidden = n === 1 || n > 3;
-    next.innerHTML = n === 3 ? `${dialog.dataset.last} <span aria-hidden="true">→</span>` : n > 3 ? 'FECHAR' : 'CONTINUAR <span aria-hidden="true">→</span>';
+    form.querySelector('[data-count]').textContent = `${Math.min(n, last)}/${last}`;
+    form.querySelector('[data-bar]').style.width = `${Math.min(n, last) / last * 100}%`;
+    back.hidden = n === 1 || n > last;
+    next.innerHTML = n === last ? `${dialog.dataset.last} <span aria-hidden="true">→</span>` : n > last ? 'FECHAR' : 'CONTINUAR <span aria-hidden="true">→</span>';
     msg.textContent = '';
     const q = panels[n - 1].querySelector('.lead-q');
     q.id ||= `${dialog.id}-q${n}`;
@@ -872,32 +862,26 @@ function leadDialog(dialog) {
   };
   document.querySelectorAll(`[data-lead="${dialog.dataset.form}"]`).forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
-    if (step > 3) { form.reset(); show(1); }
+    if (step > last) { form.reset(); show(1); }
     dialog.classList.remove('closing');
     dialog.showModal();
   }));
   dialog.addEventListener('cancel', e => { e.preventDefault(); close(); });
   dialog.addEventListener('click', e => { if (e.target === dialog || e.target.closest('[data-close]')) close(); });
   back.addEventListener('click', () => show(step - 1));
-  form.addEventListener('input', () => { if (step <= 3) msg.textContent = ''; }); // a fixed answer clears its warning
-  // "Só a feira e apoio" can't go with hotel or flights
-  form.addEventListener('change', e => {
-    const solo = form.querySelector('[data-solo]');
-    if (!solo || e.target.name !== solo.name || !e.target.checked) return;
-    form.querySelectorAll(`[name="${solo.name}"]`).forEach(i => { if (i !== e.target && (i === solo || e.target === solo)) i.checked = false; });
-  });
+  form.addEventListener('input', () => { if (step <= last) msg.textContent = ''; }); // a fixed answer clears its warning
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    if (step > 3) return close();
+    if (step > last) return close();
     const a = answers(), problem = missing(step, a);
     if (problem) { msg.textContent = problem[0]; problem[1].focus(); return; }
-    if (step < 3) { show(step + 1); panels[step - 1].querySelector('input:not(.hp)')?.focus({preventScroll:true}); return; }
+    if (step < last) { show(step + 1); panels[step - 1].querySelector('input:not(.hp)')?.focus({preventScroll:true}); return; }
     next.disabled = true; msg.textContent = '';
     try {
       const r = await fetch('/api/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(a)});
       const result = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(result.error || 'Não foi possível enviar agora.');
-      show(4);
+      show(last + 1);
     } catch (error) {
       msg.replaceChildren(`${error.message || 'Algo deu errado.'} `, mailLink(a), '.');
     } finally {

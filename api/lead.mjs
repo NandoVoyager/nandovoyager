@@ -8,9 +8,8 @@ export const options = {
   // one-hour import consultation (R$ 1.000, credited if they hire), which the visitor has to agree to.
   needs: ["Consultoria de importação", "Achar fábrica", "Auditoria de fábrica", "Frete", "Mentoria", "Outro"],
   budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"],
-  // Canton Fair trip: which phase and what help; it ends with a free call, so no prices.
-  phases: ["Fase 1", "Fase 2", "Fase 3", "Ainda não sei"],
-  support: ["Hotel", "Passagens", "Só a feira e apoio"]
+  // Canton Fair trip: which phase; it ends with a free call, so no prices.
+  phases: ["Fase 1", "Fase 2", "Fase 3", "Ainda não sei"]
 };
 
 export default lead;
@@ -29,9 +28,7 @@ export function validate(data) {
   };
   if (request.form === "canton") {
     request.phases = picked(data.phases, options.phases);
-    request.support = picked(data.support, options.support);
     if (!request.phases.length) return { error: "Escolha a fase da feira." };
-    if (!request.support.length) return { error: "Escolha do que você precisa." };
   } else {
     request.needs = picked(data.needs, options.needs);
     request.product = clean(data.product, 300);
@@ -50,7 +47,7 @@ export function validate(data) {
 export function requestText(request) {
   const contact = [`Nome: ${request.name}`, `WhatsApp: ${request.phone}`, `E-mail: ${request.email}`];
   if (request.form === "canton") {
-    return [`Fase: ${request.phases.join(", ")}`, `Precisa de: ${request.support.join(", ")}`, ...contact, "Quer marcar a call (gratuita)"].join("\n");
+    return [`Fase: ${request.phases.join(", ")}`, ...contact, "Quer marcar a call (gratuita)"].join("\n");
   }
   return [
     `Precisa de: ${request.needs.join(", ")}`,
