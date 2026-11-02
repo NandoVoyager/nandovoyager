@@ -71,7 +71,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 /* "minha mente" in handwriting, underlined by a stroke that draws itself once the signup opens */
 .hand{position:relative;display:inline-block;margin-left:.08em;font:600 1.4em/1 'Caveat',cursive;letter-spacing:0}
 .hand svg{position:absolute;left:0;bottom:-.3em;width:100%;height:.42em;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round}
-.hand path{stroke-dasharray:130;stroke-dashoffset:130;transition:stroke-dashoffset .9s ease .9s}
+.hand path{stroke-dasharray:130;stroke-dashoffset:130;transition:stroke-dashoffset .7s ease .35s}
 .is-open .hand path{stroke-dashoffset:0}
 /* field and button in one pill; a light keeps running around its border */
 @property --spin{syntax:'<angle>';inherits:false;initial-value:0deg}
@@ -112,21 +112,21 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .socials .count{font-size:11.5px;color:var(--mid)}
 .top-socials a[hidden],.socials a[hidden]{display:none}
 /* Signup and icons open once the links have landed (.is-open): the signup rises, then the icons one after another. */
-.join,.socials a,.top-socials a{opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1),visibility 0s .7s,background .2s,color .2s,border-color .2s}
+.join,.socials a,.top-socials a{opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .5s cubic-bezier(.2,.7,.2,1),transform .5s cubic-bezier(.2,.7,.2,1),visibility 0s .5s,background .2s,color .2s,border-color .2s}
 .top-socials a{transform:translateY(-8px)}
 .is-open .join,.is-open .socials a,.is-open .top-socials a{opacity:1;visibility:visible;transform:none;transition-delay:var(--d,0s),var(--d,0s),0s,0s,0s,0s}
-.socials a:nth-child(1),.top-socials a:nth-child(1){--d:.18s}
-.socials a:nth-child(2),.top-socials a:nth-child(2){--d:.25s}
-.socials a:nth-child(3),.top-socials a:nth-child(3){--d:.32s}
-.socials a:nth-child(4),.top-socials a:nth-child(4){--d:.39s}
-.socials a:nth-child(5),.top-socials a:nth-child(5){--d:.46s}
+.socials a:nth-child(1),.top-socials a:nth-child(1){--d:.05s}
+.socials a:nth-child(2),.top-socials a:nth-child(2){--d:.10s}
+.socials a:nth-child(3),.top-socials a:nth-child(3){--d:.15s}
+.socials a:nth-child(4),.top-socials a:nth-child(4){--d:.20s}
+.socials a:nth-child(5),.top-socials a:nth-child(5){--d:.25s}
 /* "vídeo novo": a hand-drawn arrow at the YouTube icon (under it in the top bar, above it on a phone); it draws itself once the icons are open */
-.new-video{position:absolute;left:50%;top:100%;display:flex;flex-direction:column-reverse;align-items:center;margin-top:-2px;transform:translateX(-50%);pointer-events:none;opacity:0;transition:opacity .5s ease .7s}
+.new-video{position:absolute;left:50%;top:100%;display:flex;flex-direction:column-reverse;align-items:center;margin-top:-2px;transform:translateX(-50%);pointer-events:none;opacity:0;transition:opacity .4s ease .35s}
 .new-video em{font:600 19px/1 'Caveat',cursive;color:var(--ink);white-space:nowrap;transform:rotate(-4deg)}
 .top-socials .new-video svg,.socials .new-video svg{width:18px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .top-socials .new-video svg{transform:scaleY(-1)}
-.new-video path{stroke-dasharray:40;stroke-dashoffset:40;transition:stroke-dashoffset .6s ease .8s}
-.is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1.6s infinite}
+.new-video path{stroke-dasharray:40;stroke-dashoffset:40;transition:stroke-dashoffset .5s ease .45s}
+.is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1s infinite}
 @keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
 .is-open .new-video path{stroke-dashoffset:0}
 @media (prefers-reduced-motion:reduce){.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
@@ -147,15 +147,15 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .acts a.contact i{display:none}
   .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
-  .tile{display:flex;align-items:center;gap:10px;aspect-ratio:auto;padding:6px 16px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
+  .tile{display:flex;align-items:center;gap:10px;aspect-ratio:auto;padding:6px 12px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
   .tile:hover{transform:none}
   .tile:active{background:rgba(244,241,234,.07)}
   .tile:before,.tile-n{display:none}
-  .tile-img{position:relative;inset:auto;flex:none;width:clamp(64px,10.5svh,100px);aspect-ratio:2.1/1.32;border-radius:8px}
+  .tile-img{position:relative;inset:auto;flex:none;width:clamp(60px,min(9.5svh,20vw),100px);aspect-ratio:2.1/1.32;border-radius:8px}
   .tile-text{position:static;flex:1;min-width:0}
   .tile-text b{font-size:17px}
-  .tile-text small{margin-top:2px;font-size:clamp(11.5px,3.4vw,12.5px);color:var(--mid)}
-  .tile-go{position:static;flex:none;width:32px;height:32px;border-color:rgba(244,241,234,.28);font-size:14px;color:var(--ink)}
+  .tile-text small{margin-top:2px;font-size:clamp(11px,3.2vw,12.5px);color:var(--mid)}
+  .tile-go{position:static;flex:none;width:30px;height:30px;border-color:rgba(244,241,234,.28);font-size:14px;color:var(--ink)}
   .join{width:auto}
   .join input,.join button{height:44px}
   .top-socials{display:none}
@@ -197,7 +197,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
         <li><a class="tile" href="/#deepchina" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>IA para importar da China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>Vá comigo à maior feira</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>Vá comigo à maior feira da China</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="/#servicos"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Serviços</b><small>Consultoria e visita à fábrica</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="/#sobre"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Do Brasil a Hong&nbsp;Kong</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
       </ul>
@@ -409,7 +409,7 @@ function render(now) {
   $('cue').style.opacity = intro * span(enter, .6, 1);
   $('cue').style.visibility = intro > 0 ? '' : 'hidden';
   $('rule').style.transform = `scaleX(${ease(span(pp, .72, .86))})`;
-  stage.classList.toggle('is-open', pp > .8);
+  stage.classList.toggle('is-open', pp > .6); // while the last links are still landing
   // ribbon, then the links
   const total = PATH_L + cards.length * STEP, head = mix(TEASE * enter, total, span(pp, RIB_A, RIB_B));
   for (const c of cards) {
