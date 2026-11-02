@@ -319,6 +319,11 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-attach:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
 .letter-attach img{flex:none;width:72px;height:45px;border-radius:8px;object-fit:cover}
 .letter-attach .att-fab{object-position:42% 30%}
+.letter-attach > .att-mail{display:grid;flex:none;place-items:center;width:72px;height:45px;border-radius:8px;background:rgba(244,241,234,.08)}
+.att-mail svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+/* the page's e-mail box pulses once when a link sends you to it */
+.join-row.ping,.join-done.ping{animation:spin 4s linear infinite,ping .9s ease-out 2}
+@keyframes ping{from{box-shadow:0 0 0 0 rgba(244,241,234,.45)}to{box-shadow:0 0 0 14px rgba(244,241,234,0)}}
 .letter-attach > span{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
 .letter-attach b{font-size:15px}
 .letter-attach small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
@@ -332,10 +337,6 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-sign{margin:22px 0 4px!important;color:var(--ink)}
 .letter-sign .hand{font-size:1.5em}
 /* the signup inside the letter: always shown (the page's version waits for the animation) */
-.letter .letter-join{width:100%;margin:6px 0 30px;text-align:left;opacity:1;visibility:visible;transform:none}
-.letter-join .letter-h{margin-top:18px!important}
-.letter-join p:not(.letter-h):not(.join-msg){margin-bottom:12px}
-.letter-join .join-msg{text-align:left}
 @media (max-width:560px){
   .letter{width:100%}
   .letter-in{padding:0 20px calc(20px + env(safe-area-inset-bottom))}
@@ -546,7 +547,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     <h2 class="letter-subject" id="letter-subject">Minha história <span class="hand">(até aqui)</span></h2>
     <div class="letter-body">
       <p>Oi,</p>
-      <p>Muita gente me pergunta como um brasileiro de 22 anos foi parar fazendo negócios na China. A resposta curta é: um passo de cada vez, quase nenhum deles bonito. A longa está aqui embaixo, e no fim tem o que eu faria se começasse a importar hoje.</p>
+      <p>Muita gente me pergunta como um brasileiro de 22 anos foi parar fazendo negócios na China. Um passo de cada vez, quase nenhum bonito. Conto aqui, e no fim digo o que eu faria se começasse a importar hoje.</p>
       <p class="letter-h">O que aconteceu até aqui</p>
       <ul>
         <li>Nasci no Brasil em 2004 e estudei aviação</li>
@@ -560,50 +561,40 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <li>Hoje estou construindo a DeepChina AI</li>
       </ul>
       <p class="letter-h">O que cada fase me ensinou</p>
-      <p><b>Sair sozinho:</b> ninguém vai te dar permissão. Com 18 anos eu tinha uma mala e nenhum plano B. Um ano morando sozinho me ensinou a resolver tudo sem ninguém por perto, e é exatamente isso que você precisa para negociar do outro lado do mundo.</p>
-      <p><b>Itália:</b> nem todo passo é bonito. Trabalhar numa fazenda não era o sonho, mas foi o caminho para a cidadania. Às vezes o atalho para um objetivo grande passa por um trabalho pequeno.</p>
-      <p><b>Coreia:</b> dar aula me ensinou a explicar qualquer coisa de um jeito simples. Hoje uso isso em cada vídeo e em cada negociação: quem explica bem, vende bem. E foi lá que eu conheci a Wonny.</p>
-      <p><b>Austrália:</b> trabalho pesado ensina o que nenhum curso ensina. Disciplina é acordar cansado e ir mesmo assim. Depois das minas, nenhuma reunião com fábrica me assusta.</p>
-      <p><b>China:</b> foi aqui que tudo fez sentido. Descobri que a maior parte do lucro de quem importa se perde em intermediário, frete mal calculado e fornecedor errado. O melhor preço está sempre na fonte.</p>
-      <p><b>Hong Kong:</b> quando os números cresceram, eu entendi que o que mais vale é mostrar o processo de verdade, inclusive os erros. Foi isso que fez as pessoas confiarem em mim.</p>
+      <p><b>Sair sozinho:</b> ninguém vai te dar permissão. Morar sozinho me ensinou a resolver tudo sem ninguém por perto, e é disso que você precisa para negociar do outro lado do mundo.</p>
+      <p><b>Itália:</b> nem todo passo é bonito. A fazenda não era o sonho, mas foi o caminho para a cidadania.</p>
+      <p><b>Coreia:</b> dar aula me ensinou a explicar de um jeito simples: quem explica bem, vende bem. E foi lá que eu conheci a Wonny.</p>
+      <p><b>Austrália:</b> disciplina é acordar cansado e ir mesmo assim. Depois das minas, nenhuma reunião com fábrica me assusta.</p>
+      <p><b>China:</b> a maior parte do lucro de quem importa se perde em intermediário, frete mal calculado e fornecedor errado. O melhor preço está sempre na fonte.</p>
+      <p><b>Hong Kong:</b> mostrar o processo de verdade, inclusive os erros, foi o que fez as pessoas confiarem em mim.</p>
       <p class="letter-h">Se eu começasse a importar hoje</p>
       <ol>
-        <li><b>Um produto, um pedido teste.</b> Comece pequeno, valide a venda e só depois aumente o volume.</li>
-        <li><b>Direto na fábrica.</b> Confira se é fábrica mesmo e não um intermediário: peça a licença, uma videochamada da linha de produção e uma amostra.</li>
-        <li><b>Custo final antes de fechar.</b> Produto, frete, impostos e câmbio. O preço que o fornecedor passa é só o começo da conta.</li>
-        <li><b>Negocie sempre.</b> O primeiro preço é ponto de partida. Volume, prazo e forma de pagamento mudam tudo.</li>
+        <li><b>Um produto, um pedido teste.</b> Valide a venda antes de aumentar o volume.</li>
+        <li><b>Direto na fábrica.</b> Peça a licença, uma videochamada da linha de produção e uma amostra.</li>
+        <li><b>Custo final antes de fechar.</b> Produto, frete, impostos e câmbio: o preço do fornecedor é só o começo.</li>
+        <li><b>Negocie sempre.</b> Volume, prazo e forma de pagamento mudam o preço.</li>
       </ol>
       <p class="letter-h">Por que eu criei a DeepChina AI</p>
-      <p>Cada um desses passos eu fazia na mão, caso por caso. Então juntei tudo o que aprendi num copiloto de importação com inteligência artificial: ele acha a fábrica direto nas bases chinesas, calcula o custo até o Brasil e ajuda a negociar sem cair em golpe. Tudo em português.</p>
+      <p>Eu fazia cada um desses passos na mão. Então coloquei tudo num copiloto com IA: ele acha a fábrica, calcula o custo até o Brasil e ajuda a negociar sem cair em golpe. Em português.</p>
       <a class="letter-attach" href="#join" data-deepchina>
         <img src="/img/deepchina-card.webp" width="72" height="45" alt="" />
         <span><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span>
         <em>VER MINHA IA <span aria-hidden="true">→</span></em>
       </a>
       <p class="letter-h">Quer fazer comigo?</p>
-      <p>Eu acho a fábrica, audito e cuido do frete com você. Começa com 1 hora de consultoria de importação por R$&nbsp;1.000, descontados se você fechar.</p>
-      <p>Não vendo curso. Trabalho junto, no seu pedido.</p>
+      <p>Eu acho a fábrica, audito e cuido do frete com você. Começa com 1 hora de consultoria: R$&nbsp;1.000, creditados se você fechar. Não vendo curso, trabalho junto no seu pedido.</p>
       <a class="letter-attach" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">
         <img class="att-fab" src="/img/fabrica-900.webp" width="72" height="45" alt="" />
         <span><b>Meus serviços</b><small>Consultoria de importação</small></span>
         <em>VER MEUS SERVIÇOS <span aria-hidden="true">→</span></em>
       </a>
-      <form class="join letter-join" novalidate>
-        <p class="letter-h">Faça parte, é grátis</p>
-        <p>Deixe seu e-mail e eu te mando o que eu aprendo fazendo negócios na China, direto da fonte.</p>
-        <label class="sr-only" for="letter-email">Seu e-mail</label>
-        <div class="join-row">
-          <input id="letter-email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
-          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <button type="submit">FAZER PARTE <span aria-hidden="true">→</span></button>
-        </div>
-        <div class="join-done" hidden>
-          <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
-          <span class="done-mail"></span>
-          <span class="done-tag">INSCRITO</span>
-        </div>
-        <p class="join-msg" role="status" aria-live="polite"></p>
-      </form>
+      <p class="letter-h">Faça parte, é grátis</p>
+      <p>Deixe seu e-mail e eu te mando o que aprendo na China, direto da fonte.</p>
+      <a class="letter-attach" href="#join" data-signup>
+        <span class="att-mail" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg></span>
+        <span><b>Entre na minha mente</b><small>Seu e-mail na caixa da página</small></span>
+        <em>ENTRAR <span aria-hidden="true">→</span></em>
+      </a>
       <p>Se você leu até aqui, obrigado.</p>
       <p class="letter-sign">Nando, <span class="hand">de Hong Kong</span></p>
     </div>
@@ -745,13 +736,22 @@ const DURATION = 4800;
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let start = null, target = 0, p = 0;
 const play = () => { if (start === null) start = calm ? -Infinity : performance.now(); };
-// DeepChina links without a site: finish the animation at once, close any pop-up and put the cursor in the signup
-if (!config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(a => a.addEventListener('click', e => {
+// The page's e-mail box: finish the animation, close any pop-up, then put the cursor in the box and pulse it once.
+function toSignup(e) {
   e.preventDefault();
   start = -Infinity;
-  document.querySelectorAll('dialog[open]').forEach(d => d.close());
-  requestAnimationFrame(() => requestAnimationFrame(() => $('email').focus({preventScroll:true})));
-}));
+  const go = () => requestAnimationFrame(() => {
+    $('email').focus({preventScroll:true});
+    const box = document.querySelector('#join .join-row:not([hidden]), #join .join-done:not([hidden])');
+    box.classList.remove('ping'); void box.offsetWidth; box.classList.add('ping');
+  });
+  const open = [...document.querySelectorAll('dialog[open]')];
+  if (!open.length) return go();
+  open[0].addEventListener('close', go, {once:true}); // the box can take the focus once the pop-up is gone
+  open.forEach(closeDialog);
+}
+document.querySelectorAll('[data-signup]').forEach(a => a.addEventListener('click', toSignup));
+if (!config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(a => a.addEventListener('click', toSignup));
 addEventListener('wheel', e => { if (e.deltaY > 0) play(); }, {passive:true});
 let touchY = null;
 addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive:true});
@@ -888,7 +888,7 @@ tiles.forEach((t, i) => {
   t.addEventListener('pointerleave', () => { cards[i].hoverT = 0; });
 });
 
-/* ---------- e-mail signup (same endpoint and answers as the main page): the page's form and the letter's ---------- */
+/* ---------- e-mail signup ("Entre na minha mente"), sent to config.signupEndpoint ---------- */
 document.querySelectorAll('form.join').forEach(form => {
   const msg = form.querySelector('.join-msg'), button = form.querySelector('button');
   const say = (text, state) => { msg.textContent = text; if (state) msg.dataset.state = state; else delete msg.dataset.state; };
