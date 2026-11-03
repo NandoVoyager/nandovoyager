@@ -715,21 +715,13 @@ function upload() {
 renderer.compile(scene, camera); // the cards' shader is ready before the first scroll
 
 /* ---------- timeline (ms after the first scroll) ---------- */
-// The name opens, the ribbon comes in, slows down each time a photo passes in front so every one can be seen,
-// then runs on, and the first four photos land on their links.
-const RIB0 = 150, FRONT = 1100, SHOW = 420, RUN = 1100, LAND = 650, DWELL = .35; // DWELL: how much a photo slows in front (0 to 1)
-let SHOW_END = 1, RIB1 = 1, DURATION = 1, leave = [];
+// The name opens, the ribbon flies past (the photos come close as they pass in front), and the first four land on their links.
+const RIB0 = 150, RIB1 = 3300, LAND = 650; // the ribbon runs at one steady speed from RIB0 to RIB1
+let DURATION = 1, leave = [];
 function headAt(t) { // how far along the rail the first photo is
-  const last = FRONT_S + (cards.length - 1) * STEP, total = PATH_L + cards.length * STEP;
-  if (t < FRONT) return FRONT_S * (1 - (1 - span(t, RIB0, FRONT)) ** 2); // comes in, easing into the front
-  if (t < SHOW_END) { // one photo after another: slower in front, quicker in between
-    const x = (t - FRONT) / SHOW;
-    return FRONT_S + STEP * (x - DWELL / (2 * Math.PI) * Math.sin(2 * Math.PI * x));
-  }
-  return mix(last, total, span(t, SHOW_END, RIB1) ** 2); // speeds off to the end of the rail
+  return (PATH_L + cards.length * STEP) * span(t, RIB0, RIB1);
 }
 function timing() {
-  SHOW_END = FRONT + (cards.length - 1) * SHOW; RIB1 = SHOW_END + RUN;
   // when each link's photo leaves the rail, found by halving (headAt only goes forward)
   leave = tiles.map((_, i) => {
     const h = PATH_L - CARD_W + i * STEP;
