@@ -1116,12 +1116,16 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const deadline = rules.votacaoEncerraEm ? new Date(rules.votacaoEncerraEm) : null;
   const voting = hasTalk && talks.modo === 'votacao' && (!deadline || deadline > new Date());
   const talkLots = (talks.lotesReferencia || []).filter(l => l.preco != null);
-  const lotList = lots => lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}</b><span class="lot-price">${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
+  const lotList = lots => lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}${l.viraEm ? `<small>até ${until(l.viraEm)}</small>` : ''}</b><span class="lot-price">${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
   const facts = [santos.data && ['Data', day(santos.data)], santos.horarioManha && ['Manhã', santos.horarioManha], santos.horarioTarde && ['Tarde', santos.horarioTarde], santos.local && ['Local', santos.local]].filter(Boolean);
-  const lots = santos.lotes.filter(l => l.preco != null);
-  // the lot on sale, when the config says when it ends: a countdown to that real date
+  // when a lot ends: its own date (viraEm), or so many days before the event (diasAntesDoEvento), at the end of that day in Brasília
+  const lotEnd = l => l.viraEm || (l.diasAntesDoEvento != null && santos.data
+    ? `${new Date(Date.parse(`${santos.data}T12:00:00-03:00`) - l.diasAntesDoEvento * 864e5).toLocaleDateString('en-CA', {timeZone:'America/Sao_Paulo'})}T23:59:00-03:00` : null);
+  const lots = santos.lotes.filter(l => l.preco != null).map(l => ({...l, viraEm:lotEnd(l)}));
+  // the lot on sale, when its end is known: a countdown to that real date
   const lotEnds = lots.find(l => l.ativo && l.viraEm);
+  const until = iso => new Date(iso).toLocaleDateString('pt-BR', {day:'numeric', month:'numeric', timeZone:'America/Sao_Paulo'});
   // who teaches at the immersion: the confirmed speakers and the partner, in one line
   const teachers = [...talks.palestrantes.filter(p => p.confirmado).map(p => p.nome), ...(talks.parceiro.mostrar ? [`a ${talks.parceiro.nome}`] : [])];
   const teaching = teachers.length ? t.santos.aulas.replace('{nomes}', teachers.length > 1 ? `${teachers.slice(0, -1).join(', ')} e ${teachers.at(-1)}` : teachers[0]) : null;

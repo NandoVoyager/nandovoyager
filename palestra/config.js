@@ -20,7 +20,7 @@ export default {
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
     lotes: [ // preço por pessoa
       { nome: "Lote 1", preco: 2000, linkCheckout: "", ativo: true, viraEm: null }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00"; com ela, o popup mostra a contagem regressiva
-      { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false },
+      { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false, diasAntesDoEvento: 3 }, // termina 3 dias antes do evento (calculado a partir de santos.data)
     ],
     lat: -23.9608, lng: -46.3336,
   },
