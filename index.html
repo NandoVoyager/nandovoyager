@@ -41,7 +41,6 @@ a,button,label{touch-action:manipulation}
 /* pressing gives way a little, like a real button */
 .lead-next,.join button,.lead-x,.top-socials a{transition:transform .15s ease,background .2s,color .2s}
 .lead-next:active,.join button:active,.lead-x:active,.acts a:active,.top-socials a:active,.socials a:active .ico{transform:scale(.95)}
-.letter-attach:active{transform:scale(.985)}
 /* sending: the arrow gives way to a small spinner */
 .busy span{display:none}
 .busy:after{content:"";width:13px;height:13px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:turn .7s linear infinite}
@@ -354,24 +353,14 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talks details p{margin-bottom:16px}
 .talks-end{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:26px 0 8px}
 .talk-todo{margin:0 0 12px;padding:9px 12px;border:1.5px dashed #e5372b;border-radius:10px;font-size:13px;line-height:1.4;color:#ff8f86}
-/* the DeepChina link, like an e-mail attachment */
-.letter-attach{display:flex;align-items:center;gap:14px;margin:4px 0 18px;padding:10px 16px 10px 10px;border:1px solid rgba(244,241,234,.18);border-radius:14px;background:rgba(244,241,234,.04);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
-.letter-attach:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
-.letter-attach img{flex:none;width:72px;height:45px;border-radius:8px;object-fit:cover}
-.letter-attach .att-fab{object-position:42% 30%}
-.letter-attach > .att-mail{display:grid;flex:none;place-items:center;width:72px;height:45px;border-radius:8px;background:rgba(244,241,234,.08)}
-.att-mail svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+/* links inside the letter and the talks pop-up: plain, underlined, with an arrow that moves */
+.letter-link{color:var(--ink);font-weight:500;text-decoration:underline;text-decoration-color:rgba(244,241,234,.35);text-underline-offset:4px;transition:text-decoration-color .2s}
+.letter-link:hover{text-decoration-color:var(--ink)}
+.letter-link span{display:inline-block;transition:transform .2s}
+.letter-link:hover span{transform:translateX(3px)}
 /* the page's e-mail box pulses once when a link sends you to it */
 .join-row.ping,.join-done.ping{animation:spin 4s linear infinite,ping .9s ease-out 2}
 @keyframes ping{from{box-shadow:0 0 0 0 rgba(244,241,234,.45)}to{box-shadow:0 0 0 14px rgba(244,241,234,0)}}
-.letter-attach > span{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
-.letter-attach b{font-size:15px}
-.letter-attach small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
-.letter-attach em{flex:none;font:600 11.5px 'Inter Tight',system-ui,sans-serif;font-style:normal;letter-spacing:.08em;white-space:nowrap}
-.letter-attach em span{display:inline-block;transition:transform .2s}
-.letter-attach:hover em span{transform:translateX(3px)}
-.letter-attach img{transition:transform .3s ease}
-.letter-attach:hover img{transform:scale(1.04)}
 .letter-body li{margin:3px 0}
 .letter-body li::marker{color:var(--mid)}
 .letter-sign{margin:22px 0 4px!important;color:var(--ink)}
@@ -383,9 +372,6 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .letter-top{margin:0 -20px;padding:16px 20px 12px}
   .letter-subject{font-size:23px}
   .letter-body{font-size:15px}
-  .letter-attach em{display:none}
-  /* on a phone the label gives way to a round arrow, like the links on the page */
-  .letter-attach:after{content:"";flex:none;width:30px;height:30px;border:1px solid rgba(244,241,234,.28);border-radius:50%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h13M13 7l5 5-5 5' fill='none' stroke='%23f4f1ea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
 }
 @media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -621,27 +607,15 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       </ol>
       <p class="letter-h">Por que eu criei a DeepChina AI</p>
       <p>Eu fazia cada um desses passos na mão. Então coloquei tudo num copiloto com IA: ele acha a fábrica, calcula o custo até o Brasil e ajuda a negociar sem cair em golpe. Em português.</p>
-      <a class="letter-attach" href="#join" data-deepchina>
-        <img src="/img/deepchina-card.webp" width="72" height="45" alt="" />
-        <span><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span>
-        <em>VER MINHA IA <span aria-hidden="true">→</span></em>
-      </a>
+      <p><a class="letter-link" href="#join" data-deepchina>Ver minha IA <span aria-hidden="true">→</span></a></p>
       <p class="letter-h">Quer fazer comigo?</p>
       <p>Eu acho a fábrica, audito e cuido do frete com você. Começa com 1 hora de consultoria: R$&nbsp;1.000, creditados se você fechar. Não vendo curso, trabalho junto no seu pedido.</p>
-      <a class="letter-attach" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">
-        <img class="att-fab" src="/img/fabrica-900.webp" width="72" height="45" alt="" />
-        <span><b>Meus serviços</b><small>Consultoria de importação</small></span>
-        <em>VER MEUS SERVIÇOS <span aria-hidden="true">→</span></em>
-      </a>
+      <p><a class="letter-link" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">Ver meus serviços <span aria-hidden="true">→</span></a></p>
       <p class="letter-h">Faça parte, é grátis</p>
       <p>Deixe seu e-mail e eu te mando o que aprendo na China, direto da fonte.</p>
-      <a class="letter-attach" href="#join" data-signup>
-        <span class="att-mail" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg></span>
-        <span><b>Entre na minha mente</b><small>Seu e-mail na caixa da página</small></span>
-        <em>ENTRAR <span aria-hidden="true">→</span></em>
-      </a>
+      <p><a class="letter-link" href="#join" data-signup>Entrar na minha mente <span aria-hidden="true">→</span></a></p>
       <p>Se você leu até aqui, obrigado.</p>
-      <p class="letter-sign">Nando, <span class="hand">de Hong Kong</span></p>
+      <p class="letter-sign"><span class="hand">Nando, de Hong Kong</span></p>
     </div>
   </div>
 </dialog>
@@ -1182,7 +1156,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
 
       ${talks.deepchina.mostrar ? `<p class="letter-h">${esc(t.cards.deepchina.rotulo)}</p>
       <p>${fill(talks.deepchina.textoOferta || t.cards.deepchina.oferta)}</p>
-      <a class="letter-attach" href="#join" data-deepchina><img src="/img/deepchina-card.webp" width="72" height="45" alt="" /><span><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><em>VER MINHA IA <span aria-hidden="true">→</span></em></a>` : ''}
+      <p><a class="letter-link" href="#join" data-deepchina>Ver minha IA <span aria-hidden="true">→</span></a></p>` : ''}
 
       ${text(t.fraseGigante, x => `<p class="talks-strong">${x}</p>`)}
       ${has(t.recado.paragrafos) ? `<p class="letter-h">${esc(t.recado.titulo)}</p>${isTodo(t.recado.paragrafos) ? text(t.recado.paragrafos) : t.recado.paragrafos.map(p => `<p>${fill(p)}</p>`).join('') + `<p class="letter-sign"><span class="hand">${esc(t.recado.assinatura)}</span></p>`}` : ''}
