@@ -16,6 +16,7 @@ export default {
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
     local: null,
+    vagasMinimo: 30,      // o evento acontece com pelo menos isso; null = não mostra mínimo
     vagasTotal: 50,       // máximo de pessoas; null = mostra só "vagas limitadas"
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
     lotes: [ // preço por pessoa

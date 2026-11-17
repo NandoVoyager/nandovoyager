@@ -1167,7 +1167,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
 
       ${hasTalk ? `<p class="letter-h" id="talks-santos">${esc(t.santos.rotulo)}</p>
       <p class="talks-title2">${fill(t.santos.titulo)}</p>` : ''}
-      <p><span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
+      <p><span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc((santos.vagasMinimo ? t.santos.minimoMaximo.replace('{min}', santos.vagasMinimo) : t.santos.maximo).replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
       ${hasTalk ? '' : `<p>${fill(hero.promessa)}</p>`}
       ${list(teaching ? [...t.santos.itens, teaching] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
