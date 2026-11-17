@@ -53,7 +53,7 @@ export default {
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: true }, // dá aula na imersão de Santos
   ],
-  deepchina: { mostrar: true, textoOferta: null }, // textoOferta null = usa o texto padrão do arquivo de conteúdo
+  deepchina: { mostrar: false, textoOferta: null }, // textoOferta null = usa o texto padrão do arquivo de conteúdo
   parceiro: { nome: "China Link", logo: "", mostrar: true }, // participa da imersão de Santos
   linkGrupoWhatsApp: "",
 
