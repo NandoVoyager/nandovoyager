@@ -339,9 +339,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talk-tag.strong svg{width:15px;height:15px;fill:none;stroke:#e5372b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .cdown{margin:0 0 14px}
 .cdown p{margin:0 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
-.cdown div{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cdown div{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .cdown span{padding:12px 8px 10px;border:1px solid rgba(244,241,234,.16);border-radius:14px;background:rgba(244,241,234,.03);text-align:center}
-.cdown b{display:block;font-size:30px;font-weight:500;letter-spacing:-.02em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.cdown b{display:block;font-size:clamp(24px,7vw,30px);font-weight:500;letter-spacing:-.02em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
 .cdown small{display:block;margin-top:6px;font-size:12px;color:var(--mid)}
 .talk-btn{flex:none;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;border:1px solid rgba(244,241,234,.3);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,transform .15s}
 .talk-btn:hover{background:var(--ink);color:var(--bg)}
@@ -1148,7 +1148,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       ${list(teaching ? [...t.santos.itens, teaching] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
       ${lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(t.santos.contagem.replace('{lote}', lotEnds.nome))}</p>
-        <div><span><b data-d></b><small>dias</small></span><span><b data-h></b><small>horas</small></span><span><b data-m></b><small>minutos</small></span></div></div>` : ''}
+        <div><span><b data-d></b><small>dias</small></span><span><b data-h></b><small>horas</small></span><span><b data-m></b><small>minutos</small></span><span><b data-s></b><small>segundos</small></span></div></div>` : ''}
       ${lotList(lots)}
       ${santosButton ? `<p><button class="talk-btn${hasTalk ? '' : ' solid'}" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
 
@@ -1178,14 +1178,14 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     const to = e.target.closest('[data-to-cities], [data-to-santos]');
     if (to) { e.preventDefault(); dialog.querySelector(to.getAttribute('href')).scrollIntoView({behavior:calm ? 'auto' : 'smooth', block:'start'}); }
   });
-  // countdowns to real dates of the config (days, hours, minutes); one that has passed hides itself
+  // countdowns to real dates of the config (days, hours, minutes, seconds); one that has passed hides itself
   const counts = [...dialog.querySelectorAll('.cdown[data-until]')].map(el => [el, new Date(el.dataset.until).getTime()]);
   const count = () => counts.forEach(([el, end]) => {
-    const n = Math.floor((end - Date.now()) / 60000);
+    const n = Math.floor((end - Date.now()) / 1000), two = v => String(v).padStart(2, '0');
     el.hidden = !(n > 0);
-    if (n > 0) { el.querySelector('[data-d]').textContent = Math.floor(n / 1440); el.querySelector('[data-h]').textContent = String(Math.floor(n / 60) % 24).padStart(2, '0'); el.querySelector('[data-m]').textContent = String(n % 60).padStart(2, '0'); }
+    if (n > 0) { el.querySelector('[data-d]').textContent = Math.floor(n / 86400); el.querySelector('[data-h]').textContent = two(Math.floor(n / 3600) % 24); el.querySelector('[data-m]').textContent = two(Math.floor(n / 60) % 60); el.querySelector('[data-s]').textContent = two(n % 60); }
   });
-  if (counts.length) { count(); setInterval(count, 5000); }
+  if (counts.length) { count(); setInterval(count, 1000); }
   const clock = $('talks-clock');
   if (clock) {
     const tick = () => { const n = Math.max(0, Math.floor((deadline - Date.now()) / 1000)); clock.textContent = `${Math.floor(n / 86400)}d ${Math.floor(n / 3600) % 24}h ${Math.floor(n / 60) % 60}m`; };
