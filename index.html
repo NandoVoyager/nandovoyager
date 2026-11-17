@@ -352,6 +352,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talk-tag.strong.ok{border-color:rgba(52,199,123,.4);background:rgba(52,199,123,.08)}
 .talk-tag.strong.ok svg{stroke:#34c77b}
 .talk-tag.strong svg{width:15px;height:15px;fill:none;stroke:#e5372b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.flags{white-space:nowrap}
 .flags img{width:20px;height:15px;margin:0 2px;border-radius:3px;vertical-align:-2px}
 .cdown{margin:0 0 14px}
 .cdown p{margin:0 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
@@ -1140,8 +1141,8 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     : `A cidade mais votada recebe a palestra, com pelo menos ${rules.minimoPrimeira} votos.` + (rules.maxCidades > 1 ? ` A segunda também, se passar de ${rules.minimoSegunda} votos.` : '');
   const brl = n => `R$ ${n.toLocaleString('pt-BR')}`;
   // {bandeiras} in a text: the countries of the config, as small flags
-  const flags = `<span class="flags">${(talks.paises || []).map(c => `<img src="${esc(c.bandeira)}" alt="${esc(c.nome)}" title="${esc(c.nome)}" width="20" height="15">`).join('')}</span>`;
-  const fill = v => esc(v).replace(/\{(\w+)\}/g, (_, k) => k === 'bandeiras' ? flags : esc(k === 'regra' ? rule : talks[k] ?? ''));
+  const flags = `${(talks.paises || []).map(c => `<img src="${esc(c.bandeira)}" alt="${esc(c.nome)}" title="${esc(c.nome)}" width="20" height="15">`).join('')}`;
+  const fill = v => esc(v).replace(/\{(\w+)\}([,.:;]?)/g, (_, k, p) => k === 'bandeiras' ? `<span class="flags">${flags}${p}</span>` : esc(k === 'regra' ? rule : talks[k] ?? '') + p);
   // a text; a text still to be written shows nothing (or, with ?todo in the address, a note of what is missing)
   const text = (v, wrap = x => `<p>${x}</p>`) => isTodo(v) ? (showTodo ? `<p class="talk-todo">TODO_COPY: ${esc(v.todo)}</p>` : '') : v ? wrap(fill(v)) : '';
   const list = v => isTodo(v) ? text(v) : `<ul>${v.map(i => `<li>${fill(i)}</li>`).join('')}</ul>`;
