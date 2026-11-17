@@ -335,7 +335,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lot-price{flex:none;padding-right:8px;font-size:16px;font-weight:500;color:var(--ink)}
 .lot-price small{font-size:12.5px;font-weight:400;color:var(--mid)}
 .talk-tag{flex:none;padding:4px 10px;border-radius:99px;background:rgba(244,241,234,.08);font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid);white-space:nowrap}
-.talk-tag.strong{display:inline-block;padding:8px 16px;background:var(--ink);font:600 14px 'Inter Tight',system-ui,sans-serif;letter-spacing:0;color:var(--bg)}
+.talk-tag.strong{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 11px;border:1px solid rgba(229,55,43,.4);background:rgba(229,55,43,.08);font:500 13.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:0;color:var(--ink)}
+.talk-tag.strong svg{width:15px;height:15px;fill:none;stroke:#e5372b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .talk-btn{flex:none;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;border:1px solid rgba(244,241,234,.3);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,transform .15s}
 .talk-btn:hover{background:var(--ink);color:var(--bg)}
 .talk-btn:active{transform:scale(.96)}
@@ -1135,7 +1136,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
 
       <p class="letter-h" id="talks-santos">${esc(t.santos.rotulo)}</p>
       <p class="talks-title2">${fill(t.santos.titulo)}</p>
-      <p><span class="talk-tag strong">${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
+      <p><span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
       ${list(teaching ? [...t.santos.itens, teaching] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
       ${lotList(lots)}
