@@ -47,9 +47,9 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/le
 - `robots.txt` e `sitemap.xml`: indexação no Google. `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
 - Formulários: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nem envia nada. Se o envio de um pedido falhar, o formulário oferece mandar as mesmas respostas por e-mail.
 
-## Palestras
+## Eventos
 
-Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da carta. O atalho "Palestras" fica acima dos quatro links. Hoje o popup mostra só o workshop em Santos; com uma cidade em `cidadesVotacao`, a parte da palestra volta a aparecer.
+Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da carta. O atalho "Eventos" fica acima dos quatro links. Hoje o popup mostra só o workshop em Santos; com uma cidade em `cidadesVotacao`, a parte da palestra volta a aparecer.
 
 - `palestra/config.js`: a config única. Cidades em votação, regra de abertura (mínimos e prazo), dados de Santos, lotes, palestrantes, DeepChina e parceiro. Valor `null` não aparece na tela. Adicionar ou tirar cidade e mudar os números da regra é só aqui.
 - `palestra/conteudo.js`: todos os textos. `TODO_COPY("dica")` marca um texto ainda não escrito: ele não aparece no site. Abra `/?palestra&todo` para ver o que falta.
