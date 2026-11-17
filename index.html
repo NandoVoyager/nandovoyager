@@ -1135,12 +1135,17 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const block = c => has(c.itens) ? `<p class="letter-h">${esc(c.rotulo)}</p>${text(c.titulo, x => `<p class="talks-title2">${x}</p>`)}${list(c.itens)}` : '';
   const deadline = rules.votacaoEncerraEm ? new Date(rules.votacaoEncerraEm) : null;
   const voting = talks.modo === 'votacao' && (!deadline || deadline > new Date());
-  const price = (talks.lotesReferencia || []).find(l => l.ativo && l.preco != null)?.preco ?? null;
+  const talkLots = (talks.lotesReferencia || []).filter(l => l.preco != null), firstLot = talkLots.find(l => l.ativo);
+  const price = firstLot?.preco ?? null;
+  const lotList = lots => lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}</b><span class="lot-price">${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
   const facts = [santos.data && ['Data', day(santos.data)], santos.horarioManha && ['Manhã', santos.horarioManha], santos.horarioTarde && ['Tarde', santos.horarioTarde], santos.local && ['Local', santos.local]].filter(Boolean);
   const numbers = [talks.duracaoImersao && [talks.duracaoImersao, t.numeros.imersao], santos.vagasTotal && [santos.vagasTotal, t.numeros.vagas],
-    price != null && [brl(price), t.numeros.entrada], [rules.minimoPrimeira, t.numeros.minimo]].filter(Boolean);
+    price != null && [brl(price), `${t.numeros.entrada}, ${firstLot.nome.toLowerCase()}`], [rules.minimoPrimeira, t.numeros.minimo]].filter(Boolean);
   const lots = santos.lotes.filter(l => l.preco != null);
+  // who teaches at the immersion: the confirmed speakers and the partner, in one line
+  const teachers = [...talks.palestrantes.filter(p => p.confirmado).map(p => p.nome), ...(talks.parceiro.mostrar ? [`a ${talks.parceiro.nome}`] : [])];
+  const teaching = teachers.length ? t.santos.aulas.replace('{nomes}', teachers.length > 1 ? `${teachers.slice(0, -1).join(', ')} e ${teachers.at(-1)}` : teachers[0]) : null;
   const confirmed = talks.palestrantes.filter(p => p.confirmado), santosButton = t.santos.botao[santos.status];
   const vote = voting ? `<a class="talk-btn solid" href="#talks-cities" data-to-cities>${esc(t.hero.botao)} <span aria-hidden="true">→</span></a>` : '';
 
@@ -1152,15 +1157,16 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
 
       <p class="letter-h" id="talks-cities">${esc(t.votacao.rotulo)}</p>
       <p class="talks-rule">${esc(rule)}</p>
-      <ul class="city-list">${cities.map(c => `<li id="cidade-${esc(c.id)}"><b>${esc(c.nome)}<small>${esc(c.uf)}${price != null ? ` · ${brl(price)} ${esc(t.votacao.porPessoa)}` : ''}</small></b>${
+      <ul class="city-list">${cities.map(c => `<li id="cidade-${esc(c.id)}"><b>${esc(c.nome)}<small>${esc(c.uf)}</small></b>${
         c.status === 'votacao' && voting ? `<button class="talk-btn" type="button" data-votar="${esc(c.id)}">${esc(t.votacao.votar)}</button>` : `<span class="talk-tag">${esc(t.votacao.selo[c.status])}</span>`}</li>`).join('')}</ul>
+      ${lotList(talkLots)}
       ${list(t.votacao.itens)}
 
       <p class="letter-h" id="talks-santos">${esc(t.santos.rotulo)}</p>
       <p class="talks-title2">${fill(t.santos.titulo)}</p>
-      ${list(t.santos.itens)}
+      ${list(teaching ? [...t.santos.itens.slice(0, 2), teaching, ...t.santos.itens.slice(2)] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
-      ${lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}</b><span class="lot-price">${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : ''}
+      ${lotList(lots)}
       <p><span class="talk-tag">${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
       ${santosButton ? `<p><button class="talk-btn" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
 

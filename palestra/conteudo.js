@@ -19,7 +19,7 @@ export default {
 
   votacao: {
     rotulo: "A palestra",
-    itens: ["Para entrar na lista, você deixa nome, WhatsApp e e-mail.", "Entrar na lista não é comprar: quando a palestra for confirmada, eu aviso você."], // rascunho
+    itens: ["Mais sobre mentalidade: eu conto a minha história e o que aprendi no caminho.", "Respondo as dúvidas de cada um, com a minha opinião sincera, tentando ajudar.", "Motivação, negócios, IA e geopolítica.", "Para entrar na lista, você deixa nome, WhatsApp e e-mail.", "Entrar na lista não é comprar: quando a palestra for confirmada, eu aviso você."], // rascunho
     porPessoa: "por pessoa",
     selo: { votacao: "Lista aberta", prevenda: "Pré-venda aberta", aberta: "Ingressos à venda", encerrada: "Encerrado" },
     votar: "Quero ir",
@@ -29,7 +29,8 @@ export default {
     rotulo: "A imersão",
     titulo: "Santos está garantida.",
     resumo: { interesse: "Confirmada. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Esta imersão já aconteceu." },
-    itens: ["Um dia inteiro comigo, manhã e tarde.", "O evento premium desta viagem."], // rascunho
+    itens: ["Um workshop de um dia inteiro, manhã e tarde.", "Foco em negócios e importação.", "O evento premium desta viagem."], // rascunho
+    aulas: "Aulas com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     vagasLimitadas: "Vagas limitadas",
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
@@ -43,7 +44,7 @@ export default {
     formatos: {
       rotulo: "Os dois formatos",
       titulo: "Imersão ou palestra.",
-      itens: ["Imersão em Santos: 1 dia, manhã e tarde. Premium, com vagas limitadas e vendida em lotes.", "Palestra: {duracaoPalestra}. A entrada mais barata."], // rascunho
+      itens: ["Imersão em Santos: um workshop de 1 dia sobre negócios e importação. Premium, com vagas limitadas e vendida em lotes.", "Palestra: {duracaoPalestra} sobre mentalidade e a minha história, com espaço para as suas dúvidas. A entrada mais barata, também em lotes."], // rascunho
     },
     quem: { rotulo: "Quem está na sala", titulo: TODO_COPY("Título curto: pra quem é o evento."), itens: TODO_COPY("3 ou 4 perfis de quem deve ir (ex.: quem já importa, quem quer começar...).") },
     leva: { rotulo: "O que você leva", titulo: TODO_COPY("Título curto: o que a pessoa leva pra casa."), itens: TODO_COPY("Resultados concretos, separados por formato (imersão e palestra).") },
@@ -55,7 +56,7 @@ export default {
     palestrantes: {
       rotulo: "Palestrantes e parceiros",
       semConfirmados: "Anunciados quando a palestra for confirmada.",
-      comConfirmados: "Quem sobe ao palco.",
+      comConfirmados: "Quem dá aula na imersão.",
       eu: "Nando Voyager",
       palestrar: "Quero palestrar", patrocinar: "Quero patrocinar",
     },
@@ -80,7 +81,7 @@ export default {
       { p: "Como a palestra é confirmada?", r: "{regra}" },
       { p: "E se a lista não chegar ao mínimo?", r: TODO_COPY("O que acontece se a palestra não atingir o mínimo de pessoas.") },
       { p: "Quando abre a venda?", r: TODO_COPY("Quando a venda abre depois da votação.") },
-      { p: "Qual a diferença entre a imersão e a palestra?", r: "A imersão em Santos dura 1 dia, manhã e tarde, é premium e tem vagas limitadas. A palestra dura {duracaoPalestra} e é a entrada mais barata." }, // rascunho
+      { p: "Qual a diferença entre a imersão e a palestra?", r: "A imersão em Santos é um workshop de 1 dia, manhã e tarde, focado em negócios e importação. É premium e tem vagas limitadas. A palestra dura {duracaoPalestra}, é mais sobre mentalidade e a minha história, com as dúvidas de cada um respondidas, e é a entrada mais barata." }, // rascunho
       { p: "O almoço está incluso na imersão?", r: TODO_COPY("Almoço incluso ou não.") },
       { p: "Posso pedir reembolso?", r: TODO_COPY("Política de reembolso.") },
       { p: "Vocês emitem nota fiscal?", r: TODO_COPY("Nota fiscal.") },

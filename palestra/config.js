@@ -42,6 +42,8 @@ export default {
   // Preço da palestra por pessoa enquanto ela não abriu. Lote sem preço não aparece.
   lotesReferencia: [
     { nome: "Lote 1", preco: 500, linkCheckout: "", ativo: true },
+    { nome: "Lote 2", preco: 1000, linkCheckout: "", ativo: false },
+    { nome: "Lote 3", preco: 1500, linkCheckout: "", ativo: false },
   ],
 
   duracaoImersao: "1 dia",    // usado nos blocos de número e nos textos
@@ -49,10 +51,10 @@ export default {
 
   // Só aparece quem tem confirmado: true.
   palestrantes: [
-    // { nome: "", cargo: "", empresa: "", foto: "", confirmado: false },
+    { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: true }, // dá aula na imersão de Santos
   ],
   deepchina: { mostrar: true, textoOferta: null }, // textoOferta null = usa o texto padrão do arquivo de conteúdo
-  parceiro: { nome: "China Link", logo: "", mostrar: false },
+  parceiro: { nome: "China Link", logo: "", mostrar: true }, // participa da imersão de Santos
   linkGrupoWhatsApp: "",
 
   // Fase 8 (páginas de patrocínio e de inscrição de palestrante): desligadas por enquanto.
