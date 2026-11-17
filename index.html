@@ -124,6 +124,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talk-text{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
 .talk-text b{font-size:17px;font-weight:500;letter-spacing:-.02em}
 .talk-text small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
+.talk-count{flex:none;margin-left:auto;padding:4px 9px;border:1px solid rgba(244,241,234,.16);border-radius:99px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:0;color:var(--mid);white-space:nowrap;font-variant-numeric:tabular-nums}
+.talk-count i{font:400 11.5px 'Inter Tight',system-ui,sans-serif;font-style:normal}
+.talk-count b{font-size:inherit;font-weight:500;letter-spacing:0;color:var(--ink)}
 .talk .tile-go{position:static;flex:none;border-color:rgba(244,241,234,.28)}
 .talk:hover .tile-go{background:var(--ink);color:var(--bg)}
 /* hover only where there is a mouse: on a phone a tap would leave it stuck */
@@ -337,15 +340,19 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .city-list{margin:0 0 16px!important;padding:0!important;border:1px solid rgba(244,241,234,.16);border-radius:14px;list-style:none;overflow:hidden}
 .city-list li{display:flex;align-items:center;gap:10px;min-height:54px;margin:0;padding:7px 8px 7px 16px}
 .city-list li + li{border-top:1px solid rgba(244,241,234,.1)}
-.city-list b{flex:1;min-width:0;font-size:16px;font-weight:500}
+.city-list b{flex:1;min-width:0;font-size:16px;font-weight:500;white-space:nowrap}
 .city-list b small{margin-left:7px;font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid)}
-.lot-price{flex:none;padding-right:8px;font-size:16px;font-weight:500;color:var(--ink)}
+.lot-price{flex:none;padding-right:8px;text-align:right;font-size:16px;font-weight:500;color:var(--ink)}
 .lot-price small{font-size:12.5px;font-weight:400;color:var(--mid)}
+.lot-price s{margin-right:2px;font-size:13.5px;font-weight:400;color:var(--mid)}
+@media (max-width:430px){.lot-price s{display:block;margin:0 0 1px;font-size:12.5px}}
+.lot-off{margin-left:8px;padding:3px 8px;border-radius:99px;background:rgba(52,199,123,.14);font:600 12px 'Inter Tight',system-ui,sans-serif;color:#34c77b;vertical-align:1px}
 .talk-tag{flex:none;padding:4px 10px;border-radius:99px;background:rgba(244,241,234,.08);font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid);white-space:nowrap}
 .talk-tag.strong{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 11px;border:1px solid rgba(229,55,43,.4);background:rgba(229,55,43,.08);font:500 13.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:0;color:var(--ink)}
 .talk-tag.strong.ok{border-color:rgba(52,199,123,.4);background:rgba(52,199,123,.08)}
 .talk-tag.strong.ok svg{stroke:#34c77b}
 .talk-tag.strong svg{width:15px;height:15px;fill:none;stroke:#e5372b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.flags img{width:20px;height:15px;margin:0 2px;border-radius:3px;vertical-align:-2px}
 .cdown{margin:0 0 14px}
 .cdown p{margin:0 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
 .cdown div{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
@@ -408,7 +415,11 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
   .talk{gap:10px;width:auto;margin-bottom:-8px;padding:6px 12px 6px 6px;border-color:var(--line);border-radius:14px}
   .talk-ico{width:clamp(60px,min(9.5svh,20vw),100px);height:auto;aspect-ratio:2.1/1.32;border-radius:8px}
-  .talk-text{flex-direction:column;align-items:stretch;gap:2px}
+  .talk-text{display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:2px 8px}
+  .talk-text small:not(.talk-count){grid-column:1 / -1;grid-row:2}
+  .talk-count{justify-self:end;margin:0;padding:0;border:0;font-size:10.5px}
+  .talk-count i{font-size:10.5px}
+  @media (max-width:460px){.talk-count i{display:none}}
   .talk .tile-go{width:30px;height:30px}
   .tile{display:flex;align-items:center;gap:10px;aspect-ratio:auto;padding:6px 12px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
   .tile:hover{transform:none}
@@ -460,7 +471,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 25 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+25k</span></a>
       <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
     </nav>
-    <a class="talk" href="/eventos" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Eventos</b><small id="talk-when">Workshop em Santos</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
+    <a class="talk" href="/eventos" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Eventos</b><small id="talk-when">Workshop em Santos</small><small class="talk-count" id="talk-count" hidden></small></span><span class="tile-go" aria-hidden="true">↗</span></a>
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
         <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
@@ -1128,7 +1139,9 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     ? `A palestra em ${cities[0].nome} acontece com pelo menos ${rules.minimoPrimeira} pessoas na lista.`
     : `A cidade mais votada recebe a palestra, com pelo menos ${rules.minimoPrimeira} votos.` + (rules.maxCidades > 1 ? ` A segunda também, se passar de ${rules.minimoSegunda} votos.` : '');
   const brl = n => `R$ ${n.toLocaleString('pt-BR')}`;
-  const fill = v => esc(v).replace(/\{(\w+)\}/g, (_, k) => esc(k === 'regra' ? rule : talks[k] ?? ''));
+  // {bandeiras} in a text: the countries of the config, as small flags
+  const flags = `<span class="flags">${(talks.paises || []).map(c => `<img src="${esc(c.bandeira)}" alt="${esc(c.nome)}" title="${esc(c.nome)}" width="20" height="15">`).join('')}</span>`;
+  const fill = v => esc(v).replace(/\{(\w+)\}/g, (_, k) => k === 'bandeiras' ? flags : esc(k === 'regra' ? rule : talks[k] ?? ''));
   // a text; a text still to be written shows nothing (or, with ?todo in the address, a note of what is missing)
   const text = (v, wrap = x => `<p>${x}</p>`) => isTodo(v) ? (showTodo ? `<p class="talk-todo">TODO_COPY: ${esc(v.todo)}</p>` : '') : v ? wrap(fill(v)) : '';
   const list = v => isTodo(v) ? text(v) : `<ul>${v.map(i => `<li>${fill(i)}</li>`).join('')}</ul>`;
@@ -1136,7 +1149,12 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const deadline = rules.votacaoEncerraEm ? new Date(rules.votacaoEncerraEm) : null;
   const voting = hasTalk && talks.modo === 'votacao' && (!deadline || deadline > new Date());
   const talkLots = (talks.lotesReferencia || []).filter(l => l.preco != null);
-  const lotList = lots => lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}${l.viraEm ? `<small>até ${until(l.viraEm)}</small>` : ''}</b><span class="lot-price">${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
+  // A lot cheaper than the last one reads as a discount: the full price struck through and how much comes off.
+  const lotList = lots => {
+    const full = Math.max(...lots.map(l => l.preco));
+    return lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}${l.preco < full ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${l.viraEm ? `<small>até ${until(l.viraEm)}</small>` : ''}</b>
+      <span class="lot-price">${l.preco < full ? `<s>${brl(full)}</s> ` : ''}${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
+  };
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
   const facts = [santos.data && ['Data', day(santos.data)], santos.horarioManha && ['Manhã', santos.horarioManha], santos.horarioTarde && ['Tarde', santos.horarioTarde], santos.local && ['Local', santos.local]].filter(Boolean);
   // when a lot ends: its own date (viraEm), or so many days before the event (diasAntesDoEvento), at the end of that day in Brasília
@@ -1209,12 +1227,20 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   });
   // countdowns to real dates of the config (days, hours, minutes, seconds); one that has passed hides itself
   const counts = [...dialog.querySelectorAll('.cdown[data-until]')].map(el => [el, new Date(el.dataset.until).getTime()]);
-  const count = () => counts.forEach(([el, end]) => {
-    const n = Math.floor((end - Date.now()) / 1000), two = v => String(v).padStart(2, '0');
+  // the same countdown, small, on the shortcut of the page
+  const mini = $('talk-count'), miniEnd = lotEnds ? new Date(lotEnds.viraEm).getTime() : 0;
+  const miniLabel = activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
+  const two = v => String(v).padStart(2, '0');
+  const count = () => { counts.forEach(([el, end]) => {
+    const n = Math.floor((end - Date.now()) / 1000);
     el.hidden = !(n > 0);
     if (n > 0) { el.querySelector('[data-d]').textContent = Math.floor(n / 86400); el.querySelector('[data-h]').textContent = two(Math.floor(n / 3600) % 24); el.querySelector('[data-m]').textContent = two(Math.floor(n / 60) % 60); el.querySelector('[data-s]').textContent = two(n % 60); }
   });
-  if (counts.length) { count(); setInterval(count, 1000); }
+    const n = Math.floor((miniEnd - Date.now()) / 1000);
+    mini.hidden = !(n > 0);
+    if (n > 0) mini.innerHTML = `<i>${esc(miniLabel)}</i> <b>${Math.floor(n / 86400)}d ${two(Math.floor(n / 3600) % 24)}:${two(Math.floor(n / 60) % 60)}:${two(n % 60)}</b>`;
+  };
+  if (counts.length || miniEnd) { count(); setInterval(count, 1000); }
   const clock = $('talks-clock');
   if (clock) {
     const tick = () => { const n = Math.max(0, Math.floor((deadline - Date.now()) / 1000)); clock.textContent = `${Math.floor(n / 86400)}d ${Math.floor(n / 3600) % 24}h ${Math.floor(n / 60) % 60}m`; };

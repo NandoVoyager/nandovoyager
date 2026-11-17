@@ -50,6 +50,14 @@ export default {
   duracaoPalestra: "4 horas",
 
   // Só aparece quem tem confirmado: true.
+  // países onde morei; viram as bandeiras de {bandeiras} nos textos
+  paises: [
+    { nome: "Estados Unidos", bandeira: "/img/flags/us.svg" },
+    { nome: "Itália", bandeira: "/img/flags/it.svg" },
+    { nome: "Austrália", bandeira: "/img/flags/au.svg" },
+    { nome: "Coreia do Sul", bandeira: "/img/flags/kr.svg" },
+    { nome: "China", bandeira: "/img/flags/cn.svg" },
+  ],
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: true }, // dá aula no workshop de Santos
   ],

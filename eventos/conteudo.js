@@ -14,7 +14,7 @@ export default {
     promessa: "Estou indo ao Brasil falar de importação e negócios com a China. O workshop já está confirmado. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
     // sem nenhuma palestra na config, só com o workshop:
-    soImersao: { promessa: "Meu primeiro evento presencial: um dia inteiro em Santos, falando sobre temas como inteligência artificial, geopolítica, negócios, importação da China e as minhas histórias pelo mundo." }, // rascunho; aparece logo abaixo do título do workshop
+    soImersao: { promessa: "Depois de 3 anos morando fora {bandeiras}, meu primeiro evento presencial: um dia inteiro em Santos, falando sobre temas como inteligência artificial, geopolítica, negócios, importação da China e as minhas histórias pelo mundo." }, // rascunho; aparece logo abaixo do título do workshop
     linkSantos: "Quero o workshop em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
@@ -37,6 +37,8 @@ export default {
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
     reembolso: "Se não chegar a {min} pessoas, eu devolvo o dinheiro.",
     contagemFim: "Inscrições encerram em", // quando o lote ativo não tem data: conta até o fim do último lote
+    contagemCurta: "Encerra em", // a contagem pequena no atalho da página inicial
+    contagemCurtaLote: "{lote} até",
     contagem: "{lote} termina em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
     vagasLimitadas: "Vagas limitadas",
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
