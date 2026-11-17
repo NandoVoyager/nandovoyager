@@ -28,7 +28,7 @@ export default {
   },
 
   santos: {
-    rotulo: "O encontro",
+    rotulo: "O workshop",
     titulo: "Encontro presencial em Santos.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este encontro já aconteceu." },
     itens: ["Um dia inteiro comigo, manhã e tarde.", "Minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
