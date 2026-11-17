@@ -352,9 +352,6 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talk-tag.strong.ok{border-color:rgba(52,199,123,.4);background:rgba(52,199,123,.08)}
 .talk-tag.strong.ok svg{stroke:#34c77b}
 .talk-tag.strong svg{width:15px;height:15px;fill:none;stroke:#e5372b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.flags{display:flex;align-items:center;gap:5px;margin-top:-6px!important;font-size:13.5px;color:var(--mid)}
-.flags img{width:18px;height:13.5px;border-radius:2.5px;opacity:.9}
-.flags span{margin-left:5px}
 .cdown{margin:0 0 14px}
 .cdown p{margin:0 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
 .cdown div{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
@@ -1141,8 +1138,6 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     ? `A palestra em ${cities[0].nome} acontece com pelo menos ${rules.minimoPrimeira} pessoas na lista.`
     : `A cidade mais votada recebe a palestra, com pelo menos ${rules.minimoPrimeira} votos.` + (rules.maxCidades > 1 ? ` A segunda também, se passar de ${rules.minimoSegunda} votos.` : '');
   const brl = n => `R$ ${n.toLocaleString('pt-BR')}`;
-  // the countries of the config, as a quiet row of small flags under the opening text
-  const flags = `${(talks.paises || []).map(c => `<img src="${esc(c.bandeira)}" alt="${esc(c.nome)}" title="${esc(c.nome)}" width="20" height="15">`).join('')}`;
   const fill = v => esc(v).replace(/\{(\w+)\}/g, (_, k) => esc(k === 'regra' ? rule : talks[k] ?? ''));
   // a text; a text still to be written shows nothing (or, with ?todo in the address, a note of what is missing)
   const text = (v, wrap = x => `<p>${x}</p>`) => isTodo(v) ? (showTodo ? `<p class="talk-todo">TODO_COPY: ${esc(v.todo)}</p>` : '') : v ? wrap(fill(v)) : '';
@@ -1194,7 +1189,6 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       <p class="talk-tags">${santos.vagasMinimo ? `<span class="talk-tag strong ok"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.200" /><path d="M3 20c.400-3.600 2.800-5.500 6-5.500s5.600 1.900 6 5.500M16 5.200a3.200 3.200 0 0 1 0 5.900M18.500 14.900c1.500.900 2.300 2.500 2.500 5.100" /></svg>${esc(t.santos.minimo.replace('{min}', santos.vagasMinimo))}</span>` : ''}<span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
       ${santos.vagasMinimo ? `<p class="talk-note">${esc(t.santos.reembolso.replace('{min}', santos.vagasMinimo))}</p>` : ''}
       ${hasTalk ? '' : `<p>${fill(hero.promessa)}</p>`}
-      ${flags && has(t.santos.fora) ? `<p class="flags">${flags}<span>${esc(t.santos.fora)}</span></p>` : ''}
       ${list(teaching ? [...t.santos.itens.slice(0, -1), teaching, t.santos.itens.at(-1)] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
       ${lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>

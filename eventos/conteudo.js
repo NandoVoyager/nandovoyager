@@ -37,7 +37,6 @@ export default {
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
     reembolso: "Se não chegar a {min} pessoas, eu devolvo o dinheiro.",
     contagemFim: "Inscrições encerram em", // quando o lote ativo não tem data: conta até o fim do último lote
-    fora: "3 anos morando fora", // ao lado das bandeiras (config: paises)
     contagemCurta: "Encerra em", // a contagem pequena no atalho da página inicial
     contagemCurtaLote: "{lote} encerra em",
     contagem: "{lote} encerra em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
