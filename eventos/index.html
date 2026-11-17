@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Eventos no Brasil — Nando Voyager</title>
+<link rel="canonical" href="https://nandovoyager.com/?eventos" />
+<!-- The talks live in a pop-up of the home page. This address only takes the visitor there, keeping utm_* and cidade. -->
+<script>
+  var q = new URLSearchParams(location.search); q.set("eventos", "");
+  location.replace("/?" + q.toString().replace(/=(&|$)/g, "$1"));
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=/?eventos" /></noscript>
+</head>
+<body></body>
+</html>

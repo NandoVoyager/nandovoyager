@@ -22,8 +22,13 @@ export async function subscribe(req, res) {
       return;
     }
   }
-  let email;
-  try { email = JSON.parse(body).email?.trim(); } catch {}
+  let email, website;
+  try { ({ email, website } = JSON.parse(body)); email = email?.trim(); } catch {}
+  // Honeypot: the hidden "website" field is only filled in by bots. Answer as if it worked and save nothing.
+  if (website) {
+    res.writeHead(200, { "Content-Type": "application/json" }).end(JSON.stringify({ ok: true }));
+    return;
+  }
   if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     res.writeHead(400, { "Content-Type": "application/json" }).end(JSON.stringify({ error: "Informe um e-mail válido." }));
     return;

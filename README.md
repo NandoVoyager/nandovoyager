@@ -1,6 +1,13 @@
-# Nando Voyager — landing page
+# Nando Voyager — site
 
-Página única (sem rolagem) de nandovoyager.com: foto, título, redes sociais, cadastro na lista de lançamentos (Resend) e links para a Imersão Canton Fair e o Voyager AI. HTML/CSS/JS puro, sem etapa de build.
+Página única de nandovoyager.com, em fundo preto. Abre com "Nando Voyager" se escrevendo sozinho em letra de mão, com uma luz que segue o mouse (clicar no nome do topo volta para essa abertura); a primeira rolagem toca uma animação 3D (three.js) em que uma fita de fotos passa pela tela, e pousa em quatro atalhos (o tempo de cada parte fica no bloco "timeline" do script):
+
+- **DeepChina AI**: abre o site da DeepChina (`deepchinaUrl` em `site-config.js`); enquanto estiver vazio, leva ao cadastro de e-mail.
+- **Imersão Canton Fair**: formulário curto em popup (fase da feira e contato) para marcar uma call gratuita.
+- **Meus serviços**: formulário curto em popup (do que precisa, o que quer importar, investimento e contato). Todo serviço começa com uma consultoria de importação de 1 hora por R$ 1.000, creditados se a pessoa fechar, e o formulário só envia com esse aceite.
+- **Minha história**: carta pessoal em formato de e-mail, com dicas de importação e atalhos para a DeepChina AI, os serviços e o cadastro de e-mail da página.
+
+Também tem o cadastro "Entre na minha mente" e os ícones das redes com o número de seguidores. HTML/CSS/JS puro em um arquivo só (`index.html`), sem etapa de build.
 
 ## Rodar localmente
 
@@ -11,31 +18,44 @@ cp .env.example .env   # depois preencha os valores
 npm start
 ```
 
-Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arquivos estáticos e o `POST /api/subscribe`.
+Abra http://127.0.0.1:4173. O `npm start` roda o `server.mjs`, que serve os arquivos estáticos, o `POST /api/subscribe` e o `POST /api/lead`.
 
 ## Variáveis de ambiente
 
 | Nome | O que é |
 | --- | --- |
-| `RESEND_API_KEY` | Chave da API do Resend (`re_…`). Só no servidor — nunca em `site-config.js` ou no navegador. |
-| `RESEND_SEGMENT_ID` | ID (UUID) do Segment do Resend onde entram os inscritos — não o nome dele. |
+| `RESEND_API_KEY` | Chave da API do Resend (`re_…`). Só no servidor, nunca em `site-config.js` ou no navegador. |
+| `RESEND_SEGMENT_ID` | ID (UUID) do Segment do Resend onde entram os inscritos, não o nome dele. |
 | `SITE_ORIGIN` | Origens permitidas, separadas por vírgula, ex.: `https://nandovoyager.com,https://www.nandovoyager.com`. Vazio no ambiente local. |
+| `LEADS_TO` | Quem recebe os pedidos dos formulários (padrão contato@nandovoyager.com). |
+| `LEADS_FROM` | Remetente desses e-mails, de um domínio verificado no Resend (Domains → nandovoyager.com). |
 
 ## Publicar (Vercel)
 
-Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` roda como função serverless (export default). O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
+Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/lead.mjs` rodam como funções serverless (export default). O `vercel.json` redireciona os endereços antigos (`/intro` e `/consultoria`) para a página principal. O `.vercelignore` deixa `.env` e `server.mjs` fora do upload.
 
 1. Importe este repositório na Vercel (preset "Other", sem build command).
-2. Cadastre as três variáveis acima em Settings → Environment Variables.
+2. Cadastre as variáveis acima em Settings → Environment Variables.
 3. Adicione `nandovoyager.com` e `www.nandovoyager.com` em Settings → Domains e crie no registrador os registros DNS que a Vercel mostrar.
 
 ## Configuração
 
-- `site-config.js`: endpoint do cadastro, link do cartão Voyager AI (`offers`; sem uso enquanto o cartão está como "Em breve"), número do WhatsApp (`whatsapp`) e redes, incluindo os links que abrem direto no app no celular.
-- `canton-fair.js`: pacotes da Imersão Canton Fair (datas, roteiro, valores, o que está incluso). O cartão principal abre essa janela; ela também abre direto por `nandovoyager.com/#canton-fair` ou por pacote, ex.: `#canton-fair/grande-baia`, `#canton-fair/sem-pequim`, `#canton-fair/jornada-completa`.
-- `privacidade.html`: política de privacidade (LGPD).
-- `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
+- `site-config.js`: endpoint do cadastro, link do site da DeepChina (`deepchinaUrl`) e redes (o LinkedIn aparece quando `socialLinks.linkedin.web` for preenchido).
+- `index.html`: textos, atalhos, formulários e a carta. As fotos da fita ficam na lista `WORK` do script (as quatro primeiras são as dos atalhos; cada uma pode ter `zoom`, `focus` e `gain` para o recorte). Os números de seguidores ficam nos ícones do topo e da fileira do celular.
+- `img/`: fotos em WebP. Fotos do iPhone (HEIC) precisam ser convertidas antes.
+- `privacidade.html`: política de privacidade (LGPD). `404.html`: página de erro que a Vercel mostra para links inexistentes.
+- `robots.txt` e `sitemap.xml`: indexação no Google. `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
+- Formulários: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nem envia nada. Se o envio de um pedido falhar, o formulário oferece mandar as mesmas respostas por e-mail.
 
-## Analytics
+## Eventos
 
-O `script.js` chama `window.nandoAnalytics.track(evento, propriedades)` se algum provedor de analytics definir essa função. Eventos: `social_click`, `cta_click`, `canton_package`, `whatsapp_click`, `newsletter_signup` (só depois que a API confirma).
+Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da carta. O atalho "Eventos" fica acima dos quatro links. Hoje o popup mostra só o workshop em Santos; com uma cidade em `cidadesVotacao`, a parte da palestra volta a aparecer.
+
+- `eventos/config.js`: a config única. Cidades em votação, regra de abertura (mínimos e prazo), dados de Santos, lotes, palestrantes, DeepChina e parceiro. Valor `null` não aparece na tela. Adicionar ou tirar cidade e mudar os números da regra é só aqui.
+- `eventos/conteudo.js`: todos os textos. `TODO_COPY("dica")` marca um texto ainda não escrito: ele não aparece no site. Abra `/?eventos&todo` para ver o que falta.
+- O popup é montado no script do `index.html` (bloco "Palestras") a partir desses dois arquivos.
+- `/eventos` (o endereço para Instagram e podcasts) leva à home já com o popup aberto e mantém o resto do endereço, como `utm_source` e `cidade`.
+
+Contagem regressiva: preencha `viraEm` no lote ativo de Santos (data e hora com fuso, ex. `"2026-12-01T23:59:00-03:00"`) e o popup mostra "Lote 1 encerra em" com dias, horas, minutos e segundos. Um lote também pode começar tantos dias antes do evento (`comecaDiasAntesDoEvento`, calculado a partir de `santos.data`, à meia-noite de Brasília): o lote anterior termina nesse momento e mostra "até" o dia anterior; ele mostra "após" esse mesmo dia. Depois da data, a contagem some; trocar o lote ativo continua manual.
+
+Estado: fase 1 (estrutura e conteúdo estático). Mapa, contagem de votos, formulários e venda entram nas fases seguintes; os botões "Votar" e "Quero ser avisado" ainda não abrem formulário.
