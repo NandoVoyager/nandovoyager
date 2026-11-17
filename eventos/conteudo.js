@@ -14,7 +14,7 @@ export default {
     promessa: "Estou indo ao Brasil falar de importação e negócios com a China. O workshop já está confirmado. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
     // sem nenhuma palestra na config, só com o workshop:
-    soImersao: { titulo: "De volta ao Brasil por só 10 dias, depois de 3 anos morando fora.", promessa: "Meu primeiro evento presencial: um dia inteiro ao vivo, em Santos, com as minhas histórias, negócios, IA, geopolítica e como começar a importar da China." }, // rascunho
+    soImersao: { titulo: "De volta ao Brasil por só 10 dias, depois de 3 anos morando fora.", promessa: "Meu primeiro evento presencial: um dia inteiro em Santos, falando sobre temas como inteligência artificial, geopolítica, negócios, importação da China e as minhas histórias pelo mundo." }, // rascunho
     linkSantos: "Quero o workshop em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
