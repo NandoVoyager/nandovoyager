@@ -1152,7 +1152,8 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const vote = voting ? `<a class="talk-btn solid" href="#talks-cities" data-to-cities>${esc(t.hero.botao)} <span aria-hidden="true">→</span></a>` : '';
 
   $('talks-body').innerHTML = `
-    <h2 class="letter-subject" id="talks-title">${fill(hasTalk ? hero.titulo : t.santos.titulo)}</h2>
+    ${hasTalk ? '' : `<p class="letter-h">${esc(t.santos.rotulo)}</p>`}
+    <h2 class="letter-subject" id="talks-title"${hasTalk ? '' : ' style="margin-top:0"'}>${fill(hasTalk ? hero.titulo : t.santos.titulo)}</h2>
     <div class="letter-body">
       ${deadline && voting ? `<p><span class="talk-tag">${esc(t.hero.prazo)} <span id="talks-clock"></span></span></p>` : ''}
       ${hasTalk ? `<p>${fill(hero.promessa)}</p>` : ''}
