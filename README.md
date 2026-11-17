@@ -56,4 +56,6 @@ Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da car
 - O popup é montado no script do `index.html` (bloco "Palestras") a partir desses dois arquivos.
 - `/palestra` (o endereço para Instagram e podcasts) leva à home já com o popup aberto e mantém o resto do endereço, como `utm_source` e `cidade`.
 
+Contagem regressiva: preencha `viraEm` no lote ativo de Santos (data e hora com fuso, ex. `"2026-12-01T23:59:00-03:00"`) e o popup mostra "Lote 1 termina em" com dias, horas e minutos. Depois da data, a contagem some; trocar o lote ativo continua manual.
+
 Estado: fase 1 (estrutura e conteúdo estático). Mapa, contagem de votos, formulários e venda entram nas fases seguintes; os botões "Votar" e "Quero ser avisado" ainda não abrem formulário.
