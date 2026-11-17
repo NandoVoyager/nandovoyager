@@ -112,6 +112,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .tile-img{position:absolute;inset:0;border-radius:inherit}
 .tile:before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(rgba(10,10,11,0) 38%,rgba(10,10,11,.8))}
 .tile-n{position:absolute;left:14px;top:12px;font:400 11px 'IBM Plex Mono',monospace;font-style:normal;letter-spacing:.06em;color:rgba(244,241,234,.8);text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.tile-soon{position:absolute;right:12px;top:11px;padding:4px 9px;border:1px solid rgba(244,241,234,.3);border-radius:99px;background:rgba(10,10,10,.45);font:400 11px 'Inter Tight',system-ui,sans-serif;font-style:normal;color:var(--ink);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .tile-text{position:absolute;left:16px;right:56px;bottom:14px}
 .tile-text b{display:block;font-size:clamp(18px,1.8vw,30px);font-weight:500;line-height:1.1;letter-spacing:-.02em}
 .tile-text small{display:block;margin-top:4px;overflow:hidden;font-size:clamp(10.5px,calc(var(--gw) * .0215),12.5px);line-height:1.3;color:rgba(244,241,234,.74);white-space:nowrap;text-overflow:ellipsis}
@@ -425,6 +426,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .tile:active{background:rgba(244,241,234,.07)}
   .tile:before,.tile-n{display:none}
   .tile-img{position:relative;inset:auto;flex:none;width:clamp(60px,min(9.5svh,20vw),100px);aspect-ratio:2.1/1.32;border-radius:8px}
+  .tile-soon{right:54px;top:14px;padding:0;border:0;background:none;font-size:10.5px;color:var(--mid);backdrop-filter:none;-webkit-backdrop-filter:none}
   .tile-text{position:static;flex:1;min-width:0}
   .tile-text b{font-size:17px}
   .tile-text small{margin-top:2px;font-size:clamp(11px,3.2vw,12.5px);color:var(--mid)}
@@ -473,7 +475,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     <a class="talk" href="/eventos" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Eventos</b><small id="talk-when">Workshop em Santos</small><small class="talk-count" id="talk-count" hidden></small></span><span class="tile-go" aria-hidden="true">↗</span></a>
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
-        <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><em class="tile-soon">Em breve</em><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>A maior feira da China · abril de 2027</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Meus serviços</b><small>Consultoria de importação</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
         <li><a class="tile" href="#letter" data-letter aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Um e-mail pessoal pra você</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
