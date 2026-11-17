@@ -331,8 +331,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-body ul,.letter-body ol{margin:0 0 16px;padding-left:20px}
 .letter-body ol li{margin:6px 0}
 .letter-h{margin:24px 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
-/* "Palestras": the pop-up about the events in Brazil, in the letter's shell. Its content comes from palestra/config.js
-   (cities, rule, Santos, prices) and palestra/conteudo.js (texts). */
+/* "Palestras": the pop-up about the events in Brazil, in the letter's shell. Its content comes from eventos/config.js
+   (cities, rule, Santos, prices) and eventos/conteudo.js (texts). */
 .talks .letter-body > p.talks-rule{color:var(--ink)}
 .city-list{margin:0 0 16px!important;padding:0!important;border:1px solid rgba(244,241,234,.16);border-radius:14px;list-style:none;overflow:hidden}
 .city-list li{display:flex;align-items:center;gap:10px;min-height:54px;margin:0;padding:7px 8px 7px 16px}
@@ -456,7 +456,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 25 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+25k</span></a>
       <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
     </nav>
-    <a class="talk" href="/palestra" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Eventos</b><small id="talk-when">Workshop em Santos</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
+    <a class="talk" href="/eventos" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Eventos</b><small id="talk-when">Workshop em Santos</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
         <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
@@ -631,7 +631,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </div>
   </div>
 </dialog>
-<dialog class="lead letter talks" id="palestra" aria-labelledby="talks-title" tabindex="-1">
+<dialog class="lead letter talks" id="eventos" aria-labelledby="talks-title" tabindex="-1">
   <div class="letter-in">
     <div class="letter-top">
       <img src="/img/avatar-160.webp" width="40" height="40" alt="" />
@@ -645,8 +645,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 <script src="/site-config.js"></script>
 <script type="module">
 import * as THREE from 'three';
-import talks from '/palestra/config.js';
-import talkText from '/palestra/conteudo.js';
+import talks from '/eventos/config.js';
+import talkText from '/eventos/conteudo.js';
 
 // One card per link (same order as #tiles), then the ones that only ride the ribbon.
 const WORK = [
@@ -1111,7 +1111,7 @@ document.querySelectorAll('[data-letter]').forEach(a => a.addEventListener('clic
 // the services card opens its pop-up (its own handler) in place of the letter
 letter.addEventListener('click', e => { if (e.target === letter || e.target.closest('[data-close], [data-lead]')) closeDialog(letter); });
 
-/* ---------- "Palestras": the events in Brazil, built from palestra/config.js and palestra/conteudo.js ---------- */
+/* ---------- "Palestras": the events in Brazil, built from eventos/config.js and eventos/conteudo.js ---------- */
 {
   const t = talkText, showTodo = new URLSearchParams(location.search).has('todo');
   const esc = v => String(v).replace(/[&<>"]/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'})[c]);
@@ -1191,7 +1191,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       ${hasTalk ? `<div class="talks-end">${vote}<a class="talk-btn" href="#talks-santos" data-to-santos>${esc(t.final.botaoSantos)}</a></div>` : ''}
     </div>`;
 
-  const dialog = $('palestra'), openTalks = reader(dialog);
+  const dialog = $('eventos'), openTalks = reader(dialog);
   if (config.deepchinaUrl) dialog.querySelectorAll('[data-deepchina]').forEach(l => { l.href = config.deepchinaUrl; l.target = '_blank'; l.rel = 'noreferrer'; });
   // the links at the end stay inside the pop-up; the DeepChina card closes it (its own handler takes the visitor on)
   dialog.addEventListener('click', e => {
@@ -1216,9 +1216,9 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   // the shortcut on the page says when the workshop is, from the same date of the config
   if (santos.data) $('talk-when').textContent += ` · ${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'numeric', timeZone:'America/Sao_Paulo'})}`;
   document.querySelectorAll('[data-talks]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTalks(); }));
-  // /palestra (and links with ?cidade=) land here with the pop-up already open, over the finished page
+  // /eventos (and links with ?cidade=) land here with the pop-up already open, over the finished page
   const q = new URLSearchParams(location.search);
-  if (q.has('palestra') || q.has('cidade') || location.hash === '#palestra') { start = -Infinity; openTalks(); }
+  if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') { start = -Infinity; openTalks(); }
   // fase 3: os botões [data-votar] e [data-santos] abrem os formulários de voto e de interesse
 }
 // On a phone the pop-ups are sheets from the bottom: drag the top down to close one (far enough, or quickly).

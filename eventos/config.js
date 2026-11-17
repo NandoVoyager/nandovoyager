@@ -1,4 +1,4 @@
-// Config única da página /palestra. Tudo o que é dado de evento mora aqui: cidades, regra da votação,
+// Config única da popup de eventos. Tudo o que é dado de evento mora aqui: cidades, regra da votação,
 // datas, preços, vagas, palestrantes. A página e as funções da API leem este mesmo arquivo.
 // Valores ainda não confirmados ficam null e simplesmente não aparecem na tela.
 //

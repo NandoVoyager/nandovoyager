@@ -51,10 +51,10 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/le
 
 Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da carta. O atalho "Eventos" fica acima dos quatro links. Hoje o popup mostra só o workshop em Santos; com uma cidade em `cidadesVotacao`, a parte da palestra volta a aparecer.
 
-- `palestra/config.js`: a config única. Cidades em votação, regra de abertura (mínimos e prazo), dados de Santos, lotes, palestrantes, DeepChina e parceiro. Valor `null` não aparece na tela. Adicionar ou tirar cidade e mudar os números da regra é só aqui.
-- `palestra/conteudo.js`: todos os textos. `TODO_COPY("dica")` marca um texto ainda não escrito: ele não aparece no site. Abra `/?palestra&todo` para ver o que falta.
+- `eventos/config.js`: a config única. Cidades em votação, regra de abertura (mínimos e prazo), dados de Santos, lotes, palestrantes, DeepChina e parceiro. Valor `null` não aparece na tela. Adicionar ou tirar cidade e mudar os números da regra é só aqui.
+- `eventos/conteudo.js`: todos os textos. `TODO_COPY("dica")` marca um texto ainda não escrito: ele não aparece no site. Abra `/?eventos&todo` para ver o que falta.
 - O popup é montado no script do `index.html` (bloco "Palestras") a partir desses dois arquivos.
-- `/palestra` (o endereço para Instagram e podcasts) leva à home já com o popup aberto e mantém o resto do endereço, como `utm_source` e `cidade`.
+- `/eventos` (o endereço para Instagram e podcasts) leva à home já com o popup aberto e mantém o resto do endereço, como `utm_source` e `cidade`.
 
 Contagem regressiva: preencha `viraEm` no lote ativo de Santos (data e hora com fuso, ex. `"2026-12-01T23:59:00-03:00"`) e o popup mostra "Lote 1 termina em" com dias, horas, minutos e segundos. Um lote também pode terminar tantos dias antes do evento (`diasAntesDoEvento`, calculado a partir de `santos.data`); cada lote com data mostra "até DD/MM". Depois da data, a contagem some; trocar o lote ativo continua manual.
 

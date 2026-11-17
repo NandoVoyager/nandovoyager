@@ -2,9 +2,35 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "redirects": [
-    { "source": "/intro", "destination": "/", "permanent": true },
-    { "source": "/intro/", "destination": "/", "permanent": true },
-    { "source": "/consultoria", "destination": "/", "permanent": true },
-    { "source": "/consultoria/", "destination": "/", "permanent": true }
+    {
+      "source": "/intro",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/intro/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/consultoria",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/consultoria/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/palestra",
+      "destination": "/eventos",
+      "permanent": true
+    },
+    {
+      "source": "/palestra/",
+      "destination": "/eventos",
+      "permanent": true
+    }
   ]
 }
