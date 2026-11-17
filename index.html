@@ -325,6 +325,33 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .letter-body ul,.letter-body ol{margin:0 0 16px;padding-left:20px}
 .letter-body ol li{margin:6px 0}
 .letter-h{margin:24px 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+/* "Palestras": the pop-up about the events in Brazil, in the letter's shell. Its content comes from palestra/config.js
+   (cities, rule, Santos, prices) and palestra/conteudo.js (texts). */
+.talks .letter-body > p.talks-rule{color:var(--ink)}
+.city-list{margin:0 0 16px!important;padding:0!important;border:1px solid rgba(244,241,234,.16);border-radius:14px;list-style:none;overflow:hidden}
+.city-list li{display:flex;align-items:center;gap:10px;min-height:54px;margin:0;padding:7px 8px 7px 16px}
+.city-list li + li{border-top:1px solid rgba(244,241,234,.1)}
+.city-list b{flex:1;min-width:0;font-size:16px;font-weight:500}
+.city-list b small{margin-left:7px;font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid)}
+.talk-tag{flex:none;padding:4px 10px;border-radius:99px;background:rgba(244,241,234,.08);font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid);white-space:nowrap}
+.talk-btn{flex:none;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;border:1px solid rgba(244,241,234,.3);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.talk-btn:hover{background:var(--ink);color:var(--bg)}
+.talk-btn:active{transform:scale(.96)}
+.talk-btn.solid{height:46px;padding:0 22px;border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.talks-title2{margin:0 0 10px!important;font-size:21px;font-weight:500;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+.talk-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:22px 0 6px}
+.talk-nums div{padding:14px 12px;border:1px solid rgba(244,241,234,.14);border-radius:14px;background:rgba(244,241,234,.03)}
+.talk-nums b{display:block;font-size:22px;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.talk-nums small{display:block;margin-top:4px;font-size:12px;line-height:1.3;color:var(--mid)}
+.talks-strong{margin:26px 0 4px!important;font-size:25px;font-weight:500;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+.talks details{border-bottom:1px solid rgba(244,241,234,.1)}
+.talks summary{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;color:var(--ink);font-weight:500;list-style:none;cursor:pointer}
+.talks summary::-webkit-details-marker{display:none}
+.talks summary:after{content:"";flex:none;width:8px;height:8px;margin-right:4px;border:solid var(--mid);border-width:0 1.5px 1.5px 0;transform:rotate(45deg);transition:transform .25s}
+.talks details[open] summary:after{transform:rotate(-135deg)}
+.talks details p{margin-bottom:16px}
+.talks-end{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:26px 0 8px}
+.talk-todo{margin:0 0 12px;padding:9px 12px;border:1.5px dashed #e5372b;border-radius:10px;font-size:13px;line-height:1.4;color:#ff8f86}
 /* the DeepChina link, like an e-mail attachment */
 .letter-attach{display:flex;align-items:center;gap:14px;margin:4px 0 18px;padding:10px 16px 10px 10px;border:1px solid rgba(244,241,234,.18);border-radius:14px;background:rgba(244,241,234,.04);color:var(--ink);text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
 .letter-attach:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
@@ -429,7 +456,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
       <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
     </nav>
-    <a class="talk" href="/palestra"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Palestras</b><small>Vote na sua cidade</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
+    <a class="talk" href="/palestra" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Palestras</b><small>Vote na sua cidade</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
         <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
@@ -616,9 +643,22 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </div>
   </div>
 </dialog>
+<dialog class="lead letter talks" id="palestra" aria-labelledby="talks-title" tabindex="-1">
+  <div class="letter-in">
+    <div class="letter-top">
+      <img src="/img/avatar-160.webp" width="40" height="40" alt="" />
+      <p class="letter-from"><b>Nando Voyager</b><span>palestras no Brasil</span></p>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+      <span class="letter-progress" aria-hidden="true"><i></i></span>
+    </div>
+    <div id="talks-body"></div>
+  </div>
+</dialog>
 <script src="/site-config.js"></script>
 <script type="module">
 import * as THREE from 'three';
+import talks from '/palestra/config.js';
+import talkText from '/palestra/conteudo.js';
 
 // One card per link (same order as #tiles), then the ones that only ride the ribbon.
 const WORK = [
@@ -1062,21 +1102,103 @@ function leadDialog(dialog) {
   show(1);
 }
 document.querySelectorAll('dialog.lead[data-form]').forEach(leadDialog);
-// "Minha história": the letter, read from the top each time
-const letter = $('letter');
-document.querySelectorAll('[data-letter]').forEach(a => a.addEventListener('click', e => {
-  e.preventDefault();
-  letter.classList.remove('closing');
-  letter.showModal();
-  letter.focus();
-  letter.scrollTop = 0; reading();
-}));
-letter.addEventListener('cancel', e => { e.preventDefault(); closeDialog(letter); });
-const readLine = letter.querySelector('.letter-progress i');
-const reading = () => { readLine.style.transform = `scaleX(${letter.scrollTop / Math.max(1, letter.scrollHeight - letter.clientHeight)})`; };
-letter.addEventListener('scroll', reading, {passive:true});
+// The long pop-ups ("Minha história" and "Palestras"): read from the top each time, with a line showing how far you are.
+function reader(dialog) {
+  const line = dialog.querySelector('.letter-progress i');
+  const reading = () => { line.style.transform = `scaleX(${dialog.scrollTop / Math.max(1, dialog.scrollHeight - dialog.clientHeight)})`; };
+  dialog.addEventListener('scroll', reading, {passive:true});
+  dialog.addEventListener('cancel', e => { e.preventDefault(); closeDialog(dialog); });
+  return () => { dialog.classList.remove('closing'); dialog.showModal(); dialog.focus(); dialog.scrollTop = 0; reading(); };
+}
+const letter = $('letter'), openLetter = reader(letter);
+document.querySelectorAll('[data-letter]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openLetter(); }));
 // the services card opens its pop-up (its own handler) in place of the letter
 letter.addEventListener('click', e => { if (e.target === letter || e.target.closest('[data-close], [data-lead]')) closeDialog(letter); });
+
+/* ---------- "Palestras": the events in Brazil, built from palestra/config.js and palestra/conteudo.js ---------- */
+{
+  const t = talkText, showTodo = new URLSearchParams(location.search).has('todo');
+  const esc = v => String(v).replace(/[&<>"]/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'})[c]);
+  const isTodo = v => v && typeof v === 'object' && 'todo' in v, has = v => v && (!isTodo(v) || showTodo);
+  const rules = talks.regraAbertura, cities = talks.cidadesVotacao, santos = talks.santos;
+  // the rule in one sentence, with the numbers of the config
+  const rule = `A cidade mais votada recebe a palestra, com pelo menos ${rules.minimoPrimeira} votos.` + (rules.maxCidades > 1 ? ` A segunda também, se passar de ${rules.minimoSegunda} votos.` : '');
+  const fill = v => esc(v).replace(/\{(\w+)\}/g, (_, k) => esc(k === 'regra' ? rule : talks[k] ?? ''));
+  // a text; a text still to be written shows nothing (or, with ?todo in the address, a note of what is missing)
+  const text = (v, wrap = x => `<p>${x}</p>`) => isTodo(v) ? (showTodo ? `<p class="talk-todo">TODO_COPY: ${esc(v.todo)}</p>` : '') : v ? wrap(fill(v)) : '';
+  const list = v => isTodo(v) ? text(v) : `<ul>${v.map(i => `<li>${fill(i)}</li>`).join('')}</ul>`;
+  const block = c => has(c.itens) ? `<p class="letter-h">${esc(c.rotulo)}</p>${text(c.titulo, x => `<p class="talks-title2">${x}</p>`)}${list(c.itens)}` : '';
+  const deadline = rules.votacaoEncerraEm ? new Date(rules.votacaoEncerraEm) : null;
+  const voting = talks.modo === 'votacao' && (!deadline || deadline > new Date());
+  const price = (talks.lotesReferencia || []).find(l => l.ativo && l.preco != null)?.preco ?? null;
+  const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
+  const facts = [santos.data && ['Data', day(santos.data)], santos.horarioManha && ['Manhã', santos.horarioManha], santos.horarioTarde && ['Tarde', santos.horarioTarde], santos.local && ['Local', santos.local]].filter(Boolean);
+  const numbers = [talks.duracaoImersao && [talks.duracaoImersao, t.numeros.imersao], cities.length && [cities.length, t.numeros.cidades], price != null && [`R$ ${price.toLocaleString('pt-BR')}`, t.numeros.entrada]].filter(Boolean); // o total de votos entra na fase 2
+  const confirmed = talks.palestrantes.filter(p => p.confirmado), santosButton = t.santos.botao[santos.status];
+  const vote = voting ? `<a class="talk-btn solid" href="#talks-cities" data-to-cities>${esc(t.hero.botao)} <span aria-hidden="true">→</span></a>` : '';
+
+  $('talks-body').innerHTML = `
+    <h2 class="letter-subject" id="talks-title">${fill(t.hero.titulo)}</h2>
+    <div class="letter-body">
+      ${deadline && voting ? `<p><span class="talk-tag">${esc(t.hero.prazo)} <span id="talks-clock"></span></span></p>` : ''}
+      <p>${fill(t.hero.promessa)}</p>
+
+      <p class="letter-h" id="talks-cities">${esc(t.votacao.rotulo)}</p>
+      <p class="talks-rule">${esc(rule)}</p>
+      <ul class="city-list">${cities.map(c => `<li id="cidade-${esc(c.id)}"><b>${esc(c.nome)}<small>${esc(c.uf)}</small></b>${
+        c.status === 'votacao' && voting ? `<button class="talk-btn" type="button" data-votar="${esc(c.id)}">${esc(t.votacao.votar)}</button>` : `<span class="talk-tag">${esc(t.votacao.selo[c.status])}</span>`}</li>`).join('')}</ul>
+      ${list(t.votacao.itens)}
+
+      <p class="letter-h" id="talks-santos">${esc(t.santos.rotulo)}</p>
+      <p class="talks-title2">${fill(t.santos.titulo)}</p>
+      ${list(t.santos.itens)}
+      ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
+      <p><span class="talk-tag">${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : esc(t.santos.vagasLimitadas)}</span></p>
+      ${santosButton ? `<p><button class="talk-btn" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
+
+      <p class="talks-strong">${t.fraseForte.titulo.map(fill).join(' ')}</p>
+      ${text(t.porQueAgora)}
+      <div class="talk-nums">${numbers.map(([n, l]) => `<div><b>${esc(n)}</b><small>${esc(l)}</small></div>`).join('')}</div>
+
+      ${block(t.cards.formatos)}${block(t.cards.quem)}${block(t.cards.leva)}${block(t.cards.formato)}
+
+      <p class="letter-h">${esc(t.cards.palestrantes.rotulo)}</p>
+      <p class="talks-title2">${esc(confirmed.length ? t.cards.palestrantes.comConfirmados : t.cards.palestrantes.semConfirmados)}</p>
+      <ul><li>${esc(t.cards.palestrantes.eu)}</li>${confirmed.map(p => `<li>${esc([p.nome, p.cargo, p.empresa].filter(Boolean).join(', '))}</li>`).join('')}${talks.parceiro.mostrar ? `<li>Parceiro: ${esc(talks.parceiro.nome)}</li>` : ''}</ul>
+
+      ${talks.deepchina.mostrar ? `<p class="letter-h">${esc(t.cards.deepchina.rotulo)}</p>
+      <p>${fill(talks.deepchina.textoOferta || t.cards.deepchina.oferta)}</p>
+      <a class="letter-attach" href="#join" data-deepchina><img src="/img/deepchina-card.webp" width="72" height="45" alt="" /><span><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><em>VER MINHA IA <span aria-hidden="true">→</span></em></a>` : ''}
+
+      ${text(t.fraseGigante, x => `<p class="talks-strong">${x}</p>`)}
+      ${has(t.recado.paragrafos) ? `<p class="letter-h">${esc(t.recado.titulo)}</p>${isTodo(t.recado.paragrafos) ? text(t.recado.paragrafos) : t.recado.paragrafos.map(p => `<p>${fill(p)}</p>`).join('') + `<p class="letter-sign"><span class="hand">${esc(t.recado.assinatura)}</span></p>`}` : ''}
+
+      <p class="letter-h">${esc(t.faq.titulo)}</p>
+      ${t.faq.itens.filter(i => has(i.r)).map(i => `<details><summary>${esc(i.p)}</summary>${text(i.r)}</details>`).join('')}
+
+      <div class="talks-end">${vote}<a class="talk-btn" href="#talks-santos" data-to-santos>${esc(t.final.botaoSantos)}</a></div>
+    </div>`;
+
+  const dialog = $('palestra'), openTalks = reader(dialog);
+  if (config.deepchinaUrl) dialog.querySelectorAll('[data-deepchina]').forEach(l => { l.href = config.deepchinaUrl; l.target = '_blank'; l.rel = 'noreferrer'; });
+  // the links at the end stay inside the pop-up; the DeepChina card closes it (its own handler takes the visitor on)
+  dialog.addEventListener('click', e => {
+    if (e.target === dialog || e.target.closest('[data-close]')) return closeDialog(dialog);
+    if (e.target.closest('[data-deepchina]') && !config.deepchinaUrl) return toSignup(e);
+    const to = e.target.closest('[data-to-cities], [data-to-santos]');
+    if (to) { e.preventDefault(); dialog.querySelector(to.getAttribute('href')).scrollIntoView({behavior:calm ? 'auto' : 'smooth', block:'start'}); }
+  });
+  const clock = $('talks-clock');
+  if (clock) {
+    const tick = () => { const n = Math.max(0, Math.floor((deadline - Date.now()) / 1000)); clock.textContent = `${Math.floor(n / 86400)}d ${Math.floor(n / 3600) % 24}h ${Math.floor(n / 60) % 60}m`; };
+    tick(); setInterval(tick, 30000);
+  }
+  document.querySelectorAll('[data-talks]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTalks(); }));
+  // /palestra (and links with ?cidade=) land here with the pop-up already open, over the finished page
+  const q = new URLSearchParams(location.search);
+  if (q.has('palestra') || q.has('cidade') || location.hash === '#palestra') { start = -Infinity; openTalks(); }
+  // fase 3: os botões [data-votar] e [data-santos] abrem os formulários de voto e de interesse
+}
 // On a phone the pop-ups are sheets from the bottom: drag the top down to close one (far enough, or quickly).
 const sheetSize = matchMedia('(max-width: 560px)');
 document.querySelectorAll('dialog.lead').forEach(d => {
