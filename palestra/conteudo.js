@@ -36,8 +36,6 @@ export default {
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
   },
 
-  fraseForte: { titulo: ["Dois formatos.", "Uma viagem curta.", "Primeira vez no Brasil."] }, // rascunho
-  numeros: { imersao: "de imersão em Santos", vagas: "pessoas, no máximo, na imersão", minimo: "pessoas para a palestra acontecer", entrada: "por pessoa na palestra" },
   porQueAgora: TODO_COPY("Por que agora: primeira vez presencial no Brasil, viagem curta. 2 ou 3 frases suas."),
 
   cards: {
@@ -52,13 +50,6 @@ export default {
       rotulo: "O formato",
       titulo: "Manhã. Almoço. Tarde.",
       itens: TODO_COPY("Programação da imersão: o que acontece no bloco da manhã e no bloco da tarde."),
-    },
-    palestrantes: {
-      rotulo: "Palestrantes e parceiros",
-      semConfirmados: "Anunciados quando a palestra for confirmada.",
-      comConfirmados: "Quem dá aula na imersão.",
-      eu: "Nando Voyager",
-      palestrar: "Quero palestrar", patrocinar: "Quero patrocinar",
     },
     deepchina: {
       rotulo: "DeepChina AI",
