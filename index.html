@@ -343,6 +343,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lot-price small{font-size:12.5px;font-weight:400;color:var(--mid)}
 .talk-tag{flex:none;padding:4px 10px;border-radius:99px;background:rgba(244,241,234,.08);font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid);white-space:nowrap}
 .talk-tag.strong{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 11px;border:1px solid rgba(229,55,43,.4);background:rgba(229,55,43,.08);font:500 13.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:0;color:var(--ink)}
+.talk-tag.strong.ok{border-color:rgba(52,199,123,.4);background:rgba(52,199,123,.08)}
+.talk-tag.strong.ok svg{stroke:#34c77b}
 .talk-tag.strong svg{width:15px;height:15px;fill:none;stroke:#e5372b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .cdown{margin:0 0 14px}
 .cdown p{margin:0 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
@@ -1169,7 +1171,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
 
       ${hasTalk ? `<p class="letter-h" id="talks-santos">${esc(t.santos.rotulo)}</p>
       <p class="talks-title2">${fill(t.santos.titulo)}</p>` : ''}
-      <p class="talk-tags">${santos.vagasMinimo ? `<span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.200" /><path d="M3 20c.400-3.600 2.800-5.500 6-5.500s5.600 1.900 6 5.500M16 5.200a3.200 3.200 0 0 1 0 5.900M18.500 14.900c1.500.900 2.300 2.500 2.500 5.100" /></svg>${esc(t.santos.minimo.replace('{min}', santos.vagasMinimo))}</span>` : ''}<span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
+      <p class="talk-tags">${santos.vagasMinimo ? `<span class="talk-tag strong ok"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.200" /><path d="M3 20c.400-3.600 2.800-5.500 6-5.500s5.600 1.900 6 5.500M16 5.200a3.200 3.200 0 0 1 0 5.900M18.500 14.900c1.500.900 2.300 2.500 2.500 5.100" /></svg>${esc(t.santos.minimo.replace('{min}', santos.vagasMinimo))}</span>` : ''}<span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
       ${santos.vagasMinimo ? `<p class="talk-note">${esc(t.santos.reembolso.replace('{min}', santos.vagasMinimo))}</p>` : ''}
       ${hasTalk ? '' : `<p>${fill(hero.promessa)}</p>`}
       ${list(teaching ? [...t.santos.itens, teaching] : t.santos.itens)}
