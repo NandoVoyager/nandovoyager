@@ -49,7 +49,7 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/le
 
 ## Palestras
 
-Os eventos presenciais no Brasil (a imersão em Santos, garantida, e a palestra em São Paulo, que acontece com um mínimo de pessoas na lista) abrem num popup da home, no mesmo visual da carta. O atalho "Palestras" fica acima dos quatro links.
+Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da carta. O atalho "Palestras" fica acima dos quatro links. Hoje o popup mostra só a imersão em Santos; com uma cidade em `cidadesVotacao`, a parte da palestra volta a aparecer.
 
 - `palestra/config.js`: a config única. Cidades em votação, regra de abertura (mínimos e prazo), dados de Santos, lotes, palestrantes, DeepChina e parceiro. Valor `null` não aparece na tela. Adicionar ou tirar cidade e mudar os números da regra é só aqui.
 - `palestra/conteudo.js`: todos os textos. `TODO_COPY("dica")` marca um texto ainda não escrito: ele não aparece no site. Abra `/?palestra&todo` para ver o que falta.

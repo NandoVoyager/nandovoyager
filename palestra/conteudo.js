@@ -13,6 +13,8 @@ export default {
     titulo: "Meus primeiros eventos presenciais no Brasil.", // rascunho
     promessa: "Estou indo ao Brasil falar de importação e negócios com a China. A imersão já está confirmada. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
+    // sem nenhuma palestra na config, só com a imersão:
+    soImersao: { titulo: "Meu primeiro evento presencial no Brasil.", promessa: "Estou indo ao Brasil para um dia inteiro de negócios e importação com a China, ao vivo, em Santos." }, // rascunho
     linkSantos: "Quero a imersão em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
@@ -69,10 +71,11 @@ export default {
   faq: {
     titulo: "Dúvidas",
     itens: [
-      { p: "Como a palestra é confirmada?", r: "{regra}" },
-      { p: "E se a lista não chegar ao mínimo?", r: TODO_COPY("O que acontece se a palestra não atingir o mínimo de pessoas.") },
+      // "palestra: true" = só aparece quando há palestra na config
+      { palestra: true, p: "Como a palestra é confirmada?", r: "{regra}" },
+      { palestra: true, p: "E se a lista não chegar ao mínimo?", r: TODO_COPY("O que acontece se a palestra não atingir o mínimo de pessoas.") },
       { p: "Quando abre a venda?", r: TODO_COPY("Quando a venda abre depois da votação.") },
-      { p: "Qual a diferença entre a imersão e a palestra?", r: "A imersão em Santos é um workshop de 1 dia, manhã e tarde, focado em negócios e importação. É premium e tem vagas limitadas. A palestra dura {duracaoPalestra}, é mais sobre mentalidade e a minha história, com as dúvidas de cada um respondidas, e é a entrada mais barata." }, // rascunho
+      { palestra: true, p: "Qual a diferença entre a imersão e a palestra?", r: "A imersão em Santos é um workshop de 1 dia, manhã e tarde, focado em negócios e importação. É premium e tem vagas limitadas. A palestra dura {duracaoPalestra}, é mais sobre mentalidade e a minha história, com as dúvidas de cada um respondidas, e é a entrada mais barata." }, // rascunho
       { p: "O almoço está incluso na imersão?", r: TODO_COPY("Almoço incluso ou não.") },
       { p: "Posso pedir reembolso?", r: TODO_COPY("Política de reembolso.") },
       { p: "Vocês emitem nota fiscal?", r: TODO_COPY("Nota fiscal.") },

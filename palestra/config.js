@@ -33,10 +33,10 @@ export default {
     votacaoEncerraEm: null, // data ISO; null = sem prazo exibido
   },
 
-  // Palestra de 4 horas. Hoje só São Paulo, que acontece se a lista chegar ao mínimo acima.
-  // A lista tem tamanho livre: com mais de uma cidade, a página volta a mostrar a disputa entre elas.
+  // Palestra de 4 horas em outra cidade. Hoje não há nenhuma: só a imersão de Santos. Com a lista vazia, tudo
+  // o que fala da palestra some do popup. Para voltar com São Paulo, descomente a linha abaixo.
   cidadesVotacao: [
-    { id: "sao-paulo", nome: "São Paulo", uf: "SP", lat: -23.5505, lng: -46.6333, status: "votacao" },
+    // { id: "sao-paulo", nome: "São Paulo", uf: "SP", lat: -23.5505, lng: -46.6333, status: "votacao" },
   ],
 
   // Preço da palestra por pessoa enquanto ela não abriu. Lote sem preço não aparece.

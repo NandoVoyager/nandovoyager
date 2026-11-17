@@ -441,7 +441,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
       <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
     </nav>
-    <a class="talk" href="/palestra" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Palestras</b><small>Vote na sua cidade</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
+    <a class="talk" href="/palestra" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Palestras</b><small>Imersão em Santos</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
         <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
@@ -620,7 +620,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   <div class="letter-in">
     <div class="letter-top">
       <img src="/img/avatar-160.webp" width="40" height="40" alt="" />
-      <p class="letter-from"><b>Nando Voyager</b><span>palestras no Brasil</span></p>
+      <p class="letter-from"><b>Nando Voyager</b><span>eventos no Brasil</span></p>
       <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
       <span class="letter-progress" aria-hidden="true"><i></i></span>
     </div>
@@ -1095,7 +1095,9 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const isTodo = v => v && typeof v === 'object' && 'todo' in v, has = v => v && (!isTodo(v) || showTodo);
   const rules = talks.regraAbertura, cities = talks.cidadesVotacao, santos = talks.santos;
   // the rule in one sentence, with the numbers of the config
-  const rule = cities.length === 1
+  const hasTalk = cities.length > 0; // with no city in the config, the pop-up is only about the immersion in Santos
+  const hero = hasTalk ? t.hero : t.hero.soImersao;
+  const rule = !hasTalk ? '' : cities.length === 1
     ? `A palestra em ${cities[0].nome} acontece com pelo menos ${rules.minimoPrimeira} pessoas na lista.`
     : `A cidade mais votada recebe a palestra, com pelo menos ${rules.minimoPrimeira} votos.` + (rules.maxCidades > 1 ? ` A segunda também, se passar de ${rules.minimoSegunda} votos.` : '');
   const brl = n => `R$ ${n.toLocaleString('pt-BR')}`;
@@ -1105,7 +1107,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const list = v => isTodo(v) ? text(v) : `<ul>${v.map(i => `<li>${fill(i)}</li>`).join('')}</ul>`;
   const block = c => has(c.itens) ? `<p class="letter-h">${esc(c.rotulo)}</p>${text(c.titulo, x => `<p class="talks-title2">${x}</p>`)}${list(c.itens)}` : '';
   const deadline = rules.votacaoEncerraEm ? new Date(rules.votacaoEncerraEm) : null;
-  const voting = talks.modo === 'votacao' && (!deadline || deadline > new Date());
+  const voting = hasTalk && talks.modo === 'votacao' && (!deadline || deadline > new Date());
   const talkLots = (talks.lotesReferencia || []).filter(l => l.preco != null);
   const lotList = lots => lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}</b><span class="lot-price">${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
@@ -1115,20 +1117,21 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const teachers = [...talks.palestrantes.filter(p => p.confirmado).map(p => p.nome), ...(talks.parceiro.mostrar ? [`a ${talks.parceiro.nome}`] : [])];
   const teaching = teachers.length ? t.santos.aulas.replace('{nomes}', teachers.length > 1 ? `${teachers.slice(0, -1).join(', ')} e ${teachers.at(-1)}` : teachers[0]) : null;
   const santosButton = t.santos.botao[santos.status];
+  const faq = t.faq.itens.filter(i => has(i.r) && (hasTalk || !i.palestra));
   const vote = voting ? `<a class="talk-btn solid" href="#talks-cities" data-to-cities>${esc(t.hero.botao)} <span aria-hidden="true">→</span></a>` : '';
 
   $('talks-body').innerHTML = `
-    <h2 class="letter-subject" id="talks-title">${fill(t.hero.titulo)}</h2>
+    <h2 class="letter-subject" id="talks-title">${fill(hero.titulo)}</h2>
     <div class="letter-body">
       ${deadline && voting ? `<p><span class="talk-tag">${esc(t.hero.prazo)} <span id="talks-clock"></span></span></p>` : ''}
-      <p>${fill(t.hero.promessa)}</p>
+      <p>${fill(hero.promessa)}</p>
 
-      <p class="letter-h" id="talks-cities">${esc(t.votacao.rotulo)}</p>
+      ${hasTalk ? `<p class="letter-h" id="talks-cities">${esc(t.votacao.rotulo)}</p>
       <p class="talks-rule">${esc(rule)}</p>
       <ul class="city-list">${cities.map(c => `<li id="cidade-${esc(c.id)}"><b>${esc(c.nome)}<small>${esc(c.uf)}</small></b>${
         c.status === 'votacao' && voting ? `<button class="talk-btn" type="button" data-votar="${esc(c.id)}">${esc(t.votacao.votar)}</button>` : `<span class="talk-tag">${esc(t.votacao.selo[c.status])}</span>`}</li>`).join('')}</ul>
       ${lotList(talkLots)}
-      ${list(t.votacao.itens)}
+      ${list(t.votacao.itens)}` : ''}
 
       <p class="letter-h" id="talks-santos">${esc(t.santos.rotulo)}</p>
       <p class="talks-title2">${fill(t.santos.titulo)}</p>
@@ -1136,11 +1139,11 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       ${list(teaching ? [...t.santos.itens.slice(0, 2), teaching, ...t.santos.itens.slice(2)] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
       ${lotList(lots)}
-      ${santosButton ? `<p><button class="talk-btn" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
+      ${santosButton ? `<p><button class="talk-btn${hasTalk ? '' : ' solid'}" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
 
       ${text(t.porQueAgora)}
 
-      ${block(t.cards.formatos)}${block(t.cards.quem)}${block(t.cards.leva)}${block(t.cards.formato)}
+      ${hasTalk ? block(t.cards.formatos) : ''}${block(t.cards.quem)}${block(t.cards.leva)}${block(t.cards.formato)}
 
       ${talks.deepchina.mostrar ? `<p class="letter-h">${esc(t.cards.deepchina.rotulo)}</p>
       <p>${fill(talks.deepchina.textoOferta || t.cards.deepchina.oferta)}</p>
@@ -1149,10 +1152,10 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       ${text(t.fraseGigante, x => `<p class="talks-strong">${x}</p>`)}
       ${has(t.recado.paragrafos) ? `<p class="letter-h">${esc(t.recado.titulo)}</p>${isTodo(t.recado.paragrafos) ? text(t.recado.paragrafos) : t.recado.paragrafos.map(p => `<p>${fill(p)}</p>`).join('') + `<p class="letter-sign"><span class="hand">${esc(t.recado.assinatura)}</span></p>`}` : ''}
 
-      <p class="letter-h">${esc(t.faq.titulo)}</p>
-      ${t.faq.itens.filter(i => has(i.r)).map(i => `<details><summary>${esc(i.p)}</summary>${text(i.r)}</details>`).join('')}
+      ${faq.length ? `<p class="letter-h">${esc(t.faq.titulo)}</p>` : ''}
+      ${faq.map(i => `<details><summary>${esc(i.p)}</summary>${text(i.r)}</details>`).join('')}
 
-      <div class="talks-end">${vote}<a class="talk-btn" href="#talks-santos" data-to-santos>${esc(t.final.botaoSantos)}</a></div>
+      ${hasTalk ? `<div class="talks-end">${vote}<a class="talk-btn" href="#talks-santos" data-to-santos>${esc(t.final.botaoSantos)}</a></div>` : ''}
     </div>`;
 
   const dialog = $('palestra'), openTalks = reader(dialog);
