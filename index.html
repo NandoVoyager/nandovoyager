@@ -1136,7 +1136,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       <p class="letter-h" id="talks-santos">${esc(t.santos.rotulo)}</p>
       <p class="talks-title2">${fill(t.santos.titulo)}</p>
       <p><span class="talk-tag strong">${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
-      ${list(teaching ? [...t.santos.itens.slice(0, -1), teaching, ...t.santos.itens.slice(-1)] : t.santos.itens)}
+      ${list(teaching ? [...t.santos.itens, teaching] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
       ${lotList(lots)}
       ${santosButton ? `<p><button class="talk-btn${hasTalk ? '' : ' solid'}" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
