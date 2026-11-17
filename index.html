@@ -80,10 +80,17 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .logo-text small{font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.03em;color:var(--mid)}
 .acts{display:flex;align-items:center;gap:7px;pointer-events:auto}
 .acts a{display:flex;align-items:center;gap:9px;height:32px;padding:0 15px;border:1px solid rgba(244,241,234,.55);border-radius:99px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.06em;transition:background .2s,color .2s,transform .15s}
-.acts a:hover{background:var(--ink);color:var(--bg)}
+@media (hover:hover){.acts a:hover{background:var(--ink);color:var(--bg)}} /* a tap on a phone would leave it filled */
 .acts a i{width:6px;height:6px;border-radius:50%;background:currentColor}
 .acts a b{display:block;width:13px;height:7px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
 .acts a.contact{letter-spacing:.01em}
+/* the contact pill says "Contato"; the first click opens it on the address, the second writes the e-mail */
+.contact-text{display:flex;white-space:nowrap}
+.contact-text span{overflow:hidden;transition:max-width .5s cubic-bezier(.2,.7,.2,1),opacity .3s ease}
+.contact-mail{max-width:0;opacity:0}
+.contact-label{max-width:5em}
+.contact.open .contact-mail{max-width:17em;opacity:1}
+.contact.open .contact-label{max-width:0;opacity:0}
 .acts a.contact .mail-ico{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* first frame only: tells the visitor that scrolling drives the page */
 #cue{position:absolute;left:50%;bottom:22px;display:flex;flex-direction:column;align-items:center;gap:12px;transform:translateX(-50%);padding:8px 12px;border:0;background:none;font:400 11.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--mid);white-space:nowrap;cursor:pointer}
@@ -190,7 +197,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .is-open .new-video{opacity:1;animation:nudge 2.6s ease-in-out 1s infinite}
 @keyframes nudge{50%{transform:translateX(-50%) translateY(3px)}}
 .is-open .new-video path{stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){.top,.cue-line:after,.shake,.chip input:checked + span:before,.opt input:checked + span:after{animation:none}.agree span:after{transition:none}.hub,#gl,#rule{transition:none}.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.contact-text span{transition:none}.top,.cue-line:after,.shake,.chip input:checked + span:before,.opt input:checked + span:after{animation:none}.agree span:after{transition:none}.hub,#gl,#rule{transition:none}.join,.socials a,.top-socials a,.new-video,.new-video path,.hand path,.join-row,.join-done{transition:none;animation:none}.done-check path{animation:none;stroke-dashoffset:0}}
 .top-socials svg,.socials svg{width:17px;height:17px}
 /* only YouTube in its colour (with the play in white), the rest follow the text */
 .top-socials [data-social=youtube] svg,.socials [data-social=youtube] svg{color:#ff0033}
@@ -390,7 +397,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .logo-text b{font-size:clamp(14px,4.1vw,16px)}
   #rule{display:none}
   /* the address has to fit next to the name, down to 360px wide */
-  .acts a.contact{gap:6px;height:28px;padding:0 10px;font-size:clamp(9.5px,2.6vw,11px);letter-spacing:0}
+  .acts a.contact{gap:6px;height:28px;padding:0 10px;font-size:12px;letter-spacing:0;transition:background .2s,color .2s,transform .15s,font-size .4s}
+  .acts a.contact.open{font-size:clamp(9.5px,2.6vw,11px)}
   .acts a.contact .mail-ico{width:15px;height:15px}
   .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
@@ -437,7 +445,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
         <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 25 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+25k</span></a>
         <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
       </span>
-      <a class="contact" href="mailto:contato@nandovoyager.com"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg>contato@nandovoyager.com</a></nav>
+      <a class="contact" id="contact" href="mailto:contato@nandovoyager.com" aria-expanded="false"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg><span class="contact-text"><span class="contact-label">Contato</span><span class="contact-mail">contato@nandovoyager.com</span></span></a></nav>
   </header>
   <div class="hub">
     <nav class="socials socials-phone" id="socials" aria-label="Redes sociais">
@@ -937,6 +945,14 @@ function render(now) {
   }
   renderer.render(scene, camera);
 }
+
+/* ---------- contact pill: the first click shows the address, the next one writes the e-mail ---------- */
+$('contact').addEventListener('click', e => {
+  const pill = e.currentTarget;
+  if (pill.classList.contains('open')) return;
+  e.preventDefault();
+  pill.classList.add('open'); pill.setAttribute('aria-expanded', 'true');
+});
 
 /* ---------- hover ---------- */
 tiles.forEach((t, i) => {
