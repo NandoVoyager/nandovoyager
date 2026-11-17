@@ -1123,8 +1123,10 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const lotEnd = l => l.viraEm || (l.diasAntesDoEvento != null && santos.data
     ? `${new Date(Date.parse(`${santos.data}T12:00:00-03:00`) - l.diasAntesDoEvento * 864e5).toLocaleDateString('en-CA', {timeZone:'America/Sao_Paulo'})}T23:59:00-03:00` : null);
   const lots = santos.lotes.filter(l => l.preco != null).map(l => ({...l, viraEm:lotEnd(l)}));
-  // the lot on sale, when its end is known: a countdown to that real date
-  const lotEnds = lots.find(l => l.ativo && l.viraEm);
+  // a countdown to a real date: the end of the lot on sale when it has one, otherwise the end of the last lot (when sales close)
+  const activeEnds = lots.find(l => l.ativo && l.viraEm), lastEnds = lots.filter(l => l.viraEm).at(-1);
+  const lotEnds = activeEnds || lastEnds;
+  const countLabel = activeEnds ? t.santos.contagem.replace('{lote}', activeEnds.nome) : t.santos.contagemFim;
   const until = iso => new Date(iso).toLocaleDateString('pt-BR', {day:'numeric', month:'numeric', timeZone:'America/Sao_Paulo'});
   // who teaches at the immersion: the confirmed speakers and the partner, in one line
   const teachers = [...talks.palestrantes.filter(p => p.confirmado).map(p => p.nome), ...(talks.parceiro.mostrar ? [`a ${talks.parceiro.nome}`] : [])];
@@ -1151,7 +1153,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       <p><span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
       ${list(teaching ? [...t.santos.itens, teaching] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
-      ${lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(t.santos.contagem.replace('{lote}', lotEnds.nome))}</p>
+      ${lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>
         <div><span><b data-d></b><small>dias</small></span><span><b data-h></b><small>horas</small></span><span><b data-m></b><small>minutos</small></span><span><b data-s></b><small>segundos</small></span></div></div>` : ''}
       ${lotList(lots)}
       ${santosButton ? `<p><button class="talk-btn${hasTalk ? '' : ' solid'}" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
