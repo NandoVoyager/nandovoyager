@@ -12,7 +12,7 @@ export default {
   // Workshop de 1 dia em Santos, confirmado.
   santos: {
     status: "interesse", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
-    data: null,          // um único dia, ISO (ex.: "2027-03-14")
+    data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14")
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
     local: null,
