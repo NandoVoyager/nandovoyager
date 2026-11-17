@@ -14,7 +14,7 @@ export default {
     promessa: "Estou indo ao Brasil falar de importação e negócios com a China. O workshop já está confirmado. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
     // sem nenhuma palestra na config, só com o workshop:
-    soImersao: { titulo: "Meu primeiro evento presencial no Brasil.", promessa: "Estou indo ao Brasil para um dia inteiro de negócios e importação com a China, ao vivo, em Santos." }, // rascunho
+    soImersao: { titulo: "Meu primeiro evento presencial no Brasil.", promessa: "Estou indo ao Brasil para um dia inteiro ao vivo, em Santos: as minhas histórias, negócios, IA, geopolítica e como começar a importar da China." }, // rascunho
     linkSantos: "Quero o workshop em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
@@ -31,8 +31,8 @@ export default {
     rotulo: "O workshop",
     titulo: "O workshop em Santos está garantido.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
-    itens: ["Um dia inteiro, manhã e tarde.", "Foco em negócios e importação.", "O evento premium desta viagem."], // rascunho
-    aulas: "Aulas com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
+    itens: ["Um dia inteiro comigo, manhã e tarde.", "Minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera.", "O evento premium desta viagem."], // rascunho
+    aulas: "Aulas de introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     vagasLimitadas: "Vagas limitadas",
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
