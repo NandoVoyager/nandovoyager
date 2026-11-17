@@ -38,14 +38,13 @@ export function validate(data) {
     if (!options.budget.includes(request.budget)) return { error: "Escolha quanto pretende investir." };
   }
   if (!request.name) return { error: "Informe o seu nome." };
-  if (request.phone.replace(/\D/g, "").length < 8) return { error: "Informe um WhatsApp com DDD." };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(request.email)) return { error: "Informe um e-mail válido." };
   if (request.form === "servicos" && data.call !== true) return { error: "Todo serviço começa com a consultoria de 1 hora. Marque para continuar." };
   return { request };
 }
 
 export function requestText(request) {
-  const contact = [`Nome: ${request.name}`, `WhatsApp: ${request.phone}`, `E-mail: ${request.email}`];
+  const contact = [`Nome: ${request.name}`, request.phone && `WhatsApp: ${request.phone}`, `E-mail: ${request.email}`].filter(Boolean);
   if (request.form === "canton") {
     return [`Fase: ${request.phases.join(", ")}`, ...contact, "Quer marcar a call (gratuita)"].join("\n");
   }
