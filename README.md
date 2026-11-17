@@ -49,7 +49,7 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/le
 
 ## Eventos
 
-Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da carta. O atalho "Eventos" fica acima dos quatro links. Hoje o popup mostra só o workshop em Santos; com uma cidade em `cidadesVotacao`, a parte da palestra volta a aparecer.
+Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da carta. O atalho "Eventos" fica acima dos quatro links. Hoje o popup mostra só o encontro em Santos; com uma cidade em `cidadesVotacao`, a parte da palestra volta a aparecer.
 
 - `eventos/config.js`: a config única. Cidades em votação, regra de abertura (mínimos e prazo), dados de Santos, lotes, palestrantes, DeepChina e parceiro. Valor `null` não aparece na tela. Adicionar ou tirar cidade e mudar os números da regra é só aqui.
 - `eventos/conteudo.js`: todos os textos. `TODO_COPY("dica")` marca um texto ainda não escrito: ele não aparece no site. Abra `/?eventos&todo` para ver o que falta.
