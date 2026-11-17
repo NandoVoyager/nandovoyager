@@ -32,7 +32,7 @@ export default {
     titulo: "O workshop em Santos está garantido.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
     itens: ["Um dia inteiro comigo, manhã e tarde.", "Minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
-    aulas: "Aulas de introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
+    aulas: "Introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     vagasLimitadas: "Vagas limitadas",
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
