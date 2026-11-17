@@ -9,7 +9,7 @@
 export default {
   modo: "votacao", // "votacao" | "venda" | "encerrado"
 
-  // Imersão de 1 dia, confirmada, sem votação.
+  // Workshop de 1 dia em Santos, confirmado.
   santos: {
     status: "interesse", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
     data: null,          // um único dia, ISO (ex.: "2027-03-14")
@@ -33,7 +33,7 @@ export default {
     votacaoEncerraEm: null, // data ISO; null = sem prazo exibido
   },
 
-  // Palestra de 4 horas em outra cidade. Hoje não há nenhuma: só a imersão de Santos. Com a lista vazia, tudo
+  // Palestra de 4 horas em outra cidade. Hoje não há nenhuma: só o workshop de Santos. Com a lista vazia, tudo
   // o que fala da palestra some do popup. Para voltar com São Paulo, descomente a linha abaixo.
   cidadesVotacao: [
     // { id: "sao-paulo", nome: "São Paulo", uf: "SP", lat: -23.5505, lng: -46.6333, status: "votacao" },
@@ -51,10 +51,10 @@ export default {
 
   // Só aparece quem tem confirmado: true.
   palestrantes: [
-    { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: true }, // dá aula na imersão de Santos
+    { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: true }, // dá aula no workshop de Santos
   ],
   deepchina: { mostrar: false, textoOferta: null }, // textoOferta null = usa o texto padrão do arquivo de conteúdo
-  parceiro: { nome: "China Link", logo: "", mostrar: true }, // participa da imersão de Santos
+  parceiro: { nome: "China Link", logo: "", mostrar: true }, // participa do workshop de Santos
   linkGrupoWhatsApp: "",
 
   // Fase 8 (páginas de patrocínio e de inscrição de palestrante): desligadas por enquanto.

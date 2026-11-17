@@ -7,15 +7,15 @@
 export const TODO_COPY = dica => ({ todo: dica });
 
 export default {
-  nav: { votacao: "Votação", imersao: "Imersão", duvidas: "Dúvidas", votar: "Votar" },
+  nav: { votacao: "Votação", imersao: "Workshop", duvidas: "Dúvidas", votar: "Votar" },
 
   hero: {
     titulo: "Meus primeiros eventos presenciais no Brasil.", // rascunho
-    promessa: "Estou indo ao Brasil falar de importação e negócios com a China. A imersão já está confirmada. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
+    promessa: "Estou indo ao Brasil falar de importação e negócios com a China. O workshop já está confirmado. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
-    // sem nenhuma palestra na config, só com a imersão:
+    // sem nenhuma palestra na config, só com o workshop:
     soImersao: { titulo: "Meu primeiro evento presencial no Brasil.", promessa: "Estou indo ao Brasil para um dia inteiro de negócios e importação com a China, ao vivo, em Santos." }, // rascunho
-    linkSantos: "Quero a imersão em Santos",
+    linkSantos: "Quero o workshop em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
 
@@ -28,10 +28,10 @@ export default {
   },
 
   santos: {
-    rotulo: "A imersão",
-    titulo: "Santos está garantida.",
-    resumo: { interesse: "Confirmada. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Esta imersão já aconteceu." },
-    itens: ["Um workshop de um dia inteiro, manhã e tarde.", "Foco em negócios e importação.", "O evento premium desta viagem."], // rascunho
+    rotulo: "O workshop",
+    titulo: "O workshop em Santos está garantido.",
+    resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
+    itens: ["Um dia inteiro, manhã e tarde.", "Foco em negócios e importação.", "O evento premium desta viagem."], // rascunho
     aulas: "Aulas com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     vagasLimitadas: "Vagas limitadas",
@@ -43,15 +43,15 @@ export default {
   cards: {
     formatos: {
       rotulo: "Os dois formatos",
-      titulo: "Imersão ou palestra.",
-      itens: ["Imersão em Santos: um workshop de 1 dia sobre negócios e importação. Premium, com vagas limitadas e vendida em lotes.", "Palestra: {duracaoPalestra} sobre mentalidade e a minha história, com espaço para as suas dúvidas. A entrada mais barata, também em lotes."], // rascunho
+      titulo: "Workshop ou palestra.",
+      itens: ["Workshop em Santos: 1 dia sobre negócios e importação. Premium, com vagas limitadas e vendida em lotes.", "Palestra: {duracaoPalestra} sobre mentalidade e a minha história, com espaço para as suas dúvidas. A entrada mais barata, também em lotes."], // rascunho
     },
     quem: { rotulo: "Quem está na sala", titulo: TODO_COPY("Título curto: pra quem é o evento."), itens: TODO_COPY("3 ou 4 perfis de quem deve ir (ex.: quem já importa, quem quer começar...).") },
-    leva: { rotulo: "O que você leva", titulo: TODO_COPY("Título curto: o que a pessoa leva pra casa."), itens: TODO_COPY("Resultados concretos, separados por formato (imersão e palestra).") },
+    leva: { rotulo: "O que você leva", titulo: TODO_COPY("Título curto: o que a pessoa leva pra casa."), itens: TODO_COPY("Resultados concretos, separados por formato (workshop e palestra).") },
     formato: {
       rotulo: "O formato",
       titulo: "Manhã. Almoço. Tarde.",
-      itens: TODO_COPY("Programação da imersão: o que acontece no bloco da manhã e no bloco da tarde."),
+      itens: TODO_COPY("Programação do workshop: o que acontece no bloco da manhã e no bloco da tarde."),
     },
     deepchina: {
       rotulo: "DeepChina AI",
@@ -75,8 +75,8 @@ export default {
       { palestra: true, p: "Como a palestra é confirmada?", r: "{regra}" },
       { palestra: true, p: "E se a lista não chegar ao mínimo?", r: TODO_COPY("O que acontece se a palestra não atingir o mínimo de pessoas.") },
       { p: "Quando abre a venda?", r: TODO_COPY("Quando a venda abre depois da votação.") },
-      { palestra: true, p: "Qual a diferença entre a imersão e a palestra?", r: "A imersão em Santos é um workshop de 1 dia, manhã e tarde, focado em negócios e importação. É premium e tem vagas limitadas. A palestra dura {duracaoPalestra}, é mais sobre mentalidade e a minha história, com as dúvidas de cada um respondidas, e é a entrada mais barata." }, // rascunho
-      { p: "O almoço está incluso na imersão?", r: TODO_COPY("Almoço incluso ou não.") },
+      { palestra: true, p: "Qual a diferença entre o workshop e a palestra?", r: "O workshop em Santos dura 1 dia, manhã e tarde, e é focado em negócios e importação. É premium e tem vagas limitadas. A palestra dura {duracaoPalestra}, é mais sobre mentalidade e a minha história, com as dúvidas de cada um respondidas, e é a entrada mais barata." }, // rascunho
+      { p: "O almoço está incluso no workshop?", r: TODO_COPY("Almoço incluso ou não.") },
       { p: "Posso pedir reembolso?", r: TODO_COPY("Política de reembolso.") },
       { p: "Vocês emitem nota fiscal?", r: TODO_COPY("Nota fiscal.") },
       { p: "O evento vai ser gravado?", r: TODO_COPY("Gravação.") },
@@ -84,6 +84,6 @@ export default {
     ],
   },
 
-  final: { botaoSantos: "Quero a imersão em Santos" }, // rascunho
+  final: { botaoSantos: "Quero o workshop em Santos" }, // rascunho
   rodape: { privacidade: "Política de Privacidade", voltar: "nandovoyager.com" },
 };
