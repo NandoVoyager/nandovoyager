@@ -21,7 +21,6 @@ export default {
     lotes: [ // preço por pessoa
       { nome: "Lote 1", preco: 2000, linkCheckout: "", ativo: true },
       { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false },
-      { nome: "Lote 3", preco: 3000, linkCheckout: "", ativo: false },
     ],
     lat: -23.9608, lng: -46.3336,
   },
