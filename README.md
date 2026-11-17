@@ -46,3 +46,13 @@ Os arquivos estáticos são servidos como estão e `api/subscribe.mjs` e `api/le
 - `privacidade.html`: política de privacidade (LGPD). `404.html`: página de erro que a Vercel mostra para links inexistentes.
 - `robots.txt` e `sitemap.xml`: indexação no Google. `img/og.jpg`: imagem de prévia 1200×630 para compartilhamento.
 - Formulários: o campo escondido `website` é uma armadilha para bots; quando vem preenchido, a API responde que deu certo e não salva nem envia nada. Se o envio de um pedido falhar, o formulário oferece mandar as mesmas respostas por e-mail.
+
+## Palestras (`/palestra`)
+
+Página clara, separada da home, para os eventos presenciais no Brasil: a imersão em Santos e a votação da cidade da palestra. A home tem um atalho "Palestras" acima dos quatro links.
+
+- `palestra/config.js`: a config única. Cidades em votação, regra de abertura (mínimos e prazo), dados de Santos, lotes, palestrantes, DeepChina e parceiro. Valor `null` não aparece na tela. Adicionar ou tirar cidade e mudar os números da regra é só aqui.
+- `palestra/conteudo.js`: todos os textos. `TODO_COPY("dica")` marca um texto ainda não escrito: ele não aparece no site. Abra `/palestra?todo` para ver o que falta.
+- `palestra/index.html`: o layout, que monta a página a partir dos dois arquivos acima.
+
+Estado: fase 1 (estrutura e conteúdo estático). Mapa, contagem de votos, formulários e venda entram nas fases seguintes; os botões "Votar" e "Quero ser avisado" ainda não abrem formulário.

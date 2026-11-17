@@ -99,7 +99,8 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 
 /* The links: each card of the ribbon lands in one of these slots (.tile-img) and the label sits on top. */
 .hub{position:absolute;top:84px;bottom:24px;left:32px;right:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;pointer-events:none}
-.tiles{--gw:min(56vw,(100svh - 320px) * 1.55);width:var(--gw);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--gw) * .0272) calc(var(--gw) * .017);list-style:none}
+.hub{--gw:min(56vw,(100svh - 390px) * 1.55)}
+.tiles{width:var(--gw);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--gw) * .0272) calc(var(--gw) * .017);list-style:none}
 .tile{position:relative;display:block;aspect-ratio:2.1/1.32;border-radius:6px;color:var(--ink);text-decoration:none;opacity:0;visibility:hidden;pointer-events:auto;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
 .tile:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
 .tile-img{position:absolute;inset:0;border-radius:inherit}
@@ -109,6 +110,16 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .tile-text b{display:block;font-size:clamp(18px,1.8vw,30px);font-weight:500;line-height:1.1;letter-spacing:-.02em}
 .tile-text small{display:block;margin-top:4px;overflow:hidden;font-size:12.5px;line-height:1.3;color:rgba(244,241,234,.74);white-space:nowrap;text-overflow:ellipsis}
 .tile-go{position:absolute;right:14px;bottom:14px;display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(244,241,234,.55);border-radius:50%;font-size:14px;transition:background .2s,color .2s}
+/* "Palestras": the link to /palestra, above the four photo links. A slim bar on a wide screen, a row like the others on a phone. */
+.talk{display:flex;align-items:center;gap:12px;width:var(--gw);margin-bottom:-12px;padding:7px 8px;border:1px solid rgba(244,241,234,.2);border-radius:99px;background:rgba(244,241,234,.035);color:var(--ink);text-decoration:none;pointer-events:auto}
+.talk:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
+.talk-ico{display:grid;flex:none;place-items:center;width:38px;height:38px;border-radius:99px;background:#e5372b}
+.talk-ico svg{width:19px;height:19px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.talk-text{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+.talk-text b{font-size:17px;font-weight:500;letter-spacing:-.02em}
+.talk-text small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
+.talk .tile-go{position:static;flex:none;border-color:rgba(244,241,234,.28)}
+.talk:hover .tile-go{background:var(--ink);color:var(--bg)}
 /* hover only where there is a mouse: on a phone a tap would leave it stuck */
 @media (hover:hover){.tile:hover{transform:scale(1.03)}.tile:hover .tile-go{background:var(--ink);color:var(--bg)}}
 .tile:active .tile-go{background:var(--ink);border-color:var(--ink);color:var(--bg)}
@@ -162,9 +173,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .top-socials a[hidden],.socials a[hidden]{display:none}
 @media (max-width:920px){.top-socials .count{display:none}} /* narrow windows: the icons alone, so they never reach the name */
 /* Signup and icons open once the links have landed (.is-open): the signup rises, then the icons one after another. */
-.join,.socials a,.top-socials a{opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .5s cubic-bezier(.2,.7,.2,1),transform .5s cubic-bezier(.2,.7,.2,1),visibility 0s .5s,background .2s,color .2s,border-color .2s}
+.join,.talk,.socials a,.top-socials a{opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .5s cubic-bezier(.2,.7,.2,1),transform .5s cubic-bezier(.2,.7,.2,1),visibility 0s .5s,background .2s,color .2s,border-color .2s}
 .top-socials a{transform:translateY(-8px)}
-.is-open .join,.is-open .socials a,.is-open .top-socials a{opacity:1;visibility:visible;transform:none;transition-delay:var(--d,0s),var(--d,0s),0s,0s,0s,0s}
+.is-open .join,.is-open .talk,.is-open .socials a,.is-open .top-socials a{opacity:1;visibility:visible;transform:none;transition-delay:var(--d,0s),var(--d,0s),0s,0s,0s,0s}
 .socials a:nth-child(1),.top-socials a:nth-child(1){--d:.05s}
 .socials a:nth-child(2),.top-socials a:nth-child(2){--d:.10s}
 .socials a:nth-child(3),.top-socials a:nth-child(3){--d:.15s}
@@ -364,6 +375,10 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .acts a.contact .mail-ico{width:15px;height:15px}
   .hub{top:62px;bottom:14px;left:18px;right:18px;max-width:480px;margin:0 auto;align-items:stretch;gap:16px}
   .tiles{width:auto;display:flex;flex-direction:column;gap:8px}
+  .talk{gap:10px;width:auto;margin-bottom:-8px;padding:6px 12px 6px 6px;border-color:var(--line);border-radius:14px}
+  .talk-ico{width:clamp(60px,min(9.5svh,20vw),100px);height:auto;aspect-ratio:2.1/1.32;border-radius:8px}
+  .talk-text{flex-direction:column;align-items:stretch;gap:2px}
+  .talk .tile-go{width:30px;height:30px}
   .tile{display:flex;align-items:center;gap:10px;aspect-ratio:auto;padding:6px 12px 6px 6px;border:1px solid var(--line);border-radius:14px;background:rgba(244,241,234,.035)}
   .tile:hover{transform:none}
   .tile:active{background:rgba(244,241,234,.07)}
@@ -414,6 +429,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
       <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 23 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+23k</span></a>
       <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
     </nav>
+    <a class="talk" href="/palestra"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Palestras</b><small>Vote na sua cidade</small></span><span class="tile-go" aria-hidden="true">↗</span></a>
     <nav aria-label="Links">
       <ul class="tiles" id="tiles">
         <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
