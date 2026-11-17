@@ -16,32 +16,32 @@ export default {
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
     local: null,
-    vagasTotal: null,     // null = mostra só "vagas limitadas"
+    vagasTotal: 50,       // máximo de pessoas; null = mostra só "vagas limitadas"
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
-    lotes: [],
+    lotes: [ // preço por pessoa
+      { nome: "Lote 1", preco: 2000, linkCheckout: "", ativo: true },
+      { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false },
+      { nome: "Lote 3", preco: 3000, linkCheckout: "", ativo: false },
+    ],
     lat: -23.9608, lng: -46.3336,
   },
 
   regraAbertura: {
-    minimoPrimeira: 100,    // a mais votada abre com pelo menos isso
-    minimoSegunda: 300,     // a segunda também abre se passar disso
-    maxCidades: 2,
+    minimoPrimeira: 300,    // a palestra acontece com pelo menos isso de pessoas na lista
+    minimoSegunda: 300,     // só vale com mais de uma cidade: a segunda também abre se passar disso
+    maxCidades: 1,
     votacaoEncerraEm: null, // data ISO; null = sem prazo exibido
   },
 
-  // Palestra de 4 horas. Lista de tamanho livre: adicionar ou tirar uma cidade é só mexer aqui.
+  // Palestra de 4 horas. Hoje só São Paulo, que acontece se a lista chegar ao mínimo acima.
+  // A lista tem tamanho livre: com mais de uma cidade, a página volta a mostrar a disputa entre elas.
   cidadesVotacao: [
     { id: "sao-paulo", nome: "São Paulo", uf: "SP", lat: -23.5505, lng: -46.6333, status: "votacao" },
-    { id: "campinas", nome: "Campinas", uf: "SP", lat: -22.9099, lng: -47.0626, status: "votacao" },
-    { id: "florianopolis", nome: "Florianópolis", uf: "SC", lat: -27.5949, lng: -48.5482, status: "votacao" },
-    { id: "rio-de-janeiro", nome: "Rio de Janeiro", uf: "RJ", lat: -22.9068, lng: -43.1729, status: "votacao" },
   ],
 
-  // Referência de preço da palestra enquanto nenhuma cidade abriu (provisório). Lote sem preço não aparece.
+  // Preço da palestra por pessoa enquanto ela não abriu. Lote sem preço não aparece.
   lotesReferencia: [
-    { nome: "Lote 1", preco: 247, linkCheckout: "", ativo: true },
-    { nome: "Lote 2", preco: null, linkCheckout: "", ativo: false },
-    { nome: "Lote 3", preco: null, linkCheckout: "", ativo: false },
+    { nome: "Lote 1", preco: 500, linkCheckout: "", ativo: true },
   ],
 
   duracaoImersao: "1 dia",    // usado nos blocos de número e nos textos
