@@ -21,7 +21,7 @@ export default {
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
     lotes: [ // preço por pessoa
       { nome: "Lote 1", preco: 2000, linkCheckout: "", ativo: true, viraEm: null }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00"; com ela, o popup mostra a contagem regressiva
-      { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false, diasAntesDoEvento: 3 }, // termina 3 dias antes do evento (calculado a partir de santos.data)
+      { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false, comecaDiasAntesDoEvento: 3 }, // começa 3 dias antes do evento (calculado a partir de santos.data); o lote anterior termina nesse momento
     ],
     lat: -23.9608, lng: -46.3336,
   },
@@ -50,7 +50,7 @@ export default {
   duracaoPalestra: "4 horas",
 
   // Só aparece quem tem confirmado: true.
-  // países onde morei; viram as bandeiras de {bandeiras} nos textos
+  // países onde morei; viram a linha de bandeiras abaixo do texto de abertura
   paises: [
     { nome: "Estados Unidos", bandeira: "/img/flags/us.svg" },
     { nome: "Itália", bandeira: "/img/flags/it.svg" },

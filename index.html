@@ -121,11 +121,11 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talk:hover{border-color:rgba(244,241,234,.5);background:rgba(244,241,234,.07)}
 .talk-ico{display:grid;flex:none;place-items:center;width:38px;height:38px;border-radius:99px;background:#e5372b}
 .talk-ico svg{width:19px;height:19px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.talk-text{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+.talk-text{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px}
 .talk-text b{font-size:17px;font-weight:500;letter-spacing:-.02em}
 .talk-text small{overflow:hidden;font-size:12.5px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
-.talk-count{flex:none;margin-left:auto;padding:4px 9px;border:1px solid rgba(244,241,234,.16);border-radius:99px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:0;color:var(--mid);white-space:nowrap;font-variant-numeric:tabular-nums}
-.talk-count i{font:400 11.5px 'Inter Tight',system-ui,sans-serif;font-style:normal}
+.talk-count{flex:none;margin-left:auto;padding:4px 8px;border:1px solid rgba(244,241,234,.16);border-radius:99px;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:-.02em;color:var(--mid);white-space:nowrap;font-variant-numeric:tabular-nums}
+.talk-count i{font:400 11px 'Inter Tight',system-ui,sans-serif;font-style:normal}
 .talk-count b{font-size:inherit;font-weight:500;letter-spacing:0;color:var(--ink)}
 .talk .tile-go{position:static;flex:none;border-color:rgba(244,241,234,.28)}
 .talk:hover .tile-go{background:var(--ink);color:var(--bg)}
@@ -345,15 +345,16 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lot-price{flex:none;padding-right:8px;text-align:right;font-size:16px;font-weight:500;color:var(--ink)}
 .lot-price small{font-size:12.5px;font-weight:400;color:var(--mid)}
 .lot-price s{margin-right:2px;font-size:13.5px;font-weight:400;color:var(--mid)}
-@media (max-width:430px){.lot-price s{display:block;margin:0 0 1px;font-size:12.5px}}
+@media (max-width:430px){.lot-price s{display:block;margin:0 0 1px;font-size:12.5px}.city-list b small{display:block;margin:3px 0 0}}
 .lot-off{margin-left:8px;padding:3px 8px;border-radius:99px;background:rgba(52,199,123,.14);font:600 12px 'Inter Tight',system-ui,sans-serif;color:#34c77b;vertical-align:1px}
 .talk-tag{flex:none;padding:4px 10px;border-radius:99px;background:rgba(244,241,234,.08);font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid);white-space:nowrap}
 .talk-tag.strong{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 11px;border:1px solid rgba(229,55,43,.4);background:rgba(229,55,43,.08);font:500 13.5px 'Inter Tight',system-ui,sans-serif;letter-spacing:0;color:var(--ink)}
 .talk-tag.strong.ok{border-color:rgba(52,199,123,.4);background:rgba(52,199,123,.08)}
 .talk-tag.strong.ok svg{stroke:#34c77b}
 .talk-tag.strong svg{width:15px;height:15px;fill:none;stroke:#e5372b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.flags{white-space:nowrap}
-.flags img{width:20px;height:15px;margin:0 2px;border-radius:3px;vertical-align:-2px}
+.flags{display:flex;align-items:center;gap:5px;margin-top:-6px!important;font-size:13.5px;color:var(--mid)}
+.flags img{width:18px;height:13.5px;border-radius:2.5px;opacity:.9}
+.flags span{margin-left:5px}
 .cdown{margin:0 0 14px}
 .cdown p{margin:0 0 8px!important;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
 .cdown div{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
@@ -1140,9 +1141,9 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     ? `A palestra em ${cities[0].nome} acontece com pelo menos ${rules.minimoPrimeira} pessoas na lista.`
     : `A cidade mais votada recebe a palestra, com pelo menos ${rules.minimoPrimeira} votos.` + (rules.maxCidades > 1 ? ` A segunda também, se passar de ${rules.minimoSegunda} votos.` : '');
   const brl = n => `R$ ${n.toLocaleString('pt-BR')}`;
-  // {bandeiras} in a text: the countries of the config, as small flags
+  // the countries of the config, as a quiet row of small flags under the opening text
   const flags = `${(talks.paises || []).map(c => `<img src="${esc(c.bandeira)}" alt="${esc(c.nome)}" title="${esc(c.nome)}" width="20" height="15">`).join('')}`;
-  const fill = v => esc(v).replace(/\{(\w+)\}([,.:;]?)/g, (_, k, p) => k === 'bandeiras' ? `<span class="flags">${flags}${p}</span>` : esc(k === 'regra' ? rule : talks[k] ?? '') + p);
+  const fill = v => esc(v).replace(/\{(\w+)\}/g, (_, k) => esc(k === 'regra' ? rule : talks[k] ?? ''));
   // a text; a text still to be written shows nothing (or, with ?todo in the address, a note of what is missing)
   const text = (v, wrap = x => `<p>${x}</p>`) => isTodo(v) ? (showTodo ? `<p class="talk-todo">TODO_COPY: ${esc(v.todo)}</p>` : '') : v ? wrap(fill(v)) : '';
   const list = v => isTodo(v) ? text(v) : `<ul>${v.map(i => `<li>${fill(i)}</li>`).join('')}</ul>`;
@@ -1153,15 +1154,15 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   // A lot cheaper than the last one reads as a discount: the full price struck through and how much comes off.
   const lotList = lots => {
     const full = Math.max(...lots.map(l => l.preco));
-    return lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}${l.preco < full ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${l.viraEm ? `<small>até ${until(l.viraEm)}</small>` : ''}</b>
+    return lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}${l.preco < full ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
       <span class="lot-price">${l.preco < full ? `<s>${brl(full)}</s> ` : ''}${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
   };
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
   const facts = [santos.data && ['Data', day(santos.data)], santos.horarioManha && ['Manhã', santos.horarioManha], santos.horarioTarde && ['Tarde', santos.horarioTarde], santos.local && ['Local', santos.local]].filter(Boolean);
-  // when a lot ends: its own date (viraEm), or so many days before the event (diasAntesDoEvento), at the end of that day in Brasília
-  const lotEnd = l => l.viraEm || (l.diasAntesDoEvento != null && santos.data
-    ? `${new Date(Date.parse(`${santos.data}T12:00:00-03:00`) - l.diasAntesDoEvento * 864e5).toLocaleDateString('en-CA', {timeZone:'America/Sao_Paulo'})}T23:59:00-03:00` : null);
-  const lots = santos.lotes.filter(l => l.preco != null).map(l => ({...l, viraEm:lotEnd(l)}));
+  // when a lot starts: so many days before the event (comecaDiasAntesDoEvento), at midnight in Brasília; the lot before it ends at that moment, unless it has its own date (viraEm)
+  const lotStart = l => (l.comecaDiasAntesDoEvento != null && santos.data
+    ? `${new Date(Date.parse(`${santos.data}T12:00:00-03:00`) - l.comecaDiasAntesDoEvento * 864e5).toLocaleDateString('en-CA', {timeZone:'America/Sao_Paulo'})}T00:00:00-03:00` : null);
+  const lots = santos.lotes.filter(l => l.preco != null).map(l => ({...l, comecaEm:lotStart(l)})).map((l, i, all) => ({...l, viraEm:l.viraEm || all[i + 1]?.comecaEm || null}));
   // a countdown to a real date: the end of the lot on sale when it has one, otherwise the end of the last lot (when sales close)
   const activeEnds = lots.find(l => l.ativo && l.viraEm), lastEnds = lots.filter(l => l.viraEm).at(-1);
   const lotEnds = activeEnds || lastEnds;
@@ -1193,7 +1194,8 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       <p class="talk-tags">${santos.vagasMinimo ? `<span class="talk-tag strong ok"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.200" /><path d="M3 20c.400-3.600 2.800-5.500 6-5.500s5.600 1.900 6 5.500M16 5.200a3.200 3.200 0 0 1 0 5.900M18.500 14.900c1.500.900 2.300 2.500 2.500 5.100" /></svg>${esc(t.santos.minimo.replace('{min}', santos.vagasMinimo))}</span>` : ''}<span class="talk-tag strong"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>${santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? esc(t.santos.maximo.replace('{n}', santos.vagasTotal)) : esc(t.santos.vagasLimitadas)}</span></p>
       ${santos.vagasMinimo ? `<p class="talk-note">${esc(t.santos.reembolso.replace('{min}', santos.vagasMinimo))}</p>` : ''}
       ${hasTalk ? '' : `<p>${fill(hero.promessa)}</p>`}
-      ${list(teaching ? [...t.santos.itens, teaching] : t.santos.itens)}
+      ${flags && has(t.santos.fora) ? `<p class="flags">${flags}<span>${esc(t.santos.fora)}</span></p>` : ''}
+      ${list(teaching ? [...t.santos.itens.slice(0, -1), teaching, t.santos.itens.at(-1)] : t.santos.itens)}
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
       ${lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>
         <div><span><b data-d></b><small>dias</small></span><span><b data-h></b><small>horas</small></span><span><b data-m></b><small>minutos</small></span><span><b data-s></b><small>segundos</small></span></div></div>` : ''}
