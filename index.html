@@ -234,6 +234,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lead-q + *{clear:both}
 .lead-q + .lead-label{margin-top:4px}
 .lead-hint{margin:0;font-size:14px;color:var(--mid)}
+.lead-label[hidden]{display:none}
 .lead-label{display:block;margin:20px 0 8px;font-size:13px;color:var(--mid)}
 .lead-field{width:100%;height:46px;padding:0 16px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0;transition:border-color .2s,box-shadow .2s,background .2s}
 .lead-field::placeholder{color:#5f5d59}
@@ -1278,7 +1279,13 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   // /eventos (and links with ?cidade=) land here with the pop-up already open, over the finished page
   const q = new URLSearchParams(location.search);
   if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') { start = -Infinity; openTalks(); }
-  // fase 3: os botões [data-votar] e [data-santos] abrem os formulários de voto e de interesse
+  // the workshop button goes straight to WhatsApp, the message already written (once site-config.js has the number)
+  const waNumber = String(config.whatsapp || '').replace(/\D/g, '');
+  dialog.querySelectorAll('[data-santos]').forEach(b => {
+    if (!waNumber) { b.closest('p').hidden = true; return; }
+    b.addEventListener('click', () => { const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem)}`, '_blank'); if (tab) tab.opener = null; });
+  });
+  // fase 3: os botões [data-votar] abrem o formulário de voto
 }
 // On a phone the pop-ups are sheets from the bottom: drag the top down to close one (far enough, or quickly).
 const sheetSize = matchMedia('(max-width: 560px)');
