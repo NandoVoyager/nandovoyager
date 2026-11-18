@@ -3,7 +3,7 @@ window.NANDO_SITE_CONFIG = {
   signupEndpoint: "/api/subscribe",
   /* Número do WhatsApp que recebe os formulários (Serviços e Canton Fair), só dígitos com o código do país, ex. "5511912345678".
      Enquanto estiver vazio, os formulários enviam as respostas por e-mail. */
-  whatsapp: "",
+  whatsapp: "15615966097",
   /* Site da DeepChina. Enquanto estiver vazio, os links da DeepChina AI levam ao cadastro de e-mail da página. */
   deepchinaUrl: "",
   /*
