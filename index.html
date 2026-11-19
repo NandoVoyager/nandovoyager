@@ -401,6 +401,18 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   .letter-subject{font-size:23px}
   .letter-body{font-size:15px}
 }
+/* "Eventos" is a screen of its own, not a pop-up: it covers the page and a back arrow returns to it */
+.lead.page{width:100%;max-width:none;height:100%;max-height:none;margin:0;border:0;border-radius:0;background:var(--bg);box-shadow:none}
+.lead.page::backdrop{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
+.lead.page[open]{animation:page-in .35s cubic-bezier(.2,.7,.2,1)}
+.lead.page.closing{animation:page-out .2s ease forwards}
+@keyframes page-in{from{opacity:0;transform:translateX(24px)}}
+@keyframes page-out{to{opacity:0;transform:translateX(24px)}}
+.page-top{position:sticky;top:0;z-index:1;padding:14px clamp(12px,4vw,40px) 12px;background:rgba(10,10,11,.84);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.page-back{display:inline-flex;align-items:center;gap:6px;height:38px;margin-left:-8px;padding:0 14px 0 8px;border:0;border-radius:99px;background:none;color:var(--ink);font:500 15px 'Inter Tight',system-ui,sans-serif;cursor:pointer;transition:background .2s}
+.page-back svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+@media (hover:hover){.page-back:hover{background:rgba(244,241,234,.08)}.page-back:hover svg{transform:translateX(-2px)}}
+.page .letter-in{max-width:640px;margin:0 auto;padding-top:22px;padding-bottom:calc(56px + env(safe-area-inset-bottom))}
 @media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -652,14 +664,12 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
     </div>
   </div>
 </dialog>
-<dialog class="lead letter talks" id="eventos" aria-labelledby="talks-title" tabindex="-1">
+<dialog class="lead letter talks page" id="eventos" aria-labelledby="talks-title" tabindex="-1">
+  <div class="page-top">
+    <button class="page-back" type="button" data-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.500 6l-6 6 6 6" /></svg>Início</button>
+    <span class="letter-progress" aria-hidden="true"><i></i></span>
+  </div>
   <div class="letter-in">
-    <div class="letter-top">
-      <img src="/img/avatar-160.webp" width="40" height="40" alt="" />
-      <p class="letter-from"><b>Nando Voyager</b><span>eventos no Brasil</span></p>
-      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
-      <span class="letter-progress" aria-hidden="true"><i></i></span>
-    </div>
     <div id="talks-body"></div>
   </div>
 </dialog>
@@ -1247,7 +1257,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   if (config.deepchinaUrl) dialog.querySelectorAll('[data-deepchina]').forEach(l => { l.href = config.deepchinaUrl; l.target = '_blank'; l.rel = 'noreferrer'; });
   // the links at the end stay inside the pop-up; the DeepChina card closes it (its own handler takes the visitor on)
   dialog.addEventListener('click', e => {
-    if (e.target === dialog || e.target.closest('[data-close]')) return closeDialog(dialog);
+    if (e.target.closest('[data-close]')) return closeDialog(dialog);
     if (e.target.closest('[data-deepchina]') && !config.deepchinaUrl) return toSignup(e);
     const to = e.target.closest('[data-to-cities], [data-to-santos]');
     if (to) { e.preventDefault(); dialog.querySelector(to.getAttribute('href')).scrollIntoView({behavior:calm ? 'auto' : 'smooth', block:'start'}); }
@@ -1275,7 +1285,11 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   }
   // the shortcut on the page says when the workshop is, from the same date of the config
   if (santos.data) $('talk-when').textContent += ` · ${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'numeric', timeZone:'America/Sao_Paulo'})}`;
-  document.querySelectorAll('[data-talks]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTalks(); }));
+  // the screen has its own address, so the browser's back button returns to the page too
+  const go = (how, url, state) => { try { history[how](state, '', url); } catch {} };
+  document.querySelectorAll('[data-talks]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTalks(); go('pushState', '/eventos', {eventos:true}); }));
+  dialog.addEventListener('close', () => { if (history.state?.eventos) history.back(); else if (/eventos|cidade/.test(location.pathname + location.search + location.hash)) go('replaceState', '/', null); });
+  addEventListener('popstate', () => { if (dialog.open) closeDialog(dialog); });
   // /eventos (and links with ?cidade=) land here with the pop-up already open, over the finished page
   const q = new URLSearchParams(location.search);
   if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') { start = -Infinity; openTalks(); }
@@ -1291,6 +1305,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
 const sheetSize = matchMedia('(max-width: 560px)');
 document.querySelectorAll('dialog.lead').forEach(d => {
   const grip = d.querySelector('.lead-top, .letter-top');
+  if (!grip) return; // a screen, not a sheet
   let y0 = null, dy = 0, t0 = 0;
   grip.addEventListener('pointerdown', e => {
     if (!sheetSize.matches || e.pointerType === 'mouse' || e.target.closest('button')) return;
