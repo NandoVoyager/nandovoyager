@@ -79,6 +79,9 @@ create table lances (
   token text not null unique,
   codigo text not null unique,
   nome text not null,
+  anonimo boolean not null default false,
+  instagram text,
+  foto text,
   email text not null unique,
   pix text not null,
   valor integer not null,
@@ -94,6 +97,7 @@ alter table lances enable row level security;
 
 No dia a dia:
 
+- **Perfil público:** cada lance aparece na lista com o nome, a foto e o Instagram que a pessoa informou, ou como "Anônimo" se ela preferir (e-mail e chave Pix nunca aparecem). Como o lance só entra depois que você confirma o pagamento, dá para conferir nome e foto antes; para tirar uma foto, apague o campo `foto` da linha.
 - **Confirmar um pagamento:** o Pix chega com o código da pessoa (ex. `NV1A2B3C4D`) na identificação. No Supabase, escreva em `recebido` o total em reais que essa pessoa já pagou. O lance vale até onde esse valor cobre.
 - **Fechamento:** abra `https://nandovoyager.com/api/leilao?relatorio=SUA_SENHA`. Vem o preço final e, para cada pessoa, quanto ela ainda paga (`pagar`) ou quanto você devolve (`devolver`), com a chave Pix dela, e a lista de quem ainda não pagou.
 - **Desistência:** marque `desistiu` na linha da pessoa; o relatório passa a vaga para o próximo.

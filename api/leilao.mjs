@@ -11,6 +11,9 @@ import { pixCopiaECola } from "../eventos/pix.js";
 
 const json = (res, status, body) => res.writeHead(status, { "Content-Type": "application/json", "Cache-Control": "no-store" }).end(JSON.stringify(body));
 const clean = (value, max) => String(value ?? "").trim().slice(0, max);
+// o nome de usuário do Instagram, sem @ nem endereço; a foto chega pequena (a tela reduz antes de enviar)
+const handle = (value) => { const name = clean(value, 80).replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/^@/, "").replace(/[/?].*$/, ""); return /^[A-Za-z0-9._]{1,30}$/.test(name) ? name : null; };
+const photo = (value) => (typeof value === "string" && value.length <= 40_000 && /^data:image\/(jpeg|webp|png);base64,[A-Za-z0-9+/=]+$/.test(value) ? value : null);
 const whole = (value) => (Number.isInteger(value) && value > 0 && value <= 1_000_000 ? value : null);
 
 // Supabase pelo REST, só do servidor. Sem as chaves, o leilão responde "não configurado".
@@ -52,15 +55,20 @@ const closed = (auction, now) => !!auction.encerraEm && now >= Date.parse(auctio
 const owed = (auction, bid) => Math.max(0, due(auction, bid) - (bid.recebido || 0));
 const pix = (auction, bid) => pixCopiaECola({ ...auction.pix, valor: owed(auction, bid), txid: bid.codigo });
 
-// O que qualquer visitante vê: preço, quanto precisa para entrar e a fila (só posição e valor, sem nomes).
-// Só entram na fila os lances cobertos pelo que já foi pago.
-function view(bids, auction, now, token) {
+// quem entra como anônimo aparece sem nome, foto nem Instagram
+const shown = (bid) => (bid.anonimo ? { anonimo: true, nome: null, instagram: null, foto: false } : { anonimo: false, nome: bid.nome, instagram: bid.instagram || null, foto: !!bid.foto });
+
+// O que qualquer visitante vê: preço, quanto precisa para entrar e a fila, com o nome, a foto e o Instagram que cada
+// pessoa escolheu mostrar. Só entram na fila os lances cobertos pelo que já foi pago (e conferido por quem confirma).
+// As fotos só vão quando a tela pede (fotos=1), para as atualizações ficarem leves.
+function view(bids, auction, now, token, photos) {
   const board = rank(bids, auction), mine = token && bids.find((bid) => bid.token === token);
-  const place = mine && board.lances.find((line) => line.id === mine.id);
+  const place = mine && board.lances.find((line) => line.id === mine.id), by = new Map(bids.map((bid) => [bid.id, bid]));
   return {
+    fotos: photos ? Object.fromEntries(board.lances.filter((line) => by.get(line.id).foto && !by.get(line.id).anonimo).map((line) => [line.id, by.get(line.id).foto])) : undefined,
     aberto: !closed(auction, now), encerraEm: auction.encerraEm, vagas: rules(auction).vagas, entrada: auction.entrada, sinal: share(auction), automatico: !!auction.automatico, passo: auction.passo,
     participantes: board.lances.length, preco: board.preco, paraEntrar: board.paraEntrar,
-    fila: board.lances.map((line) => ({ posicao: line.posicao, lance: line.lance, dentro: line.dentro, voce: line.id === mine?.id })),
+    fila: board.lances.map((line) => ({ id: line.id, posicao: line.posicao, lance: line.lance, dentro: line.dentro, voce: line.id === mine?.id, ...shown(by.get(line.id)) })),
     voce: mine ? { nome: mine.nome, codigo: mine.codigo, valor: mine.valor, teto: mine.teto, recebido: mine.recebido || 0, falta: owed(auction, mine), pix: owed(auction, mine) ? pix(auction, mine) : null, posicao: place?.posicao ?? null, dentro: place?.dentro ?? false, lance: place?.lance ?? null } : null
   };
 }
@@ -103,7 +111,7 @@ export async function auctionRequest({ method, query = {}, data = {}, store, env
 
   if (method === "GET") {
     if (query.relatorio !== undefined) return admin(query.relatorio) ? [200, report(bids, auction)] : [403, { error: "Senha incorreta." }];
-    return [200, view(bids, auction, now, query.token)];
+    return [200, view(bids, auction, now, query.token, query.fotos !== undefined)];
   }
   if (method !== "POST") return [405, { error: "Método não permitido." }];
 
@@ -136,8 +144,10 @@ export async function auctionRequest({ method, query = {}, data = {}, store, env
   if (data.acao === "entrar") {
     if (data.website) return [200, { ok: true }]; // honeypot
     const bid = { id: randomUUID(), token: randomBytes(24).toString("hex"), codigo: `NV${randomBytes(4).toString("hex").toUpperCase()}`,
-      nome: clean(data.nome, 120), email: clean(data.email, 254).toLowerCase(), pix: clean(data.pix, 140), valor, teto, recebido: 0, em: new Date(now).toISOString() };
+      nome: clean(data.nome, 60), anonimo: data.anonimo === true, instagram: data.anonimo === true ? null : handle(data.instagram), foto: data.anonimo === true ? null : photo(data.foto), email: clean(data.email, 254).toLowerCase(), pix: clean(data.pix, 140), valor, teto, recebido: 0, em: new Date(now).toISOString() };
     if (!bid.nome) return [400, { error: "Informe o seu nome." }];
+    if (!bid.anonimo && data.instagram && !bid.instagram) return [400, { error: "Confira o seu Instagram: só o nome de usuário, sem espaços." }];
+    if (!bid.anonimo && data.foto && !bid.foto) return [400, { error: "Não deu para usar essa foto. Tente outra." }];
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bid.email)) return [400, { error: "Informe um e-mail válido." }];
     if (!bid.pix) return [400, { error: "Informe a sua chave Pix, para a devolução." }];
     if (bids.some((b) => b.email === bid.email)) return [409, { error: "Esse e-mail já está no leilão. Abra o site no aparelho em que você deu o lance." }];
@@ -165,7 +175,7 @@ export async function leilao(req, res) {
   let body = "";
   for await (const chunk of req) {
     body += chunk;
-    if (body.length > 4096) return json(res, 413, { error: "Requisição muito grande." });
+    if (body.length > 60_000) return json(res, 413, { error: "Requisição muito grande." });
   }
   let data = {};
   try { data = body ? JSON.parse(body) : {}; } catch {}

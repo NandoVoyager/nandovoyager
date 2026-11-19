@@ -47,15 +47,15 @@ test("validações de entrada", async () => {
   assert.equal((await call("POST", { acao: "entrar", nome: "Bia", email: "BIA@x.com", pix: "k", valor: 100 }))[0], 409);
 });
 
-test("fila pública sem nomes; preço é o do último que entrou; relatório com as contas", async () => {
+test("fila pública com nomes, sem e-mail; preço é o do último que entrou; relatório com as contas", async () => {
   const { call, enter } = setup();
   const ana = await enter("ana", 650), bia = await enter("bia", 500), caio = await enter("caio", 300);
   const [, pub] = await call("GET", {}, {});
   assert.equal(pub.preco, 500);
   assert.equal(pub.paraEntrar, 510);
-  assert.deepEqual(pub.fila, [{ posicao: 1, lance: 650, dentro: true, voce: false }, { posicao: 2, lance: 500, dentro: true, voce: false }, { posicao: 3, lance: 300, dentro: false, voce: false }]);
+  assert.deepEqual(pub.fila.map((l) => [l.posicao, l.nome, l.lance, l.dentro, l.voce, l.foto]), [[1, "ana", 650, true, false, false], [2, "bia", 500, true, false, false], [3, "caio", 300, false, false, false]]);
   assert.equal(pub.voce, null);
-  assert.equal(JSON.stringify(pub).includes("ana"), false);
+  assert.equal(JSON.stringify(pub).includes("@x.com"), false); // e-mail e chave Pix nunca vão para a tela
 
   assert.equal((await call("POST", { acao: "lance", token: caio, valor: 200 }))[0], 400); // não diminui
   // caio sobe para 600: o lance novo só vale depois de pagar o resto do sinal (50% de 300 = 150)
@@ -103,4 +103,27 @@ test("sem sinal (sinal: 0), só a entrada é cobrada", async () => {
   const store = memoryStore(), simple = { ...auction, sinal: 0 };
   const [, r] = await auctionRequest({ method: "POST", data: { acao: "entrar", nome: "Ana", email: "a@x.com", pix: "k", valor: 650 }, store, env, now: Date.parse("2030-01-01T12:00:00-03:00"), auction: simple });
   assert.equal(r.voce.falta, 100);
+});
+
+test("perfil: nome, Instagram e foto aparecem na fila; as fotos só quando pedidas", async () => {
+  const { call } = setup();
+  const foto = "data:image/jpeg;base64,AAAA";
+  assert.equal((await call("POST", { acao: "entrar", nome: "Ana", email: "a@x.com", pix: "k", valor: 300, instagram: "tem espaço" }))[0], 400);
+  assert.equal((await call("POST", { acao: "entrar", nome: "Ana", email: "a@x.com", pix: "k", valor: 300, foto: "javascript:alert(1)" }))[0], 400);
+  const [, r] = await call("POST", { acao: "entrar", nome: "Ana Lima", email: "a@x.com", pix: "k", valor: 300, instagram: "https://www.instagram.com/ana.lima/?hl=pt", foto });
+  await call("POST", { acao: "confirmar", codigo: r.voce.codigo, senha: "segredo" });
+  const [, light] = await call("GET", {}, {});
+  assert.deepEqual([light.fila[0].nome, light.fila[0].instagram, light.fila[0].foto, light.fotos], ["Ana Lima", "ana.lima", true, undefined]);
+  const [, full] = await call("GET", {}, { fotos: "1" });
+  assert.equal(full.fotos[full.fila[0].id], foto);
+});
+
+test("anônimo: aparece sem nome, foto nem Instagram", async () => {
+  const { call } = setup();
+  const [, r] = await call("POST", { acao: "entrar", nome: "Ana Lima", anonimo: true, email: "a@x.com", pix: "k", valor: 300, instagram: "ana", foto: "data:image/jpeg;base64,AAAA" });
+  await call("POST", { acao: "confirmar", codigo: r.voce.codigo, senha: "segredo" });
+  const [, pub] = await call("GET", {}, { fotos: "1" });
+  assert.deepEqual([pub.fila[0].anonimo, pub.fila[0].nome, pub.fila[0].instagram, pub.fila[0].foto, Object.keys(pub.fotos).length], [true, null, null, false, 0]);
+  assert.equal(JSON.stringify(pub).includes("Ana"), false);
+  assert.equal((await call("GET", {}, { relatorio: "segredo" }))[1].lances[0].nome, "Ana Lima"); // no relatório, o nome continua
 });

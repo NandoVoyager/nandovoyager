@@ -13,11 +13,25 @@ const CSS = `
 .bid-stats span{padding:12px 12px 10px;border:1px solid rgba(244,241,234,.16);border-radius:14px;background:rgba(244,241,234,.03)}
 .bid-stats small{display:block;font-size:12px;color:var(--mid)}
 .bid-stats b{display:block;margin-top:4px;font-size:clamp(18px,5vw,24px);font-weight:500;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
-.bid-list{max-height:264px;margin:0 0 16px!important;padding:0!important;border:1px solid rgba(244,241,234,.16);border-radius:14px;list-style:none;overflow:auto}
-.bid-list li{display:flex;align-items:center;gap:10px;margin:0;padding:9px 16px;font-size:14.5px;font-variant-numeric:tabular-nums}
+.bid-list{max-height:340px;margin:0 0 16px!important;padding:0!important;border:1px solid rgba(244,241,234,.16);border-radius:14px;list-style:none;overflow:auto}
+.bid-list li{display:flex;align-items:center;gap:10px;margin:0;padding:8px 16px 8px 12px;font-size:14.5px;font-variant-numeric:tabular-nums}
 .bid-list li + li{border-top:1px solid rgba(244,241,234,.08)}
-.bid-list i{flex:none;width:34px;font:400 12px 'IBM Plex Mono',monospace;font-style:normal;color:var(--mid)}
-.bid-list b{flex:1;font-weight:500;color:var(--ink)}
+.bid-list i{flex:none;width:28px;font:400 12px 'IBM Plex Mono',monospace;font-style:normal;color:var(--mid)}
+.bid-face{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:hsl(var(--h,220) 30% 26%);font-size:13px;font-weight:600;color:var(--ink);overflow:hidden}
+.bid-face.anon{background:rgba(244,241,234,.08)}
+.bid-face.anon svg{width:20px;height:20px;fill:none;stroke:var(--mid);stroke-width:1.6;stroke-linecap:round}
+.bid-face img{display:block;width:100%;height:100%;object-fit:cover}
+.bid-who{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.bid-who b{overflow:hidden;font-weight:500;color:var(--ink);white-space:nowrap;text-overflow:ellipsis}
+.bid-who a{align-self:flex-start;font-size:12.5px;color:var(--mid);text-decoration:none}
+.bid-who a:hover{color:var(--ink);text-decoration:underline}
+.bid-val{flex:none;font-weight:500;color:var(--ink)}
+.bid-card .bid-pic{display:flex;align-items:center;gap:14px;margin:14px 0 2px;cursor:pointer}
+.bid-pic .bid-face{width:64px;height:64px;border:1px dashed rgba(244,241,234,.35);background:rgba(244,241,234,.04);font-size:22px;font-weight:400;color:var(--mid)}
+.bid-pic input{position:absolute;opacity:0;width:1px;height:1px}
+.bid-pic span:last-child{font-size:14px;color:var(--ink)}
+.bid-pic small{display:block;font-size:12.5px;color:var(--mid)}
+.bid-pic input:focus-visible + .bid-face{outline:2px solid var(--ink);outline-offset:3px}
 .bid-list .out{opacity:.5}
 .bid-list .me{background:rgba(244,241,234,.07)}
 .bid-list .cut{justify-content:center;padding:5px;background:rgba(229,55,43,.1);font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#ff8a80}
@@ -28,6 +42,7 @@ const CSS = `
 .bid-card h3{margin:0 0 6px;font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
 .bid-card p{margin:0 0 12px!important;font-size:14px;color:var(--mid)}
 .bid-card label{display:block;margin:12px 0 6px;font-size:13px;color:var(--mid)}
+.bid-list .bid-tag{flex:none}
 .bid-card input[type=text],.bid-card input[type=email],.bid-card input[type=number]{width:100%;height:46px;padding:0 14px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0}
 .bid-card input:focus{border-color:rgba(244,241,234,.6)}
 .bid-card .agree{margin-top:14px}
@@ -41,6 +56,15 @@ const CSS = `
 .bid-code{display:block;margin:0 0 12px;padding:10px 12px;border-radius:10px;background:rgba(244,241,234,.06);font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid);overflow-wrap:anywhere;user-select:all}
 `;
 
+// a face for each bid: the photo the person sent, or their initials on a colour of their own
+const face = (name, photo) => { const words = String(name).trim().split(/\s+/), hue = [...String(name)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
+  return `<span class="bid-face" style="--h:${hue}">${photo ? `<img src="${esc(photo)}" alt="" />` : esc(((words[0]?.[0] || '') + (words.length > 1 ? words.at(-1)[0] : '')).toUpperCase())}</span>`; };
+// the chosen picture, cut square and made small before it is sent
+const shrink = file => new Promise((ok, fail) => { const img = new Image(), url = URL.createObjectURL(file);
+  img.onload = () => { const c = Object.assign(document.createElement('canvas'), {width:96, height:96}), side = Math.min(img.width, img.height);
+    c.getContext('2d').drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, 96, 96); URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', .82)); };
+  img.onerror = fail; img.src = url; });
+
 let qrLib;
 const qrSvg = text => (qrLib ||= new Promise((ok, fail) => {
   const s = document.createElement('script');
@@ -51,10 +75,11 @@ const qrSvg = text => (qrLib ||= new Promise((ok, fail) => {
 
 export function mount(el, t, onEnd) {
   document.head.append(Object.assign(document.createElement('style'), {textContent:CSS}));
-  let token = saved(), state = null, draft = null, busy = false, message = '';
+  let token = saved(), state = null, draft = null, busy = false, message = '', picture = null;
+  const photos = {};
 
   const api = async (method, data) => {
-    const r = await fetch(method === 'GET' ? `/api/leilao?token=${encodeURIComponent(token)}` : '/api/leilao', method === 'GET' ? undefined : {method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
+    const r = await fetch(method === 'GET' ? `/api/leilao?token=${encodeURIComponent(token)}${data ? '&fotos=1' : ''}` : '/api/leilao', method === 'GET' ? undefined : {method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
     const body = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(body.error || 'Não foi possível agora.');
     return body;
@@ -78,7 +103,7 @@ export function mount(el, t, onEnd) {
     const s = state;
     if (!s) { el.innerHTML = message ? `<p class="bid-rule">${esc(message)}</p>` : ''; return; }
     const mine = s.voce;
-    const rows = s.fila.map(l => `${l.posicao === s.vagas + 1 ? `<li class="cut">${esc(t.corte)}</li>` : ''}<li class="${l.dentro ? '' : 'out'}${l.voce ? ' me' : ''}"><i>#${l.posicao}</i><b>${brl(l.lance)}</b>${l.voce ? `<span class="bid-tag ${l.dentro ? 'in' : 'no'}">${esc(t.voce)}</span>` : ''}</li>`).join('');
+    const rows = s.fila.map(l => `${l.posicao === s.vagas + 1 ? `<li class="cut">${esc(t.corte)}</li>` : ''}<li class="${l.dentro ? '' : 'out'}${l.voce ? ' me' : ''}"><i>#${l.posicao}</i>${l.anonimo ? '<span class="bid-face anon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="3.600" /><path d="M5 20c.600-3.800 3.400-5.800 7-5.800s6.400 2 7 5.800" /></svg></span>' : face(l.nome, photos[l.id])}<span class="bid-who"><b>${esc(l.anonimo ? t.anonimo : l.nome)}</b>${l.instagram ? `<a href="https://www.instagram.com/${esc(l.instagram)}/" target="_blank" rel="noreferrer">@${esc(l.instagram)}</a>` : ''}</span><span class="bid-val">${brl(l.lance)}</span>${l.voce ? `<span class="bid-tag ${l.dentro ? 'in' : 'no'}">${esc(t.voce)}</span>` : ''}</li>`).join('');
     const pay = mine?.falta > 0 ? `<div class="bid-card">
           <h3>${fill(t.pagarTitulo, s)}</h3><p>${fill(t.pagarTexto, s)}</p>
           <span class="bid-qr" data-qr></span>
@@ -88,10 +113,14 @@ export function mount(el, t, onEnd) {
     const card = !s.aberto ? `<div class="bid-card"><h3>${esc(t.encerrado)}</h3><p>${mine?.posicao ? fill(mine.dentro ? t.fimDentro : t.fimFora, s) : fill(t.fimGeral, s)}</p></div>`
       : !mine ? `<form class="bid-card" data-entrar novalidate>
           <h3>${esc(t.entrarTitulo)}</h3><p>${fill(t.entrarTexto, s)}</p>
-          <label for="bid-nome">Nome</label><input id="bid-nome" name="nome" type="text" maxlength="120" autocomplete="name" value="${esc(draft?.nome ?? '')}" />
+          <label class="agree" style="margin-top:0"><input type="checkbox" name="anonimo" ${draft?.anonimo ? 'checked' : ''} /><span><b>${esc(t.anonimoOpcao)}</b><small>${esc(t.anonimoDica)}</small></span></label>
+          <div data-perfil ${draft?.anonimo ? 'hidden' : ''}><label class="bid-pic"><input name="foto" type="file" accept="image/*" /><span class="bid-face" data-pic>${picture ? `<img src="${esc(picture)}" alt="" />` : '+'}</span><span>${esc(t.campoFoto)}<small>${esc(t.campoFotoDica)}</small></span></label></div>
+          <label for="bid-nome" data-nome>${esc(draft?.anonimo ? t.campoNomeAnonimo : t.campoNome)}</label><input id="bid-nome" name="nome" type="text" maxlength="60" autocomplete="name" value="${esc(draft?.nome ?? '')}" />
+          <div data-perfil ${draft?.anonimo ? 'hidden' : ''}><label for="bid-insta">${esc(t.campoInstagram)}</label><input id="bid-insta" name="instagram" type="text" maxlength="60" autocomplete="off" autocapitalize="none" placeholder="@seuperfil" value="${esc(draft?.instagram ?? '')}" /></div>
           <label for="bid-email">E-mail</label><input id="bid-email" name="email" type="email" maxlength="254" autocomplete="email" value="${esc(draft?.email ?? '')}" />
           <label for="bid-pix">${esc(t.campoPix)}</label><input id="bid-pix" name="pix" type="text" maxlength="140" autocomplete="off" value="${esc(draft?.pix ?? '')}" />
           ${fields(s)}
+          <p class="bid-tip" data-publico>${esc(draft?.anonimo ? t.publicoAnonimo : t.publico)}</p>
           <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="bid-row"><p class="bid-msg" role="status">${esc(message)}</p><button class="talk-btn solid" type="submit" ${busy ? 'disabled' : ''}>${esc(t.entrarBotao)}</button></div>
         </form>`
@@ -115,8 +144,13 @@ export function mount(el, t, onEnd) {
   }
 
   const read = form => { const d = new FormData(form), n = k => d.get(k) === '' || d.get(k) == null ? null : Number(d.get(k));
-    return {nome:d.get('nome'), email:d.get('email'), pix:d.get('pix'), website:d.get('website'), valor:n('valor'), auto:d.get('auto') === 'on', teto:n('teto')}; };
-  el.addEventListener('input', e => { const form = e.target.closest('form'); if (!form) return; draft = read(form); const cap = form.querySelector('[data-teto]'), due = form.querySelector('[data-now]'); if (cap) cap.hidden = !draft.auto; due.hidden = !(upfront(state) > 0); due.innerHTML = fill(t.pixAgora, state); });
+    return {nome:d.get('nome'), anonimo:d.get('anonimo') === 'on', instagram:d.get('instagram'), email:d.get('email'), pix:d.get('pix'), website:d.get('website'), valor:n('valor'), auto:d.get('auto') === 'on', teto:n('teto')}; };
+  el.addEventListener('change', async e => {
+    if (e.target.name !== 'foto' || !e.target.files[0]) return;
+    try { picture = await shrink(e.target.files[0]); el.querySelector('[data-pic]').innerHTML = `<img src="${esc(picture)}" alt="" />`; } catch { message = t.fotoErro; render(); }
+  });
+  el.addEventListener('input', e => { const form = e.target.closest('form'); if (!form || e.target.name === 'foto') return; draft = read(form); const cap = form.querySelector('[data-teto]'), due = form.querySelector('[data-now]');
+    if (form.matches('[data-entrar]')) { form.querySelectorAll('[data-perfil]').forEach(p => { p.hidden = draft.anonimo; }); form.querySelector('[data-nome]').textContent = draft.anonimo ? t.campoNomeAnonimo : t.campoNome; form.querySelector('[data-publico]').textContent = draft.anonimo ? t.publicoAnonimo : t.publico; } if (cap) cap.hidden = !draft.auto; due.hidden = !(upfront(state) > 0); due.innerHTML = fill(t.pixAgora, state); });
   el.addEventListener('click', async e => {
     if (!e.target.closest('[data-copy]')) return;
     try { await navigator.clipboard.writeText(state.voce.pix); e.target.closest('[data-copy]').textContent = t.copiado; } catch { getSelection().selectAllChildren(el.querySelector('.bid-code')); }
@@ -126,7 +160,7 @@ export function mount(el, t, onEnd) {
     const d = read(e.target), entering = e.target.matches('[data-entrar]');
     draft = d; busy = true; message = ''; render();
     try {
-      const r = await api('POST', {acao:entering ? 'entrar' : 'lance', token, nome:d.nome, email:d.email, pix:d.pix, website:d.website, valor:d.valor, teto:d.auto ? d.teto : null});
+      const r = await api('POST', {acao:entering ? 'entrar' : 'lance', token, nome:d.nome, anonimo:d.anonimo, instagram:d.instagram, foto:entering ? picture : undefined, email:d.email, pix:d.pix, website:d.website, valor:d.valor, teto:d.auto ? d.teto : null});
       if (r.token) { token = r.token; save(token); }
       state = r; draft = null;
     } catch (error) { message = error.message; }
@@ -135,7 +169,7 @@ export function mount(el, t, onEnd) {
 
   const typing = () => el.contains(document.activeElement) && /INPUT/.test(document.activeElement.tagName);
   const refresh = async () => {
-    try { const s = await api('GET'); if (s.voce === null && token && !state) { token = ''; } state = s; message = ''; onEnd?.(s.encerraEm); if (!typing()) render(); }
+    try { let s = await api('GET'); if (s.fila.some(l => l.foto && !photos[l.id])) s = await api('GET', true); Object.assign(photos, s.fotos); if (s.voce === null && token && !state) { token = ''; } state = s; message = ''; onEnd?.(s.encerraEm); if (!typing()) render(); }
     catch (error) { if (!state) { message = error.message; render(); } }
   };
   refresh();
