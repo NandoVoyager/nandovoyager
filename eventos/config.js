@@ -19,6 +19,16 @@ export default {
     vagasMinimo: 20,      // com menos que isso o evento não acontece e o dinheiro é devolvido; null = não mostra mínimo
     vagasTotal: 50,       // máximo de pessoas; null = mostra só "vagas limitadas"
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
+    // Leilão de vagas: a pessoa paga a entrada por Pix e dá o lance que quiser. Entram os maiores lances e todos pagam o
+    // valor do último que entrou; quem ficou dentro paga só a diferença, quem ficou de fora recebe a entrada de volta.
+    // Com ativo: true, a tela mostra o leilão no lugar dos lotes.
+    leilao: {
+      ativo: false,
+      entrada: 100, // em reais; também é o lance mínimo
+      passo: 10, // quanto um lance precisa passar o outro
+      encerraEm: null, // data e hora com fuso, ex. "2026-11-25T23:59:00-03:00"
+      pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade
+    },
     lotes: [ // preço por pessoa
       { nome: "Lote 1", preco: 2000, linkCheckout: "", ativo: true, viraEm: null }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00"; com ela, o popup mostra a contagem regressiva
       { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false, comecaDiasAntesDoEvento: 3 }, // começa 3 dias antes do evento (calculado a partir de santos.data); o lote anterior termina nesse momento
