@@ -1200,8 +1200,10 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const lots = santos.lotes.filter(l => l.preco != null).map(l => ({...l, comecaEm:lotStart(l)})).map((l, i, all) => ({...l, viraEm:l.viraEm || all[i + 1]?.comecaEm || null}));
   // a countdown to a real date: the end of the lot on sale when it has one, otherwise the end of the last lot (when sales close)
   const activeEnds = lots.find(l => l.ativo && l.viraEm), lastEnds = lots.filter(l => l.viraEm).at(-1);
-  const lotEnds = activeEnds || lastEnds;
-  const countLabel = activeEnds ? t.santos.contagem.replace('{lote}', activeEnds.nome) : t.santos.contagemFim;
+  // with the auction on, it takes the place of the lots: the countdown runs to its end
+  const auction = santos.leilao?.ativo ? santos.leilao : null;
+  const lotEnds = auction ? (auction.encerraEm ? {viraEm:auction.encerraEm} : null) : activeEnds || lastEnds;
+  const countLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagem.replace('{lote}', activeEnds.nome) : t.santos.contagemFim;
   const until = iso => new Date(iso).toLocaleDateString('pt-BR', {day:'numeric', month:'numeric', timeZone:'America/Sao_Paulo'});
   // who teaches at the immersion: the confirmed speakers and the partner, in one line
   const teachers = [...talks.palestrantes.filter(p => p.confirmado).map(p => p.nome), ...(talks.parceiro.mostrar ? [`a ${talks.parceiro.nome}`] : [])];
@@ -1233,8 +1235,8 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       ${facts.map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
       ${lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>
         <div><span><b data-d></b><small>dias</small></span><span><b data-h></b><small>horas</small></span><span><b data-m></b><small>minutos</small></span><span><b data-s></b><small>segundos</small></span></div></div>` : ''}
-      ${lotList(lots)}
-      ${santosButton ? `<p><button class="talk-btn${hasTalk ? '' : ' solid'}" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}
+      ${auction ? '<div id="leilao"></div>' : `${lotList(lots)}
+      ${santosButton ? `<p><button class="talk-btn${hasTalk ? '' : ' solid'}" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}`}
 
       ${text(t.porQueAgora)}
 
@@ -1266,7 +1268,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const counts = [...dialog.querySelectorAll('.cdown[data-until]')].map(el => [el, new Date(el.dataset.until).getTime()]);
   // the same countdown, small, on the shortcut of the page
   const mini = $('talk-count'), miniEnd = lotEnds ? new Date(lotEnds.viraEm).getTime() : 0;
-  const miniLabel = activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
+  const miniLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
   const two = v => String(v).padStart(2, '0');
   const count = () => { counts.forEach(([el, end]) => {
     const n = Math.floor((end - Date.now()) / 1000);
@@ -1293,6 +1295,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   // /eventos (and links with ?cidade=) land here with the pop-up already open, over the finished page
   const q = new URLSearchParams(location.search);
   if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') { start = -Infinity; openTalks(); }
+  if (auction) import('/eventos/leilao-tela.js').then(m => m.mount($('leilao'), t.leilao)).catch(() => {});
   // the workshop button goes straight to WhatsApp, the message already written (once site-config.js has the number)
   const waNumber = String(config.whatsapp || '').replace(/\D/g, '');
   dialog.querySelectorAll('[data-santos]').forEach(b => {

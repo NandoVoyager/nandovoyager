@@ -65,6 +65,12 @@ test("fila pública sem nomes; preço é o do último que entrou; relatório com
   const [, rep] = await call("GET", {}, { relatorio: "segredo" });
   assert.equal(rep.preco, 600);
   assert.deepEqual(rep.lances.map((l) => [l.nome, l.pagar, l.devolver]), [["ana", 500, 0], ["caio", 500, 0], ["bia", 0, 100]]);
+  // caio desiste: perde a entrada; bia entra no lugar pagando o próprio lance
+  const [, me] = await call("GET", {}, { token: caio });
+  await call("POST", { acao: "desistiu", codigo: me.voce.codigo, senha: "segredo" });
+  const [, rep2] = await call("GET", {}, { relatorio: "segredo" });
+  assert.equal(rep2.preco, 600);
+  assert.deepEqual(rep2.lances.map((l) => [l.nome, l.situacao, l.pagar, l.devolver]), [["ana", "dentro", 500, 0], ["caio", "desistiu", 0, 0], ["bia", "dentro", 400, 0]]);
   assert.ok(ana && bia);
 });
 

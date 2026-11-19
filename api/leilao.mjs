@@ -58,15 +58,18 @@ function view(bids, auction, now, token) {
   };
 }
 
-// As contas do fechamento: quem paga a diferença e quem recebe a entrada de volta.
+// As contas do fechamento. O preço é o do último que entrou. Quem desiste perde a entrada e a vaga passa para o
+// próximo da fila, que paga o próprio lance (menor que o preço) e não mexe na conta de quem já pagou.
 function report(bids, auction) {
   const board = rank(bids, auction), by = new Map(bids.map((bid) => [bid.id, bid]));
+  let seats = rules(auction).vagas;
   return {
     preco: board.preco,
     lances: board.lances.map((line) => {
-      const bid = by.get(line.id);
-      return { posicao: line.posicao, dentro: line.dentro, nome: bid.nome, email: bid.email, pix: bid.pix, codigo: bid.codigo, lance: line.lance,
-        pagar: line.dentro ? Math.max(0, board.preco - auction.entrada) : 0, devolver: line.dentro ? 0 : auction.entrada };
+      const bid = by.get(line.id), quit = !!bid.desistiu, inside = !quit && seats > 0;
+      if (inside) seats--;
+      return { posicao: line.posicao, situacao: quit ? "desistiu" : inside ? "dentro" : "fora", nome: bid.nome, email: bid.email, pix: bid.pix, codigo: bid.codigo, lance: line.lance,
+        pagar: inside ? Math.max(0, Math.min(board.preco, line.lance) - auction.entrada) : 0, devolver: quit || inside ? 0 : auction.entrada };
     }),
     aguardandoPagamento: bids.filter((bid) => !bid.pago).map(({ nome, email, codigo, valor, em }) => ({ nome, email, codigo, valor, em }))
   };
@@ -104,6 +107,14 @@ export async function auctionRequest({ method, query = {}, data = {}, store, env
     bid.pago = true;
     await notify(ultrapassados(before, rank(bids, auction)).map((id) => bids.find((b) => b.id === id).email), env);
     return [200, { ok: true, nome: bid.nome, valor: bid.valor }];
+  }
+
+  if (data.acao === "desistiu") { // não pagou a diferença: perde a entrada e a vaga passa para o próximo
+    if (!admin(data.senha)) return [403, { error: "Senha incorreta." }];
+    const bid = bids.find((b) => b.codigo === clean(data.codigo, 12).toUpperCase());
+    if (!bid) return [404, { error: "Código não encontrado." }];
+    await store.update(bid.id, { desistiu: true });
+    return [200, { ok: true, nome: bid.nome }];
   }
 
   if (closed(auction, now)) return [409, { error: "O leilão já encerrou." }];
