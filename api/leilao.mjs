@@ -44,7 +44,8 @@ export function memoryStore(bids = []) {
   };
 }
 
-const rules = (auction) => ({ vagas: talks.santos.vagasTotal, minimo: auction.entrada, passo: auction.passo });
+const floor = (auction) => Math.max(auction.lanceMinimo || 0, auction.entrada);
+const rules = (auction) => ({ vagas: talks.santos.vagasTotal, minimo: floor(auction), passo: auction.passo });
 // Para o lance valer, a pessoa paga a entrada mais um sinal: uma parte (auction.sinal, ex. 0.5) do lance, ou do teto
 // quando há lance automático. "recebido" é o total em reais que já caiu na conta; o lance vale até onde ele cobre.
 const share = (auction) => auction.sinal || 0;
@@ -66,7 +67,7 @@ function view(bids, auction, now, token, photos) {
   const place = mine && board.lances.find((line) => line.id === mine.id), by = new Map(bids.map((bid) => [bid.id, bid]));
   return {
     fotos: photos ? Object.fromEntries(board.lances.filter((line) => by.get(line.id).foto && !by.get(line.id).anonimo).map((line) => [line.id, by.get(line.id).foto])) : undefined,
-    aberto: !closed(auction, now), encerraEm: auction.encerraEm, vagas: rules(auction).vagas, entrada: auction.entrada, sinal: share(auction), automatico: !!auction.automatico, passo: auction.passo,
+    aberto: !closed(auction, now), encerraEm: auction.encerraEm, vagas: rules(auction).vagas, entrada: auction.entrada, lanceMinimo: floor(auction), sinal: share(auction), automatico: !!auction.automatico, passo: auction.passo,
     participantes: board.lances.length, preco: board.preco, paraEntrar: board.paraEntrar,
     fila: board.lances.map((line) => ({ id: line.id, posicao: line.posicao, lance: line.lance, dentro: line.dentro, voce: line.id === mine?.id, ...shown(by.get(line.id)) })),
     voce: mine ? { nome: mine.nome, codigo: mine.codigo, valor: mine.valor, teto: mine.teto, recebido: mine.recebido || 0, falta: owed(auction, mine), pix: owed(auction, mine) ? pix(auction, mine) : null, posicao: place?.posicao ?? null, dentro: place?.dentro ?? false, lance: place?.lance ?? null } : null
@@ -138,7 +139,7 @@ export async function auctionRequest({ method, query = {}, data = {}, store, env
   if (closed(auction, now)) return [409, { error: "O leilão já encerrou." }];
   if (!auction.automatico) data.teto = null;
   const valor = whole(data.valor), teto = data.teto == null || data.teto === "" ? null : whole(data.teto);
-  if (!valor || valor < auction.entrada) return [400, { error: `O lance mínimo é de R$ ${auction.entrada}.` }];
+  if (!valor || valor < floor(auction)) return [400, { error: `O lance mínimo é de R$ ${floor(auction)}.` }];
   if (data.teto != null && data.teto !== "" && (!teto || teto < valor)) return [400, { error: "O teto do lance automático precisa ser maior que o lance." }];
 
   if (data.acao === "entrar") {

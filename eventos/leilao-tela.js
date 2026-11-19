@@ -86,13 +86,13 @@ export function mount(el, t, onEnd) {
     if (!r.ok) throw new Error(body.error || 'Não foi possível agora.');
     return body;
   };
-  const fill = (text, s) => esc(text).replace(/\{(\w+)\}/g, (_, k) => ({vagas:s.vagas, entrada:brl(s.entrada), preco:brl(s.preco), paraEntrar:brl(s.paraEntrar), posicao:s.voce?.posicao, lance:s.voce?.lance && brl(s.voce.lance), codigo:s.voce?.codigo, falta:s.voce && brl(s.voce.falta), sinal:`${Math.round(s.sinal * 100)}%`, agora:brl(upfront(s))})[k] ?? '');
+  const fill = (text, s) => esc(text).replace(/\{(\w+)\}/g, (_, k) => ({vagas:s.vagas, minimo:brl(s.lanceMinimo), entrada:brl(s.entrada), preco:brl(s.preco), paraEntrar:brl(s.paraEntrar), posicao:s.voce?.posicao, lance:s.voce?.lance && brl(s.voce.lance), codigo:s.voce?.codigo, falta:s.voce && brl(s.voce.falta), sinal:`${Math.round(s.sinal * 100)}%`, agora:brl(upfront(s))})[k] ?? '');
 
   // what the Pix will be for the bid being typed: the entry plus the deposit, less what was already paid
   const upfront = s => { const v = Math.max(draft?.valor ?? s.voce?.valor ?? s.paraEntrar, (draft ? draft.auto && draft.teto : s.voce?.teto) || 0); return Math.max(0, s.entrada + Math.ceil(s.sinal * v) - (s.voce?.recebido || 0)); };
   const fields = (s, mine) => `
     <label for="bid-valor">${esc(t.campoLance)}</label>
-    <input id="bid-valor" name="valor" type="number" inputmode="numeric" min="${mine ? mine.valor : s.entrada}" step="1" value="${draft?.valor ?? (mine ? Math.max(mine.valor, s.paraEntrar) : s.paraEntrar)}" />
+    <input id="bid-valor" name="valor" type="number" inputmode="numeric" min="${mine ? mine.valor : s.lanceMinimo}" step="1" value="${draft?.valor ?? (mine ? Math.max(mine.valor, s.paraEntrar) : s.paraEntrar)}" />
     <p class="bid-tip">${fill(t.lanceDica, s)}</p>
     ${s.automatico ? `<label class="agree"><input type="checkbox" name="auto" ${draft?.auto ?? mine?.teto > mine?.valor ? 'checked' : ''} /><span><b>${esc(t.automatico)}</b><small>${esc(t.automaticoDica)}</small></span></label>
     <div data-teto ${draft?.auto ?? mine?.teto > mine?.valor ? '' : 'hidden'}>

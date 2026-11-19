@@ -127,3 +127,11 @@ test("anônimo: aparece sem nome, foto nem Instagram", async () => {
   assert.equal(JSON.stringify(pub).includes("Ana"), false);
   assert.equal((await call("GET", {}, { relatorio: "segredo" }))[1].lances[0].nome, "Ana Lima"); // no relatório, o nome continua
 });
+
+test("lance inicial maior que a entrada", async () => {
+  const store = memoryStore(), high = { ...auction, sinal: 0, entrada: 300, lanceMinimo: 500 };
+  const go = (data) => auctionRequest({ method: "POST", data, store, env, now: Date.parse("2030-01-01T12:00:00-03:00"), auction: high });
+  assert.equal((await go({ acao: "entrar", nome: "Ana", email: "a@x.com", pix: "k", valor: 400 }))[0], 400);
+  const [, r] = await go({ acao: "entrar", nome: "Ana", email: "a@x.com", pix: "k", valor: 500 });
+  assert.deepEqual([r.voce.falta, r.lanceMinimo, r.paraEntrar, r.preco], [300, 500, 500, 500]);
+});

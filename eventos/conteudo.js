@@ -31,7 +31,7 @@ export default {
   leilao: {
     rotulo: "Leilão de vagas",
     comoFunciona: "Como funciona",
-    regra: "Entre com {entrada} por Pix e dê o seu lance. Ficam os {vagas} maiores lances e todos pagam o mesmo valor: o do último que entrou. Quem fica paga só a diferença; quem não fica recebe os {entrada} de volta.",
+    regra: "Entre com {entrada} por Pix e dê o seu lance, a partir de {minimo}. Ficam os {vagas} maiores lances e todos pagam o mesmo valor: o do último que entrou. Quem fica paga só a diferença; quem não fica recebe os {entrada} de volta.",
     desistencia: "Se você ficar entre os {vagas} e desistir, a entrada de {entrada} não é devolvida e a vaga passa para o próximo da fila.",
     precoAgora: "Preço agora", paraEntrar: "Para entrar", lances: "Lances pagos", corte: "Fora das vagas", voce: "Você",
     campoFoto: "Sua foto", campoFotoDica: "Toque para escolher. Aparece ao lado do seu lance.", fotoErro: "Não deu para usar essa foto. Tente outra.",
@@ -40,7 +40,7 @@ export default {
     publico: "Seu nome, sua foto e seu Instagram aparecem na lista para todos. E-mail e chave Pix ficam só comigo.",
     campoLance: "Seu lance máximo (R$)", lanceDica: "Você nunca paga mais que o preço final, mesmo com um lance maior. Dá para aumentar depois, sem pagar de novo.", campoPix: "Sua chave Pix (para a devolução)",
     automatico: "Lance automático", automaticoDica: "Sobe sozinho, só o necessário, para você não sair das vagas.", campoTeto: "Até quanto pode subir (R$)",
-    entrarTitulo: "Entrar no leilão", entrarTexto: "Agora você paga só os {entrada} da entrada. O resto, só se ficar com a vaga.", pixAgora: "Pix agora: {agora}", entrarBotao: "Entrar no leilão",
+    entrarTitulo: "Entrar no leilão", entrarTexto: "Os lances começam em {minimo}. Agora você paga só os {entrada} da entrada; o resto, só se ficar com a vaga.", pixAgora: "Pix agora: {agora}", entrarBotao: "Entrar no leilão",
     pagarTitulo: "Pague {falta} por Pix", pagarTexto: "Leia o QR code no app do seu banco ou copie o código. Seu lance vale assim que o pagamento for confirmado.",
     aguardando: "Aguardando o seu Pix", aguardandoTexto: "Seu lance entra na fila quando o pagamento for confirmado. Você ainda pode mudar o valor.", pagarCodigo: "Seu código: {codigo}", copiar: "Copiar código Pix", copiado: "Copiado",
     dentroTitulo: "Você está em #{posicao}", dentro: "Dentro", dentroTexto: "Seu lance agora é de {lance}. Se o leilão fechasse agora, você pagaria {preco}.",
