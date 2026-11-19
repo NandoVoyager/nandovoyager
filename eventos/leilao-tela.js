@@ -36,6 +36,7 @@ const CSS = `
 .bid-qr{display:block;width:196px;height:196px;margin:4px auto 14px;padding:10px;border-radius:14px;background:#fff}
 .bid-qr svg{display:block;width:100%;height:100%}
 .bid .talk-note{margin:0!important;font-size:13.5px;color:var(--mid)}
+.bid-now{margin:14px 0 0!important;font-size:14px;color:var(--ink)!important}
 .bid-code{display:block;margin:0 0 12px;padding:10px 12px;border-radius:10px;background:rgba(244,241,234,.06);font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid);overflow-wrap:anywhere;user-select:all}
 `;
 
@@ -57,8 +58,10 @@ export function mount(el, t, onEnd) {
     if (!r.ok) throw new Error(body.error || 'Não foi possível agora.');
     return body;
   };
-  const fill = (text, s) => esc(text).replace(/\{(\w+)\}/g, (_, k) => ({vagas:s.vagas, entrada:brl(s.entrada), preco:brl(s.preco), paraEntrar:brl(s.paraEntrar), posicao:s.voce?.posicao, lance:s.voce && brl(s.voce.lance), codigo:s.voce?.codigo})[k] ?? '');
+  const fill = (text, s) => esc(text).replace(/\{(\w+)\}/g, (_, k) => ({vagas:s.vagas, entrada:brl(s.entrada), preco:brl(s.preco), paraEntrar:brl(s.paraEntrar), posicao:s.voce?.posicao, lance:s.voce?.lance && brl(s.voce.lance), codigo:s.voce?.codigo, falta:s.voce && brl(s.voce.falta), sinal:`${Math.round(s.sinal * 100)}%`, agora:brl(upfront(s))})[k] ?? '');
 
+  // what the Pix will be for the bid being typed: the entry plus the deposit, less what was already paid
+  const upfront = s => { const v = Math.max(draft?.valor ?? s.voce?.valor ?? s.paraEntrar, (draft ? draft.auto && draft.teto : s.voce?.teto) || 0); return Math.max(0, s.entrada + Math.ceil(s.sinal * v) - (s.voce?.recebido || 0)); };
   const fields = (s, mine) => `
     <label for="bid-valor">${esc(t.campoLance)}</label>
     <input id="bid-valor" name="valor" type="number" inputmode="numeric" min="${mine ? mine.valor : s.entrada}" step="1" value="${draft?.valor ?? (mine ? Math.max(mine.valor, s.paraEntrar) : s.paraEntrar)}" />
@@ -66,14 +69,21 @@ export function mount(el, t, onEnd) {
     <div data-teto ${draft?.auto ?? mine?.teto > mine?.valor ? '' : 'hidden'}>
       <label for="bid-teto">${esc(t.campoTeto)}</label>
       <input id="bid-teto" name="teto" type="number" inputmode="numeric" step="1" value="${draft?.teto ?? mine?.teto ?? ''}" />
-    </div>`;
+    </div>
+    <p class="bid-now" data-now>${fill(t.pixAgora, s)}</p>`;
 
   function render() {
     const s = state;
     if (!s) { el.innerHTML = message ? `<p class="bid-rule">${esc(message)}</p>` : ''; return; }
     const mine = s.voce;
     const rows = s.fila.map(l => `${l.posicao === s.vagas + 1 ? `<li class="cut">${esc(t.corte)}</li>` : ''}<li class="${l.dentro ? '' : 'out'}${l.voce ? ' me' : ''}"><i>#${l.posicao}</i><b>${brl(l.lance)}</b>${l.voce ? `<span class="bid-tag ${l.dentro ? 'in' : 'no'}">${esc(t.voce)}</span>` : ''}</li>`).join('');
-    const card = !s.aberto ? `<div class="bid-card"><h3>${esc(t.encerrado)}</h3><p>${mine?.pago ? fill(mine.dentro ? t.fimDentro : t.fimFora, s) : fill(t.fimGeral, s)}</p></div>`
+    const pay = mine?.falta > 0 ? `<div class="bid-card">
+          <h3>${fill(t.pagarTitulo, s)}</h3><p>${fill(t.pagarTexto, s)}</p>
+          <span class="bid-qr" data-qr></span>
+          <code class="bid-code">${esc(mine.pix)}</code>
+          <div class="bid-row"><p class="bid-msg" role="status" style="color:var(--mid)">${fill(t.pagarCodigo, s)}</p><button class="talk-btn solid" type="button" data-copy>${esc(t.copiar)}</button></div>
+        </div>` : '';
+    const card = !s.aberto ? `<div class="bid-card"><h3>${esc(t.encerrado)}</h3><p>${mine?.posicao ? fill(mine.dentro ? t.fimDentro : t.fimFora, s) : fill(t.fimGeral, s)}</p></div>`
       : !mine ? `<form class="bid-card" data-entrar novalidate>
           <h3>${esc(t.entrarTitulo)}</h3><p>${fill(t.entrarTexto, s)}</p>
           <label for="bid-nome">Nome</label><input id="bid-nome" name="nome" type="text" maxlength="120" autocomplete="name" value="${esc(draft?.nome ?? '')}" />
@@ -83,15 +93,9 @@ export function mount(el, t, onEnd) {
           <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="bid-row"><p class="bid-msg" role="status">${esc(message)}</p><button class="talk-btn solid" type="submit" ${busy ? 'disabled' : ''}>${esc(t.entrarBotao)}</button></div>
         </form>`
-      : !mine.pago ? `<div class="bid-card">
-          <h3>${fill(t.pagarTitulo, s)}</h3><p>${fill(t.pagarTexto, s)}</p>
-          <span class="bid-qr" data-qr></span>
-          <code class="bid-code">${esc(mine.pix)}</code>
-          <div class="bid-row"><p class="bid-msg" role="status" style="color:var(--mid)">${fill(t.pagarCodigo, s)}</p><button class="talk-btn solid" type="button" data-copy>${esc(t.copiar)}</button></div>
-        </div>`
-      : `<form class="bid-card" data-lance novalidate>
-          <h3>${fill(mine.dentro ? t.dentroTitulo : t.foraTitulo, s)} <span class="bid-tag ${mine.dentro ? 'in' : 'no'}">${esc(mine.dentro ? t.dentro : t.fora)}</span></h3>
-          <p>${fill(mine.dentro ? t.dentroTexto : t.foraTexto, s)}</p>
+      : `${pay}<form class="bid-card" data-lance novalidate>
+          <h3>${mine.posicao ? `${fill(mine.dentro ? t.dentroTitulo : t.foraTitulo, s)} <span class="bid-tag ${mine.dentro ? 'in' : 'no'}">${esc(mine.dentro ? t.dentro : t.fora)}</span>` : esc(t.aguardando)}</h3>
+          <p>${mine.posicao ? fill(mine.dentro ? t.dentroTexto : t.foraTexto, s) : fill(t.aguardandoTexto, s)}</p>
           ${fields(s, mine)}
           <div class="bid-row"><p class="bid-msg" role="status">${esc(message)}</p><button class="talk-btn solid" type="submit" ${busy ? 'disabled' : ''}>${esc(t.lanceBotao)}</button></div>
         </form>`;
@@ -110,7 +114,7 @@ export function mount(el, t, onEnd) {
 
   const read = form => { const d = new FormData(form), n = k => d.get(k) === '' || d.get(k) == null ? null : Number(d.get(k));
     return {nome:d.get('nome'), email:d.get('email'), pix:d.get('pix'), website:d.get('website'), valor:n('valor'), auto:d.get('auto') === 'on', teto:n('teto')}; };
-  el.addEventListener('input', e => { const form = e.target.closest('form'); if (!form) return; draft = read(form); form.querySelector('[data-teto]').hidden = !draft.auto; });
+  el.addEventListener('input', e => { const form = e.target.closest('form'); if (!form) return; draft = read(form); form.querySelector('[data-teto]').hidden = !draft.auto; form.querySelector('[data-now]').innerHTML = fill(t.pixAgora, state); });
   el.addEventListener('click', async e => {
     if (!e.target.closest('[data-copy]')) return;
     try { await navigator.clipboard.writeText(state.voce.pix); e.target.closest('[data-copy]').textContent = t.copiado; } catch { getSelection().selectAllChildren(el.querySelector('.bid-code')); }

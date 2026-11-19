@@ -19,12 +19,14 @@ export default {
     vagasMinimo: 20,      // com menos que isso o evento não acontece e o dinheiro é devolvido; null = não mostra mínimo
     vagasTotal: 50,       // máximo de pessoas; null = mostra só "vagas limitadas"
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
-    // Leilão de vagas: a pessoa paga a entrada por Pix e dá o lance que quiser. Entram os maiores lances e todos pagam o
-    // valor do último que entrou; quem ficou dentro paga só a diferença, quem ficou de fora recebe a entrada de volta.
+    // Leilão de vagas: a pessoa paga por Pix a entrada mais um sinal (parte do lance) e dá o lance que quiser. Entram os
+    // maiores lances e todos pagam o valor do último que entrou; quem ficou dentro acerta a diferença, quem ficou de fora
+    // recebe tudo de volta.
     // Com ativo: true, a tela mostra o leilão no lugar dos lotes.
     leilao: {
       ativo: false,
       entrada: 100, // em reais; também é o lance mínimo
+      sinal: 0.5, // além da entrada, a pessoa paga adiantado esta parte do lance (0.5 = 50%); 0 = só a entrada
       passo: 10, // quanto um lance precisa passar o outro
       encerraEm: null, // data e hora com fuso, ex. "2026-11-25T23:59:00-03:00"
       pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade

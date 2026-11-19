@@ -42,36 +42,45 @@ export function memoryStore(bids = []) {
 }
 
 const rules = (auction) => ({ vagas: talks.santos.vagasTotal, minimo: auction.entrada, passo: auction.passo });
-const rank = (bids, auction) => classificar(bids.filter((bid) => bid.pago).map(({ id, valor, teto, em }) => ({ id, valor, teto, em })), rules(auction));
+// Para o lance valer, a pessoa paga a entrada mais um sinal: uma parte (auction.sinal, ex. 0.5) do lance, ou do teto
+// quando há lance automático. "recebido" é o total em reais que já caiu na conta; o lance vale até onde ele cobre.
+const share = (auction) => auction.sinal || 0;
+const due = (auction, bid) => auction.entrada + Math.ceil(share(auction) * Math.max(bid.valor, bid.teto || 0));
+const covered = (auction, bid) => (share(auction) ? Math.floor(((bid.recebido || 0) - auction.entrada) / share(auction)) : (bid.recebido || 0) >= auction.entrada ? Infinity : 0);
+const rank = (bids, auction) => classificar(bids.map((bid) => ({ id: bid.id, em: bid.em, valor: Math.min(bid.valor, covered(auction, bid)), teto: Math.min(bid.teto || bid.valor, covered(auction, bid)) })), rules(auction));
 const closed = (auction, now) => !!auction.encerraEm && now >= Date.parse(auction.encerraEm);
-const pix = (auction, bid) => pixCopiaECola({ ...auction.pix, valor: auction.entrada, txid: bid.codigo });
+const owed = (auction, bid) => Math.max(0, due(auction, bid) - (bid.recebido || 0));
+const pix = (auction, bid) => pixCopiaECola({ ...auction.pix, valor: owed(auction, bid), txid: bid.codigo });
 
 // O que qualquer visitante vê: preço, quanto precisa para entrar e a fila (só posição e valor, sem nomes).
+// Só entram na fila os lances cobertos pelo que já foi pago.
 function view(bids, auction, now, token) {
   const board = rank(bids, auction), mine = token && bids.find((bid) => bid.token === token);
   const place = mine && board.lances.find((line) => line.id === mine.id);
   return {
-    aberto: !closed(auction, now), encerraEm: auction.encerraEm, vagas: rules(auction).vagas, entrada: auction.entrada, passo: auction.passo,
+    aberto: !closed(auction, now), encerraEm: auction.encerraEm, vagas: rules(auction).vagas, entrada: auction.entrada, sinal: share(auction), passo: auction.passo,
     participantes: board.lances.length, preco: board.preco, paraEntrar: board.paraEntrar,
     fila: board.lances.map((line) => ({ posicao: line.posicao, lance: line.lance, dentro: line.dentro, voce: line.id === mine?.id })),
-    voce: mine ? { nome: mine.nome, pago: mine.pago, codigo: mine.codigo, valor: mine.valor, teto: mine.teto, pix: mine.pago ? null : pix(auction, mine), posicao: place?.posicao ?? null, dentro: place?.dentro ?? false, lance: place?.lance ?? mine.valor } : null
+    voce: mine ? { nome: mine.nome, codigo: mine.codigo, valor: mine.valor, teto: mine.teto, recebido: mine.recebido || 0, falta: owed(auction, mine), pix: owed(auction, mine) ? pix(auction, mine) : null, posicao: place?.posicao ?? null, dentro: place?.dentro ?? false, lance: place?.lance ?? null } : null
   };
 }
 
-// As contas do fechamento. O preço é o do último que entrou. Quem desiste perde a entrada e a vaga passa para o
-// próximo da fila, que paga o próprio lance (menor que o preço) e não mexe na conta de quem já pagou.
+// As contas do fechamento. O preço é o do último que entrou; do que cada um já pagou (entrada + sinal) sai o acerto:
+// quem ficou paga o que falta ou recebe o que sobrou; quem não ficou recebe tudo de volta. Quem desiste perde a entrada
+// (o sinal volta) e a vaga passa para o próximo da fila, que paga o próprio lance (menor que o preço).
 function report(bids, auction) {
   const board = rank(bids, auction), by = new Map(bids.map((bid) => [bid.id, bid]));
   let seats = rules(auction).vagas;
   return {
     preco: board.preco,
     lances: board.lances.map((line) => {
-      const bid = by.get(line.id), quit = !!bid.desistiu, inside = !quit && seats > 0;
+      const bid = by.get(line.id), quit = !!bid.desistiu, inside = !quit && seats > 0, paid = bid.recebido || 0;
       if (inside) seats--;
-      return { posicao: line.posicao, situacao: quit ? "desistiu" : inside ? "dentro" : "fora", nome: bid.nome, email: bid.email, pix: bid.pix, codigo: bid.codigo, lance: line.lance,
-        pagar: inside ? Math.max(0, Math.min(board.preco, line.lance) - auction.entrada) : 0, devolver: quit || inside ? 0 : auction.entrada };
+      const price = Math.min(board.preco, line.lance);
+      return { posicao: line.posicao, situacao: quit ? "desistiu" : inside ? "dentro" : "fora", nome: bid.nome, email: bid.email, pix: bid.pix, codigo: bid.codigo, lance: line.lance, recebido: paid,
+        pagar: inside ? Math.max(0, price - paid) : 0, devolver: inside ? Math.max(0, paid - price) : quit ? Math.max(0, paid - auction.entrada) : paid };
     }),
-    aguardandoPagamento: bids.filter((bid) => !bid.pago).map(({ nome, email, codigo, valor, em }) => ({ nome, email, codigo, valor, em }))
+    aguardandoPagamento: bids.filter((bid) => owed(auction, bid) > 0).map((bid) => ({ nome: bid.nome, email: bid.email, codigo: bid.codigo, valor: bid.valor, teto: bid.teto, recebido: bid.recebido || 0, falta: owed(auction, bid) }))
   };
 }
 
@@ -98,15 +107,16 @@ export async function auctionRequest({ method, query = {}, data = {}, store, env
   }
   if (method !== "POST") return [405, { error: "Método não permitido." }];
 
-  if (data.acao === "confirmar") { // o pagamento da entrada caiu na conta: o lance passa a valer
+  if (data.acao === "confirmar") { // um Pix caiu na conta: sem valor, considera pago tudo o que a pessoa devia
     if (!admin(data.senha)) return [403, { error: "Senha incorreta." }];
     const bid = bids.find((b) => b.codigo === clean(data.codigo, 12).toUpperCase());
     if (!bid) return [404, { error: "Código não encontrado." }];
     const before = rank(bids, auction);
-    await store.update(bid.id, { pago: true });
-    bid.pago = true;
+    const recebido = data.valor == null ? due(auction, bid) : (bid.recebido || 0) + (whole(data.valor) || 0);
+    await store.update(bid.id, { recebido });
+    bid.recebido = recebido;
     await notify(ultrapassados(before, rank(bids, auction)).map((id) => bids.find((b) => b.id === id).email), env);
-    return [200, { ok: true, nome: bid.nome, valor: bid.valor }];
+    return [200, { ok: true, nome: bid.nome, recebido, falta: owed(auction, bid) }];
   }
 
   if (data.acao === "desistiu") { // não pagou a diferença: perde a entrada e a vaga passa para o próximo
@@ -125,7 +135,7 @@ export async function auctionRequest({ method, query = {}, data = {}, store, env
   if (data.acao === "entrar") {
     if (data.website) return [200, { ok: true }]; // honeypot
     const bid = { id: randomUUID(), token: randomBytes(24).toString("hex"), codigo: `NV${randomBytes(4).toString("hex").toUpperCase()}`,
-      nome: clean(data.nome, 120), email: clean(data.email, 254).toLowerCase(), pix: clean(data.pix, 140), valor, teto, pago: false, em: new Date(now).toISOString() };
+      nome: clean(data.nome, 120), email: clean(data.email, 254).toLowerCase(), pix: clean(data.pix, 140), valor, teto, recebido: 0, em: new Date(now).toISOString() };
     if (!bid.nome) return [400, { error: "Informe o seu nome." }];
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bid.email)) return [400, { error: "Informe um e-mail válido." }];
     if (!bid.pix) return [400, { error: "Informe a sua chave Pix, para a devolução." }];

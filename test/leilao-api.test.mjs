@@ -4,7 +4,7 @@ import { auctionRequest, memoryStore } from "../api/leilao.mjs";
 import talks from "../eventos/config.js";
 
 talks.santos.vagasTotal = 2;
-const auction = { ativo: true, entrada: 100, passo: 10, encerraEm: "2030-01-02T00:00:00-03:00", pix: { chave: "12345678000199", nome: "Empresa Ltda", cidade: "Santos" } };
+const auction = { ativo: true, entrada: 100, sinal: 0.5, passo: 10, encerraEm: "2030-01-02T00:00:00-03:00", pix: { chave: "12345678000199", nome: "Empresa Ltda", cidade: "Santos" } };
 const env = { LEILAO_ADMIN: "segredo" };
 const setup = () => {
   const store = memoryStore();
@@ -27,14 +27,14 @@ test("o lance só vale depois que a entrada é confirmada", async () => {
   const { call } = setup();
   const [, entered] = await call("POST", { acao: "entrar", nome: "Ana", email: "ana@x.com", pix: "ana@x.com", valor: 650 });
   assert.equal(entered.participantes, 0);
-  assert.equal(entered.voce.pago, false);
-  assert.match(entered.voce.pix, /5406100\.00/); // o Pix é da entrada, não do lance
+  assert.equal(entered.voce.falta, 425); // 100 de entrada + 50% de 650
+  assert.match(entered.voce.pix, /5406425\.00/);
   assert.ok(entered.voce.pix.includes(entered.voce.codigo));
   assert.equal((await call("POST", { acao: "confirmar", codigo: entered.voce.codigo, senha: "errada" }))[0], 403);
   await call("POST", { acao: "confirmar", codigo: entered.voce.codigo, senha: "segredo" });
   const [, after] = await call("GET", {}, { token: entered.token });
   assert.equal(after.participantes, 1);
-  assert.deepEqual([after.voce.posicao, after.voce.dentro, after.voce.pix], [1, true, null]);
+  assert.deepEqual([after.voce.posicao, after.voce.dentro, after.voce.pix, after.voce.falta], [1, true, null, 0]);
 });
 
 test("validações de entrada", async () => {
@@ -58,19 +58,23 @@ test("fila pública sem nomes; preço é o do último que entrou; relatório com
   assert.equal(JSON.stringify(pub).includes("ana"), false);
 
   assert.equal((await call("POST", { acao: "lance", token: caio, valor: 200 }))[0], 400); // não diminui
+  // caio sobe para 600: o lance novo só vale depois de pagar o resto do sinal (50% de 300 = 150)
   const [, raised] = await call("POST", { acao: "lance", token: caio, valor: 600 });
-  assert.deepEqual([raised.voce.posicao, raised.voce.dentro, raised.preco], [2, true, 600]);
+  assert.deepEqual([raised.voce.falta, raised.voce.lance, raised.voce.dentro, raised.preco], [150, 300, false, 500]);
+  await call("POST", { acao: "confirmar", codigo: raised.voce.codigo, senha: "segredo", valor: 150 });
+  const [, paid] = await call("GET", {}, { token: caio });
+  assert.deepEqual([paid.voce.posicao, paid.voce.dentro, paid.voce.falta, paid.preco], [2, true, 0, 600]);
 
   assert.equal((await call("GET", {}, { relatorio: "errada" }))[0], 403);
   const [, rep] = await call("GET", {}, { relatorio: "segredo" });
   assert.equal(rep.preco, 600);
-  assert.deepEqual(rep.lances.map((l) => [l.nome, l.pagar, l.devolver]), [["ana", 500, 0], ["caio", 500, 0], ["bia", 0, 100]]);
+  assert.deepEqual(rep.lances.map((l) => [l.nome, l.pagar, l.devolver]), [["ana", 175, 0], ["caio", 200, 0], ["bia", 0, 350]]);
   // caio desiste: perde a entrada; bia entra no lugar pagando o próprio lance
   const [, me] = await call("GET", {}, { token: caio });
   await call("POST", { acao: "desistiu", codigo: me.voce.codigo, senha: "segredo" });
   const [, rep2] = await call("GET", {}, { relatorio: "segredo" });
   assert.equal(rep2.preco, 600);
-  assert.deepEqual(rep2.lances.map((l) => [l.nome, l.situacao, l.pagar, l.devolver]), [["ana", "dentro", 500, 0], ["caio", "desistiu", 0, 0], ["bia", "dentro", 400, 0]]);
+  assert.deepEqual(rep2.lances.map((l) => [l.nome, l.situacao, l.pagar, l.devolver]), [["ana", "dentro", 175, 0], ["caio", "desistiu", 0, 300], ["bia", "dentro", 150, 0]]);
   assert.ok(ana && bia);
 });
 
@@ -84,4 +88,19 @@ test("lance automático segura a vaga; depois do prazo não aceita lance", async
   const late = Date.parse("2030-01-03T00:00:00-03:00");
   assert.equal((await call("POST", { acao: "lance", token: bia, valor: 900 }, {}, late))[0], 409);
   assert.equal((await call("GET", {}, {}, late))[1].aberto, false);
+});
+
+test("lance alto com preço baixo: o que sobrou do sinal volta", async () => {
+  const { call, enter } = setup();
+  await enter("ana", 2000); // pagou 100 + 1000
+  await enter("bia", 200);
+  const [, rep] = await call("GET", {}, { relatorio: "segredo" });
+  assert.equal(rep.preco, 200);
+  assert.deepEqual(rep.lances.map((l) => [l.nome, l.recebido, l.pagar, l.devolver]), [["ana", 1100, 0, 900], ["bia", 200, 0, 0]]);
+});
+
+test("sem sinal (sinal: 0), só a entrada é cobrada", async () => {
+  const store = memoryStore(), simple = { ...auction, sinal: 0 };
+  const [, r] = await auctionRequest({ method: "POST", data: { acao: "entrar", nome: "Ana", email: "a@x.com", pix: "k", valor: 650 }, store, env, now: Date.parse("2030-01-01T12:00:00-03:00"), auction: simple });
+  assert.equal(r.voce.falta, 100);
 });

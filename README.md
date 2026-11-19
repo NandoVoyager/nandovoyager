@@ -64,7 +64,7 @@ Estado: fase 1 (estrutura e conteúdo estático). Mapa, contagem de votos, formu
 
 Com `santos.leilao.ativo: true` em `eventos/config.js`, a tela de Eventos mostra o leilão no lugar dos lotes.
 
-Como funciona: a pessoa paga a entrada (R$ 100) por Pix e dá o lance que quiser. Ficam os maiores lances (até `vagasTotal`) e todos pagam o mesmo valor, o do último que entrou. Quem fica paga só a diferença (preço final menos a entrada); quem não fica recebe a entrada de volta. Quem fica e desiste perde a entrada, e a vaga passa para o próximo da fila, que paga o próprio lance. O lance automático sobe sozinho, só o necessário, até o teto que a pessoa definir.
+Como funciona: a pessoa dá o lance que quiser e paga por Pix a entrada (R$ 100) mais um sinal (`sinal`, 50% do lance; do teto, se usar o lance automático). Um lance de R$ 2.000 paga R$ 1.100 na hora. Ficam os maiores lances (até `vagasTotal`) e todos pagam o mesmo valor, o do último que entrou. Quem fica acerta a diferença (paga o que falta ou recebe o que sobrou); quem não fica recebe tudo de volta. Quem fica e desiste perde a entrada (o sinal volta), e a vaga passa para o próximo da fila, que paga o próprio lance. Aumentar o lance pede outro Pix, do sinal sobre a diferença; o lance novo só vale depois de pago. O lance automático sobe sozinho, só o necessário, até o teto que a pessoa definir.
 
 Para ligar:
 
@@ -81,7 +81,7 @@ create table lances (
   pix text not null,
   valor integer not null,
   teto integer,
-  pago boolean not null default false,
+  recebido integer not null default 0,
   desistiu boolean not null default false,
   em timestamptz not null default now()
 );
@@ -92,8 +92,8 @@ alter table lances enable row level security;
 
 No dia a dia:
 
-- **Confirmar um pagamento:** o Pix chega com o código da pessoa (ex. `NV1A2B3C4D`) na identificação. No Supabase, marque `pago` na linha desse código. O lance só entra na fila depois disso.
-- **Fechamento:** abra `https://nandovoyager.com/api/leilao?relatorio=SUA_SENHA`. Vem o preço final e, para cada pessoa, quanto ela paga (`pagar`) ou quanto você devolve (`devolver`), com a chave Pix dela.
+- **Confirmar um pagamento:** o Pix chega com o código da pessoa (ex. `NV1A2B3C4D`) na identificação. No Supabase, escreva em `recebido` o total em reais que essa pessoa já pagou. O lance vale até onde esse valor cobre.
+- **Fechamento:** abra `https://nandovoyager.com/api/leilao?relatorio=SUA_SENHA`. Vem o preço final e, para cada pessoa, quanto ela ainda paga (`pagar`) ou quanto você devolve (`devolver`), com a chave Pix dela, e a lista de quem ainda não pagou.
 - **Desistência:** marque `desistiu` na linha da pessoa; o relatório passa a vaga para o próximo.
 
 Para ver a tela no computador sem banco: `LEILAO_DEV=1 LEILAO_ADMIN=teste npm start` (os lances ficam só na memória). Testes: `npm test`.
