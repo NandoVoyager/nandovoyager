@@ -58,7 +58,7 @@ function view(bids, auction, now, token) {
   const board = rank(bids, auction), mine = token && bids.find((bid) => bid.token === token);
   const place = mine && board.lances.find((line) => line.id === mine.id);
   return {
-    aberto: !closed(auction, now), encerraEm: auction.encerraEm, vagas: rules(auction).vagas, entrada: auction.entrada, sinal: share(auction), passo: auction.passo,
+    aberto: !closed(auction, now), encerraEm: auction.encerraEm, vagas: rules(auction).vagas, entrada: auction.entrada, sinal: share(auction), automatico: !!auction.automatico, passo: auction.passo,
     participantes: board.lances.length, preco: board.preco, paraEntrar: board.paraEntrar,
     fila: board.lances.map((line) => ({ posicao: line.posicao, lance: line.lance, dentro: line.dentro, voce: line.id === mine?.id })),
     voce: mine ? { nome: mine.nome, codigo: mine.codigo, valor: mine.valor, teto: mine.teto, recebido: mine.recebido || 0, falta: owed(auction, mine), pix: owed(auction, mine) ? pix(auction, mine) : null, posicao: place?.posicao ?? null, dentro: place?.dentro ?? false, lance: place?.lance ?? null } : null
@@ -128,6 +128,7 @@ export async function auctionRequest({ method, query = {}, data = {}, store, env
   }
 
   if (closed(auction, now)) return [409, { error: "O leilão já encerrou." }];
+  if (!auction.automatico) data.teto = null;
   const valor = whole(data.valor), teto = data.teto == null || data.teto === "" ? null : whole(data.teto);
   if (!valor || valor < auction.entrada) return [400, { error: `O lance mínimo é de R$ ${auction.entrada}.` }];
   if (data.teto != null && data.teto !== "" && (!teto || teto < valor)) return [400, { error: "O teto do lance automático precisa ser maior que o lance." }];

@@ -64,7 +64,9 @@ Estado: fase 1 (estrutura e conteúdo estático). Mapa, contagem de votos, formu
 
 Com `santos.leilao.ativo: true` em `eventos/config.js`, a tela de Eventos mostra o leilão no lugar dos lotes.
 
-Como funciona: a pessoa dá o lance que quiser e paga por Pix a entrada (R$ 100) mais um sinal (`sinal`, 30% do lance; do teto, se usar o lance automático). Um lance de R$ 2.000 paga R$ 700 na hora. Ficam os maiores lances (até `vagasTotal`) e todos pagam o mesmo valor, o do último que entrou. Quem fica acerta a diferença (paga o que falta ou recebe o que sobrou); quem não fica recebe tudo de volta. Quem fica e desiste perde a entrada (o sinal volta), e a vaga passa para o próximo da fila, que paga o próprio lance. Aumentar o lance pede outro Pix, do sinal sobre a diferença; o lance novo só vale depois de pago. O lance automático sobe sozinho, só o necessário, até o teto que a pessoa definir.
+Como funciona: a pessoa paga a entrada (R$ 300) por Pix e dá o lance máximo que quiser; pode aumentar depois, sem pagar de novo. Ficam os maiores lances (até `vagasTotal`) e todos pagam o mesmo valor, o do último que entrou, então ninguém paga mais que o preço final mesmo com um lance maior. Quem fica paga só a diferença (preço final menos a entrada); quem não fica recebe a entrada de volta. Quem fica e desiste perde a entrada, e a vaga passa para o próximo da fila, que paga o próprio lance.
+
+Opcionais na config: `sinal` (ex. 0.3 cobra adiantado também 30% do lance; aumentar o lance passa a pedir outro Pix) e `automatico` (mostra o lance automático com teto). O lance automático sobe sozinho, só o necessário, até o teto que a pessoa definir.
 
 Para ligar:
 

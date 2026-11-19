@@ -4,7 +4,7 @@ import { auctionRequest, memoryStore } from "../api/leilao.mjs";
 import talks from "../eventos/config.js";
 
 talks.santos.vagasTotal = 2;
-const auction = { ativo: true, entrada: 100, sinal: 0.5, passo: 10, encerraEm: "2030-01-02T00:00:00-03:00", pix: { chave: "12345678000199", nome: "Empresa Ltda", cidade: "Santos" } };
+const auction = { ativo: true, entrada: 100, sinal: 0.5, automatico: true, passo: 10, encerraEm: "2030-01-02T00:00:00-03:00", pix: { chave: "12345678000199", nome: "Empresa Ltda", cidade: "Santos" } };
 const env = { LEILAO_ADMIN: "segredo" };
 const setup = () => {
   const store = memoryStore();

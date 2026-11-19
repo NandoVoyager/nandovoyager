@@ -36,6 +36,7 @@ const CSS = `
 .bid-qr{display:block;width:196px;height:196px;margin:4px auto 14px;padding:10px;border-radius:14px;background:#fff}
 .bid-qr svg{display:block;width:100%;height:100%}
 .bid .talk-note{margin:0!important;font-size:13.5px;color:var(--mid)}
+.bid-tip{margin:8px 0 0!important;font-size:13px;color:var(--mid)}
 .bid-now{margin:14px 0 0!important;font-size:14px;color:var(--ink)!important}
 .bid-code{display:block;margin:0 0 12px;padding:10px 12px;border-radius:10px;background:rgba(244,241,234,.06);font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid);overflow-wrap:anywhere;user-select:all}
 `;
@@ -65,12 +66,13 @@ export function mount(el, t, onEnd) {
   const fields = (s, mine) => `
     <label for="bid-valor">${esc(t.campoLance)}</label>
     <input id="bid-valor" name="valor" type="number" inputmode="numeric" min="${mine ? mine.valor : s.entrada}" step="1" value="${draft?.valor ?? (mine ? Math.max(mine.valor, s.paraEntrar) : s.paraEntrar)}" />
-    <label class="agree"><input type="checkbox" name="auto" ${draft?.auto ?? mine?.teto > mine?.valor ? 'checked' : ''} /><span><b>${esc(t.automatico)}</b><small>${esc(t.automaticoDica)}</small></span></label>
+    <p class="bid-tip">${fill(t.lanceDica, s)}</p>
+    ${s.automatico ? `<label class="agree"><input type="checkbox" name="auto" ${draft?.auto ?? mine?.teto > mine?.valor ? 'checked' : ''} /><span><b>${esc(t.automatico)}</b><small>${esc(t.automaticoDica)}</small></span></label>
     <div data-teto ${draft?.auto ?? mine?.teto > mine?.valor ? '' : 'hidden'}>
       <label for="bid-teto">${esc(t.campoTeto)}</label>
       <input id="bid-teto" name="teto" type="number" inputmode="numeric" step="1" value="${draft?.teto ?? mine?.teto ?? ''}" />
-    </div>
-    <p class="bid-now" data-now>${fill(t.pixAgora, s)}</p>`;
+    </div>` : ''}
+    ${upfront(s) > 0 ? `<p class="bid-now" data-now>${fill(t.pixAgora, s)}</p>` : '<p data-now hidden></p>'}`;
 
   function render() {
     const s = state;
@@ -114,7 +116,7 @@ export function mount(el, t, onEnd) {
 
   const read = form => { const d = new FormData(form), n = k => d.get(k) === '' || d.get(k) == null ? null : Number(d.get(k));
     return {nome:d.get('nome'), email:d.get('email'), pix:d.get('pix'), website:d.get('website'), valor:n('valor'), auto:d.get('auto') === 'on', teto:n('teto')}; };
-  el.addEventListener('input', e => { const form = e.target.closest('form'); if (!form) return; draft = read(form); form.querySelector('[data-teto]').hidden = !draft.auto; form.querySelector('[data-now]').innerHTML = fill(t.pixAgora, state); });
+  el.addEventListener('input', e => { const form = e.target.closest('form'); if (!form) return; draft = read(form); const cap = form.querySelector('[data-teto]'), due = form.querySelector('[data-now]'); if (cap) cap.hidden = !draft.auto; due.hidden = !(upfront(state) > 0); due.innerHTML = fill(t.pixAgora, state); });
   el.addEventListener('click', async e => {
     if (!e.target.closest('[data-copy]')) return;
     try { await navigator.clipboard.writeText(state.voce.pix); e.target.closest('[data-copy]').textContent = t.copiado; } catch { getSelection().selectAllChildren(el.querySelector('.bid-code')); }
