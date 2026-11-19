@@ -26,7 +26,7 @@ export default {
     leilao: {
       ativo: false,
       entrada: 100, // em reais; também é o lance mínimo
-      sinal: 0.5, // além da entrada, a pessoa paga adiantado esta parte do lance (0.5 = 50%); 0 = só a entrada
+      sinal: 0.3, // além da entrada, a pessoa paga adiantado esta parte do lance (0.3 = 30%); 0 = só a entrada
       passo: 10, // quanto um lance precisa passar o outro
       encerraEm: null, // data e hora com fuso, ex. "2026-11-25T23:59:00-03:00"
       pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade
