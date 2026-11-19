@@ -9,11 +9,11 @@ const save = token => { try { localStorage.setItem(KEY, token); } catch {} };
 const CSS = `
 .bid{margin:6px 0 18px}
 .bid-rule{color:var(--mid);font-size:14.5px}
-.bid-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:14px 0}
+.bid-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 12px}
 .bid-stats span{padding:12px 12px 10px;border:1px solid rgba(244,241,234,.16);border-radius:14px;background:rgba(244,241,234,.03)}
 .bid-stats small{display:block;font-size:12px;color:var(--mid)}
 .bid-stats b{display:block;margin-top:4px;font-size:clamp(18px,5vw,24px);font-weight:500;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
-.bid-list{max-height:340px;margin:0 0 16px!important;padding:0!important;border:1px solid rgba(244,241,234,.16);border-radius:14px;list-style:none;overflow:auto}
+.bid-list{max-height:324px;margin:0 0 12px!important;padding:0!important;border:1px solid rgba(244,241,234,.16);border-radius:14px;list-style:none;overflow:auto}
 .bid-list li{display:flex;align-items:center;gap:10px;margin:0;padding:8px 16px 8px 12px;font-size:14.5px;font-variant-numeric:tabular-nums}
 .bid-list li + li{border-top:1px solid rgba(244,241,234,.08)}
 .bid-list i{flex:none;width:28px;font:400 12px 'IBM Plex Mono',monospace;font-style:normal;color:var(--mid)}
@@ -50,7 +50,9 @@ const CSS = `
 .bid-msg{flex:1;min-width:160px;margin:0!important;font-size:13px;color:#ffb4a8}
 .bid-qr{display:block;width:196px;height:196px;margin:4px auto 14px;padding:10px;border-radius:14px;background:#fff}
 .bid-qr svg{display:block;width:100%;height:100%}
-.bid .talk-note{margin:0!important;font-size:13.5px;color:var(--mid)}
+.bid .letter-h{margin-top:4px!important}
+.bid-how{border-top:1px solid rgba(244,241,234,.1)}
+.bid-how p{font-size:14px;color:var(--mid)}
 .bid-tip{margin:8px 0 0!important;font-size:13px;color:var(--mid)}
 .bid-now{margin:14px 0 0!important;font-size:14px;color:var(--ink)!important}
 .bid-code{display:block;margin:0 0 12px;padding:10px 12px;border-radius:10px;background:rgba(244,241,234,.06);font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid);overflow-wrap:anywhere;user-select:all}
@@ -133,11 +135,10 @@ export function mount(el, t, onEnd) {
     const focused = document.activeElement?.name, form = el.querySelector('form');
     el.innerHTML = `<div class="bid">
       <p class="letter-h">${esc(t.rotulo)}</p>
-      <p class="bid-rule">${fill(t.regra, s)}</p>
       <div class="bid-stats"><span><small>${esc(t.precoAgora)}</small><b>${brl(s.preco)}</b></span><span><small>${esc(t.paraEntrar)}</small><b>${brl(s.paraEntrar)}</b></span><span><small>${esc(t.lances)}</small><b>${s.participantes}</b></span></div>
       ${rows ? `<ul class="bid-list">${rows}</ul>` : ''}
       ${card}
-      <p class="talk-note">${fill(t.desistencia, s)}</p></div>`;
+      <details class="bid-how"${el.querySelector('.bid-how')?.open ? ' open' : ''}><summary>${esc(t.comoFunciona)}</summary><p>${fill(t.regra, s)}</p><p>${fill(t.desistencia, s)}</p></details></div>`;
     if (form && focused) el.querySelector(`[name="${focused}"]`)?.focus();
     const qr = el.querySelector('[data-qr]');
     if (qr) qrSvg(mine.pix).then(svg => { qr.innerHTML = svg; }).catch(() => { qr.hidden = true; });

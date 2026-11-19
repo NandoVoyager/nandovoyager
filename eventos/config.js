@@ -9,14 +9,15 @@
 export default {
   modo: "votacao", // "votacao" | "venda" | "encerrado"
 
-  // Workshop de 1 dia em Santos, confirmado.
+  // Imersão de 1 dia em Alphaville, São Paulo. (A chave continua "santos" por causa do código.)
   santos: {
     status: "interesse", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
     data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14")
+    cidade: "Alphaville, São Paulo", // aparece ao lado da data
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
     local: null,
-    vagasMinimo: 20,      // com menos que isso o evento não acontece e o dinheiro é devolvido; null = não mostra mínimo
+    vagasMinimo: null,   // mínimo de pessoas para acontecer (aparece só na versão com votação de cidades); null = não mostra
     vagasTotal: 50,       // máximo de pessoas; null = mostra só "vagas limitadas"
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
     // Leilão de vagas: a pessoa paga a entrada por Pix e dá o lance máximo que quiser (pode aumentar depois, sem pagar
@@ -64,10 +65,10 @@ export default {
 
   // Só aparece quem tem confirmado: true.
   palestrantes: [
-    { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: true }, // dá aula no workshop de Santos
+    { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],
   deepchina: { mostrar: false, textoOferta: null }, // textoOferta null = usa o texto padrão do arquivo de conteúdo
-  parceiro: { nome: "China Link", logo: "", mostrar: true }, // participa do workshop de Santos
+  parceiro: { nome: "China Link", logo: "", mostrar: false }, // com true, entra junto na mesma linha
   linkGrupoWhatsApp: "",
 
   // Fase 8 (páginas de patrocínio e de inscrição de palestrante): desligadas por enquanto.

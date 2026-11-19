@@ -14,7 +14,7 @@ export default {
     promessa: "Estou indo ao Brasil falar de importação e negócios com a China. O workshop já está confirmado. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
     // sem nenhuma palestra na config, só com o workshop:
-    soImersao: { promessa: "Meu primeiro evento presencial: um dia inteiro em Santos, falando sobre temas como inteligência artificial, geopolítica, negócios, importação da China e as minhas histórias pelo mundo." }, // rascunho; aparece logo abaixo do título do workshop
+    soImersao: { promessa: "Meu primeiro evento presencial: um dia inteiro de imersão comigo em Alphaville, São Paulo." }, // rascunho; aparece logo abaixo do título do workshop
     linkSantos: "Quero o workshop em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
@@ -30,6 +30,7 @@ export default {
   // Leilão de vagas (aparece quando santos.leilao.ativo é true na config). {vagas}, {entrada}, {preco}, {paraEntrar}, {posicao}, {lance} e {codigo} são preenchidos pela tela.
   leilao: {
     rotulo: "Leilão de vagas",
+    comoFunciona: "Como funciona",
     regra: "Entre com {entrada} por Pix e dê o seu lance. Ficam os {vagas} maiores lances e todos pagam o mesmo valor: o do último que entrou. Quem fica paga só a diferença; quem não fica recebe os {entrada} de volta.",
     desistencia: "Se você ficar entre os {vagas} e desistir, a entrada de {entrada} não é devolvida e a vaga passa para o próximo da fila.",
     precoAgora: "Preço agora", paraEntrar: "Para entrar", lances: "Lances pagos", corte: "Fora das vagas", voce: "Você",
@@ -49,10 +50,10 @@ export default {
     contagem: "Leilão encerra em",
   },
   santos: {
-    rotulo: "O workshop",
-    titulo: "Encontro presencial em Santos.",
+    rotulo: "A imersão",
+    titulo: "Imersão presencial em Alphaville.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
-    itens: ["Um dia inteiro comigo, manhã e tarde.", "Minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
+    itens: ["Um dia inteiro comigo, manhã e tarde.", "China real, minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
     aulas: "Introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
@@ -62,7 +63,7 @@ export default {
     contagemCurtaLote: "{lote} encerra em",
     contagem: "{lote} encerra em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
     vagasLimitadas: "Vagas limitadas",
-    mensagem: "Oi, Nando! Vim pelo seu site e quero participar do workshop em Santos. Pode me avisar quando abrir?", // a mensagem pronta que o botão leva ao WhatsApp
+    mensagem: "Oi, Nando! Vim pelo seu site e quero participar da imersão em Alphaville. Pode me avisar quando abrir?", // a mensagem pronta que o botão leva ao WhatsApp
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
   },
 
