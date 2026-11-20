@@ -59,3 +59,47 @@ Os eventos presenciais no Brasil abrem num popup da home, no mesmo visual da car
 Contagem regressiva: preencha `viraEm` no lote ativo de Santos (data e hora com fuso, ex. `"2026-12-01T23:59:00-03:00"`) e o popup mostra "Lote 1 encerra em" com dias, horas, minutos e segundos. Um lote também pode começar tantos dias antes do evento (`comecaDiasAntesDoEvento`, calculado a partir de `santos.data`, à meia-noite de Brasília): o lote anterior termina nesse momento e mostra "até" o dia anterior; ele mostra "após" esse mesmo dia. Depois da data, a contagem some; trocar o lote ativo continua manual.
 
 Estado: fase 1 (estrutura e conteúdo estático). Mapa, contagem de votos, formulários e venda entram nas fases seguintes; os botões "Votar" e "Quero ser avisado" ainda não abrem formulário.
+
+## Leilão de vagas
+
+Com `santos.leilao.ativo: true` em `eventos/config.js`, a tela de Eventos mostra o leilão no lugar dos lotes.
+
+Como funciona: a pessoa paga a entrada (R$ 300) por Pix e dá o lance máximo que quiser, a partir do lance inicial (`lanceMinimo`, R$ 500); pode aumentar depois, sem pagar de novo. Ficam os maiores lances (até `vagasTotal`) e todos pagam o mesmo valor, o do último que entrou, então ninguém paga mais que o preço final mesmo com um lance maior. Quem fica paga só a diferença (preço final menos a entrada); quem não fica recebe a entrada de volta. Quem fica e desiste perde a entrada, e a vaga passa para o próximo da fila, que paga o próprio lance.
+
+Opcionais na config: `sinal` (ex. 0.3 cobra adiantado também 30% do lance; aumentar o lance passa a pedir outro Pix) e `automatico` (mostra o lance automático com teto). O lance automático sobe sozinho, só o necessário, até o teto que a pessoa definir.
+
+Para ligar:
+
+1. Preencha `santos.leilao.pix` (chave, nome do recebedor e cidade) e `encerraEm` na config.
+2. Crie um projeto no Supabase e rode este SQL:
+
+```sql
+create table lances (
+  id uuid primary key,
+  token text not null unique,
+  codigo text not null unique,
+  nome text not null,
+  anonimo boolean not null default false,
+  instagram text,
+  foto text,
+  email text not null unique,
+  pix text not null,
+  valor integer not null,
+  teto integer,
+  recebido integer not null default 0,
+  desistiu boolean not null default false,
+  em timestamptz not null default now()
+);
+alter table lances enable row level security;
+```
+
+3. Na Vercel, crie as variáveis `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` (a chave service_role; nunca no site) e `LEILAO_ADMIN` (uma senha sua).
+
+No dia a dia:
+
+- **Perfil público:** cada lance aparece na lista com o nome, a foto e o Instagram que a pessoa informou, ou como "Anônimo" se ela preferir (e-mail e chave Pix nunca aparecem). Como o lance só entra depois que você confirma o pagamento, dá para conferir nome e foto antes; para tirar uma foto, apague o campo `foto` da linha.
+- **Confirmar um pagamento:** o Pix chega com o código da pessoa (ex. `NV1A2B3C4D`) na identificação. No Supabase, escreva em `recebido` o total em reais que essa pessoa já pagou. O lance vale até onde esse valor cobre.
+- **Fechamento:** abra `https://nandovoyager.com/api/leilao?relatorio=SUA_SENHA`. Vem o preço final e, para cada pessoa, quanto ela ainda paga (`pagar`) ou quanto você devolve (`devolver`), com a chave Pix dela, e a lista de quem ainda não pagou.
+- **Desistência:** marque `desistiu` na linha da pessoa; o relatório passa a vaga para o próximo.
+
+Para ver a tela no computador sem banco: `LEILAO_DEV=1 LEILAO_ADMIN=teste npm start` (os lances ficam só na memória). Testes: `npm test`.

@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { resolve, extname } from "node:path";
 import { subscribe } from "./api/subscribe.mjs";
 import { lead } from "./api/lead.mjs";
+import { leilao } from "./api/leilao.mjs";
 
 const root = resolve(".");
 const mime = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp", ".ico": "image/x-icon", ".mp4": "video/mp4", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml; charset=utf-8" };
@@ -10,6 +11,7 @@ const server = createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   if (url.pathname === "/api/subscribe" && req.method === "POST") return subscribe(req, res);
   if (url.pathname === "/api/lead" && req.method === "POST") return lead(req, res);
+  if (url.pathname === "/api/leilao") return leilao(req, res);
   let pathname = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
   if (!extname(pathname)) pathname = pathname.replace(/\/?$/, "/index.html"); // /pasta → pasta/index.html, as on Vercel
   const file = resolve(root, `.${pathname}`);

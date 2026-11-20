@@ -14,7 +14,7 @@ export default {
     promessa: "Estou indo ao Brasil falar de importação e negócios com a China. O workshop já está confirmado. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
     // sem nenhuma palestra na config, só com o workshop:
-    soImersao: { promessa: "Meu primeiro evento presencial: um dia inteiro em Santos, falando sobre temas como inteligência artificial, geopolítica, negócios, importação da China e as minhas histórias pelo mundo." }, // rascunho; aparece logo abaixo do título do workshop
+    soImersao: { promessa: "Meu primeiro evento presencial: um dia inteiro de imersão comigo em Alphaville, São Paulo." }, // rascunho; aparece logo abaixo do título do workshop
     linkSantos: "Quero o workshop em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
@@ -27,11 +27,33 @@ export default {
     votar: "Quero ir",
   },
 
+  // Leilão de vagas (aparece quando santos.leilao.ativo é true na config). {vagas}, {entrada}, {preco}, {paraEntrar}, {posicao}, {lance} e {codigo} são preenchidos pela tela.
+  leilao: {
+    rotulo: "Leilão de vagas",
+    comoFunciona: "Como funciona",
+    regra: "Entre com {entrada} por Pix e dê o seu lance, a partir de {minimo}. Ficam os {vagas} maiores lances e todos pagam o mesmo valor: o do último que entrou. Quem fica paga só a diferença; quem não fica recebe os {entrada} de volta.",
+    desistencia: "Se você ficar entre os {vagas} e desistir, a entrada de {entrada} não é devolvida e a vaga passa para o próximo da fila.",
+    precoAgora: "Preço agora", paraEntrar: "Para entrar", lances: "Lances pagos", corte: "Fora das vagas", voce: "Você",
+    campoFoto: "Sua foto", campoFotoDica: "Toque para escolher. Aparece ao lado do seu lance.", fotoErro: "Não deu para usar essa foto. Tente outra.",
+    anonimo: "Anônimo", anonimoOpcao: "Entrar como anônimo", anonimoDica: "Seu lance aparece sem nome, foto nem Instagram.", campoNomeAnonimo: "Seu nome (só eu vejo)", publicoAnonimo: "Na lista você aparece como Anônimo. Nome, e-mail e chave Pix ficam só comigo.",
+    campoNome: "Seu nome (aparece na lista)", campoInstagram: "Seu Instagram (opcional)",
+    publico: "Seu nome, sua foto e seu Instagram aparecem na lista para todos. E-mail e chave Pix ficam só comigo.",
+    campoLance: "Seu lance máximo (R$)", lanceDica: "Você nunca paga mais que o preço final, mesmo com um lance maior. Dá para aumentar depois, sem pagar de novo.", campoPix: "Sua chave Pix (para a devolução)",
+    automatico: "Lance automático", automaticoDica: "Sobe sozinho, só o necessário, para você não sair das vagas.", campoTeto: "Até quanto pode subir (R$)",
+    entrarTitulo: "Entrar no leilão", entrarTexto: "Os lances começam em {minimo}. Agora você paga só os {entrada} da entrada; o resto, só se ficar com a vaga.", pixAgora: "Pix agora: {agora}", entrarBotao: "Entrar no leilão",
+    pagarTitulo: "Pague {falta} por Pix", pagarTexto: "Leia o QR code no app do seu banco ou copie o código. Seu lance vale assim que o pagamento for confirmado.",
+    aguardando: "Aguardando o seu Pix", aguardandoTexto: "Seu lance entra na fila quando o pagamento for confirmado. Você ainda pode mudar o valor.", pagarCodigo: "Seu código: {codigo}", copiar: "Copiar código Pix", copiado: "Copiado",
+    dentroTitulo: "Você está em #{posicao}", dentro: "Dentro", dentroTexto: "Seu lance agora é de {lance}. Se o leilão fechasse agora, você pagaria {preco}.",
+    foraTitulo: "Você está em #{posicao}", fora: "Fora", foraTexto: "Você foi ultrapassado. Para voltar, o lance precisa ser de pelo menos {paraEntrar}.",
+    lanceBotao: "Atualizar lance",
+    encerrado: "Leilão encerrado", fimGeral: "O preço final ficou em {preco}.", fimDentro: "Você ficou com a vaga. O preço final é {preco}; eu entro em contato para acertar a diferença.", fimFora: "Você não ficou entre os {vagas}. Sua entrada de {entrada} será devolvida na chave Pix que você informou.",
+    contagem: "Leilão encerra em",
+  },
   santos: {
-    rotulo: "O workshop",
-    titulo: "Encontro presencial em Santos.",
+    rotulo: "A imersão",
+    titulo: "Imersão presencial em Alphaville.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
-    itens: ["Um dia inteiro comigo, manhã e tarde.", "Minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
+    itens: ["Um dia inteiro comigo, manhã e tarde.", "China real, minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
     aulas: "Introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
@@ -41,7 +63,7 @@ export default {
     contagemCurtaLote: "{lote} encerra em",
     contagem: "{lote} encerra em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
     vagasLimitadas: "Vagas limitadas",
-    mensagem: "Oi, Nando! Vim pelo seu site e quero participar do workshop em Santos. Pode me avisar quando abrir?", // a mensagem pronta que o botão leva ao WhatsApp
+    mensagem: "Oi, Nando! Vim pelo seu site e quero garantir a minha vaga na imersão em Alphaville{lote}.", // {lote} vira o lote à venda e o preço, ex. " (Lote 1, R$ 2.000)" // a mensagem pronta que o botão leva ao WhatsApp
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
   },
 
