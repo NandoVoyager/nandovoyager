@@ -11,7 +11,7 @@ export default {
 
   // Imersão de 1 dia em Alphaville, São Paulo. (A chave continua "santos" por causa do código.)
   santos: {
-    status: "interesse", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
+    status: "aberta", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
     data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14")
     cidade: "Alphaville, São Paulo", // aparece ao lado da data
     horarioManha: null,  // ex.: "9h às 12h30"
@@ -34,9 +34,9 @@ export default {
       encerraEm: null, // data e hora com fuso, ex. "2026-11-25T23:59:00-03:00"
       pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade
     },
-    lotes: [ // preço por pessoa; com preco: null o lote não aparece (hoje a venda é pelo leilão)
-      { nome: "Lote 1", preco: null, linkCheckout: "", ativo: true, viraEm: null }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00"; com ela, o popup mostra a contagem regressiva
-      { nome: "Lote 2", preco: null, linkCheckout: "", ativo: false, comecaDiasAntesDoEvento: 3 }, // começa 3 dias antes do evento (calculado a partir de santos.data); o lote anterior termina nesse momento
+    lotes: [ // preço por pessoa; com preco: null o lote não aparece
+      { nome: "Lote 1", preco: 2000, linkCheckout: "", ativo: true, viraEm: null }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00"; com ela, o popup mostra a contagem regressiva
+      { nome: "Lote 2", preco: 2500, linkCheckout: "", ativo: false, comecaDiasAntesDoEvento: 3 }, // começa 3 dias antes do evento (calculado a partir de santos.data); o lote anterior termina nesse momento
     ],
     lat: -23.9608, lng: -46.3336,
   },

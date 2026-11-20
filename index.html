@@ -1341,10 +1341,10 @@ ${hasTalk ? santosBlock : ''}
   if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') { start = -Infinity; openTalks(); }
   if (auction) import('/eventos/leilao-tela.js').then(m => m.mount($('leilao'), t.leilao)).catch(() => {});
   // the workshop button goes straight to WhatsApp, the message already written (once site-config.js has the number)
-  const waNumber = String(config.whatsapp || '').replace(/\D/g, '');
+  const waNumber = String(config.whatsapp || '').replace(/\D/g, ''), onSale = lots.find(l => l.ativo);
   dialog.querySelectorAll('[data-santos]').forEach(b => {
     if (!waNumber) { b.closest('p').hidden = true; return; }
-    b.addEventListener('click', () => { const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem)}`, '_blank'); if (tab) tab.opener = null; });
+    b.addEventListener('click', () => { const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null; });
   });
   // fase 3: os botões [data-votar] abrem o formulário de voto
 }
