@@ -6,7 +6,7 @@ const allowedOrigins = (process.env.SITE_ORIGIN || "").split(",").map((o) => o.t
 export const options = {
   // Services: short names for the DeepChina AI services, plus mentoring and "Outro". Every service starts with a paid
   // one-hour import consultation (R$ 1.000, credited if they hire), which the visitor has to agree to.
-  needs: ["Consultoria de importação", "Achar fábrica", "Auditoria de fábrica", "Frete", "Mentoria", "Outro"],
+  needs: ["Consultoria de importação", "Achar fábrica", "Auditoria de fábrica", "Mentoria", "Outro"],
   budget: ["Até R$ 10 mil", "R$ 10 a 50 mil", "R$ 50 a 200 mil", "Mais de R$ 200 mil"],
   // Canton Fair trip: which phase; it ends with a free call, so no prices.
   phases: ["Fase 1", "Fase 2", "Fase 3", "Ainda não sei"]
