@@ -350,6 +350,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .city-list b small{margin-left:7px;font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid)}
 .lot-price{flex:none;padding-right:8px;text-align:right;font-size:16px;font-weight:500;color:var(--ink)}
 .lot-price small{font-size:12.5px;font-weight:400;color:var(--mid)}
+.city-list li.lot-over{opacity:.45}
 .lot-price s{margin-right:2px;font-size:13.5px;font-weight:400;color:var(--mid)}
 @media (max-width:430px){.lot-price s{display:block;margin:0 0 1px;font-size:12.5px}.city-list b small{display:block;margin:3px 0 0}}
 .lot-off{margin-left:8px;padding:3px 8px;border-radius:99px;background:rgba(52,199,123,.14);font:600 12px 'Inter Tight',system-ui,sans-serif;color:#34c77b;vertical-align:1px}
@@ -1207,10 +1208,12 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const voting = hasTalk && talks.modo === 'votacao' && (!deadline || deadline > new Date());
   const talkLots = (talks.lotesReferencia || []).filter(l => l.preco != null);
   // A lot cheaper than the last one reads as a discount: the full price struck through and how much comes off.
-  const lotList = lots => {
+  // A lot whose date has passed stays on the list, faded and marked as ended.
+  const lotList = (lots, now = Date.now()) => {
     const full = Math.max(...lots.map(l => l.preco));
-    return lots.length ? `<ul class="city-list">${lots.map(l => `<li><b>${esc(l.nome)}${l.preco < full ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
-      <span class="lot-price">${l.preco < full ? `<s>${brl(full)}</s> ` : ''}${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`).join('')}</ul>` : '';
+    return lots.length ? `<ul class="city-list">${lots.map(l => { const over = !!l.viraEm && now >= Date.parse(l.viraEm), off = !over && l.preco < full;
+      return `<li${over ? ' class="lot-over"' : ''}><b>${esc(l.nome)}${off ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${over ? `<small>${esc(t.santos.loteEncerrado)}</small>` : l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
+      <span class="lot-price">${off ? `<s>${brl(full)}</s> ` : ''}${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`; }).join('')}</ul>` : '';
   };
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
   const facts = [santos.data && ['Data', day(santos.data)], santos.horarioManha && ['Manhã', santos.horarioManha], santos.horarioTarde && ['Tarde', santos.horarioTarde], santos.local && ['Local', santos.local]].filter(Boolean);
@@ -1219,7 +1222,14 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     ? `${new Date(Date.parse(`${santos.data}T12:00:00-03:00`) - l.comecaDiasAntesDoEvento * 864e5).toLocaleDateString('en-CA', {timeZone:'America/Sao_Paulo'})}T00:00:00-03:00` : null);
   const lots = santos.lotes.filter(l => l.preco != null).map(l => ({...l, comecaEm:lotStart(l)})).map((l, i, all) => ({...l, viraEm:l.viraEm || all[i + 1]?.comecaEm || null}));
   // a countdown to a real date: the end of the lot on sale when it has one, otherwise the end of the last lot (when sales close)
-  const activeEnds = lots.find(l => l.ativo && l.viraEm), lastEnds = lots.filter(l => l.viraEm).at(-1);
+  // the lot on sale at a given moment: by the dates when the lots have them (so it turns by itself at midnight in
+  // Brasília), otherwise the one marked ativo in the config
+  const dated = lots.some(l => l.comecaEm || l.viraEm);
+  const sellingAt = (now = Date.now()) => (dated
+    ? lots.find(l => !(l.comecaEm && now < Date.parse(l.comecaEm)) && !(l.viraEm && now >= Date.parse(l.viraEm)))
+    : lots.find(l => l.ativo)) || null;
+  const selling = sellingAt();
+  const activeEnds = selling?.viraEm ? selling : null, lastEnds = lots.filter(l => l.viraEm).at(-1);
   // with the auction on, it takes the place of the lots: the countdown runs to its end
   const auction = santos.leilao?.ativo ? santos.leilao : null;
   const lotEnds = auction ? (auction.encerraEm ? {viraEm:auction.encerraEm} : null) : activeEnds || lastEnds;
@@ -1234,7 +1244,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
 
   const countdown = lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>
     <div><span><b data-d></b><small>d</small></span><span><b data-h></b><small>h</small></span><span><b data-m></b><small>min</small></span><span><b data-s></b><small>s</small></span></div></div>` : '';
-  const buy = auction ? '' : `${lotList(lots)}
+  const buy = auction ? '' : `<div data-lots>${lotList(lots)}</div>
       ${santosButton ? `<p><button class="talk-btn solid" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}`;
   const items = teaching ? [...t.santos.itens.slice(0, -1), teaching, t.santos.itens.at(-1)] : t.santos.itens;
   const seats = santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? t.santos.maximo.replace('{n}', santos.vagasTotal) : t.santos.vagasLimitadas;
@@ -1311,10 +1321,22 @@ ${hasTalk ? santosBlock : ''}
   // countdowns to real dates of the config (days, hours, minutes, seconds); one that has passed hides itself
   const counts = [...dialog.querySelectorAll('.cdown[data-until]')].map(el => [el, new Date(el.dataset.until).getTime()]);
   // the same countdown, small, on the shortcut of the page
-  const mini = $('talk-count'), miniEnd = lotEnds ? new Date(lotEnds.viraEm).getTime() : 0;
-  const miniLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
+  const mini = $('talk-count');
+  let miniEnd = lotEnds ? new Date(lotEnds.viraEm).getTime() : 0;
+  let miniLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
   const two = v => String(v).padStart(2, '0');
-  const count = () => { counts.forEach(([el, end]) => {
+  // the moment a lot ends, the next one is on sale: redo the list and point the countdowns at the new lot's end
+  let shown = selling?.nome;
+  const turnLot = () => {
+    const lot = sellingAt(); shown = lot?.nome;
+    dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
+    const end = lot?.viraEm ? Date.parse(lot.viraEm) : 0;
+    counts.forEach(entry => { entry[1] = end; entry[0].querySelector('p').textContent = lot ? t.santos.contagem.replace('{lote}', lot.nome) : t.santos.contagemFim; });
+    miniEnd = end; miniLabel = lot ? t.santos.contagemCurtaLote.replace('{lote}', lot.nome) : t.santos.contagemCurta;
+  };
+  const count = () => {
+    if (!auction && dated && sellingAt()?.nome !== shown) turnLot();
+    counts.forEach(([el, end]) => {
     const n = Math.floor((end - Date.now()) / 1000);
     el.hidden = !(n > 0);
     if (n > 0) { el.querySelector('[data-d]').textContent = Math.floor(n / 86400); el.querySelector('[data-h]').textContent = two(Math.floor(n / 3600) % 24); el.querySelector('[data-m]').textContent = two(Math.floor(n / 60) % 60); el.querySelector('[data-s]').textContent = two(n % 60); }
@@ -1341,10 +1363,10 @@ ${hasTalk ? santosBlock : ''}
   if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') { start = -Infinity; openTalks(); }
   if (auction) import('/eventos/leilao-tela.js').then(m => m.mount($('leilao'), t.leilao)).catch(() => {});
   // the workshop button goes straight to WhatsApp, the message already written (once site-config.js has the number)
-  const waNumber = String(config.whatsapp || '').replace(/\D/g, ''), onSale = lots.find(l => l.ativo);
+  const waNumber = String(config.whatsapp || '').replace(/\D/g, '');
   dialog.querySelectorAll('[data-santos]').forEach(b => {
     if (!waNumber) { b.closest('p').hidden = true; return; }
-    b.addEventListener('click', () => { const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null; });
+    b.addEventListener('click', () => { const onSale = sellingAt(); const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null; });
   });
   // fase 3: os botões [data-votar] abrem o formulário de voto
 }
