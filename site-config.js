@@ -5,7 +5,7 @@ window.NANDO_SITE_CONFIG = {
      Enquanto estiver vazio, os formulários enviam as respostas por e-mail. */
   whatsapp: "15615966097",
   /* Site da DeepChina. Enquanto estiver vazio, os links da DeepChina AI levam ao cadastro de e-mail da página. */
-  deepchinaUrl: "",
+  deepchinaUrl: "https://deepchina.ai",
   /*
    * web: normal link (desktop, and mobile browsers, which already hand off to the app).
    * ios: app URL scheme, tried only inside in-app browsers (Instagram, TikTok…) on iPhone.
