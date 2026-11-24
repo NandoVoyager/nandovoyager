@@ -21,12 +21,15 @@ const picked = (value, allowed) => (Array.isArray(value) ? value.map((v) => clea
 // The answers as the visitor gave them, or the first problem found (in Portuguese, shown in the pop-up).
 export function validate(data) {
   const request = {
-    form: data.form === "canton" ? "canton" : "servicos",
+    form: ["canton", "mentoria"].includes(data.form) ? data.form : "servicos",
     name: clean(data.name, 120),
     phone: clean(data.phone, 40),
     email: clean(data.email, 254)
   };
-  if (request.form === "canton") {
+  if (request.form === "mentoria") {
+    request.question = data.ask === true ? clean(data.question, 400) : "";
+    if (data.ask === true && !request.question) return { error: "Escreva a sua pergunta." };
+  } else if (request.form === "canton") {
     request.phases = picked(data.phases, options.phases);
     if (!request.phases.length) return { error: "Escolha a fase da feira." };
   } else {
@@ -45,6 +48,9 @@ export function validate(data) {
 
 export function requestText(request) {
   const contact = [`Nome: ${request.name}`, request.phone && `WhatsApp: ${request.phone}`, `E-mail: ${request.email}`].filter(Boolean);
+  if (request.form === "mentoria") {
+    return ["Quer participar da mentoria em grupo online", request.question && `Pergunta: ${request.question}`, ...contact].filter(Boolean).join("\n");
+  }
   if (request.form === "canton") {
     return [`Fase: ${request.phases.join(", ")}`, ...contact, "Quer marcar a call (gratuita)"].join("\n");
   }
@@ -58,7 +64,8 @@ export function requestText(request) {
 }
 
 const subject = (request) =>
-  request.form === "canton"
+  request.form === "mentoria" ? `Mentoria online: ${request.name}${request.question ? " (com pergunta)" : ""}`
+  : request.form === "canton"
     ? `Imersão Canton Fair: ${request.name} (${request.phases.join(", ")})`
     : `Serviços: ${request.name} (${request.budget})`;
 

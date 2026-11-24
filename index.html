@@ -237,6 +237,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lead-label{display:block;margin:20px 0 8px;font-size:13px;color:var(--mid)}
 .lead-field{width:100%;height:46px;padding:0 16px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0;transition:border-color .2s,box-shadow .2s,background .2s}
 .lead-field::placeholder{color:#5f5d59}
+.lead-area{height:auto;min-height:92px;padding:12px 16px;line-height:1.45;resize:vertical}
+.lead-total{display:flex;align-items:baseline;justify-content:space-between;margin:20px 0 0;padding-top:16px;border-top:1px solid rgba(244,241,234,.1);font-size:14px;color:var(--mid)}
+.lead-total b{font-size:26px;font-weight:500;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
 .lead-field:focus{border-color:rgba(244,241,234,.6);background:rgba(244,241,234,.06);box-shadow:0 0 0 4px rgba(244,241,234,.07)}
 .lead-field[aria-invalid=true]{border-color:#ffb4a8;box-shadow:0 0 0 4px rgba(255,180,168,.1)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
@@ -390,6 +393,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talk-btn{flex:none;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;border:1px solid rgba(244,241,234,.3);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,transform .15s}
 .talk-btn:hover{background:var(--ink);color:var(--bg)}
 .talk-btn:active{transform:scale(.96)}
+.talk-btn.solid.wa{gap:9px;border-color:#25d366;background:#25d366;color:#06200f}
+.buy-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.buy-row small{flex:1;min-width:180px;font-size:13px;line-height:1.4;color:var(--mid)}
 .talk-btn.solid{height:46px;padding:0 22px;border-color:var(--ink);background:var(--ink);color:var(--bg)}
 .talks-title2{margin:0 0 10px!important;font-size:21px;font-weight:500;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
 .talks-strong{margin:26px 0 4px!important;font-size:25px;font-weight:500;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
@@ -455,16 +461,21 @@ body:has(.home){overflow:auto}
 .bars i{position:absolute;left:0;right:0;height:1.800px;border-radius:2px;background:currentColor;transition:transform .42s cubic-bezier(.3,1.3,.5,1),top .42s cubic-bezier(.3,1.3,.5,1)}
 .bars i:first-child{top:1px}
 .bars i:last-child{top:9px}
-/* in the drawer the same button sits exactly over the one in the header and its bars cross into an X */
+/* in the drawer the same button sits exactly over the one in the header; its two bars fold into an arrow pointing the
+   way the drawer goes back (to the right), and unfold into bars again as it closes */
 .menu-close{position:absolute;top:18px;right:18px;display:grid;z-index:2;background:none}
-.menu[open] .bars i{top:5px;animation:bar-a .46s cubic-bezier(.3,1.3,.5,1) .06s both}
+.menu-close .bars i{transform-origin:100% 50%}
+.menu[open] .bars i{top:5px;animation:bar-a .5s cubic-bezier(.3,1.3,.5,1) .08s both}
 .menu[open] .bars i:last-child{animation-name:bar-b}
-@keyframes bar-a{from{top:1px;transform:none}to{top:5px;transform:rotate(45deg)}}
-@keyframes bar-b{from{top:9px;transform:none}to{top:5px;transform:rotate(-45deg)}}
-.menu.closing .bars i{animation:bar-a-out .2s ease both}
+@keyframes bar-a{from{top:1px;transform:none}to{top:5px;transform:translateX(-3px) rotate(38deg) scaleX(.6)}}
+@keyframes bar-b{from{top:9px;transform:none}to{top:5px;transform:translateX(-3px) rotate(-38deg) scaleX(.6)}}
+.menu.closing .bars i{animation:bar-a-out .22s ease both}
 .menu.closing .bars i:last-child{animation-name:bar-b-out}
-@keyframes bar-a-out{from{top:5px;transform:rotate(45deg)}to{top:1px;transform:none}}
-@keyframes bar-b-out{from{top:5px;transform:rotate(-45deg)}to{top:9px;transform:none}}
+@keyframes bar-a-out{from{top:5px;transform:translateX(-3px) rotate(38deg) scaleX(.6)}to{top:1px;transform:none}}
+@keyframes bar-b-out{from{top:5px;transform:translateX(-3px) rotate(-38deg) scaleX(.6)}to{top:9px;transform:none}}
+@media (hover:hover){.menu-close:hover .bars{transform:translateX(2px)}}
+.menu-close .bars{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.menu-close:active .bars{transform:translateX(3px)}
 /* the menu opens from the side the button is on: a panel as tall as the screen, sliding in from the right */
 .lead.menu{width:min(300px,80vw);max-width:none;height:100%;max-height:none;margin:0 0 0 auto;border-width:0 0 0 1px;border-radius:22px 0 0 22px}
 .lead.menu[open]{animation:side-in .46s cubic-bezier(.2,.9,.25,1)}
@@ -495,15 +506,24 @@ body:has(.home){overflow:auto}
 .menu-links a{display:flex;align-items:center;gap:12px;padding:15px 2px;border-bottom:1px solid rgba(244,241,234,.1);color:var(--ink);font-size:19px;font-weight:500;letter-spacing:-.01em;text-decoration:none}
 .menu-links a{transition:padding-left .25s cubic-bezier(.2,.7,.2,1),color .2s}
 .menu-links a:active{padding-left:8px}
-@media (hover:hover){.menu-links a:hover{padding-left:8px}.menu-links a:hover:after{transform:translateX(4px);opacity:1}.menu-social a{transition:background .2s,color .2s,border-color .2s,transform .2s var(--spring)}.menu-social a:hover{background:var(--ink);border-color:var(--ink);color:var(--bg);transform:translateY(-2px)}}
-.menu-social a:active{transform:scale(.9)}
-.menu-ico{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%}
+.menu-mail span{display:flex;flex-direction:column;gap:3px}
+.menu-mail small{font-size:13px;font-weight:400;letter-spacing:0;color:var(--mid)}
+@media (hover:hover){.menu-links a:hover{padding-left:8px}.menu-links a:hover:after{transform:translateX(4px);opacity:1}.menu-social a:hover .ico{background:var(--ink);border-color:var(--ink);color:var(--bg);transform:translateY(-2px)}}
+.menu-social a:active .ico{transform:scale(.9)}
+.menu-ico{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(244,241,234,.08)}
+.menu-ico svg{width:16px;height:16px}
 .menu-ico.deep{background:#16307a}
 .menu-ico.deep img{display:block;width:18px;height:18px}
-.menu-social{display:flex;gap:6px;margin-top:auto;padding-top:28px}
-.menu-social a{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(244,241,234,.2);border-radius:50%;color:var(--ink)}
+.menu-social{display:flex;gap:6px;margin-top:auto;padding-top:56px}
+.menu-social a{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);text-decoration:none}
+.menu-social .ico{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(244,241,234,.2);border-radius:50%;transition:background .2s,color .2s,border-color .2s,transform .2s var(--spring)}
+.menu-social .count{font:400 11px 'IBM Plex Mono',monospace;color:var(--mid)}
+.menu-social .new-video{top:auto;bottom:100%;flex-direction:column;margin:0 0 2px}
+.menu-social .new-video svg{width:18px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.menu[open] .new-video{opacity:1;transition-delay:.6s;animation:nudge 2.6s ease-in-out 1.4s infinite}
+.menu[open] .new-video path{stroke-dashoffset:0;transition-delay:.7s}
 .menu-social a[hidden]{display:none}
-.menu-social svg{width:17px;height:17px}
+.menu-social .ico svg{width:17px;height:17px}
 .menu-social [data-social=youtube] svg{color:#ff0033}
 .home .socials .ico{width:40px;height:40px;border-color:rgba(244,241,234,.2)}
 .offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:34px 0 0;padding:0;list-style:none;counter-reset:o}
@@ -531,10 +551,12 @@ body:has(.home){overflow:auto}
 @keyframes blink{50%{opacity:.25}}
 .offer-count b{font:500 13px 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
 .offer-foot .offer-btn{margin-top:16px}
-.offer-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;margin-top:auto;padding:0 20px;border:1px solid rgba(244,241,234,.4);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.offer-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;margin-top:auto;padding:0 20px;border:1px solid rgba(244,241,234,.4);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s,box-shadow .25s,transform .15s}
 .offer > .join{margin-top:auto;padding-top:20px}
 .offer-btn.solid{border-color:var(--ink);background:var(--ink);color:var(--bg)}
-@media (hover:hover){.offer-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}.offer-btn span{transition:transform .2s}.offer-btn:hover span{transform:translateX(3px)}}
+.offer-btn span{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.offer-btn:active{transform:scale(.97)}
+@media (hover:hover){.offer-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}.offer-btn.solid:hover{background:#fff;box-shadow:0 6px 24px rgba(244,241,234,.16)}.offer-btn:hover span{transform:translateX(4px)}}
 .offer .join{width:100%;text-align:left}
 .offer .join-row,.offer .join-done{border-radius:99px}
 .offer .join input{padding:0 12px;font-size:14.5px}
@@ -613,7 +635,7 @@ body:has(.home){overflow:auto}
     <a class="logo" href="/" id="home" aria-label="Nando Voyager, voltar ao início"><img src="/img/avatar-160.webp" width="36" height="36" alt="" /><span class="logo-text"><b>Nando Voyager</b><small>@nandovoyager</small></span></a>
     <nav class="acts" aria-label="Atalhos">
       <button class="menu-btn" id="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Abrir menu"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
-      <a class="contact" id="contact" href="mailto:contato@nandovoyager.com" aria-expanded="false"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg><span class="contact-text"><span class="contact-label">Contato</span><span class="contact-mail">contato@nandovoyager.com</span></span></a></nav>
+      <a class="contact open" id="contact" href="mailto:contato@nandovoyager.com" aria-expanded="true"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg><span class="contact-text"><span class="contact-label">Contato</span><span class="contact-mail">contato@nandovoyager.com</span></span></a></nav>
   </header>
   <div class="home-in">
     <section class="hero">
@@ -652,7 +674,7 @@ body:has(.home){overflow:auto}
         <div class="offer-foot">
           <p class="offer-price"><b data-mentoria-preco></b><small>por pessoa</small></p>
           <p class="offer-extra" data-mentoria-pergunta></p>
-          <button class="offer-btn" type="button" data-mentoria>QUERO PARTICIPAR <span aria-hidden="true">→</span></button>
+          <a class="offer-btn solid" href="#lead-mentoria" data-lead="mentoria" aria-haspopup="dialog">QUERO PARTICIPAR <span aria-hidden="true">→</span></a>
         </div>
       </li>
       <li class="offer hot" id="offer-imersao">
@@ -687,19 +709,60 @@ body:has(.home){overflow:auto}
     <button class="menu-btn menu-close" type="button" data-close aria-label="Fechar menu"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
     <nav class="menu-links" aria-label="Menu">
       <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span>DeepChina AI</a>
-      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">Serviços</a>
-      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog">Imersão Canton Fair</a>
-      <a href="mailto:contato@nandovoyager.com">Contato</a>
+      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3.500" y="7.500" width="17" height="12" rx="2.500" /><path d="M9 7.500V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.500M3.500 13h17" /></svg></span>Serviços</a>
+      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="6" y="8" width="12" height="13" rx="2.500" /><path d="M10 8l2-5 2 5M9.500 13h5M9.500 16.500h3" /></svg></span>Imersão Canton Fair</a>
+      <a class="menu-mail" href="mailto:contato@nandovoyager.com"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="5" width="18" height="14" rx="2.500" /><path d="m4 7 8 6 8-6" /></svg></span><span>Contato<small>contato@nandovoyager.com</small></span></a>
     </nav>
     <nav class="menu-social" aria-label="Redes sociais">
-      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></a>
-      <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></a>
-      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></a>
-      <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></a>
-      <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></a>
-      <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></a>
+      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.2M</span></a>
+      <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+300k</span></a>
+      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+25k</span></a>
+      <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+55k</span></a>
+      <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+25k</span></a>
+      <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
     </nav>
   </div>
+</dialog>
+<dialog class="lead" id="lead-mentoria" data-form="mentoria" data-last="RESERVAR NO WHATSAPP" tabindex="-1">
+  <form class="lead-in" novalidate>
+    <div class="lead-top">
+      <span class="lead-step" data-count>1/2</span>
+      <span class="lead-bar" aria-hidden="true"><i data-bar></i></span>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+    </div>
+    <fieldset class="lead-panel" data-step="1">
+      <legend class="lead-q">Quer fazer uma <span class="hand">pergunta?</span></legend>
+      <p class="lead-hint">É opcional. Eu respondo ao vivo, no final da mentoria.</p>
+      <label class="agree"><input type="checkbox" name="ask" value="sim" /><span><b>Quero a minha pergunta respondida</b><small data-q-price></small></span></label>
+      <div data-question hidden>
+        <label class="lead-label" for="m-question">Sua pergunta</label>
+        <textarea class="lead-field lead-area" id="m-question" name="question" maxlength="400" rows="3" placeholder="Escreva em uma ou duas frases"></textarea>
+      </div>
+      <p class="lead-total"><span>Total</span><b data-total></b></p>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="2" hidden>
+      <legend class="lead-q">Para onde mando o <span class="hand">link?</span></legend>
+      <label class="lead-label" for="m-name">Nome</label>
+      <input class="lead-field" id="m-name" name="name" type="text" maxlength="120" autocomplete="name" />
+      <label class="lead-label" for="m-email">E-mail</label>
+      <input class="lead-field" id="m-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <p class="lead-label">A mensagem que você vai me enviar</p>
+      <p class="wa-msg" data-preview></p>
+      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500" /><path d="M12 7.500V12l3 2" /></svg><span><b>O pagamento é por Pix,</b> na conversa. Depois eu mando o link do Zoom no seu e-mail.</span></p>
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="lead-legal">Ao enviar, você concorda com a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
+    </fieldset>
+    <div class="lead-panel lead-done" data-step="3" hidden>
+      <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></span>
+      <p class="lead-q" data-done-q>Agora é só <span class="hand">enviar</span></p>
+      <p class="lead-hint" data-done-hint>A mensagem já está escrita no meu WhatsApp. Se ele não abriu, <a href="#" data-wa-again target="_blank" rel="noreferrer">abra por aqui</a>.</p>
+    </div>
+    <p class="lead-msg" role="status" aria-live="polite"></p>
+    <div class="lead-actions">
+      <button class="lead-back" type="button" data-back hidden>← Voltar</button>
+      <button class="lead-next" type="submit" data-next>CONTINUAR <span aria-hidden="true">→</span></button>
+    </div>
+  </form>
 </dialog>
 <dialog class="lead" id="lead-servicos" data-form="servicos" data-last="ABRIR WHATSAPP" tabindex="-1">
   <form class="lead-in" novalidate>
@@ -958,6 +1021,14 @@ const FORMS = {
     hello: 'Oi, Nando! Vim pelo seu site e quero falar sobre os seus serviços.',
     lines: a => [a.needs.length && `Preciso de: ${a.needs.join(', ')}`, a.product && `Quero importar: ${a.product}`, a.budget && `Investimento: ${a.budget}`, a.call && 'Topo a consultoria de 1 hora (R$ 1.000, creditados se eu fechar).'].filter(Boolean)
   },
+  mentoria: {
+    subject: 'Mentoria em grupo online',
+    answers: (d, get) => ({ask:get('ask') === 'sim', question:get('question')}),
+    missing: (n, a, f) => n === 1 && a.ask && !a.question ? ['Escreva a sua pergunta.', f.elements.question] : null,
+    hello: 'Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.',
+    lines: a => { const m = talks.mentoria, money = n => `R$ ${n.toLocaleString('pt-BR')}`;
+      return [`Mentoria: ${money(m.preco)}`, a.ask && a.question && `Minha pergunta (+ ${money(m.precoPergunta)}): ${a.question}`, `Total: ${money(m.preco + (a.ask && a.question ? m.precoPergunta : 0))}`].filter(Boolean); }
+  },
   canton: {
     subject: 'Imersão Canton Fair',
     answers: d => ({phases:d.getAll('phases').map(String)}),
@@ -1146,7 +1217,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const countdown = lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>
     <div><span><b data-d></b><small>d</small></span><span><b data-h></b><small>h</small></span><span><b data-m></b><small>min</small></span><span><b data-s></b><small>s</small></span></div></div>` : '';
   const buy = auction ? '' : `<div data-lots>${lotList(lots)}</div>
-      ${santosButton ? `<p><button class="talk-btn solid" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}`;
+      ${santosButton ? `<p class="buy-row"><button class="talk-btn solid wa" type="button" data-santos><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.200a8.800 8.800 0 0 0-7.500 13.400L3.300 20.700l4.200-1.100A8.800 8.800 0 1 0 12 3.200Z" /><path d="M9.300 8.300c-.300 1 .100 2.300 1.300 3.700 1.300 1.500 2.700 2.200 3.900 2.100.600-.100 1.100-.600 1.300-1.200l-1.600-.900-.800.700c-.800-.300-1.700-1.200-2.100-2.100l.600-.800-.900-1.700c-.700.100-1.400.700-1.700 1.400Z" /></svg>${esc(santosButton)}</button><small>${esc(t.santos.botaoNota)}</small></p>` : ''}`;
   const items = teaching ? [...t.santos.itens.slice(0, -1), teaching, t.santos.itens.at(-1)] : t.santos.itens;
   const seats = santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? t.santos.maximo.replace('{n}', santos.vagasTotal) : t.santos.vagasLimitadas;
   const when = santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long', timeZone:'America/Sao_Paulo'}).replace(/^./, c => c.toUpperCase()).replace('-feira', '') : '';
@@ -1273,11 +1344,11 @@ ${hasTalk ? santosBlock : ''}
     mentoriaCard.textContent = brl(m.preco);
     document.querySelector('[data-mentoria-pergunta]').innerHTML = m.precoPergunta ? t.mentoria.pergunta.replace('{preco}', `<b>+ ${brl(m.precoPergunta)}</b>`) : '';
     document.querySelector('[data-mentoria-quando]').textContent = m.data ? `${new Date(`${m.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'})}${m.horario ? ` · ${m.horario}` : ''} · Zoom` : t.mentoria.emBreve;
-    const wa = String(config.whatsapp || '').replace(/\D/g, '');
-    document.querySelectorAll('[data-mentoria]').forEach(b => {
-      if (!wa) { b.hidden = true; return; }
-      b.addEventListener('click', () => { const tab = window.open(`https://wa.me/${wa}?text=${encodeURIComponent(t.mentoria.mensagem)}`, '_blank'); if (tab) tab.opener = null; });
-    });
+    // the sheet's own numbers: the price of a question and the total as the visitor switches it on
+    const sheet = $('lead-mentoria');
+    sheet.querySelectorAll('[data-q-price]').forEach(el => { el.textContent = `+ ${brl(m.precoPergunta)}`; });
+    const total = () => { const on = sheet.querySelector('[name=ask]').checked; sheet.querySelector('[data-question]').hidden = !on; sheet.querySelector('[data-total]').textContent = brl(m.preco + (on ? m.precoPergunta : 0)); };
+    sheet.addEventListener('input', total); total();
   }
   // the screen has its own address, so the browser's back button returns to the page too
   const go = (how, url, state) => { try { history[how](state, '', url); } catch {} };
