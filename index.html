@@ -440,7 +440,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .page-back svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 @media (hover:hover){.page-back:hover{background:rgba(244,241,234,.08)}.page-back:hover svg{transform:translateX(-2px)}}
 .page .letter-in{max-width:640px;margin:0 auto;padding-top:22px;padding-bottom:calc(56px + env(safe-area-inset-bottom))}
-@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}.menu[open] .menu-links a,.menu[open] .menu-social a{animation:none}.menu[open] .bars i,.menu.closing .bars i{animation-duration:.01s}}
+@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}.menu[open] .menu-links a,.menu[open] .menu-social a{animation:none}.menu[open] .chevs path,.menu.closing .chevs path{animation:none}}
 /* ---------- the home without the opening: name, icons and three ways in, at once ---------- */
 body:has(.home){overflow:auto}
 .home{position:relative;min-height:100svh;padding:84px 20px 48px;background:radial-gradient(ellipse 70% 45% at 50% 0,rgba(244,241,234,.06),transparent 70%),var(--bg)}
@@ -461,20 +461,21 @@ body:has(.home){overflow:auto}
 .bars i{position:absolute;left:0;right:0;height:1.800px;border-radius:2px;background:currentColor;transition:transform .42s cubic-bezier(.3,1.3,.5,1),top .42s cubic-bezier(.3,1.3,.5,1)}
 .bars i:first-child{top:1px}
 .bars i:last-child{top:9px}
-/* in the drawer the same button sits exactly over the one in the header; its two bars come together into one
-   (the menu "folds"), and part again into two as it closes */
+/* in the drawer, the button that sits exactly over the one in the header shows two arrowheads pointing the way the
+   drawer goes back: the first one solid, the second one faint. They slide in as it opens and lean forward on a touch. */
 .menu-close{position:absolute;top:18px;right:18px;display:grid;z-index:2;background:none}
-.menu[open] .bars i{top:5px;animation:bar-a .5s cubic-bezier(.3,1.4,.5,1) .08s both}
-.menu[open] .bars i:last-child{animation-name:bar-b}
-@keyframes bar-a{from{top:1px}to{top:5px}}
-@keyframes bar-b{from{top:9px}to{top:5px}}
-.menu.closing .bars i{animation:bar-a-out .22s ease both}
-.menu.closing .bars i:last-child{animation-name:bar-b-out}
-@keyframes bar-a-out{from{top:5px}to{top:1px}}
-@keyframes bar-b-out{from{top:5px}to{top:9px}}
-.menu-close .bars{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
-@media (hover:hover){.menu-close:hover .bars{transform:scaleX(.7)}}
-.menu-close:active .bars{transform:scaleX(.6)}
+.chevs{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.chevs path{transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s}
+.chevs path:last-child{opacity:.32}
+.menu[open] .chevs path{animation:chev-in .5s cubic-bezier(.2,.8,.2,1) .12s both}
+.menu[open] .chevs path:last-child{animation-name:chev-in-2;animation-delay:.2s}
+@keyframes chev-in{from{opacity:0;transform:translateX(-8px)}}
+@keyframes chev-in-2{from{opacity:0;transform:translateX(-8px)}to{opacity:.32}}
+.menu.closing .chevs path{animation:chev-out .2s ease both}
+@keyframes chev-out{to{opacity:0;transform:translateX(8px)}}
+@media (hover:hover){.menu-close:hover .chevs path:first-child{transform:translateX(1.500px)}.menu-close:hover .chevs path:last-child{transform:translateX(3px);opacity:.6}}
+.menu-close:active .chevs path:first-child{transform:translateX(2px)}
+.menu-close:active .chevs path:last-child{transform:translateX(4px);opacity:.7}
 /* the menu opens from the side the button is on: a panel as tall as the screen, sliding in from the right */
 .lead.menu{width:min(320px,84vw);max-width:none;height:100%;max-height:none;margin:0 0 0 auto;border-width:0 0 0 1px;border-radius:22px 0 0 22px}
 .lead.menu[open]{animation:side-in .46s cubic-bezier(.2,.9,.25,1)}
@@ -705,7 +706,7 @@ body:has(.home){overflow:auto}
 </main>
 <dialog class="lead menu" id="menu" aria-label="Menu" tabindex="-1">
   <div class="lead-in">
-    <button class="menu-btn menu-close" type="button" data-close aria-label="Fechar menu"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
+    <button class="menu-btn menu-close" type="button" data-close aria-label="Fechar menu"><svg class="chevs" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 6.500 12 12l-5.500 5.500" /><path d="M12.500 6.500 18 12l-5.500 5.500" /></svg></button>
     <nav class="menu-links" aria-label="Menu">
       <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span>DeepChina AI</a>
       <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.500" /><path d="M8 7V5.500A1.500 1.500 0 0 1 9.500 4h5A1.500 1.500 0 0 1 16 5.500V7M3 12.500h18M12 11.300v2.400" /></svg></span>Serviços</a>
