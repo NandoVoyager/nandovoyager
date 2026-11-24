@@ -454,9 +454,9 @@ body:has(.home){overflow:auto}
 .hero-proof b{font-weight:600;color:var(--ink)}
 .hero-proof svg{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
 .hero-photo{display:block;width:100%;height:auto;max-height:250px;aspect-ratio:16/9;object-fit:cover;object-position:62% 30%;border-radius:20px;border:1px solid rgba(244,241,234,.14)}
-.home .socials{display:flex;margin:26px 0 0}
+.home .socials{display:flex;margin:40px 0 0}
 /* on a phone, contact and the social networks live behind a menu button at the top */
-.menu-btn{position:relative;display:none;place-items:center;width:40px;height:40px;border:1px solid rgba(244,241,234,.4);border-radius:50%;background:rgba(10,10,11,.4);color:var(--ink);cursor:pointer;pointer-events:auto;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .2s var(--spring),border-color .2s,background .2s}
+.menu-btn{position:relative;display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(244,241,234,.4);border-radius:50%;background:rgba(10,10,11,.4);color:var(--ink);cursor:pointer;pointer-events:auto;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .2s var(--spring),border-color .2s,background .2s}
 .menu-btn:active{transform:scale(.9)}
 @media (hover:hover){.menu-btn:hover{border-color:var(--ink)}}
 .bars{position:relative;display:block;width:18px;height:12px}
@@ -585,7 +585,6 @@ body:has(.home){overflow:auto}
   .hero-kicker{margin:0;color:rgba(244,241,234,.7)}
   .hero-line{margin-top:8px;font-size:22px}
   .hero-proof{margin-top:14px;font-size:13px}
-  .menu-btn{display:grid}
   .home .acts .contact{display:none}
   #offer-gratis{padding:16px 16px 14px}
   #offer-gratis .offer-tag{margin-bottom:8px}
@@ -696,11 +695,6 @@ body:has(.home){overflow:auto}
         </div>
       </li>
     </ol>
-    <nav class="more" aria-label="Mais">
-      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">Serviços</a>
-      <a href="#join" data-deepchina>DeepChina AI</a>
-      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog">Imersão Canton Fair</a>
-    </nav>
     <nav class="socials" id="socials" aria-label="Redes sociais">
       <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,2 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.2M</span></a>
       <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook, mais de 300 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+300k</span></a>
