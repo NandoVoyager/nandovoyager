@@ -529,6 +529,9 @@ body:has(.home){overflow:auto}
 .offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:34px 0 0;padding:0;list-style:none;counter-reset:o}
 .offer{position:relative;display:flex;flex-direction:column;padding:22px 22px 20px;border:1px solid rgba(244,241,234,.14);border-radius:20px;background:rgba(244,241,234,.03)}
 .offer.hot{border-color:rgba(244,241,234,.34);background:rgba(244,241,234,.06)}
+/* the free one says so in green, the one colour on the page that means "no cost" */
+#offer-gratis .offer-tag{color:#34c77b}
+#offer-gratis .offer-tag:before{color:rgba(52,199,123,.5)}
 .offer-tag{display:flex;align-items:center;gap:8px;margin:0 0 14px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
 .offer-tag:before{counter-increment:o;content:"0" counter(o);color:rgba(244,241,234,.35)}
 .offer h2{margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
@@ -581,10 +584,9 @@ body:has(.home){overflow:auto}
   .menu-btn{display:grid}
   .home .acts .contact{display:none}
   #offer-gratis{padding:16px 16px 14px}
-  #offer-gratis .offer-tag{display:none}
-  #offer-gratis h2{font-size:17px}
-  #offer-gratis h2:before{content:"Grátis · ";color:var(--mid)}
-  #offer-gratis .offer-text{margin-top:6px;margin-bottom:12px;font-size:13.5px}
+  #offer-gratis .offer-tag{margin-bottom:8px}
+  #offer-gratis h2{font-size:21px}
+  #offer-gratis .offer-text{margin-top:6px;margin-bottom:14px;font-size:14px}
 }
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -649,14 +651,14 @@ body:has(.home){overflow:auto}
     <ol class="offers" aria-label="Por onde começar">
       <li class="offer" id="offer-gratis">
         <p class="offer-tag">Grátis</p>
-        <h2>Podcasts</h2>
-        <p class="offer-text">Toda semana, o que eu aprendo pelo mundo sobre China, IA e negócios. E o aviso de cada podcast novo.</p>
+        <h2>Um e-mail meu por semana</h2>
+        <p class="offer-text">O que eu aprendo pelo mundo sobre China, IA e negócios. E o aviso de cada podcast novo.</p>
         <form class="join" id="join" novalidate>
           <label class="sr-only" for="email">Seu e-mail</label>
           <div class="join-row">
             <input id="email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
             <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <button type="submit">ME AVISE <span aria-hidden="true">→</span></button>
+            <button type="submit">QUERO RECEBER <span aria-hidden="true">→</span></button>
           </div>
           <div class="join-done" hidden>
             <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
