@@ -461,23 +461,22 @@ body:has(.home){overflow:auto}
 .bars i{position:absolute;left:0;right:0;height:1.800px;border-radius:2px;background:currentColor;transition:transform .42s cubic-bezier(.3,1.3,.5,1),top .42s cubic-bezier(.3,1.3,.5,1)}
 .bars i:first-child{top:1px}
 .bars i:last-child{top:9px}
-/* in the drawer the same button sits exactly over the one in the header; its two bars fold into an arrow pointing the
-   way the drawer goes back (to the right), and unfold into bars again as it closes */
+/* in the drawer the same button sits exactly over the one in the header; its two bars come together into one
+   (the menu "folds"), and part again into two as it closes */
 .menu-close{position:absolute;top:18px;right:18px;display:grid;z-index:2;background:none}
-.menu-close .bars i{transform-origin:100% 50%}
-.menu[open] .bars i{top:5px;animation:bar-a .5s cubic-bezier(.3,1.3,.5,1) .08s both}
+.menu[open] .bars i{top:5px;animation:bar-a .5s cubic-bezier(.3,1.4,.5,1) .08s both}
 .menu[open] .bars i:last-child{animation-name:bar-b}
-@keyframes bar-a{from{top:1px;transform:none}to{top:5px;transform:translateX(-3px) rotate(38deg) scaleX(.6)}}
-@keyframes bar-b{from{top:9px;transform:none}to{top:5px;transform:translateX(-3px) rotate(-38deg) scaleX(.6)}}
+@keyframes bar-a{from{top:1px}to{top:5px}}
+@keyframes bar-b{from{top:9px}to{top:5px}}
 .menu.closing .bars i{animation:bar-a-out .22s ease both}
 .menu.closing .bars i:last-child{animation-name:bar-b-out}
-@keyframes bar-a-out{from{top:5px;transform:translateX(-3px) rotate(38deg) scaleX(.6)}to{top:1px;transform:none}}
-@keyframes bar-b-out{from{top:5px;transform:translateX(-3px) rotate(-38deg) scaleX(.6)}to{top:9px;transform:none}}
-@media (hover:hover){.menu-close:hover .bars{transform:translateX(2px)}}
+@keyframes bar-a-out{from{top:5px}to{top:1px}}
+@keyframes bar-b-out{from{top:5px}to{top:9px}}
 .menu-close .bars{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
-.menu-close:active .bars{transform:translateX(3px)}
+@media (hover:hover){.menu-close:hover .bars{transform:scaleX(.7)}}
+.menu-close:active .bars{transform:scaleX(.6)}
 /* the menu opens from the side the button is on: a panel as tall as the screen, sliding in from the right */
-.lead.menu{width:min(300px,80vw);max-width:none;height:100%;max-height:none;margin:0 0 0 auto;border-width:0 0 0 1px;border-radius:22px 0 0 22px}
+.lead.menu{width:min(320px,84vw);max-width:none;height:100%;max-height:none;margin:0 0 0 auto;border-width:0 0 0 1px;border-radius:22px 0 0 22px}
 .lead.menu[open]{animation:side-in .46s cubic-bezier(.2,.9,.25,1)}
 .lead.menu.closing{animation:side-out .24s cubic-bezier(.5,0,.8,.4) forwards}
 @keyframes side-in{from{transform:translateX(100%)}}
@@ -503,17 +502,17 @@ body:has(.home){overflow:auto}
 .menu.closing .menu-links a,.menu.closing .menu-social a{animation:none}
 .menu-links a:after{content:"→";margin-left:auto;color:var(--mid);opacity:.6;transition:transform .25s,opacity .25s}
 .menu-links a:active:after{transform:translateX(4px);opacity:1}
-.menu-links a{display:flex;align-items:center;gap:12px;padding:15px 2px;border-bottom:1px solid rgba(244,241,234,.1);color:var(--ink);font-size:19px;font-weight:500;letter-spacing:-.01em;text-decoration:none}
+.menu-links a{display:flex;align-items:center;gap:14px;padding:13px 2px;border-bottom:1px solid rgba(244,241,234,.1);color:var(--ink);font-size:17.500px;font-weight:500;letter-spacing:-.01em;white-space:nowrap;text-decoration:none}
 .menu-links a{transition:padding-left .25s cubic-bezier(.2,.7,.2,1),color .2s}
 .menu-links a:active{padding-left:8px}
-.menu-mail span{display:flex;flex-direction:column;gap:3px}
-.menu-mail small{font-size:13px;font-weight:400;letter-spacing:0;color:var(--mid)}
+.menu-mail:after{display:none}
+.menu-mail > span:not(.menu-ico){min-width:0;overflow:hidden;font-size:14.500px;letter-spacing:0;white-space:nowrap;text-overflow:ellipsis}
 @media (hover:hover){.menu-links a:hover{padding-left:8px}.menu-links a:hover:after{transform:translateX(4px);opacity:1}.menu-social a:hover .ico{background:var(--ink);border-color:var(--ink);color:var(--bg);transform:translateY(-2px)}}
 .menu-social a:active .ico{transform:scale(.9)}
-.menu-ico{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(244,241,234,.08)}
-.menu-ico svg{width:16px;height:16px}
-.menu-ico.deep{background:#16307a}
-.menu-ico.deep img{display:block;width:18px;height:18px}
+.menu-ico{flex:none;display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(244,241,234,.16);border-radius:12px;background:rgba(244,241,234,.04)}
+.menu-ico svg{display:block;width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.menu-ico.deep{border-color:transparent;background:#16307a}
+.menu-ico.deep img{display:block;width:21px;height:21px}
 .menu-social{display:flex;gap:6px;margin-top:auto;padding-top:56px}
 .menu-social a{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);text-decoration:none}
 .menu-social .ico{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(244,241,234,.2);border-radius:50%;transition:background .2s,color .2s,border-color .2s,transform .2s var(--spring)}
@@ -709,9 +708,9 @@ body:has(.home){overflow:auto}
     <button class="menu-btn menu-close" type="button" data-close aria-label="Fechar menu"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
     <nav class="menu-links" aria-label="Menu">
       <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span>DeepChina AI</a>
-      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3.500" y="7.500" width="17" height="12" rx="2.500" /><path d="M9 7.500V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.500M3.500 13h17" /></svg></span>Serviços</a>
-      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="6" y="8" width="12" height="13" rx="2.500" /><path d="M10 8l2-5 2 5M9.500 13h5M9.500 16.500h3" /></svg></span>Imersão Canton Fair</a>
-      <a class="menu-mail" href="mailto:contato@nandovoyager.com"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="5" width="18" height="14" rx="2.500" /><path d="m4 7 8 6 8-6" /></svg></span><span>Contato<small>contato@nandovoyager.com</small></span></a>
+      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.500" /><path d="M8 7V5.500A1.500 1.500 0 0 1 9.500 4h5A1.500 1.500 0 0 1 16 5.500V7M3 12.500h18M12 11.300v2.400" /></svg></span>Serviços</a>
+      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.800 19.200 16 11l3.500-3.500C21 6 21.500 4 21 3c-1-.500-3 0-4.500 1.500L13 8 4.800 6.200c-.500-.100-.900.100-1.100.500l-.300.500c-.200.500-.100 1 .300 1.300L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.500 5.300c.300.400.800.500 1.300.300l.500-.200c.400-.300.600-.700.500-1.200z" /></svg></span>Imersão Canton Fair</a>
+      <a class="menu-mail" href="mailto:contato@nandovoyager.com"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.500" /><path d="M3.500 7.500 12 13l8.500-5.500" /></svg></span><span>contato@nandovoyager.com</span></a>
     </nav>
     <nav class="menu-social" aria-label="Redes sociais">
       <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.2M</span></a>
