@@ -51,7 +51,8 @@ export default {
   },
   // Mentoria em grupo online (cartão da página inicial)
   mentoria: {
-    emBreve: "Data em breve · Zoom",
+    emBreve: "Zoom · data em breve",
+    pergunta: "Sua pergunta respondida ao vivo {preco}", // opcional; {preco} vira o valor por pergunta
     mensagem: "Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.",
   },
   santos: {
@@ -64,7 +65,6 @@ export default {
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
     reembolso: "Se não chegar a {min} pessoas, eu devolvo o dinheiro.",
     emBreve: "Data em breve",
-    cartaoLote: "Preço do {lote}{ate}. Depois, {depois}.", // sob o preço, no cartão da página inicial; {ate} vira " até quinta-feira, 23h59" quando o lote tem data de fim
     loteEncerrado: "encerrado", // ao lado de um lote cuja data já passou
     contagemFim: "Inscrições encerram em", // quando o lote ativo não tem data: conta até o fim do último lote
     contagemCurta: "Encerra em", // a contagem pequena no atalho da página inicial

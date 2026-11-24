@@ -512,23 +512,27 @@ body:has(.home){overflow:auto}
 .offer-tag{display:flex;align-items:center;gap:8px;margin:0 0 14px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
 .offer-tag:before{counter-increment:o;content:"0" counter(o);color:rgba(244,241,234,.35)}
 .offer h2{margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
-.offer-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;margin:10px 0 0}
-.offer-price b{font-size:30px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.offer-price small{flex-basis:100%;font-size:13px;color:var(--mid)}
-.offer-price s{font-size:17px;color:var(--mid)}
-.offer-price s:empty,.offer-price .lot-off:empty{display:none}
-.offer-price .lot-off{margin:0;align-self:center;font-size:12.5px}
-#offer-mentoria .offer-price small{flex-basis:auto}
-.offer-text{margin:12px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
-.offer-when{margin:12px 0 0;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid)}
+.offer-text{margin:10px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
+.offer-when{margin:12px 0 0;font-size:13px;color:var(--mid)}
 .offer-when:empty{display:none}
-.offer-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 0;padding:9px 12px;border:1px solid rgba(229,55,43,.4);border-radius:12px;background:rgba(229,55,43,.08);font-size:13px;color:var(--ink)}
-.offer-count[hidden]{display:none}
-.offer-count i{font-style:normal}
-.offer-count b{font:500 14px 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+/* the price always sits in the same place, at the foot of the card: one big number, anything else small and quiet */
+.offer-foot{display:flex;flex-direction:column;margin-top:auto;padding-top:18px}
+.offer-foot:before{content:"";height:1px;margin-bottom:16px;background:rgba(244,241,234,.1)}
+.offer-price{display:flex;align-items:baseline;gap:10px;margin:0}
+.offer-price b{font-size:32px;font-weight:500;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.offer-price s{font-size:15px;color:var(--mid)}
+.offer-price s:empty{display:none}
+.offer-price small{margin-left:auto;font-size:13px;color:var(--mid)}
+.offer-extra{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:20px;margin:10px 0 0;font-size:13px;color:var(--mid)}
+.offer-extra b{font-weight:500;color:var(--ink)}
+.offer-count[hidden]{display:flex;visibility:hidden}
+.offer-count i{display:flex;align-items:center;gap:8px;font-style:normal}
+.offer-count i:before{content:"";width:6px;height:6px;border-radius:50%;background:#e5372b;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+.offer-count b{font:500 13px 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+.offer-foot .offer-btn{margin-top:16px}
 .offer-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;margin-top:auto;padding:0 20px;border:1px solid rgba(244,241,234,.4);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-.offer > :last-child{margin-top:auto}
-.offer > :nth-last-child(2){margin-bottom:20px}
+.offer > .join{margin-top:auto;padding-top:20px}
 .offer-btn.solid{border-color:var(--ink);background:var(--ink);color:var(--bg)}
 @media (hover:hover){.offer-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}.offer-btn span{transition:transform .2s}.offer-btn:hover span{transform:translateX(3px)}}
 .offer .join{width:100%;text-align:left}
@@ -537,7 +541,6 @@ body:has(.home){overflow:auto}
 .offer .join button{padding:0 16px;font-size:11.5px}
 .offer .join-msg{position:static;margin-top:8px;text-align:left}
 .offer .join-msg:empty{display:none}
-.offer h2 + .offer-text{margin-top:10px}
 .more{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin:40px 0 0}
 .more a{font-size:13.5px;color:var(--mid);text-decoration:none;text-underline-offset:4px}
 .more a:hover{color:var(--ink);text-decoration:underline}
@@ -545,7 +548,7 @@ body:has(.home){overflow:auto}
   .home{padding:70px 16px 40px}
   .offers{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:6px}
   .offer{padding:20px 18px 18px}
-  .offer .join{padding-top:0}
+  .offer > .join{padding-top:0}
   /* on a phone: his photo as a band with the line over it, then the free offer as a slim strip so the paid ones come sooner */
   .hero{position:relative;display:block;margin:0 -16px;padding:0 16px 16px;min-height:236px;display:flex;align-items:flex-end;overflow:hidden}
   .hero-photo{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;border:0;border-radius:0;object-position:66% 22%;z-index:0;-webkit-mask-image:linear-gradient(#000 35%,transparent);mask-image:linear-gradient(#000 35%,transparent);opacity:.72}
@@ -644,19 +647,24 @@ body:has(.home){overflow:auto}
       <li class="offer" id="offer-mentoria">
         <p class="offer-tag">Online</p>
         <h2>Mentoria em grupo</h2>
-        <p class="offer-price"><b data-mentoria-preco></b><small data-mentoria-pergunta></small></p>
-        <p class="offer-text">2 horas ao vivo comigo no Zoom: minha história, inteligência artificial aplicada, a China por dentro e dicas para sair do Brasil. No final, respondo todas as perguntas, uma por uma.</p>
+        <p class="offer-text">2 horas ao vivo comigo no Zoom: minha história, inteligência artificial aplicada, a China por dentro e dicas para sair do Brasil.</p>
         <p class="offer-when" data-mentoria-quando></p>
-        <button class="offer-btn" type="button" data-mentoria>QUERO PARTICIPAR <span aria-hidden="true">→</span></button>
+        <div class="offer-foot">
+          <p class="offer-price"><b data-mentoria-preco></b><small>por pessoa</small></p>
+          <p class="offer-extra" data-mentoria-pergunta></p>
+          <button class="offer-btn" type="button" data-mentoria>QUERO PARTICIPAR <span aria-hidden="true">→</span></button>
+        </div>
       </li>
       <li class="offer hot" id="offer-imersao">
         <p class="offer-tag">Presencial</p>
         <h2>Imersão no Brasil</h2>
-        <p class="offer-price"><s data-imersao-cheio></s><b data-imersao-preco></b><span class="lot-off" data-imersao-off></span><small data-imersao-lote></small></p>
-        <p class="offer-text">Um dia inteiro comigo, manhã e tarde. Só 50 vagas no total.</p>
-        <p class="offer-count" id="talk-count" hidden></p>
+        <p class="offer-text">Um dia inteiro comigo, manhã e tarde, com um grupo pequeno.</p>
         <p class="offer-when" id="talk-when"></p>
-        <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">VER A IMERSÃO <span aria-hidden="true">→</span></a>
+        <div class="offer-foot">
+          <p class="offer-price"><b data-imersao-preco></b><s data-imersao-cheio></s><small>por pessoa</small></p>
+          <p class="offer-extra offer-count" id="talk-count" hidden></p>
+          <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">VER A IMERSÃO <span aria-hidden="true">→</span></a>
+        </div>
       </li>
     </ol>
     <nav class="more" aria-label="Mais">
@@ -1255,16 +1263,15 @@ ${hasTalk ? santosBlock : ''}
     // while a cheaper lot is on sale, the full price shows struck through, with how much comes off
     const full = Math.max(...lots.map(l => l.preco)), cut = sale && sale.preco < full;
     document.querySelector('[data-imersao-cheio]').textContent = cut ? brl(full) : '';
-    document.querySelector('[data-imersao-off]').textContent = cut ? `−${Math.round((1 - sale.preco / full) * 100)}%` : '';
-    document.querySelector('[data-imersao-lote]').textContent = sale ? (cut && after ? t.santos.cartaoLote.replace('{lote}', sale.nome).replace('{ate}', sale.viraEm ? ` até ${new Date(sale.viraEm).toLocaleDateString('pt-BR', {weekday:'long', timeZone:'America/Sao_Paulo'})}, ${new Date(sale.viraEm).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', timeZone:'America/Sao_Paulo'}).replace(':', 'h')}` : '').replace('{depois}', brl(after.preco)).replace('{proximo}', after.nome.toLowerCase()) : sale.nome) : '';
-    $('talk-when').textContent = santos.data ? `${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'})}${santos.cidade ? ` · ${santos.cidade}` : ''}` : `${t.santos.emBreve}${santos.cidade ? ` · ${santos.cidade}` : ''}`;
+    // one quiet line: how many seats, where and when
+    $('talk-when').textContent = [santos.vagasTotal && `${santos.vagasTotal} vagas`, santos.cidade, santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'}) : t.santos.emBreve.toLowerCase()].filter(Boolean).join(' · ');
   };
   fillCard();
   // the online group mentoring card: prices and date from the config; the button opens WhatsApp with the message
   const m = talks.mentoria, mentoriaCard = document.querySelector('[data-mentoria-preco]');
   if (m && mentoriaCard) {
     mentoriaCard.textContent = brl(m.preco);
-    document.querySelector('[data-mentoria-pergunta]').textContent = m.precoPergunta ? `+ ${brl(m.precoPergunta)} por pergunta` : '';
+    document.querySelector('[data-mentoria-pergunta]').innerHTML = m.precoPergunta ? t.mentoria.pergunta.replace('{preco}', `<b>+ ${brl(m.precoPergunta)}</b>`) : '';
     document.querySelector('[data-mentoria-quando]').textContent = m.data ? `${new Date(`${m.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'})}${m.horario ? ` · ${m.horario}` : ''} · Zoom` : t.mentoria.emBreve;
     const wa = String(config.whatsapp || '').replace(/\D/g, '');
     document.querySelectorAll('[data-mentoria]').forEach(b => {
