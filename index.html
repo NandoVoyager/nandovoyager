@@ -445,15 +445,17 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 body:has(.home){overflow:auto}
 .home{position:relative;min-height:100svh;padding:84px 20px 48px;background:radial-gradient(ellipse 70% 45% at 50% 0,rgba(244,241,234,.06),transparent 70%),var(--bg)}
 .home .top{position:absolute;animation:none}
-.home-in{width:min(1040px,100%);margin:0 auto}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);align-items:center;gap:40px;margin-top:8px}
-.home-name{margin:0;font:600 clamp(54px,6.2vw,88px)/.9 'Caveat',cursive;letter-spacing:0;transform:rotate(-3deg);transform-origin:left center}
-.hero-kicker{margin:22px 0 0;font:500 11.500px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
-.hero-line{max-width:480px;margin:10px 0 0;font-size:clamp(21px,2vw,27px);font-weight:500;line-height:1.25;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.home-in{width:min(1000px,100%);margin:0 auto}
+/* the photo fills a wide band and the words sit over its dark side, on every screen */
+.hero{position:relative;display:flex;align-items:flex-end;min-height:clamp(320px,42vh,420px);margin-top:4px;padding:40px 44px;border:1px solid rgba(244,241,234,.12);border-radius:24px;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,11,.94),rgba(10,10,11,.72) 36%,rgba(10,10,11,.1) 68%,transparent),linear-gradient(transparent 60%,rgba(10,10,11,.55));z-index:0}
+.hero-text{position:relative;z-index:1;max-width:460px}
+.hero-kicker{margin:0;font:500 11.500px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.hero-line{margin:12px 0 0;font-size:clamp(26px,2.8vw,38px);font-weight:500;line-height:1.15;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
 .hero-proof{display:inline-flex;align-items:center;gap:8px;margin:20px 0 0;padding:7px 14px 7px 11px;border:1px solid rgba(244,241,234,.16);border-radius:99px;background:rgba(10,10,11,.5);font-size:13.500px;color:rgba(244,241,234,.74);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .hero-proof b{font-weight:600;color:var(--ink)}
 .hero-proof svg{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
-.hero-photo{display:block;width:100%;height:auto;max-height:250px;aspect-ratio:16/9;object-fit:cover;object-position:62% 30%;border-radius:20px;border:1px solid rgba(244,241,234,.14)}
+.hero-photo{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 26%;z-index:0}
 .home .socials{display:flex;margin:40px 0 0}
 /* on a phone, contact and the social networks live behind a menu button at the top */
 .menu-btn{position:relative;display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(244,241,234,.4);border-radius:50%;background:rgba(10,10,11,.4);color:var(--ink);cursor:pointer;pointer-events:auto;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .2s var(--spring),border-color .2s,background .2s}
@@ -571,19 +573,31 @@ body:has(.home){overflow:auto}
 .more{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin:40px 0 0}
 .more a{font-size:13.5px;color:var(--mid);text-decoration:none;text-underline-offset:4px}
 .more a:hover{color:var(--ink);text-decoration:underline}
+/* on a wide screen: the free offer is a slim band across (words on the left, the e-mail box on the right) and the two
+   paid ones share the row under it */
+@media (min-width:861px){
+  .offers{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  #offer-gratis{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,420px);column-gap:48px;align-items:center;padding:24px 28px}
+  #offer-gratis > *{grid-column:1}
+  #offer-gratis .offer-tag{margin-bottom:10px}
+  #offer-gratis .offer-text{max-width:520px;margin-top:8px}
+  #offer-gratis > .join{grid-column:2;grid-row:1 / span 3;margin:0;padding:0}
+  .offer:not(#offer-gratis){padding:28px 28px 26px}
+  .offer:not(#offer-gratis) h2{font-size:28px}
+  .offer:not(#offer-gratis) .offer-text{max-width:400px;font-size:15.500px}
+  .offer-price b{font-size:38px}
+}
 @media (max-width:860px){
   .home{padding:70px 16px 40px}
   .offers{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:6px}
   .offer{padding:20px 18px 18px}
   .offer > .join{padding-top:0}
   /* on a phone: his photo as a band with the line over it, then the free offer as a slim strip so the paid ones come sooner */
-  .hero{position:relative;margin:0 -16px;padding:0 16px 18px;min-height:330px;display:flex;align-items:flex-end;overflow:hidden}
-  .hero:after{content:"";position:absolute;inset:38% 0 0;background:linear-gradient(transparent,rgba(10,10,11,.86) 40%,var(--bg) 62%);z-index:0}
-  .hero-photo{position:absolute;inset:0 0 auto;width:100%;height:78%;max-height:none;aspect-ratio:auto;border:0;border-radius:0;object-position:62% 12%;z-index:0}
-  .hero-text{position:relative;z-index:1}
-  .home-name{display:none}
-  .hero-kicker{margin:0;color:rgba(244,241,234,.7)}
-  .hero-line{margin-top:8px;font-size:22px}
+  .hero{margin:0 -16px;padding:0 16px 18px;min-height:330px;border:0;border-radius:0}
+  .hero:after{inset:38% 0 0;background:linear-gradient(transparent,rgba(10,10,11,.86) 40%,var(--bg) 62%);z-index:0}
+  .hero-photo{inset:0 0 auto;height:78%;object-position:62% 12%}
+  .hero-kicker{color:rgba(244,241,234,.7)}
+  .hero-line{margin-top:8px;font-size:22px;line-height:1.25}
   .hero-proof{margin-top:14px;font-size:13px}
   .home .acts .contact{display:none}
   #offer-gratis{padding:16px 16px 14px}
@@ -645,7 +659,7 @@ body:has(.home){overflow:auto}
   <div class="home-in">
     <section class="hero">
       <div class="hero-text">
-        <h1 class="home-name">Nando Voyager</h1>
+        <h1 class="sr-only">Nando Voyager</h1>
         <p class="hero-kicker">Empresário em Hong Kong</p>
         <p class="hero-line">Mostro a China real, inteligência artificial e como sair do Brasil.</p>
         <p class="hero-proof"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.200" /><path d="M3 20c.400-3.600 2.800-5.500 6-5.500s5.600 1.900 6 5.500M16 5.200a3.200 3.200 0 0 1 0 5.900M18.500 14.900c1.500.900 2.300 2.500 2.500 5.100" /></svg><span><b>+1,6 milhão</b> de seguidores nas redes sociais</span></p>
