@@ -49,6 +49,12 @@ export default {
     encerrado: "Leilão encerrado", fimGeral: "O preço final ficou em {preco}.", fimDentro: "Você ficou com a vaga. O preço final é {preco}; eu entro em contato para acertar a diferença.", fimFora: "Você não ficou entre os {vagas}. Sua entrada de {entrada} será devolvida na chave Pix que você informou.",
     contagem: "Leilão encerra em",
   },
+  // Mentoria em grupo online (cartão da página inicial)
+  mentoria: {
+    emBreve: "Zoom · data em breve",
+    pergunta: "Sua pergunta respondida ao vivo {preco}", // opcional; {preco} vira o valor por pergunta
+    mensagem: "Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.",
+  },
   santos: {
     rotulo: "A imersão",
     titulo: "Imersão presencial em Alphaville.",
@@ -58,14 +64,16 @@ export default {
     maximo: "Máximo de {n} pessoas",
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
     reembolso: "Se não chegar a {min} pessoas, eu devolvo o dinheiro.",
+    emBreve: "Data em breve",
     loteEncerrado: "encerrado", // ao lado de um lote cuja data já passou
     contagemFim: "Inscrições encerram em", // quando o lote ativo não tem data: conta até o fim do último lote
     contagemCurta: "Encerra em", // a contagem pequena no atalho da página inicial
     contagemCurtaLote: "{lote} encerra em",
     contagem: "{lote} encerra em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
     vagasLimitadas: "Vagas limitadas",
+    botaoNota: "Você fala direto comigo no WhatsApp e paga por Pix.",
     mensagem: "Oi, Nando! Vim pelo seu site e quero garantir a minha vaga na imersão em Alphaville{lote}.", // {lote} vira o lote à venda e o preço, ex. " (Lote 1, R$ 2.000)" // a mensagem pronta que o botão leva ao WhatsApp
-    botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir vaga", esgotado: "Entrar na lista de espera" },
+    botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir minha vaga", esgotado: "Entrar na lista de espera" },
   },
 
   porQueAgora: TODO_COPY("Por que agora: primeira vez presencial no Brasil, viagem curta. 2 ou 3 frases suas."),

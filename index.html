@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Nando Voyager — Negócios na China</title>
-<meta name="description" content="Nando Voyager, empresário em Hong Kong e fundador da DeepChina AI. Consultoria de importação, Imersão Canton Fair e a minha história, do Brasil a Hong Kong." />
+<title>Nando Voyager — China, IA e como sair do Brasil</title>
+<meta name="description" content="Empresário em Hong Kong. Aula ao vivo no Zoom, imersão presencial em São Paulo e podcasts grátis sobre a China real, inteligência artificial e como sair do Brasil." />
 <link rel="canonical" href="https://nandovoyager.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://nandovoyager.com/" />
 <meta property="og:site_name" content="Nando Voyager" />
 <meta property="og:locale" content="pt_BR" />
-<meta property="og:title" content="Nando Voyager — Negócios na China" />
-<meta property="og:description" content="DeepChina AI, Imersão Canton Fair, consultoria de importação e a minha história." />
+<meta property="og:title" content="Nando Voyager — China, IA e como sair do Brasil" />
+<meta property="og:description" content="Aula ao vivo no Zoom, imersão presencial em São Paulo e podcasts grátis. Comece por onde fizer sentido para você." />
 <meta property="og:image" content="https://nandovoyager.com/img/og.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -28,7 +28,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" />
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
 <style>
 :root{--bg:#0a0a0b;--ink:#f4f1ea;--mid:#8d8b86;--line:rgba(244,241,234,.14);--spring:cubic-bezier(.3,1.4,.5,1);color-scheme:dark}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -238,6 +237,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lead-label{display:block;margin:20px 0 8px;font-size:13px;color:var(--mid)}
 .lead-field{width:100%;height:46px;padding:0 16px;border:1px solid rgba(244,241,234,.18);border-radius:12px;background:rgba(244,241,234,.04);color:var(--ink);font:400 15px 'Inter Tight',system-ui,sans-serif;outline:0;transition:border-color .2s,box-shadow .2s,background .2s}
 .lead-field::placeholder{color:#5f5d59}
+.lead-area{height:auto;min-height:92px;padding:12px 16px;line-height:1.45;resize:vertical}
+.lead-total{display:flex;align-items:baseline;justify-content:space-between;margin:20px 0 0;padding-top:16px;border-top:1px solid rgba(244,241,234,.1);font-size:14px;color:var(--mid)}
+.lead-total b{font-size:26px;font-weight:500;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
 .lead-field:focus{border-color:rgba(244,241,234,.6);background:rgba(244,241,234,.06);box-shadow:0 0 0 4px rgba(244,241,234,.07)}
 .lead-field[aria-invalid=true]{border-color:#ffb4a8;box-shadow:0 0 0 4px rgba(255,180,168,.1)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
@@ -391,6 +393,9 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .talk-btn{flex:none;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 16px;border:1px solid rgba(244,241,234,.3);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,transform .15s}
 .talk-btn:hover{background:var(--ink);color:var(--bg)}
 .talk-btn:active{transform:scale(.96)}
+.talk-btn.solid.wa{gap:9px;border-color:#25d366;background:#25d366;color:#06200f}
+.buy-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.buy-row small{flex:1;min-width:180px;font-size:13px;line-height:1.4;color:var(--mid)}
 .talk-btn.solid{height:46px;padding:0 22px;border-color:var(--ink);background:var(--ink);color:var(--bg)}
 .talks-title2{margin:0 0 10px!important;font-size:21px;font-weight:500;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
 .talks-strong{margin:26px 0 4px!important;font-size:25px;font-weight:500;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
@@ -435,7 +440,188 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .page-back svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 @media (hover:hover){.page-back:hover{background:rgba(244,241,234,.08)}.page-back:hover svg{transform:translateX(-2px)}}
 .page .letter-in{max-width:640px;margin:0 auto;padding-top:22px;padding-bottom:calc(56px + env(safe-area-inset-bottom))}
-@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
+@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}.menu[open] .menu-links a,.menu[open] .menu-social a{animation:none}.menu[open] .chevs path,.menu.closing .chevs path{animation:none}}
+/* ---------- the home without the opening: name, icons and three ways in, at once ---------- */
+body:has(.home){overflow:auto}
+.home{position:relative;min-height:100svh;padding:84px 20px 48px;background:radial-gradient(ellipse 70% 45% at 50% 0,rgba(244,241,234,.06),transparent 70%),var(--bg)}
+.home .top{position:absolute;animation:none}
+.home-in{width:min(1000px,100%);margin:0 auto}
+/* the photo fills a wide band and the words sit over its dark side, on every screen */
+.hero{position:relative;display:flex;align-items:flex-end;min-height:clamp(320px,42vh,420px);margin-top:4px;padding:40px 44px;border:1px solid rgba(244,241,234,.12);border-radius:24px;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,11,.94),rgba(10,10,11,.72) 36%,rgba(10,10,11,.1) 68%,transparent),linear-gradient(transparent 60%,rgba(10,10,11,.55));z-index:0}
+.hero-text{position:relative;z-index:1;max-width:460px}
+.hero-kicker{margin:0;font:500 11.500px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.hero-line{margin:12px 0 0;font-size:clamp(26px,2.8vw,38px);font-weight:500;line-height:1.15;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.hero-proof{display:inline-flex;align-items:center;gap:8px;margin:20px 0 0;padding:7px 14px 7px 11px;border:1px solid rgba(244,241,234,.16);border-radius:99px;background:rgba(10,10,11,.5);font-size:13.500px;color:rgba(244,241,234,.74);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hero-proof b{font-weight:600;color:var(--ink)}
+.hero-proof svg{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.hero-photo{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 26%;z-index:0}
+.home .socials{display:flex;margin:40px 0 0}
+/* on a phone, contact and the social networks live behind a menu button at the top */
+.menu-btn{position:relative;display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(244,241,234,.4);border-radius:50%;background:rgba(10,10,11,.4);color:var(--ink);cursor:pointer;pointer-events:auto;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .2s var(--spring),border-color .2s,background .2s}
+.menu-btn:active{transform:scale(.9)}
+@media (hover:hover){.menu-btn:hover{border-color:var(--ink)}}
+.bars{position:relative;display:block;width:18px;height:12px}
+.bars i{position:absolute;left:0;right:0;height:1.800px;border-radius:2px;background:currentColor;transition:transform .42s cubic-bezier(.3,1.3,.5,1),top .42s cubic-bezier(.3,1.3,.5,1)}
+.bars i:first-child{top:1px}
+.bars i:last-child{top:9px}
+/* in the drawer, the button that sits exactly over the one in the header shows two arrowheads pointing the way the
+   drawer goes back: the first one solid, the second one faint. They slide in as it opens and lean forward on a touch. */
+.menu-close{position:absolute;top:18px;right:18px;display:grid;z-index:2;background:none}
+.chevs{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.chevs path{transition:transform .28s cubic-bezier(.2,.7,.2,1),opacity .28s}
+.chevs path:last-child{opacity:.32}
+.menu[open] .chevs path{animation:chev-in .5s cubic-bezier(.2,.8,.2,1) .12s both}
+.menu[open] .chevs path:last-child{animation-name:chev-in-2;animation-delay:.2s}
+@keyframes chev-in{from{opacity:0;transform:translateX(-8px)}}
+@keyframes chev-in-2{from{opacity:0;transform:translateX(-8px)}to{opacity:.32}}
+.menu.closing .chevs path{animation:chev-out .2s ease both}
+@keyframes chev-out{to{opacity:0;transform:translateX(8px)}}
+@media (hover:hover){.menu-close:hover .chevs path:first-child{transform:translateX(1.500px)}.menu-close:hover .chevs path:last-child{transform:translateX(3px);opacity:.6}}
+.menu-close:active .chevs path:first-child{transform:translateX(2px)}
+.menu-close:active .chevs path:last-child{transform:translateX(4px);opacity:.7}
+/* the menu opens from the side the button is on: a panel as tall as the screen, sliding in from the right */
+.lead.menu{width:min(320px,84vw);max-width:none;height:100%;max-height:none;margin:0 0 0 auto;border-width:0 0 0 1px;border-radius:22px 0 0 22px}
+.lead.menu[open]{animation:side-in .46s cubic-bezier(.2,.9,.25,1)}
+.lead.menu.closing{animation:side-out .24s cubic-bezier(.5,0,.8,.4) forwards}
+@keyframes side-in{from{transform:translateX(100%)}}
+@keyframes side-out{to{transform:translateX(100%)}}
+.menu .lead-in{padding:18px 18px calc(18px + env(safe-area-inset-bottom))}
+.menu .lead-in{display:flex;flex-direction:column;min-height:100%}
+.menu-links{display:flex;flex-direction:column;margin-top:56px}
+/* the links arrive one after another, then the icons */
+.menu[open] .menu-links a,.menu[open] .menu-social a{animation:menu-in .5s cubic-bezier(.2,.8,.2,1) both}
+.menu[open] .menu-links a:nth-child(1){animation-delay:.10s}
+.menu[open] .menu-links a:nth-child(2){animation-delay:.15s}
+.menu[open] .menu-links a:nth-child(3){animation-delay:.20s}
+.menu[open] .menu-links a:nth-child(4){animation-delay:.25s}
+.menu[open] .menu-social a{animation-name:menu-pop}
+.menu[open] .menu-social a:nth-child(1){animation-delay:.30s}
+.menu[open] .menu-social a:nth-child(2){animation-delay:.34s}
+.menu[open] .menu-social a:nth-child(3){animation-delay:.38s}
+.menu[open] .menu-social a:nth-child(4){animation-delay:.42s}
+.menu[open] .menu-social a:nth-child(5){animation-delay:.46s}
+.menu[open] .menu-social a:nth-child(6){animation-delay:.50s}
+@keyframes menu-in{from{opacity:0;transform:translateX(26px)}}
+@keyframes menu-pop{from{opacity:0;transform:scale(.6)}}
+.menu.closing .menu-links a,.menu.closing .menu-social a{animation:none}
+.menu-links a:after{content:"→";margin-left:auto;color:var(--mid);opacity:.6;transition:transform .25s,opacity .25s}
+.menu-links a:active:after{transform:translateX(4px);opacity:1}
+.menu-links a{display:flex;align-items:center;gap:14px;padding:13px 2px;border-bottom:1px solid rgba(244,241,234,.1);color:var(--ink);font-size:17.500px;font-weight:500;letter-spacing:-.01em;white-space:nowrap;text-decoration:none}
+.menu-links a{transition:padding-left .25s cubic-bezier(.2,.7,.2,1),color .2s}
+.menu-links a:active{padding-left:8px}
+.menu-mail:after{display:none}
+.menu-mail > span:not(.menu-ico){min-width:0;overflow:hidden;font-size:14.500px;letter-spacing:0;white-space:nowrap;text-overflow:ellipsis}
+@media (hover:hover){.menu-links a:hover{padding-left:8px}.menu-links a:hover:after{transform:translateX(4px);opacity:1}.menu-social a:hover .ico{background:var(--ink);border-color:var(--ink);color:var(--bg);transform:translateY(-2px)}}
+.menu-social a:active .ico{transform:scale(.9)}
+.menu-ico{flex:none;display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(244,241,234,.16);border-radius:12px;background:rgba(244,241,234,.04)}
+.menu-ico svg{display:block;width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.menu-ico.deep{border-color:transparent;background:#16307a}
+.menu-ico.deep img{display:block;width:21px;height:21px}
+.menu-social{display:flex;gap:6px;margin-top:auto;padding-top:56px}
+.menu-social a{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);text-decoration:none}
+.menu-social .ico{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(244,241,234,.2);border-radius:50%;transition:background .2s,color .2s,border-color .2s,transform .2s var(--spring)}
+.menu-social .count{font:400 11px 'IBM Plex Mono',monospace;color:var(--mid)}
+.menu-social .new-video{top:auto;bottom:100%;flex-direction:column;margin:0 0 2px}
+.menu-social .new-video svg{width:18px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.menu[open] .new-video{opacity:1;transition-delay:.6s;animation:nudge 2.6s ease-in-out 1.4s infinite}
+.menu[open] .new-video path{stroke-dashoffset:0;transition-delay:.7s}
+.menu-social a[hidden]{display:none}
+.menu-social .ico svg{width:17px;height:17px}
+.menu-social [data-social=youtube] svg{color:#ff0033}
+.home .socials .ico{width:40px;height:40px;border-color:rgba(244,241,234,.2)}
+.offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:34px 0 0;padding:0;list-style:none;counter-reset:o}
+.offer{position:relative;display:flex;flex-direction:column;padding:22px 22px 20px;border:1px solid rgba(244,241,234,.14);border-radius:20px;background:rgba(244,241,234,.03)}
+.offer.hot{border-color:rgba(244,241,234,.34);background:rgba(244,241,234,.06)}
+/* the free one says so in green, the one colour on the page that means "no cost" */
+#offer-gratis .offer-tag{color:#34c77b}
+#offer-gratis .offer-tag:before{color:rgba(52,199,123,.5)}
+.offer-tag{display:flex;align-items:center;gap:8px;margin:0 0 14px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.offer-tag:before{counter-increment:o;content:"0" counter(o);color:rgba(244,241,234,.35)}
+.offer h2{margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
+.offer-text{margin:10px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
+.offer-when{margin:12px 0 0;font-size:13px;color:var(--mid)}
+.offer-when:empty{display:none}
+/* the price always sits in the same place, at the foot of the card: one big number, anything else small and quiet */
+.offer-foot{display:flex;flex-direction:column;margin-top:auto;padding-top:18px}
+.offer-foot:before{content:"";height:1px;margin-bottom:16px;background:rgba(244,241,234,.1)}
+.offer-price{display:flex;align-items:baseline;gap:10px;margin:0}
+.offer-price b{font-size:32px;font-weight:500;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.offer-price s{font-size:15px;color:var(--mid)}
+.offer-price s:empty{display:none}
+.offer-price small{margin-left:auto;font-size:13px;color:var(--mid)}
+.offer-extra{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:20px;margin:10px 0 0;font-size:13px;color:var(--mid)}
+.offer-extra b{font-weight:500;color:var(--ink)}
+.offer-count[hidden]{display:flex;visibility:hidden}
+.offer-count i{display:flex;align-items:center;gap:8px;font-style:normal}
+.offer-count i:before{content:"";width:6px;height:6px;border-radius:50%;background:#e5372b;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+.offer-count b{font:500 13px 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+.offer-foot .offer-btn{margin-top:16px}
+.offer-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;margin-top:auto;padding:0 20px;border:1px solid rgba(244,241,234,.4);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s,box-shadow .25s,transform .15s}
+.offer > .join{margin-top:auto;padding-top:20px}
+.offer-btn.solid{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.offer-btn span{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.offer-btn:active{transform:scale(.97)}
+@media (hover:hover){.offer-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}.offer-btn.solid:hover{background:#fff;box-shadow:0 6px 24px rgba(244,241,234,.16)}.offer-btn:hover span{transform:translateX(4px)}}
+.offer .join{width:100%;text-align:left}
+.offer .join-row,.offer .join-done{border-radius:99px}
+.offer .join input{padding:0 12px;font-size:14.5px}
+.offer .join button{padding:0 16px;font-size:11.5px}
+.offer .join-msg{position:static;margin-top:8px;text-align:left}
+.offer .join-msg:empty{display:none}
+.more{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin:40px 0 0}
+.more a{font-size:13.5px;color:var(--mid);text-decoration:none;text-underline-offset:4px}
+.more a:hover{color:var(--ink);text-decoration:underline}
+/* on a wide screen: the free offer is a slim band across (words on the left, the e-mail box on the right) and the two
+   paid ones share the row under it */
+@media (min-width:861px){
+  .offers{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  #offer-gratis{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,420px);column-gap:48px;align-items:center;padding:24px 28px}
+  #offer-gratis > *{grid-column:1}
+  #offer-gratis .offer-tag{margin-bottom:10px}
+  #offer-gratis .offer-text{max-width:520px;margin-top:8px}
+  #offer-gratis > .join{grid-column:2;grid-row:1 / span 3;margin:0;padding:0}
+  .offer:not(#offer-gratis){padding:28px 28px 26px}
+  .offer:not(#offer-gratis) h2{font-size:28px}
+  .offer:not(#offer-gratis) .offer-text{max-width:400px;font-size:15.500px}
+  .offer-price b{font-size:38px}
+}
+/* a wide screen shows it all at once, with nothing to scroll: his photo fills the left, the three ways in stack on the right */
+@media (min-width:1100px){
+  .home{display:flex;padding:88px 32px 24px}
+  .home-in{width:min(1320px,100%);min-height:min(620px,calc(100svh - 112px));margin:auto;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:14px}
+  .hero{min-height:0;margin:0;padding:30px}
+  .hero:after{background:linear-gradient(transparent 34%,rgba(10,10,11,.86) 74%,rgba(10,10,11,.96))}
+  .hero-photo{object-position:64% 18%}
+  .hero-line{font-size:clamp(23px,2.1vw,30px);line-height:1.2}
+  .offers{margin:0;gap:14px;grid-template-rows:auto 1fr}
+  #offer-gratis{grid-template-columns:minmax(0,1fr) minmax(280px,320px);column-gap:28px;padding:22px 24px}
+  #offer-gratis h2{font-size:22px}
+  .offer:not(#offer-gratis){padding:24px 24px 22px}
+  .offer:not(#offer-gratis) h2{font-size:25px}
+  .offer:not(#offer-gratis) .offer-text{font-size:14.500px}
+  .offer-price b{font-size:34px}
+  .home .socials{display:none}
+}
+@media (max-width:860px){
+  .home{padding:70px 16px 40px}
+  .offers{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:6px}
+  .offer{padding:20px 18px 18px}
+  .offer > .join{padding-top:0}
+  /* on a phone: his photo as a band with the line over it, then the free offer as a slim strip so the paid ones come sooner */
+  .hero{margin:0 -16px;padding:0 16px 18px;min-height:330px;border:0;border-radius:0}
+  .hero:after{inset:38% 0 0;background:linear-gradient(transparent,rgba(10,10,11,.86) 40%,var(--bg) 62%);z-index:0}
+  .hero-photo{inset:0 0 auto;height:78%;object-position:62% 12%}
+  .hero-kicker{color:rgba(244,241,234,.7)}
+  .hero-line{margin-top:8px;font-size:22px;line-height:1.25}
+  .hero-proof{margin-top:14px;font-size:13px}
+  .home .acts .contact{display:none}
+  #offer-gratis{padding:16px 16px 14px}
+  #offer-gratis .offer-tag{margin-bottom:8px}
+  #offer-gratis h2{font-size:21px}
+  #offer-gratis .offer-text{margin-top:6px;margin-bottom:14px;font-size:14px}
+}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 @media (max-width:760px){
@@ -480,64 +666,136 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 </style>
 </head>
 <body>
-<main class="stage" id="stage">
-  <div id="light"></div>
-  <h1 aria-label="Nando Voyager">
-    <div class="hl" id="l1" aria-hidden="true"><span class="rot"><span class="ink">Nando</span><i class="pen"></i></span></div>
-    <div class="hl" id="l2" aria-hidden="true"><span class="rot"><span class="ink">Voyager</span><i class="pen"></i></span></div>
-  </h1>
-  <div id="glow"></div>
-  <div id="rule"></div>
-  <canvas id="gl" aria-hidden="true"></canvas>
-  <button id="cue" type="button">ROLE PARA VER<i class="cue-line"></i></button>
+<main class="home is-open" id="stage">
   <header class="top">
     <a class="logo" href="/" id="home" aria-label="Nando Voyager, voltar ao início"><img src="/img/avatar-160.webp" width="36" height="36" alt="" /><span class="logo-text"><b>Nando Voyager</b><small>@nandovoyager</small></span></a>
     <nav class="acts" aria-label="Atalhos">
-      <span class="top-socials">
-        <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,1 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.1M</span></a>
-        <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook, mais de 300 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+300k</span></a>
-        <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 25 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+25k</span></a>
-        <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok, mais de 55 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+55k</span></a>
-        <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 25 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+25k</span></a>
-        <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
-      </span>
-      <a class="contact" id="contact" href="mailto:contato@nandovoyager.com" aria-expanded="false"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg><span class="contact-text"><span class="contact-label">Contato</span><span class="contact-mail">contato@nandovoyager.com</span></span></a></nav>
+      <button class="menu-btn" id="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Abrir menu"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
+</nav>
   </header>
-  <div class="hub">
-    <nav class="socials socials-phone" id="socials" aria-label="Redes sociais">
-      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,1 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.1M</span></a>
+  <div class="home-in">
+    <section class="hero">
+      <div class="hero-text">
+        <h1 class="sr-only">Nando Voyager</h1>
+        <p class="hero-kicker">Empresário em Hong Kong</p>
+        <p class="hero-line">Mostro a China real, inteligência artificial e como sair do Brasil.</p>
+        <p class="hero-proof"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.200" /><path d="M3 20c.400-3.600 2.800-5.500 6-5.500s5.600 1.900 6 5.500M16 5.200a3.200 3.200 0 0 1 0 5.900M18.500 14.900c1.500.900 2.300 2.500 2.500 5.100" /></svg><span><b>+1,6 milhão</b> de seguidores nas redes sociais</span></p>
+      </div>
+      <img class="hero-photo" src="/img/canton-cracha-1200.webp" width="1200" height="800" alt="Nando Voyager em frente à feira de importação e exportação da China" />
+    </section>
+    <ol class="offers" aria-label="Por onde começar">
+      <li class="offer" id="offer-gratis">
+        <p class="offer-tag">Grátis</p>
+        <h2>Um e-mail meu por semana</h2>
+        <p class="offer-text">O que eu aprendo pelo mundo sobre China, IA e negócios. E o aviso de cada podcast novo.</p>
+        <form class="join" id="join" novalidate>
+          <label class="sr-only" for="email">Seu e-mail</label>
+          <div class="join-row">
+            <input id="email" name="email" type="email" placeholder="seu e-mail" autocomplete="email" required />
+            <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button type="submit">QUERO RECEBER <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="join-done" hidden>
+            <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+            <span class="done-mail"></span>
+            <span class="done-tag">INSCRITO</span>
+          </div>
+          <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
+        </form>
+      </li>
+      <li class="offer" id="offer-mentoria">
+        <p class="offer-tag">Online</p>
+        <h2>Mentoria em grupo</h2>
+        <p class="offer-text">2 horas ao vivo comigo no Zoom: minha história, inteligência artificial aplicada, a China por dentro e dicas para sair do Brasil.</p>
+        <p class="offer-when" data-mentoria-quando></p>
+        <div class="offer-foot">
+          <p class="offer-price"><b data-mentoria-preco></b><small>por pessoa</small></p>
+          <p class="offer-extra" data-mentoria-pergunta></p>
+          <a class="offer-btn solid" href="#lead-mentoria" data-lead="mentoria" aria-haspopup="dialog">QUERO PARTICIPAR <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="offer hot" id="offer-imersao">
+        <p class="offer-tag">Presencial</p>
+        <h2>Imersão no Brasil</h2>
+        <p class="offer-text">Um dia inteiro comigo, manhã e tarde, com um grupo pequeno.</p>
+        <p class="offer-when" id="talk-when"></p>
+        <div class="offer-foot">
+          <p class="offer-price"><b data-imersao-preco></b><s data-imersao-cheio></s><small>por pessoa</small></p>
+          <p class="offer-extra offer-count" id="talk-count" hidden></p>
+          <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">VER A IMERSÃO <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+    </ol>
+    <nav class="socials" id="socials" aria-label="Redes sociais">
+      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram, mais de 1,2 milhão de seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.2M</span></a>
       <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook, mais de 300 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+300k</span></a>
-      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 25 mil inscritos"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+25k</span></a>
+      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube, mais de 25 mil inscritos"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+25k</span></a>
       <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok, mais de 55 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+55k</span></a>
       <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X, mais de 25 mil seguidores"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+25k</span></a>
       <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
     </nav>
-    <a class="talk" href="/eventos" data-talks aria-haspopup="dialog"><span class="talk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.500 6.500 0 0 0 13 0M12 17.500V21" /></svg></span><span class="talk-text"><b>Eventos</b><small id="talk-when">Imersão em Alphaville</small><small class="talk-count" id="talk-count" hidden></small></span><span class="tile-go" aria-hidden="true">↗</span></a>
-    <nav aria-label="Links">
-      <ul class="tiles" id="tiles">
-        <li><a class="tile" href="#join" data-deepchina><span class="tile-img"></span><i class="tile-n">01</i><span class="tile-text"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><em class="tile-soon">Em breve</em><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">02</i><span class="tile-text"><b>Imersão Canton Fair</b><small>A maior feira da China · abril de 2027</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">03</i><span class="tile-text"><b>Meus serviços</b><small>Consultoria de importação</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-        <li><a class="tile" href="#letter" data-letter aria-haspopup="dialog"><span class="tile-img"></span><i class="tile-n">04</i><span class="tile-text"><b>Minha história</b><small>Um e-mail pessoal pra você</small></span><span class="tile-go" aria-hidden="true">↗</span></a></li>
-      </ul>
-    </nav>
-    <form class="join" id="join" novalidate>
-      <p class="join-title"><span class="t-in">Entre na <span class="hand">minha mente<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span><span class="hand-colon">:</span></span><span class="t-done" hidden>Você está <span class="hand">dentro<svg viewBox="0 0 120 12" aria-hidden="true"><path d="M3 8c19-5 44-6 69-3s33 2 45-2" /></svg></span></span></p>
-      <label class="sr-only" for="email">Seu e-mail</label>
-      <div class="join-row">
-        <input id="email" name="email" type="email" placeholder="seu melhor e-mail" autocomplete="email" required />
-        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit">ENTRAR <span aria-hidden="true">→</span></button>
-      </div>
-      <div class="join-done" hidden>
-        <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
-        <span class="done-mail"></span>
-        <span class="done-tag">INSCRITO</span>
-      </div>
-      <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
-    </form>
   </div>
 </main>
+<dialog class="lead menu" id="menu" aria-label="Menu" tabindex="-1">
+  <div class="lead-in">
+    <button class="menu-btn menu-close" type="button" data-close aria-label="Fechar menu"><svg class="chevs" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 6.500 12 12l-5.500 5.500" /><path d="M12.500 6.500 18 12l-5.500 5.500" /></svg></button>
+    <nav class="menu-links" aria-label="Menu">
+      <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span>DeepChina AI</a>
+      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.500" /><path d="M8 7V5.500A1.500 1.500 0 0 1 9.500 4h5A1.500 1.500 0 0 1 16 5.500V7M3 12.500h18M12 11.300v2.400" /></svg></span>Serviços</a>
+      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.800 19.200 16 11l3.500-3.500C21 6 21.500 4 21 3c-1-.500-3 0-4.500 1.500L13 8 4.800 6.200c-.500-.100-.900.100-1.100.500l-.300.500c-.200.500-.100 1 .300 1.300L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.500 5.300c.300.400.800.500 1.300.300l.500-.200c.400-.300.600-.700.500-1.200z" /></svg></span>Imersão Canton Fair</a>
+      <a class="menu-mail" href="mailto:contato@nandovoyager.com"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.500" /><path d="M3.500 7.500 12 13l8.500-5.500" /></svg></span><span>contato@nandovoyager.com</span></a>
+    </nav>
+    <nav class="menu-social" aria-label="Redes sociais">
+      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram"><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><span class="count">+1.2M</span></a>
+      <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook"><span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><span class="count">+300k</span></a>
+      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube"><span class="new-video" aria-hidden="true"><em>vídeo novo</em><svg viewBox="0 0 24 28"><path d="M8 2c8 6 9 14 5 23" /><path d="M8 20l5 6 5-5" /></svg></span><span class="ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><span class="count">+25k</span></a>
+      <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok"><span class="ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><span class="count">+55k</span></a>
+      <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X"><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><span class="count">+25k</span></a>
+      <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><span class="ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span></a>
+    </nav>
+  </div>
+</dialog>
+<dialog class="lead" id="lead-mentoria" data-form="mentoria" data-last="RESERVAR NO WHATSAPP" tabindex="-1">
+  <form class="lead-in" novalidate>
+    <div class="lead-top">
+      <span class="lead-step" data-count>1/2</span>
+      <span class="lead-bar" aria-hidden="true"><i data-bar></i></span>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+    </div>
+    <fieldset class="lead-panel" data-step="1">
+      <legend class="lead-q">Quer fazer uma <span class="hand">pergunta?</span></legend>
+      <p class="lead-hint">É opcional. Eu respondo ao vivo, no final da mentoria.</p>
+      <label class="agree"><input type="checkbox" name="ask" value="sim" /><span><b>Quero a minha pergunta respondida</b><small data-q-price></small></span></label>
+      <div data-question hidden>
+        <label class="lead-label" for="m-question">Sua pergunta</label>
+        <textarea class="lead-field lead-area" id="m-question" name="question" maxlength="400" rows="3" placeholder="Escreva em uma ou duas frases"></textarea>
+      </div>
+      <p class="lead-total"><span>Total</span><b data-total></b></p>
+    </fieldset>
+    <fieldset class="lead-panel" data-step="2" hidden>
+      <legend class="lead-q">Para onde mando o <span class="hand">link?</span></legend>
+      <label class="lead-label" for="m-name">Nome</label>
+      <input class="lead-field" id="m-name" name="name" type="text" maxlength="120" autocomplete="name" />
+      <label class="lead-label" for="m-email">E-mail</label>
+      <input class="lead-field" id="m-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <p class="lead-label">A mensagem que você vai me enviar</p>
+      <p class="wa-msg" data-preview></p>
+      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500" /><path d="M12 7.500V12l3 2" /></svg><span><b>O pagamento é por Pix,</b> na conversa. Depois eu mando o link do Zoom no seu e-mail.</span></p>
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="lead-legal">Ao enviar, você concorda com a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
+    </fieldset>
+    <div class="lead-panel lead-done" data-step="3" hidden>
+      <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></span>
+      <p class="lead-q" data-done-q>Agora é só <span class="hand">enviar</span></p>
+      <p class="lead-hint" data-done-hint>A mensagem já está escrita no meu WhatsApp. Se ele não abriu, <a href="#" data-wa-again target="_blank" rel="noreferrer">abra por aqui</a>.</p>
+    </div>
+    <p class="lead-msg" role="status" aria-live="polite"></p>
+    <div class="lead-actions">
+      <button class="lead-back" type="button" data-back hidden>← Voltar</button>
+      <button class="lead-next" type="submit" data-next>CONTINUAR <span aria-hidden="true">→</span></button>
+    </div>
+  </form>
+</dialog>
 <dialog class="lead" id="lead-servicos" data-form="servicos" data-last="ABRIR WHATSAPP" tabindex="-1">
   <form class="lead-in" novalidate>
     <div class="lead-top">
@@ -695,22 +953,11 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
   </div>
 </dialog>
 <script src="/site-config.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 <script type="module">
-import * as THREE from 'three';
 import talks from '/eventos/config.js';
 import talkText from '/eventos/conteudo.js';
 
-// One card per link (same order as #tiles), then the ones that only ride the ribbon.
-const WORK = [
-  {img:'/img/deepchina-card.webp'}, // the DeepChina symbol on its navy (made from img/deepchina-symbol-white.svg)
-  {img:'/img/canton-cracha-1200.webp'},
-  {img:'/img/fabrica-900.webp', zoom:1.11, focus:[.45, .39]}, // both faces either side of the centre
-  {img:'/img/moto-900.webp', focus:[.5, .4]},
-  {img:'/img/carro-1000.webp', zoom:1.15, focus:[.55, .38]},
-  {img:'/img/historia-1000.webp', focus:[.5, .42], gain:1.15}, // the two of them with the towers behind; a night photo, so a little brighter
-  {img:'/img/estrelas-1100.webp', zoom:1.2, focus:[.46, .5]},
-  {img:'/img/cachoeira-1000.webp', focus:[.38, .42]},
-];
 const config = window.NANDO_SITE_CONFIG || {};
 const $ = id => document.getElementById(id);
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -719,144 +966,16 @@ const ease = t => t * t * (3 - 2 * t);
 const out = t => 1 - (1 - t) ** 3;
 const span = (p, a, b) => clamp((p - a) / (b - a));
 
-const stage = $('stage'), tiles = [...document.querySelectorAll('.tile')];
 document.querySelectorAll('[data-social]').forEach(a => { const web = config.socialLinks?.[a.dataset.social]?.web; if (web) { a.href = web; a.hidden = false; } });
 if (config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(a => { a.href = config.deepchinaUrl; a.target = '_blank'; a.rel = 'noreferrer'; });
-// Until the DeepChina site is set, its links lead to the e-mail signup (handled below, once the animation code exists).
 
-/* ---------- renderer ---------- */
-const canvas = $('gl');
-const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-renderer.setClearColor(0, 0);
-renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-const scene = new THREE.Scene();
-const FOV = 35, camera = new THREE.PerspectiveCamera(FOV, 1, .1, 100);
-
-/* ---------- ribbon path ---------- */
-let path, PATH_L = 1, near = 0;
-const SAMPLES = 1200, pathP = [], pathT = [];
-const PH0 = -1.5, PH1 = Math.PI * 2 + 1.35, FAR = 7.6;
-function buildPath() {
-  const pts = [];
-  for (let i = 0; i <= 160; i++) {
-    const t = i / 160, ph = mix(PH0, PH1, t), cs = Math.cos(ph), u = 2 * t - 1;
-    // a shallow arc close to the camera (as close as `near`), then long runs far behind it
-    const depth = cs > 0 ? FAR + 16.4 * cs ** .9 : FAR + (FAR - near) * cs;
-    const edge = .84 + .5 * span(.14 - t, 0, .14) + .8 * span(t, .84, 1);
-    pts.push(new THREE.Vector3(edge * Math.sin(ph) * depth * .561, .5 * Math.sign(u) * Math.abs(u) ** 1.4 * depth * .63, -depth));
-  }
-  path = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
-  path.arcLengthDivisions = 1500;
-  PATH_L = path.getLength(); pathP.length = pathT.length = 0;
-  for (let i = 0; i <= SAMPLES; i++) { const u = i / SAMPLES; pathP.push(path.getPointAt(u)); pathT.push(path.getTangentAt(u)); }
-  timing();
-}
-const at = (s, op, ot) => {
-  const f = clamp(s / PATH_L) * SAMPLES, i = Math.min(SAMPLES - 1, Math.floor(f)), k = f - i;
-  op.lerpVectors(pathP[i], pathP[i + 1], k); ot.lerpVectors(pathT[i], pathT[i + 1], k).normalize();
-};
-
-/* ---------- cards ---------- */
-const CARD_W = 2.1, CARD_H = 1.32, GAP = .03, STEP = CARD_W + GAP, NX = 28, NY = 3, RADIUS = .018;
-const vs = `varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
-const fs = `uniform sampler2D map;uniform vec2 cover,shift;uniform float aspect,ready,radius,gain;varying vec2 vUv;
-void main(){
-  vec2 q=(abs(vUv-.5)-.5)*vec2(aspect,1.)+radius;
-  float d=length(max(q,0.))+min(max(q.x,q.y),0.)-radius;
-  float px=fwidth(d),a=1.-smoothstep(-px,px,d);
-  if(a<.01)discard;
-  vec2 uv=vUv;if(!gl_FrontFacing)uv.x=1.-uv.x;
-  vec3 c=mix(vec3(.075),min(texture2D(map,(uv-.5)*cover+.5+shift).rgb*gain,1.),ready);
-  float edge=smoothstep(-.012-px,-.012,d);
-  gl_FragColor=vec4(mix(c,vec3(1.),edge*.1),a);
-}`;
-// cover fit from the picture's aspect ratio, then show it. A card can zoom in and move its crop towards a focus point
-// (fractions of the picture from its top left), as far as the picture allows, and brighten a dark photo (gain).
-const fit = (c, w, h) => {
-  const va = w / h, ca = CARD_W / CARD_H, z = c.zoom || 1, [fx, fy] = c.focus || [.5, .5];
-  const cx = (va > ca ? ca / va : 1) / z, cy = (va > ca ? 1 : va / ca) / z;
-  const room = (cover, f) => Math.max(-(1 - cover) / 2, Math.min((1 - cover) / 2, f - .5));
-  c.mat.uniforms.cover.value.set(cx, cy);
-  c.mat.uniforms.shift.value.set(room(cx, fx), -room(cy, fy)); // texture rows run bottom up
-  c.mat.uniforms.ready.value = 1;
-};
-const cards = WORK.map(({img, zoom, focus, gain}, i) => {
-  // still pictures get mipmaps, so they stay clean when the ribbon is far away
-  const tex = new THREE.Texture();
-  tex.colorSpace = THREE.NoColorSpace; tex.minFilter = THREE.LinearMipmapLinearFilter; tex.magFilter = THREE.LinearFilter;
-  const geo = new THREE.PlaneGeometry(1, 1, NX, NY);
-  const mat = new THREE.ShaderMaterial({vertexShader:vs, fragmentShader:fs, transparent:true, side:THREE.DoubleSide,
-    uniforms:{map:{value:tex}, cover:{value:new THREE.Vector2(1, 1)}, shift:{value:new THREE.Vector2()}, gain:{value:gain || 1}, aspect:{value:CARD_W / CARD_H}, ready:{value:0}, radius:{value:RADIUS}}});
-  const mesh = new THREE.Mesh(geo, mat); mesh.frustumCulled = false; scene.add(mesh);
-  const c = {i, zoom, focus, tex, geo, mat, mesh, hover:0, hoverT:0};
-  // decoded off the main thread, then handed to the GPU later, one per frame (see upload), so the opening never stutters
-  const pic = new Image(), queue = () => { if (pic.naturalWidth) uploads.push(c); };
-  c.pic = pic; pic.src = img;
-  pic.decode().then(queue, () => pic.complete ? queue() : pic.addEventListener('load', queue, {once:true}));
-  return c;
-});
-const uploads = [];
-function upload() {
-  const c = uploads.shift();
-  c.tex.image = c.pic; c.tex.needsUpdate = true; renderer.initTexture(c.tex);
-  fit(c, c.pic.naturalWidth, c.pic.naturalHeight);
-}
-renderer.compile(scene, camera); // the cards' shader is ready before the first scroll
-
-/* ---------- timeline (ms after the first scroll) ---------- */
-// The name opens, the ribbon flies past, and the first four photos land on their links.
-const RIB0 = 190, RIB1 = 3020, LAND = 620; // the ribbon runs at one steady speed from RIB0 to RIB1
-let DURATION = 1, leave = [];
-function headAt(t) { // how far along the rail the first photo is
-  return (PATH_L + cards.length * STEP) * span(t, RIB0, RIB1);
-}
-function timing() {
-  // when each link's photo leaves the rail, found by halving (headAt only goes forward)
-  leave = tiles.map((_, i) => {
-    const h = PATH_L - CARD_W + i * STEP;
-    let a = 0, b = RIB1;
-    for (let k = 0; k < 40; k++) { const m = (a + b) / 2; if (headAt(m) < h) a = m; else b = m; }
-    return b;
-  });
-  DURATION = leave[leave.length - 1] + LAND + 100;
-}
-
-/* ---------- layout ---------- */
-const GZ = 8, phone = matchMedia('(max-aspect-ratio: 9/10)');
-let W = 1, H = 1, asp = 1, cols = 3, rows = 2, tanH = .3153, slots = [];
-function resize() {
-  W = stage.clientWidth; H = stage.clientHeight; asp = W / H;
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(W, H, false);
-  camera.aspect = asp; camera.fov = asp < 16 / 9 ? Math.atan(.561 / asp) * 360 / Math.PI : FOV; camera.updateProjectionMatrix();
-  tanH = Math.tan(camera.fov * Math.PI / 360);
-  cols = phone.matches ? 1 : 2; rows = Math.ceil(tiles.length / cols);
-  // the HTML lays out the links; each card lands exactly on its slot
-  const box = stage.getBoundingClientRect();
-  slots = tiles.map(t => { const r = t.querySelector('.tile-img').getBoundingClientRect(); return {x:r.left - box.left, y:r.top - box.top, w:r.width, h:r.height}; });
-  if (cols > 1) $('rule').style.top = `${(slots[0].y + slots[0].h + slots[cols].y) / 2}px`;
-  const n = 5.4; // how close the ribbon comes to the camera in front
-  if (Math.abs(n - near) > .05) { near = n; buildPath(); }
-}
-addEventListener('resize', resize); resize();
-// the signup changes height (after sending, the field gives way to a message): the links move, so measure again
-new ResizeObserver(() => resize()).observe($('join'));
-document.fonts.ready.then(resize);
-function grid(i) {
-  const vh = 2 * GZ * tanH, vw = vh * asp, s = slots[i];
-  return {x:((s.x + s.w / 2) / W - .5) * vw, y:(.5 - (s.y + s.h / 2) / H) * vh, w:s.w / W * vw, h:s.h / H * vh, px:s.h, vw, vh, c:i % cols, r:Math.floor(i / cols)};
-}
-
-/* ---------- progress ---------- */
-// One scroll down (wheel, swipe or key), or the "role para ver" button, plays the whole animation; it ends with
-// every link open and stays there. A visitor who asked for less motion gets the links at once.
+/* ---------- the e-mail box ---------- */
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let start = null, target = 0, p = 0;
-const play = () => { if (start === null) start = calm ? -Infinity : performance.now(); };
-// The page's e-mail box: finish the animation, close any pop-up, then put the cursor in the box and pulse it once.
+// Close any pop-up, then put the cursor in the e-mail box and pulse it once.
 function toSignup(e) {
   e.preventDefault();
-  start = -Infinity;
   const go = () => requestAnimationFrame(() => {
+    $('join').scrollIntoView({behavior:calm ? 'auto' : 'smooth', block:'center'});
     $('email').focus({preventScroll:true});
     const box = document.querySelector('#join .join-row:not([hidden]), #join .join-done:not([hidden])');
     box.classList.remove('ping'); void box.offsetWidth; box.classList.add('ping');
@@ -868,149 +987,18 @@ function toSignup(e) {
 }
 document.querySelectorAll('[data-signup]').forEach(a => a.addEventListener('click', toSignup));
 if (!config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(a => a.addEventListener('click', toSignup));
-addEventListener('wheel', e => { if (e.deltaY > 0) play(); }, {passive:true});
-let touchY = null;
-addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive:true});
-addEventListener('touchmove', e => { if (touchY !== null && touchY - e.touches[0].clientY > 12) play(); }, {passive:true});
-addEventListener('keydown', e => { if (['ArrowDown', 'PageDown', 'End', ' '].includes(e.key) && !e.target.closest('input')) play(); });
-$('cue').addEventListener('click', play);
-
-/* ---------- pose ---------- */
-const op = new THREE.Vector3(), ot = new THREE.Vector3(), up = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0), vp = new THREE.Vector3();
-function poseRibbon(c, head) {
-  const pos = c.geo.attributes.position, centre = head - c.i * STEP;
-  c.mat.uniforms.radius.value = RADIUS;
-  for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
-    const k = iy * (NX + 1) + ix, lu = ix / NX - .5, lv = .5 - iy / NY;
-    at(centre + lu * CARD_W, op, ot);
-    // keep the sheet upright, leaning a little into the turn
-    up.copy(Y).addScaledVector(ot, -Y.dot(ot)).normalize();
-    vp.copy(op).addScaledVector(up, lv * CARD_H);
-    pos.setXYZ(k, vp.x, vp.y, vp.z);
-  }
-  pos.needsUpdate = true;
-}
-function poseGrid(c, q) {
-  const g = grid(c.i), pos = c.geo.attributes.position, mid = (cols - 1) / 2;
-  const dx = (g.c - mid) * 1.2, dy = g.r < rows / 2 ? 1 : -1;
-  const ox = dx * g.vw * .62 * (1 - q), oy = dy * g.vh * (cols === 3 && g.c === 1 ? .95 : .34) * (1 - q), tilt = (1 - q) * .22 * (g.c - mid || .5) * dy;
-  const cs = Math.cos(tilt), sn = Math.sin(tilt), grow = 1 + .03 * c.hover; // grows with its tile on hover
-  // corners round off to the slot's radius as the card lands (6px on the grid, 8px on the phone rows)
-  c.mat.uniforms.radius.value = mix(RADIUS, (cols > 1 ? 6 : 8) / g.px, q);
-  for (let iy = 0; iy <= NY; iy++) for (let ix = 0; ix <= NX; ix++) {
-    const k = iy * (NX + 1) + ix, x = (ix / NX - .5) * g.w * grow, y = (.5 - iy / NY) * g.h * grow;
-    pos.setXYZ(k, g.x + ox + x * cs - y * sn, g.y + oy + x * sn + y * cs, -GZ - (1 - q) * .6 * Math.sin(ix / NX * Math.PI));
-  }
-  pos.needsUpdate = true;
-}
-// a tile's label shows once its card has landed under it
-function showTile(el, q) {
-  const o = span(q, .97, 1);
-  el.style.opacity = o; el.style.visibility = o > .02 ? 'visible' : 'hidden';
-}
-
-/* ---------- the opening: the name writes itself ---------- */
-// Each word is uncovered left to right in one smooth stroke under a soft-edged mask, with a light at the pen.
-const lines = [$('l1'), $('l2')], inks = [...document.querySelectorAll('.ink')], pens = [...document.querySelectorAll('.pen')];
-const WRITE = [[0, 1100], [750, 2000]], CUE = [1900, 2600]; // ms after the font is ready
-let words = [], writeStart = null;
-function measureInk() {
-  words = inks.map(el => {
-    const cs = getComputedStyle(el), pad = parseFloat(cs.paddingLeft), size = parseFloat(cs.fontSize), feather = .5 * size;
-    // from a little left of the first letter to past the last one, so the soft edge leaves the word whole
-    return {pad, size, feather, from:Math.max(0, pad - feather / 2), to:el.clientWidth + feather / 2};
+/* ---------- menu (phones): contact and the social networks in a sheet ---------- */
+{
+  const menu = $('menu');
+  const toggle = $('menu-btn');
+  toggle.addEventListener('click', () => { menu.classList.remove('closing'); menu.showModal(); menu.focus(); toggle.setAttribute('aria-expanded', 'true'); });
+  menu.addEventListener('close', () => toggle.setAttribute('aria-expanded', 'false'));
+  menu.addEventListener('cancel', e => { e.preventDefault(); closeDialog(menu); });
+  menu.addEventListener('click', e => {
+    if (e.target.closest('[data-lead]')) return menu.close(); // the form opens next, on a clear screen
+    if (e.target === menu || e.target.closest('[data-close]')) closeDialog(menu);
   });
 }
-// writing starts once the handwriting font is there, so the name never shows in another font
-Promise.race([document.fonts.ready.then(() => document.fonts.load('600 100px Caveat')), new Promise(r => setTimeout(r, 2500))])
-  .then(() => { measureInk(); writeStart = performance.now() + 150; });
-addEventListener('resize', () => { if (words.length) measureInk(); });
-function write(i, u) {
-  const w = words[i], el = inks[i], pen = pens[i];
-  if (!w || u >= 1) { el.classList.toggle('done', !!w); pen.style.opacity = 0; return; }
-  el.classList.remove('done');
-  const x = mix(w.from, w.to, mix(u, ease(u), .6));
-  el.style.setProperty('--e', `${u > 0 ? x + w.feather / 2 : 0}px`); el.style.setProperty('--f', `${w.feather}px`);
-  pen.style.opacity = Math.min(1, u * 8, (1 - u) * 6);
-  pen.style.transform = `translate3d(${x - w.pad}px,${w.size * .58}px,0)`;
-}
-// the mouse moves a light and tilts the name a little; on a phone the light drifts on its own
-let mx = 0, my = 0, sx = 0, sy = 0, mouse = false;
-addEventListener('pointermove', e => {
-  if (e.pointerType !== 'mouse') return;
-  mouse = true; mx = e.clientX / innerWidth * 2 - 1; my = e.clientY / innerHeight * 2 - 1;
-}, {passive:true});
-// the name at the top: back to the opening, with the name written again
-function rewind() {
-  if (start === null) { writeStart = performance.now(); return; } // already on the opening: just write the name again
-  stage.classList.add('rewind');
-  setTimeout(() => {
-    start = null; target = p = 0;
-    writeStart = performance.now() + 150;
-    setTimeout(() => stage.classList.remove('rewind'), calm ? 0 : 650); // the signup and icons have faded by then
-  }, calm ? 0 : 380);
-}
-$('home').addEventListener('click', e => { e.preventDefault(); rewind(); });
-
-const loaded = performance.now();
-function render(now) {
-  const pp = p;
-  // time since the writing began; a scroll finishes it quickly, a visitor who asked for less motion gets it written
-  const t = calm ? Infinity : writeStart === null ? -1 : now - writeStart + (start === null ? 0 : (now - start) * 4);
-  WRITE.forEach(([a, b], i) => write(i, span(t, a, b)));
-  // photos go to the GPU one per frame, once the name is written or the visitor scrolls
-  if (uploads.length && (start !== null || t > WRITE[1][1] + 300)) upload();
-  // the name floats and leans towards the mouse; the first scroll opens the two lines apart, like a curtain
-  sx += (mx - sx) * .05; sy += (my - sy) * .05;
-  const ms = pp * DURATION; // where the animation is, in ms after the first scroll
-  const float = calm ? 0 : Math.sin(now / 1700) * 4, run = 62 * ease(span(ms, 0, 900)) * W / 100, grow = 1 + .08 * ease(span(ms, 0, 900));
-  lines.forEach((l, i) => {
-    const dir = i ? 1 : -1, depth = i ? .6 : 1;
-    l.style.transform = `translate3d(${dir * run + sx * 16 * depth}px,${float * depth + sy * 10 * depth}px,0) scale(${grow})`;
-    l.style.opacity = 1 - span(ms, 150, 650);
-  });
-  const intro = 1 - span(ms, 0, 250), glow = (calm ? 1 : out(span(now - loaded, 200, 1600))) * (1 - span(ms, 0, 1500));
-  const lx = mouse ? (sx + 1) / 2 * W : W * (.5 + .16 * Math.sin(now / 4300)), ly = mouse ? (sy + 1) / 2 * H : H * (.48 + .09 * Math.sin(now / 3100));
-  $('light').style.opacity = glow;
-  $('light').style.transform = `translate3d(${lx}px,${ly}px,0) scale(${1 + .6 * ease(span(ms, 0, 1500))})`;
-  $('light').style.visibility = glow > 0 ? '' : 'hidden';
-  $('glow').style.opacity = intro;
-  $('cue').style.opacity = intro * span(t, ...CUE);
-  $('cue').style.visibility = intro > 0 ? '' : 'hidden';
-  $('rule').style.transform = `scaleX(${ease(span(ms, leave[0] + LAND * .6, leave[0] + LAND * 1.6))})`;
-  stage.classList.toggle('is-open', ms > leave[0] + LAND * .45); // while the last links are still landing
-  // ribbon, then the links
-  const head = headAt(ms);
-  for (const c of cards) {
-    const s = head - c.i * STEP, end = PATH_L - CARD_W;
-    if (s < end) {
-      c.mesh.visible = s > CARD_W;
-      if (c.mesh.visible) poseRibbon(c, head);
-      if (tiles[c.i]) showTile(tiles[c.i], 0);
-    } else if (c.i < tiles.length) {
-      // each card flies to its slot the moment it leaves the rail
-      const q = out(span(ms, leave[c.i], leave[c.i] + LAND));
-      c.mesh.visible = q > .001;
-      if (c.mesh.visible) poseGrid(c, q);
-      showTile(tiles[c.i], q);
-    } else c.mesh.visible = false;
-  }
-  renderer.render(scene, camera);
-}
-
-/* ---------- contact pill: the first click shows the address, the next one writes the e-mail ---------- */
-$('contact').addEventListener('click', e => {
-  const pill = e.currentTarget;
-  if (pill.classList.contains('open')) return;
-  e.preventDefault();
-  pill.classList.add('open'); pill.setAttribute('aria-expanded', 'true');
-});
-
-/* ---------- hover ---------- */
-tiles.forEach((t, i) => {
-  t.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && cols > 1) cards[i].hoverT = 1; });
-  t.addEventListener('pointerleave', () => { cards[i].hoverT = 0; });
-});
 
 /* ---------- e-mail signup ("Entre na minha mente"), sent to config.signupEndpoint ---------- */
 document.querySelectorAll('form.join').forEach(form => {
@@ -1056,6 +1044,14 @@ const FORMS = {
       : n === 3 && !a.call ? ['Todo serviço começa com a consultoria de 1 hora. Marque para continuar.', f.elements.call] : null,
     hello: 'Oi, Nando! Vim pelo seu site e quero falar sobre os seus serviços.',
     lines: a => [a.needs.length && `Preciso de: ${a.needs.join(', ')}`, a.product && `Quero importar: ${a.product}`, a.budget && `Investimento: ${a.budget}`, a.call && 'Topo a consultoria de 1 hora (R$ 1.000, creditados se eu fechar).'].filter(Boolean)
+  },
+  mentoria: {
+    subject: 'Mentoria em grupo online',
+    answers: (d, get) => ({ask:get('ask') === 'sim', question:get('question')}),
+    missing: (n, a, f) => n === 1 && a.ask && !a.question ? ['Escreva a sua pergunta.', f.elements.question] : null,
+    hello: 'Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.',
+    lines: a => { const m = talks.mentoria, money = n => `R$ ${n.toLocaleString('pt-BR')}`;
+      return [`Mentoria: ${money(m.preco)}`, a.ask && a.question && `Minha pergunta (+ ${money(m.precoPergunta)}): ${a.question}`, `Total: ${money(m.preco + (a.ask && a.question ? m.precoPergunta : 0))}`].filter(Boolean); }
   },
   canton: {
     subject: 'Imersão Canton Fair',
@@ -1245,7 +1241,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const countdown = lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>
     <div><span><b data-d></b><small>d</small></span><span><b data-h></b><small>h</small></span><span><b data-m></b><small>min</small></span><span><b data-s></b><small>s</small></span></div></div>` : '';
   const buy = auction ? '' : `<div data-lots>${lotList(lots)}</div>
-      ${santosButton ? `<p><button class="talk-btn solid" type="button" data-santos>${esc(santosButton)}</button></p>` : ''}`;
+      ${santosButton ? `<p class="buy-row"><button class="talk-btn solid wa" type="button" data-santos><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.200a8.800 8.800 0 0 0-7.500 13.400L3.300 20.700l4.200-1.100A8.800 8.800 0 1 0 12 3.200Z" /><path d="M9.300 8.300c-.300 1 .100 2.300 1.300 3.700 1.300 1.500 2.700 2.200 3.900 2.100.600-.100 1.100-.600 1.300-1.200l-1.600-.900-.800.700c-.800-.300-1.700-1.200-2.100-2.100l.600-.800-.900-1.700c-.700.100-1.400.700-1.700 1.400Z" /></svg>${esc(santosButton)}</button><small>${esc(t.santos.botaoNota)}</small></p>` : ''}`;
   const items = teaching ? [...t.santos.itens.slice(0, -1), teaching, t.santos.itens.at(-1)] : t.santos.itens;
   const seats = santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? t.santos.maximo.replace('{n}', santos.vagasTotal) : t.santos.vagasLimitadas;
   const when = santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long', timeZone:'America/Sao_Paulo'}).replace(/^./, c => c.toUpperCase()).replace('-feira', '') : '';
@@ -1259,7 +1255,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       <div class="ev-info">
         <p class="letter-h">${esc(t.santos.rotulo)}</p>
         <h2 class="letter-subject ev-title" id="talks-title">${fill(t.santos.titulo)}</h2>
-        <p class="ev-meta">${when ? `<span>${ICON.day}${esc(when)}</span>` : ''}${santos.cidade ? `<span>${ICON.pin}${esc(santos.cidade)}</span>` : ''}<span class="max">${ICON.lock}${esc(seats)}</span></p>
+        <p class="ev-meta"><span>${ICON.day}${esc(when || t.santos.emBreve)}</span>${santos.cidade ? `<span>${ICON.pin}${esc(santos.cidade)}</span>` : ''}<span class="max">${ICON.lock}${esc(seats)}</span></p>
         <p class="ev-lead">${fill(hero.promessa)}</p>
         ${isTodo(items) ? '' : `<ul class="ev-list">${items.map(i => `<li>${fill(i)}</li>`).join('')}</ul>`}
         <div class="letter-body">${facts.filter(([k]) => k !== 'Data').map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
@@ -1321,17 +1317,18 @@ ${hasTalk ? santosBlock : ''}
   // countdowns to real dates of the config (days, hours, minutes, seconds); one that has passed hides itself
   const counts = [...dialog.querySelectorAll('.cdown[data-until]')].map(el => [el, new Date(el.dataset.until).getTime()]);
   // the same countdown, small, on the shortcut of the page
-  const mini = $('talk-count');
+  const mini = $('talk-count') || {hidden:true}; // the small countdown of the old shortcut, when the page has one
   let miniEnd = lotEnds ? new Date(lotEnds.viraEm).getTime() : 0;
   let miniLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
   const two = v => String(v).padStart(2, '0');
   // the moment a lot ends, the next one is on sale: redo the list and point the countdowns at the new lot's end
-  let shown = selling?.nome;
+  let shown = selling?.nome, fillCard = () => {};
   const turnLot = () => {
     const lot = sellingAt(); shown = lot?.nome;
     dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
     const end = lot?.viraEm ? Date.parse(lot.viraEm) : 0;
     counts.forEach(entry => { entry[1] = end; entry[0].querySelector('p').textContent = lot ? t.santos.contagem.replace('{lote}', lot.nome) : t.santos.contagemFim; });
+    fillCard();
     miniEnd = end; miniLabel = lot ? t.santos.contagemCurtaLote.replace('{lote}', lot.nome) : t.santos.contagemCurta;
   };
   const count = () => {
@@ -1352,7 +1349,31 @@ ${hasTalk ? santosBlock : ''}
     tick(); setInterval(tick, 30000);
   }
   // the shortcut on the page says when the workshop is, from the same date of the config
-  if (santos.data) $('talk-when').textContent += ` · ${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'numeric', timeZone:'America/Sao_Paulo'})}`;
+  // the immersion card on the home: price of the lot on sale, the next one, and when and where (or "em breve")
+  const imersaoCard = document.querySelector('[data-imersao-preco]');
+  fillCard = () => {
+    if (!imersaoCard) return;
+    const sale = sellingAt() || lots[0], after = lots[lots.indexOf(sale) + 1];
+    imersaoCard.textContent = sale ? brl(sale.preco) : '';
+    // while a cheaper lot is on sale, the full price shows struck through, with how much comes off
+    const full = Math.max(...lots.map(l => l.preco)), cut = sale && sale.preco < full;
+    document.querySelector('[data-imersao-cheio]').textContent = cut ? brl(full) : '';
+    // one quiet line: how many seats, where and when
+    $('talk-when').textContent = [santos.vagasTotal && `${santos.vagasTotal} vagas`, santos.cidade, santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'}) : t.santos.emBreve.toLowerCase()].filter(Boolean).join(' · ');
+  };
+  fillCard();
+  // the online group mentoring card: prices and date from the config; the button opens WhatsApp with the message
+  const m = talks.mentoria, mentoriaCard = document.querySelector('[data-mentoria-preco]');
+  if (m && mentoriaCard) {
+    mentoriaCard.textContent = brl(m.preco);
+    document.querySelector('[data-mentoria-pergunta]').innerHTML = m.precoPergunta ? t.mentoria.pergunta.replace('{preco}', `<b>+ ${brl(m.precoPergunta)}</b>`) : '';
+    document.querySelector('[data-mentoria-quando]').textContent = m.data ? `${new Date(`${m.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'})}${m.horario ? ` · ${m.horario}` : ''} · Zoom` : t.mentoria.emBreve;
+    // the sheet's own numbers: the price of a question and the total as the visitor switches it on
+    const sheet = $('lead-mentoria');
+    sheet.querySelectorAll('[data-q-price]').forEach(el => { el.textContent = `+ ${brl(m.precoPergunta)}`; });
+    const total = () => { const on = sheet.querySelector('[name=ask]').checked; sheet.querySelector('[data-question]').hidden = !on; sheet.querySelector('[data-total]').textContent = brl(m.preco + (on ? m.precoPergunta : 0)); };
+    sheet.addEventListener('input', total); total();
+  }
   // the screen has its own address, so the browser's back button returns to the page too
   const go = (how, url, state) => { try { history[how](state, '', url); } catch {} };
   document.querySelectorAll('[data-talks]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTalks(); go('pushState', '/eventos', {eventos:true}); }));
@@ -1360,7 +1381,7 @@ ${hasTalk ? santosBlock : ''}
   addEventListener('popstate', () => { if (dialog.open) closeDialog(dialog); });
   // /eventos (and links with ?cidade=) land here with the pop-up already open, over the finished page
   const q = new URLSearchParams(location.search);
-  if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') { start = -Infinity; openTalks(); }
+  if (q.has('eventos') || q.has('cidade') || location.hash === '#eventos') openTalks();
   if (auction) import('/eventos/leilao-tela.js').then(m => m.mount($('leilao'), t.leilao)).catch(() => {});
   // the workshop button goes straight to WhatsApp, the message already written (once site-config.js has the number)
   const waNumber = String(config.whatsapp || '').replace(/\D/g, '');
@@ -1396,16 +1417,6 @@ document.querySelectorAll('dialog.lead').forEach(d => {
   d.addEventListener('close', () => { d.style.transform = ''; });
 });
 
-/* ---------- loop ---------- */
-function loop(now) {
-  target = start === null ? 0 : clamp((now - start) / DURATION);
-  p = start === -Infinity ? 1 : p + (target - p) * .09;
-  if (Math.abs(target - p) < .00005) p = target;
-  for (const c of cards) c.hover += (c.hoverT - c.hover) * .18;
-  render(now);
-  requestAnimationFrame(loop);
-}
-requestAnimationFrame(loop);
 </script>
 </body>
 </html>
