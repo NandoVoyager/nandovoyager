@@ -434,7 +434,7 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .page-back svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 @media (hover:hover){.page-back:hover{background:rgba(244,241,234,.08)}.page-back:hover svg{transform:translateX(-2px)}}
 .page .letter-in{max-width:640px;margin:0 auto;padding-top:22px;padding-bottom:calc(56px + env(safe-area-inset-bottom))}
-@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}}
+@media (prefers-reduced-motion:reduce){.lead[open],.lead.closing,.lead-panel,.lead::backdrop{animation:none}.menu[open] .menu-links a,.menu[open] .menu-social a{animation:none}.menu[open] .bars i,.menu.closing .bars i{animation-duration:.01s}}
 /* ---------- the home without the opening: name, icons and three ways in, at once ---------- */
 body:has(.home){overflow:auto}
 .home{position:relative;min-height:100svh;padding:84px 20px 48px;background:radial-gradient(ellipse 70% 45% at 50% 0,rgba(244,241,234,.06),transparent 70%),var(--bg)}
@@ -448,34 +448,63 @@ body:has(.home){overflow:auto}
 .hero-photo{display:block;width:100%;height:auto;max-height:250px;aspect-ratio:16/9;object-fit:cover;object-position:62% 30%;border-radius:20px;border:1px solid rgba(244,241,234,.14)}
 .home .socials{display:flex;margin:26px 0 0}
 /* on a phone, contact and the social networks live behind a menu button at the top */
-.menu-btn{display:none;place-items:center;width:40px;height:40px;border:1px solid rgba(244,241,234,.4);border-radius:50%;background:rgba(10,10,11,.4);color:var(--ink);cursor:pointer;pointer-events:auto;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.menu-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
-.menu-btn:active{transform:scale(.95)}
-.menu-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.menu-btn{position:relative;display:none;place-items:center;width:40px;height:40px;border:1px solid rgba(244,241,234,.4);border-radius:50%;background:rgba(10,10,11,.4);color:var(--ink);cursor:pointer;pointer-events:auto;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .2s var(--spring),border-color .2s,background .2s}
+.menu-btn:active{transform:scale(.9)}
+@media (hover:hover){.menu-btn:hover{border-color:var(--ink)}}
+.bars{position:relative;display:block;width:18px;height:12px}
+.bars i{position:absolute;left:0;right:0;height:1.800px;border-radius:2px;background:currentColor;transition:transform .42s cubic-bezier(.3,1.3,.5,1),top .42s cubic-bezier(.3,1.3,.5,1)}
+.bars i:first-child{top:1px}
+.bars i:last-child{top:9px}
+/* in the drawer the same button sits exactly over the one in the header and its bars cross into an X */
+.menu-close{position:absolute;top:18px;right:18px;display:grid;z-index:2;background:none}
+.menu[open] .bars i{top:5px;animation:bar-a .46s cubic-bezier(.3,1.3,.5,1) .06s both}
+.menu[open] .bars i:last-child{animation-name:bar-b}
+@keyframes bar-a{from{top:1px;transform:none}to{top:5px;transform:rotate(45deg)}}
+@keyframes bar-b{from{top:9px;transform:none}to{top:5px;transform:rotate(-45deg)}}
+.menu.closing .bars i{animation:bar-a-out .2s ease both}
+.menu.closing .bars i:last-child{animation-name:bar-b-out}
+@keyframes bar-a-out{from{top:5px;transform:rotate(45deg)}to{top:1px;transform:none}}
+@keyframes bar-b-out{from{top:5px;transform:rotate(-45deg)}to{top:9px;transform:none}}
 /* the menu opens from the side the button is on: a panel as tall as the screen, sliding in from the right */
-.lead.menu{width:min(340px,86vw);max-width:none;height:100%;max-height:none;margin:0 0 0 auto;border-width:0 0 0 1px;border-radius:22px 0 0 22px}
-.lead.menu[open]{animation:side-in .32s cubic-bezier(.2,.7,.2,1)}
-.lead.menu.closing{animation:side-out .2s ease forwards}
+.lead.menu{width:min(300px,80vw);max-width:none;height:100%;max-height:none;margin:0 0 0 auto;border-width:0 0 0 1px;border-radius:22px 0 0 22px}
+.lead.menu[open]{animation:side-in .46s cubic-bezier(.2,.9,.25,1)}
+.lead.menu.closing{animation:side-out .24s cubic-bezier(.5,0,.8,.4) forwards}
 @keyframes side-in{from{transform:translateX(100%)}}
 @keyframes side-out{to{transform:translateX(100%)}}
 .menu .lead-in{padding:18px 18px calc(18px + env(safe-area-inset-bottom))}
-.menu-h{margin:18px 0 8px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
-.menu-list{display:flex;flex-direction:column;border:1px solid rgba(244,241,234,.14);border-radius:14px;overflow:hidden}
-.menu-list a{display:flex;align-items:center;gap:12px;min-height:54px;padding:8px 14px;color:var(--ink);text-decoration:none}
-.menu-list a[hidden]{display:none}
-.menu-list a + a{border-top:1px solid rgba(244,241,234,.08)}
-.menu-list a:active{background:rgba(244,241,234,.07)}
-@media (hover:hover){.menu-list a:hover{background:rgba(244,241,234,.05)}}
-.menu-ico{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(244,241,234,.07)}
-.menu-ico svg{width:17px;height:17px}
+.menu .lead-in{display:flex;flex-direction:column;min-height:100%}
+.menu-links{display:flex;flex-direction:column;margin-top:56px}
+/* the links arrive one after another, then the icons */
+.menu[open] .menu-links a,.menu[open] .menu-social a{animation:menu-in .5s cubic-bezier(.2,.8,.2,1) both}
+.menu[open] .menu-links a:nth-child(1){animation-delay:.10s}
+.menu[open] .menu-links a:nth-child(2){animation-delay:.15s}
+.menu[open] .menu-links a:nth-child(3){animation-delay:.20s}
+.menu[open] .menu-links a:nth-child(4){animation-delay:.25s}
+.menu[open] .menu-social a{animation-name:menu-pop}
+.menu[open] .menu-social a:nth-child(1){animation-delay:.30s}
+.menu[open] .menu-social a:nth-child(2){animation-delay:.34s}
+.menu[open] .menu-social a:nth-child(3){animation-delay:.38s}
+.menu[open] .menu-social a:nth-child(4){animation-delay:.42s}
+.menu[open] .menu-social a:nth-child(5){animation-delay:.46s}
+.menu[open] .menu-social a:nth-child(6){animation-delay:.50s}
+@keyframes menu-in{from{opacity:0;transform:translateX(26px)}}
+@keyframes menu-pop{from{opacity:0;transform:scale(.6)}}
+.menu.closing .menu-links a,.menu.closing .menu-social a{animation:none}
+.menu-links a:after{content:"→";margin-left:auto;color:var(--mid);opacity:.6;transition:transform .25s,opacity .25s}
+.menu-links a:active:after{transform:translateX(4px);opacity:1}
+.menu-links a{display:flex;align-items:center;gap:12px;padding:15px 2px;border-bottom:1px solid rgba(244,241,234,.1);color:var(--ink);font-size:19px;font-weight:500;letter-spacing:-.01em;text-decoration:none}
+.menu-links a{transition:padding-left .25s cubic-bezier(.2,.7,.2,1),color .2s}
+.menu-links a:active{padding-left:8px}
+@media (hover:hover){.menu-links a:hover{padding-left:8px}.menu-links a:hover:after{transform:translateX(4px);opacity:1}.menu-social a{transition:background .2s,color .2s,border-color .2s,transform .2s var(--spring)}.menu-social a:hover{background:var(--ink);border-color:var(--ink);color:var(--bg);transform:translateY(-2px)}}
+.menu-social a:active{transform:scale(.9)}
+.menu-ico{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%}
 .menu-ico.deep{background:#16307a}
-.menu-ico.deep img{display:block;width:20px;height:20px}
-.menu-two small{flex:none;white-space:normal;line-height:1.3}
-.menu-list [data-social=youtube] svg{color:#ff0033}
-.menu-list b{font-size:15.500px;font-weight:500}
-.menu-list small{flex:1;overflow:hidden;font-size:13px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
-.menu-two{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
-.menu-list i{flex:none;font-style:normal;color:var(--mid)}
+.menu-ico.deep img{display:block;width:18px;height:18px}
+.menu-social{display:flex;gap:6px;margin-top:auto;padding-top:28px}
+.menu-social a{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(244,241,234,.2);border-radius:50%;color:var(--ink)}
+.menu-social a[hidden]{display:none}
+.menu-social svg{width:17px;height:17px}
+.menu-social [data-social=youtube] svg{color:#ff0033}
 .home .socials .ico{width:40px;height:40px;border-color:rgba(244,241,234,.2)}
 .offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:34px 0 0;padding:0;list-style:none;counter-reset:o}
 .offer{position:relative;display:flex;flex-direction:column;padding:22px 22px 20px;border:1px solid rgba(244,241,234,.14);border-radius:20px;background:rgba(244,241,234,.03)}
@@ -580,7 +609,7 @@ body:has(.home){overflow:auto}
   <header class="top">
     <a class="logo" href="/" id="home" aria-label="Nando Voyager, voltar ao início"><img src="/img/avatar-160.webp" width="36" height="36" alt="" /><span class="logo-text"><b>Nando Voyager</b><small>@nandovoyager</small></span></a>
     <nav class="acts" aria-label="Atalhos">
-      <button class="menu-btn" id="menu-btn" type="button" aria-haspopup="dialog" aria-label="Abrir menu: contato e redes sociais"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16" /></svg></button>
+      <button class="menu-btn" id="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Abrir menu"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
       <a class="contact" id="contact" href="mailto:contato@nandovoyager.com" aria-expanded="false"><svg class="mail-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg><span class="contact-text"><span class="contact-label">Contato</span><span class="contact-mail">contato@nandovoyager.com</span></span></a></nav>
   </header>
   <div class="home-in">
@@ -596,7 +625,7 @@ body:has(.home){overflow:auto}
       <li class="offer" id="offer-gratis">
         <p class="offer-tag">Grátis</p>
         <h2>Podcasts</h2>
-        <p class="offer-text">Meus pensamentos pelo mundo, toda semana, no seu e-mail. E o aviso de cada podcast novo.</p>
+        <p class="offer-text">Toda semana, o que eu aprendo pelo mundo sobre China, IA e negócios. E o aviso de cada podcast novo.</p>
         <form class="join" id="join" novalidate>
           <label class="sr-only" for="email">Seu e-mail</label>
           <div class="join-row">
@@ -645,30 +674,22 @@ body:has(.home){overflow:auto}
     </nav>
   </div>
 </main>
-<dialog class="lead menu" id="menu" aria-label="Contato e redes sociais" tabindex="-1">
+<dialog class="lead menu" id="menu" aria-label="Menu" tabindex="-1">
   <div class="lead-in">
-    <div class="menu-top">
-      <span class="lead-step">Menu</span>
-      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
-    </div>
-    <p class="menu-h">Mais</p>
-    <nav class="menu-list" aria-label="Mais">
-      <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span><span class="menu-two"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><i aria-hidden="true">↗</i></a>
-      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3.500" y="7.500" width="17" height="12" rx="2.500" /><path d="M9 7.500V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.500M3.500 13h17" /></svg></span><span class="menu-two"><b>Serviços</b><small>Consultoria de importação</small></span><i aria-hidden="true">→</i></a>
-      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="6" y="8" width="12" height="13" rx="2.500" /><path d="M10 8l2-5 2 5M9.500 13h5M9.500 16.500h3" /></svg></span><span class="menu-two"><b>Imersão Canton Fair</b><small>A maior feira da China · abril de 2027</small></span><i aria-hidden="true">→</i></a>
+    <button class="menu-btn menu-close" type="button" data-close aria-label="Fechar menu"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
+    <nav class="menu-links" aria-label="Menu">
+      <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span>DeepChina AI</a>
+      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog">Serviços</a>
+      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog">Imersão Canton Fair</a>
+      <a href="mailto:contato@nandovoyager.com">Contato</a>
     </nav>
-    <p class="menu-h">Contato</p>
-    <nav class="menu-list" aria-label="Contato">
-      <a href="mailto:contato@nandovoyager.com"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="5" width="18" height="14" rx="2.500" /><path d="m4 7 8 6 8-6" /></svg></span><span class="menu-two"><b>E-mail</b><small>contato@nandovoyager.com</small></span><i aria-hidden="true">↗</i></a>
-    </nav>
-    <p class="menu-h">Redes sociais</p>
-    <nav class="menu-list" aria-label="Redes sociais">
-      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer"><span class="menu-ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></span><b>Instagram</b><small>+1.2M</small><i aria-hidden="true">↗</i></a>
-      <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer"><span class="menu-ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></span><b>Facebook</b><small>+300k</small><i aria-hidden="true">↗</i></a>
-      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer"><span class="menu-ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></span><b>YouTube</b><small>+25k</small><i aria-hidden="true">↗</i></a>
-      <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer"><span class="menu-ico"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></span><b>TikTok</b><small>+55k</small><i aria-hidden="true">↗</i></a>
-      <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer"><span class="menu-ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></span><b>X</b><small>+25k</small><i aria-hidden="true">↗</i></a>
-      <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" hidden><span class="menu-ico"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></span><b>LinkedIn</b><small></small><i aria-hidden="true">↗</i></a>
+    <nav class="menu-social" aria-label="Redes sociais">
+      <a data-social="instagram" href="https://www.instagram.com/nandovoyager/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" /></svg></a>
+      <a data-social="facebook" href="https://www.facebook.com/nandovoyager1/" target="_blank" rel="noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M9.1 23.69v-7.98H6.63v-3.67H9.1v-1.58c0-4.09 1.85-5.98 5.86-5.98.4 0 .96.04 1.47.1.38.04.76.11 1.14.2v3.32a8.6 8.6 0 0 0-.65-.03 27 27 0 0 0-.73-.01c-.71 0-1.26.1-1.68.31-.28.14-.52.36-.68.62-.26.42-.37 1-.37 1.75v1.3h3.92l-.39 2.1-.29 1.57h-3.24v8.24C19.4 23.24 24 18.18 24 12.04 24 5.42 18.63.04 12 .04S0 5.42 0 12.04c0 5.63 3.87 10.35 9.1 11.65z" fill="currentColor" /></svg></a>
+      <a data-social="youtube" href="https://www.youtube.com/@NandoVoyager" target="_blank" rel="noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8z" fill="currentColor" /><path class="yt-play" d="M10 15V9l5.2 3z" fill="#fff" /></svg></a>
+      <a data-social="tiktok" href="https://www.tiktok.com/@nandovoyager" target="_blank" rel="noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="currentColor" /></svg></a>
+      <a data-social="x" href="https://x.com/NandoVoyager" target="_blank" rel="noreferrer" aria-label="X"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.25 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" fill="currentColor" /></svg></a>
+      <a data-social="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn" hidden><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" fill="currentColor" /></svg></a>
     </nav>
   </div>
 </dialog>
@@ -866,7 +887,9 @@ if (!config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(
 /* ---------- menu (phones): contact and the social networks in a sheet ---------- */
 {
   const menu = $('menu');
-  $('menu-btn').addEventListener('click', () => { menu.classList.remove('closing'); menu.showModal(); menu.focus(); });
+  const toggle = $('menu-btn');
+  toggle.addEventListener('click', () => { menu.classList.remove('closing'); menu.showModal(); menu.focus(); toggle.setAttribute('aria-expanded', 'true'); });
+  menu.addEventListener('close', () => toggle.setAttribute('aria-expanded', 'false'));
   menu.addEventListener('cancel', e => { e.preventDefault(); closeDialog(menu); });
   menu.addEventListener('click', e => {
     if (e.target.closest('[data-lead]')) return menu.close(); // the form opens next, on a clear screen
