@@ -35,8 +35,8 @@ export default {
       pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade
     },
     lotes: [ // preço por pessoa; com preco: null o lote não aparece
-      { nome: "Lote 1", preco: 1000, linkCheckout: "", ativo: true, viraEm: "2026-11-26T23:59:00-03:00" }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00". Com datas, o lote à venda (lista, contagem e botão) vira sozinho na hora certa e "ativo" é ignorado
-      { nome: "Lote 2", preco: 1500, linkCheckout: "", ativo: false, comecaDiasAntesDoEvento: 3 }, // começa 3 dias antes do evento (calculado a partir de santos.data); o lote anterior termina nesse momento
+      { nome: "Lote 1", preco: 1500, linkCheckout: "", ativo: true, viraEm: "2026-11-26T23:59:00-03:00" }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00". Com datas, o lote à venda (lista, contagem e botão) vira sozinho na hora certa e "ativo" é ignorado
+      { nome: "Lote 2", preco: 2000, linkCheckout: "", ativo: false, comecaDiasAntesDoEvento: 3 }, // começa 3 dias antes do evento (calculado a partir de santos.data); o lote anterior termina nesse momento
     ],
     lat: -23.9608, lng: -46.3336,
   },
