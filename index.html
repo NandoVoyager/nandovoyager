@@ -468,6 +468,9 @@ body:has(.home){overflow:auto}
 @media (hover:hover){.menu-list a:hover{background:rgba(244,241,234,.05)}}
 .menu-ico{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(244,241,234,.07)}
 .menu-ico svg{width:17px;height:17px}
+.menu-ico.deep{background:#16307a}
+.menu-ico.deep img{display:block;width:20px;height:20px}
+.menu-two small{flex:none;white-space:normal;line-height:1.3}
 .menu-list [data-social=youtube] svg{color:#ff0033}
 .menu-list b{font-size:15.500px;font-weight:500}
 .menu-list small{flex:1;overflow:hidden;font-size:13px;color:var(--mid);white-space:nowrap;text-overflow:ellipsis}
@@ -593,7 +596,7 @@ body:has(.home){overflow:auto}
       <li class="offer" id="offer-gratis">
         <p class="offer-tag">Grátis</p>
         <h2>Podcasts</h2>
-        <p class="offer-text">Comece de graça: te aviso por e-mail quando sair meu próximo podcast e, toda semana, te mando meus pensamentos pelo mundo.</p>
+        <p class="offer-text">Meus pensamentos pelo mundo, toda semana, no seu e-mail. E o aviso de cada podcast novo.</p>
         <form class="join" id="join" novalidate>
           <label class="sr-only" for="email">Seu e-mail</label>
           <div class="join-row">
@@ -648,6 +651,12 @@ body:has(.home){overflow:auto}
       <span class="lead-step">Menu</span>
       <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
     </div>
+    <p class="menu-h">Mais</p>
+    <nav class="menu-list" aria-label="Mais">
+      <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span><span class="menu-two"><b>DeepChina AI</b><small>Meu copiloto de importação com IA</small></span><i aria-hidden="true">↗</i></a>
+      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3.500" y="7.500" width="17" height="12" rx="2.500" /><path d="M9 7.500V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.500M3.500 13h17" /></svg></span><span class="menu-two"><b>Serviços</b><small>Consultoria de importação</small></span><i aria-hidden="true">→</i></a>
+      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="6" y="8" width="12" height="13" rx="2.500" /><path d="M10 8l2-5 2 5M9.500 13h5M9.500 16.500h3" /></svg></span><span class="menu-two"><b>Imersão Canton Fair</b><small>A maior feira da China · abril de 2027</small></span><i aria-hidden="true">→</i></a>
+    </nav>
     <p class="menu-h">Contato</p>
     <nav class="menu-list" aria-label="Contato">
       <a href="mailto:contato@nandovoyager.com"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="5" width="18" height="14" rx="2.500" /><path d="m4 7 8 6 8-6" /></svg></span><span class="menu-two"><b>E-mail</b><small>contato@nandovoyager.com</small></span><i aria-hidden="true">↗</i></a>
@@ -859,7 +868,10 @@ if (!config.deepchinaUrl) document.querySelectorAll('[data-deepchina]').forEach(
   const menu = $('menu');
   $('menu-btn').addEventListener('click', () => { menu.classList.remove('closing'); menu.showModal(); menu.focus(); });
   menu.addEventListener('cancel', e => { e.preventDefault(); closeDialog(menu); });
-  menu.addEventListener('click', e => { if (e.target === menu || e.target.closest('[data-close]')) closeDialog(menu); });
+  menu.addEventListener('click', e => {
+    if (e.target.closest('[data-lead]')) return menu.close(); // the form opens next, on a clear screen
+    if (e.target === menu || e.target.closest('[data-close]')) closeDialog(menu);
+  });
 }
 
 /* ---------- contact pill: the first click shows the address, the next one writes the e-mail ---------- */
