@@ -49,6 +49,11 @@ export default {
     encerrado: "Leilão encerrado", fimGeral: "O preço final ficou em {preco}.", fimDentro: "Você ficou com a vaga. O preço final é {preco}; eu entro em contato para acertar a diferença.", fimFora: "Você não ficou entre os {vagas}. Sua entrada de {entrada} será devolvida na chave Pix que você informou.",
     contagem: "Leilão encerra em",
   },
+  // Mentoria em grupo online (cartão da página inicial)
+  mentoria: {
+    emBreve: "Data em breve · Zoom",
+    mensagem: "Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.",
+  },
   santos: {
     rotulo: "A imersão",
     titulo: "Imersão presencial em Alphaville.",
@@ -58,6 +63,7 @@ export default {
     maximo: "Máximo de {n} pessoas",
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
     reembolso: "Se não chegar a {min} pessoas, eu devolvo o dinheiro.",
+    emBreve: "Data em breve",
     loteEncerrado: "encerrado", // ao lado de um lote cuja data já passou
     contagemFim: "Inscrições encerram em", // quando o lote ativo não tem data: conta até o fim do último lote
     contagemCurta: "Encerra em", // a contagem pequena no atalho da página inicial
