@@ -1147,7 +1147,7 @@ ${hasTalk ? santosBlock : ''}
     const full = Math.max(...lots.map(l => l.preco)), cut = sale && sale.preco < full;
     document.querySelector('[data-imersao-cheio]').textContent = cut ? brl(full) : '';
     document.querySelector('[data-imersao-off]').textContent = cut ? `−${Math.round((1 - sale.preco / full) * 100)}%` : '';
-    document.querySelector('[data-imersao-lote]').textContent = sale ? (cut && after ? t.santos.cartaoLote.replace('{lote}', sale.nome).replace('{depois}', brl(after.preco)).replace('{proximo}', after.nome.toLowerCase()) : sale.nome) : '';
+    document.querySelector('[data-imersao-lote]').textContent = sale ? (cut && after ? t.santos.cartaoLote.replace('{lote}', sale.nome).replace('{ate}', sale.viraEm ? ` até ${new Date(sale.viraEm).toLocaleDateString('pt-BR', {weekday:'long', timeZone:'America/Sao_Paulo'})}, ${new Date(sale.viraEm).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', timeZone:'America/Sao_Paulo'}).replace(':', 'h')}` : '').replace('{depois}', brl(after.preco)).replace('{proximo}', after.nome.toLowerCase()) : sale.nome) : '';
     $('talk-when').textContent = santos.data ? `${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'})}${santos.cidade ? ` · ${santos.cidade}` : ''}` : `${t.santos.emBreve}${santos.cidade ? ` · ${santos.cidade}` : ''}`;
   };
   fillCard();
