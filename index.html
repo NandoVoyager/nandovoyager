@@ -450,7 +450,11 @@ body:has(.home){overflow:auto}
 .offer h2{margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
 .offer-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;margin:10px 0 0}
 .offer-price b{font-size:30px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.offer-price small{font-size:13px;color:var(--mid)}
+.offer-price small{flex-basis:100%;font-size:13px;color:var(--mid)}
+.offer-price s{font-size:17px;color:var(--mid)}
+.offer-price s:empty,.offer-price .lot-off:empty{display:none}
+.offer-price .lot-off{margin:0;align-self:center;font-size:12.5px}
+#offer-mentoria .offer-price small{flex-basis:auto}
 .offer-text{margin:12px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
 .offer-when{margin:12px 0 0;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid)}
 .offer-when:empty{display:none}
@@ -569,14 +573,14 @@ body:has(.home){overflow:auto}
         <p class="offer-tag">Online</p>
         <h2>Mentoria em grupo</h2>
         <p class="offer-price"><b data-mentoria-preco></b><small data-mentoria-pergunta></small></p>
-        <p class="offer-text">2 horas ao vivo no Zoom: minha história, IA, China e como sair do Brasil. Depois, respondo todas as perguntas.</p>
+        <p class="offer-text">2 horas ao vivo comigo no Zoom: minha história, inteligência artificial aplicada, a China por dentro e dicas para sair do Brasil. No final, respondo todas as perguntas, uma por uma.</p>
         <p class="offer-when" data-mentoria-quando></p>
         <button class="offer-btn" type="button" data-mentoria>QUERO PARTICIPAR <span aria-hidden="true">→</span></button>
       </li>
       <li class="offer hot" id="offer-imersao">
         <p class="offer-tag">Presencial</p>
         <h2>Imersão</h2>
-        <p class="offer-price"><b data-imersao-preco></b><small data-imersao-lote></small></p>
+        <p class="offer-price"><s data-imersao-cheio></s><b data-imersao-preco></b><span class="lot-off" data-imersao-off></span><small data-imersao-lote></small></p>
         <p class="offer-text">Um dia inteiro comigo, manhã e tarde. Máximo de 50 pessoas.</p>
         <p class="offer-when" id="talk-when"></p>
         <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">VER A IMERSÃO <span aria-hidden="true">→</span></a>
@@ -1133,7 +1137,11 @@ ${hasTalk ? santosBlock : ''}
   if (imersaoCard) {
     const sale = sellingAt() || lots[0], after = lots[lots.indexOf(sale) + 1];
     imersaoCard.textContent = sale ? brl(sale.preco) : '';
-    document.querySelector('[data-imersao-lote]').textContent = sale ? `${sale.nome}${after ? ` · depois ${brl(after.preco)}` : ''}` : '';
+    // while a cheaper lot is on sale, the full price shows struck through, with how much comes off
+    const full = Math.max(...lots.map(l => l.preco)), cut = sale && sale.preco < full;
+    document.querySelector('[data-imersao-cheio]').textContent = cut ? brl(full) : '';
+    document.querySelector('[data-imersao-off]').textContent = cut ? `−${Math.round((1 - sale.preco / full) * 100)}%` : '';
+    document.querySelector('[data-imersao-lote]').textContent = sale ? (cut && after ? t.santos.cartaoLote.replace('{lote}', sale.nome.toLowerCase()).replace('{depois}', brl(after.preco)).replace('{proximo}', after.nome.toLowerCase()) : sale.nome) : '';
     $('talk-when').textContent = santos.data ? `${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'})}${santos.cidade ? ` · ${santos.cidade}` : ''}` : `${t.santos.emBreve}${santos.cidade ? ` · ${santos.cidade}` : ''}`;
   }
   // the online group mentoring card: prices and date from the config; the button opens WhatsApp with the message

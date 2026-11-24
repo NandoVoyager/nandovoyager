@@ -64,6 +64,7 @@ export default {
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
     reembolso: "Se não chegar a {min} pessoas, eu devolvo o dinheiro.",
     emBreve: "Data em breve",
+    cartaoLote: "Preço de {lote}. Depois, {depois}.", // sob o preço, no cartão da página inicial
     loteEncerrado: "encerrado", // ao lado de um lote cuja data já passou
     contagemFim: "Inscrições encerram em", // quando o lote ativo não tem data: conta até o fim do último lote
     contagemCurta: "Encerra em", // a contagem pequena no atalho da página inicial
