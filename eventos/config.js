@@ -66,7 +66,7 @@ export default {
 
   // Só aparece quem tem confirmado: true.
   // Mentoria em grupo online (cartão da página inicial). data null = "Data em breve".
-  mentoria: { preco: 79, precoPergunta: 49, data: null, horario: null }, // horario ex.: "20h (Brasília)"
+  mentoria: { preco: 97, precoPergunta: 97, data: null, horario: null }, // horario ex.: "20h (Brasília)"
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],
