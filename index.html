@@ -458,6 +458,10 @@ body:has(.home){overflow:auto}
 .offer-text{margin:12px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
 .offer-when{margin:12px 0 0;font:500 11.5px 'IBM Plex Mono',monospace;letter-spacing:.04em;color:var(--mid)}
 .offer-when:empty{display:none}
+.offer-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 0;padding:9px 12px;border:1px solid rgba(229,55,43,.4);border-radius:12px;background:rgba(229,55,43,.08);font-size:13px;color:var(--ink)}
+.offer-count[hidden]{display:none}
+.offer-count i{font-style:normal}
+.offer-count b{font:500 14px 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
 .offer-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;margin-top:auto;padding:0 20px;border:1px solid rgba(244,241,234,.4);border-radius:99px;background:none;color:var(--ink);font:600 12px 'Inter Tight',system-ui,sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .offer > :last-child{margin-top:auto}
 .offer > :nth-last-child(2){margin-bottom:20px}
@@ -582,6 +586,7 @@ body:has(.home){overflow:auto}
         <h2>Imersão</h2>
         <p class="offer-price"><s data-imersao-cheio></s><b data-imersao-preco></b><span class="lot-off" data-imersao-off></span><small data-imersao-lote></small></p>
         <p class="offer-text">Um dia inteiro comigo, manhã e tarde. Máximo de 50 pessoas.</p>
+        <p class="offer-count" id="talk-count" hidden></p>
         <p class="offer-when" id="talk-when"></p>
         <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">VER A IMERSÃO <span aria-hidden="true">→</span></a>
       </li>
@@ -1105,12 +1110,13 @@ ${hasTalk ? santosBlock : ''}
   let miniLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
   const two = v => String(v).padStart(2, '0');
   // the moment a lot ends, the next one is on sale: redo the list and point the countdowns at the new lot's end
-  let shown = selling?.nome;
+  let shown = selling?.nome, fillCard = () => {};
   const turnLot = () => {
     const lot = sellingAt(); shown = lot?.nome;
     dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
     const end = lot?.viraEm ? Date.parse(lot.viraEm) : 0;
     counts.forEach(entry => { entry[1] = end; entry[0].querySelector('p').textContent = lot ? t.santos.contagem.replace('{lote}', lot.nome) : t.santos.contagemFim; });
+    fillCard();
     miniEnd = end; miniLabel = lot ? t.santos.contagemCurtaLote.replace('{lote}', lot.nome) : t.santos.contagemCurta;
   };
   const count = () => {
@@ -1133,16 +1139,18 @@ ${hasTalk ? santosBlock : ''}
   // the shortcut on the page says when the workshop is, from the same date of the config
   // the immersion card on the home: price of the lot on sale, the next one, and when and where (or "em breve")
   const imersaoCard = document.querySelector('[data-imersao-preco]');
-  if (imersaoCard) {
+  fillCard = () => {
+    if (!imersaoCard) return;
     const sale = sellingAt() || lots[0], after = lots[lots.indexOf(sale) + 1];
     imersaoCard.textContent = sale ? brl(sale.preco) : '';
     // while a cheaper lot is on sale, the full price shows struck through, with how much comes off
     const full = Math.max(...lots.map(l => l.preco)), cut = sale && sale.preco < full;
     document.querySelector('[data-imersao-cheio]').textContent = cut ? brl(full) : '';
     document.querySelector('[data-imersao-off]').textContent = cut ? `−${Math.round((1 - sale.preco / full) * 100)}%` : '';
-    document.querySelector('[data-imersao-lote]').textContent = sale ? (cut && after ? t.santos.cartaoLote.replace('{lote}', sale.nome.toLowerCase()).replace('{depois}', brl(after.preco)).replace('{proximo}', after.nome.toLowerCase()) : sale.nome) : '';
+    document.querySelector('[data-imersao-lote]').textContent = sale ? (cut && after ? t.santos.cartaoLote.replace('{lote}', sale.nome).replace('{depois}', brl(after.preco)).replace('{proximo}', after.nome.toLowerCase()) : sale.nome) : '';
     $('talk-when').textContent = santos.data ? `${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'})}${santos.cidade ? ` · ${santos.cidade}` : ''}` : `${t.santos.emBreve}${santos.cidade ? ` · ${santos.cidade}` : ''}`;
-  }
+  };
+  fillCard();
   // the online group mentoring card: prices and date from the config; the button opens WhatsApp with the message
   const m = talks.mentoria, mentoriaCard = document.querySelector('[data-mentoria-preco]');
   if (m && mentoriaCard) {
