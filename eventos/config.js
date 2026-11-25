@@ -13,7 +13,7 @@ export default {
   santos: {
     status: "aberta", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
     data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14"); null = "data em breve"
-    horario: "9h",       // a que horas começa; aparece ao lado da data
+    horario: "9h às 18h", // aparece ao lado da data
     cidade: "Alphaville, São Paulo", // aparece ao lado da data
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
