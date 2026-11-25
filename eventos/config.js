@@ -13,7 +13,7 @@ export default {
   santos: {
     status: "aberta", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
     data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14"); null = "data em breve"
-    horario: "9h às 18h", // aparece ao lado da data
+    horario: "11h às 17h", // aparece ao lado da data
     cidade: "Alphaville, São Paulo", // aparece ao lado da data
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
@@ -68,7 +68,8 @@ export default {
   // Só aparece quem tem confirmado: true.
   // Mentoria em grupo online (cartão da página inicial). data null = "Data em breve".
   // turmas: a pessoa escolhe uma ao reservar; uma turma some do site depois que a data passa
-  mentoria: { preco: 97, precoPergunta: 97, data: "2026-11-27", horario: "19h30", turmas: [{ data: "2026-11-27", horario: "19h30" }] }, // para abrir outra turma: , { data: "2026-11-30", horario: "19h30" } // horario ex.: "20h (Brasília)"
+  // "mentoria" hoje é a entrada ONLINE da mesma imersão (mesmo dia e horário do presencial)
+  mentoria: { preco: 250, precoPergunta: 100, data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],

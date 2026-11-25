@@ -50,7 +50,7 @@ export function validate(data) {
 export function requestText(request) {
   const contact = [`Nome: ${request.name}`, request.phone && `WhatsApp: ${request.phone}`, `E-mail: ${request.email}`].filter(Boolean);
   if (request.form === "mentoria") {
-    return ["Quer participar da mentoria em grupo online", request.turma && `Turma: ${request.turma}`, request.question && `Pergunta: ${request.question}`, ...contact].filter(Boolean).join("\n");
+    return ["Quer participar da imersão online", request.turma && `Data: ${request.turma}`, request.question && `Pergunta: ${request.question}`, ...contact].filter(Boolean).join("\n");
   }
   if (request.form === "canton") {
     return [`Fase: ${request.phases.join(", ")}`, ...contact, "Quer marcar a call (gratuita)"].join("\n");

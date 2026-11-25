@@ -52,17 +52,23 @@ export default {
   // Mentoria em grupo online (cartão da página inicial)
   mentoria: {
     emBreve: "Zoom · data em breve",
-    onde: "Ao vivo no Zoom · 2 horas + o tempo das perguntas", // sob o texto, quando a data já aparece ao lado da etiqueta
+    onde: "Ao vivo no Zoom · 6 horas", // sob o texto, quando a data já aparece ao lado da etiqueta
     pergunta: "Sua pergunta respondida ao vivo {preco}", // opcional; {preco} vira o valor por pergunta
-    mensagem: "Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.",
+    mensagem: "Oi, Nando! Vim pelo seu site e quero participar da imersão online.",
   },
   santos: {
     rotulo: "Presencial · uma única data",
-    titulo: "Um dia inteiro comigo. Ao vivo, no Brasil.",
-    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro um dia inteiro para abrir, pessoalmente, o que não cabe nos meus vídeos.", // rascunho: revisar
+    titulo: "6 horas comigo, ao vivo. No auditório ou online.",
+    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas para abrir, ao vivo, o que não cabe nos meus vídeos. Você escolhe: comigo no auditório, em Alphaville, ou online, de onde estiver.", // rascunho: revisar
     oQueRotulo: "O que você vai ver",
     fatosRotulo: "O dia",
-    comprarRotulo: "Garanta a sua vaga",
+    comprarRotulo: "Escolha como participar",
+    lugarRotulo: "O lugar",
+    lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e para conhecer quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
+    presencialRotulo: "Presencial · no auditório",
+    onlineRotulo: "Online · ao vivo pelo Zoom",
+    onlineNome: "Online",
+    onlineNota: "pergunta + {preco}",
     depoisSobe: "Depois disso, a vaga passa para {preco}.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
     // cada item: [título, frase]. rascunho: revisar
@@ -85,7 +91,7 @@ export default {
     contagem: "{lote} encerra em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
     vagasLimitadas: "Vagas limitadas",
     botaoNota: "Você fala direto comigo no WhatsApp e paga por Pix.",
-    marqueLote: "Marque o lote acima para continuar.",
+    marqueLote: "Escolha presencial ou online para continuar.",
     mensagem: "Oi, Nando! Vim pelo seu site e quero garantir a minha vaga na imersão em Alphaville{lote}.", // {lote} vira o lote à venda e o preço, ex. " (Lote 1, R$ 2.000)" // a mensagem pronta que o botão leva ao WhatsApp
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir minha vaga", esgotado: "Entrar na lista de espera" },
   },
