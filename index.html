@@ -663,6 +663,9 @@ body:has(.home){overflow:auto}
   .socials{display:flex;margin-top:40px}
   .socials .new-video{top:auto;bottom:100%;flex-direction:column;margin:0 0 2px}
 }
+/* On a phone, a field with text smaller than 16px makes the browser zoom in when it is tapped, and it stays zoomed.
+   Every field is 16px on touch screens, so the page keeps its size. */
+@media (pointer:coarse){input,textarea,select{font-size:16px!important}}
 </style>
 </head>
 <body>
