@@ -73,6 +73,7 @@ export default {
     contagem: "{lote} encerra em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
     vagasLimitadas: "Vagas limitadas",
     botaoNota: "Você fala direto comigo no WhatsApp e paga por Pix.",
+    marqueLote: "Marque o lote acima para continuar.",
     mensagem: "Oi, Nando! Vim pelo seu site e quero garantir a minha vaga na imersão em Alphaville{lote}.", // {lote} vira o lote à venda e o preço, ex. " (Lote 1, R$ 2.000)" // a mensagem pronta que o botão leva ao WhatsApp
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir minha vaga", esgotado: "Entrar na lista de espera" },
   },

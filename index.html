@@ -353,6 +353,18 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .lot-price{flex:none;padding-right:8px;text-align:right;font-size:16px;font-weight:500;color:var(--ink)}
 .lot-price small{font-size:12.5px;font-weight:400;color:var(--mid)}
 .city-list li.lot-over{opacity:.45}
+.city-list li.lot-pick{cursor:pointer;transition:background .18s;outline:0}
+.city-list li.lot-pick:hover,.city-list li.lot-pick:focus-visible{background:rgba(244,241,234,.05)}
+.city-list li.lot-pick[aria-checked="true"]{background:rgba(52,199,123,.09)}
+.lot-check{display:grid;flex:none;place-items:center;width:22px;height:22px;border:1.5px solid rgba(244,241,234,.45);border-radius:50%;transition:background .18s,border-color .18s}
+.lot-check svg{width:14px;height:14px;fill:none;stroke:#0a0a0b;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
+.lot-pick[aria-checked="true"] .lot-check{background:#34c77b;border-color:#34c77b}
+.lot-pick[aria-checked="true"] .lot-check svg{opacity:1}
+.lot-pick.nudge{animation:picknudge .45s}
+.lot-pick.nudge .lot-check{border-color:#ff7a66}
+@keyframes picknudge{20%{transform:translateX(-5px)}45%{transform:translateX(5px)}70%{transform:translateX(-3px)}}
+.pick-note{margin:-6px 0 12px!important;font-size:13.5px;color:#ff7a66}
+.pick-note[hidden]{display:none}
 .lot-price s{margin-right:2px;font-size:13.5px;font-weight:400;color:var(--mid)}
 @media (max-width:430px){.lot-price s{display:block;margin:0 0 1px;font-size:12.5px}.city-list b small{display:block;margin:3px 0 0}}
 .lot-off{margin-left:8px;padding:3px 8px;border-radius:99px;background:rgba(52,199,123,.14);font:600 12px 'Inter Tight',system-ui,sans-serif;color:#34c77b;vertical-align:1px}
@@ -1227,10 +1239,12 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const talkLots = (talks.lotesReferencia || []).filter(l => l.preco != null);
   // A lot cheaper than the last one reads as a discount: the full price struck through and how much comes off.
   // A lot whose date has passed stays on the list, faded and marked as ended.
+  let lotPicked = false; // the lot on sale has to be ticked before the WhatsApp button sends
   const lotList = (lots, now = Date.now()) => {
-    const full = Math.max(...lots.map(l => l.preco));
+    const full = Math.max(...lots.map(l => l.preco)), sale = sellingAt(now);
     return lots.length ? `<ul class="city-list">${lots.map(l => { const over = !!l.viraEm && now >= Date.parse(l.viraEm), off = !over && l.preco < full;
-      return `<li${over ? ' class="lot-over"' : ''}><b>${esc(l.nome)}${off ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${over ? `<small>${esc(t.santos.loteEncerrado)}</small>` : l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
+      const pick = l === sale;
+      return `<li${over ? ' class="lot-over"' : pick ? ` class="lot-pick" data-pick role="checkbox" tabindex="0" aria-checked="${lotPicked}"` : ''}>${pick ? '<i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i>' : ''}<b>${esc(l.nome)}${off ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${over ? `<small>${esc(t.santos.loteEncerrado)}</small>` : l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
       <span class="lot-price">${off ? `<s>${brl(full)}</s> ` : ''}${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`; }).join('')}</ul>` : '';
   };
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
@@ -1263,6 +1277,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const countdown = lotEnds ? `<div class="cdown" data-until="${esc(lotEnds.viraEm)}" hidden><p>${esc(countLabel)}</p>
     <div><span><b data-d></b><small>d</small></span><span><b data-h></b><small>h</small></span><span><b data-m></b><small>min</small></span><span><b data-s></b><small>s</small></span></div></div>` : '';
   const buy = auction ? '' : `<div data-lots>${lotList(lots)}</div>
+      <p class="pick-note" data-pick-note hidden>${esc(t.santos.marqueLote)}</p>
       ${santosButton ? `<p class="buy-row"><button class="talk-btn solid wa" type="button" data-santos><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.200a8.800 8.800 0 0 0-7.500 13.400L3.300 20.700l4.200-1.100A8.800 8.800 0 1 0 12 3.200Z" /><path d="M9.300 8.300c-.300 1 .100 2.300 1.300 3.700 1.300 1.500 2.700 2.200 3.900 2.100.600-.100 1.100-.600 1.300-1.200l-1.600-.900-.800.700c-.800-.300-1.700-1.200-2.100-2.100l.600-.800-.900-1.700c-.700.100-1.400.700-1.700 1.400Z" /></svg>${esc(santosButton)}</button><small>${esc(t.santos.botaoNota)}</small></p>` : ''}`;
   const items = teaching ? [...t.santos.itens.slice(0, -1), teaching, t.santos.itens.at(-1)] : t.santos.itens;
   const seats = santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas restantes` : santos.vagasTotal ? t.santos.maximo.replace('{n}', santos.vagasTotal) : t.santos.vagasLimitadas;
@@ -1412,8 +1427,14 @@ ${hasTalk ? santosBlock : ''}
   const waNumber = String(config.whatsapp || '').replace(/\D/g, '');
   dialog.querySelectorAll('[data-santos]').forEach(b => {
     if (!waNumber) { b.closest('p').hidden = true; return; }
-    b.addEventListener('click', () => { const onSale = sellingAt(); const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null; });
+    b.addEventListener('click', () => { const onSale = sellingAt();
+      const row = dialog.querySelector('[data-pick]');
+      if (row && !lotPicked) { row.classList.remove('nudge'); void row.offsetWidth; row.classList.add('nudge'); const n = dialog.querySelector('[data-pick-note]'); if (n) n.hidden = false; row.focus({preventScroll:true}); row.scrollIntoView({block:'nearest', behavior:'smooth'}); return; }
+      const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null; });
   });
+  const togglePick = row => { lotPicked = !lotPicked; row.setAttribute('aria-checked', lotPicked); row.classList.remove('nudge'); const n = dialog.querySelector('[data-pick-note]'); if (n && lotPicked) n.hidden = true; };
+  dialog.addEventListener('click', e => { const row = e.target.closest('[data-pick]'); if (row) togglePick(row); });
+  dialog.addEventListener('keydown', e => { const row = e.target.closest('[data-pick]'); if (row && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); togglePick(row); } });
   // fase 3: os botões [data-votar] abrem o formulário de voto
 }
 // On a phone the pop-ups are sheets from the bottom: drag the top down to close one (far enough, or quickly).
