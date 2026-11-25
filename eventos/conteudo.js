@@ -53,7 +53,7 @@ export default {
   mentoria: {
     emBreve: "Zoom · data em breve",
     onde: "Ao vivo no Zoom · 6 horas", // sob o texto, quando a data já aparece ao lado da etiqueta
-    pergunta: "Sua pergunta respondida ao vivo {preco}", // opcional; {preco} vira o valor por pergunta
+    pergunta: "Pergunta respondida ao vivo: {preco}", // opcional; {preco} vira o valor por pergunta
     mensagem: "Oi, Nando! Vim pelo seu site e quero participar da imersão online.",
   },
   santos: {

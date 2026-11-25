@@ -411,6 +411,8 @@ input:autofill{-webkit-text-fill-color:var(--ink);caret-color:var(--ink)}
 .offer-perks{margin:12px 0 0;padding:0;list-style:none}
 .offer-perks li{display:flex;align-items:flex-start;gap:8px;padding:3px 0;font-size:13.5px;line-height:1.4;color:rgba(244,241,234,.86)}
 .offer-perks svg{flex:none;width:15px;height:15px;margin-top:2px;fill:none;stroke:#ff7a66;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.offer-perks.plus svg{stroke:#6aa8ff}
+.offer-perks b{font-weight:600;color:var(--ink);white-space:nowrap}
 .ev-sub small.ok{color:#34c77b}
 .ev-sub small{font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid);white-space:nowrap}
 [data-olots] .city-list{margin-bottom:16px!important}
@@ -810,10 +812,14 @@ body:has(.home){overflow:auto}
           <h2>Ao vivo, de onde estiver</h2>
         </div>
         <p class="offer-when" data-mentoria-quando></p>
+        <ul class="offer-perks plus">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>As 6 horas completas, ao vivo</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>De qualquer lugar, pelo Zoom</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12" /></svg><span data-mentoria-pergunta></span></li>
+        </ul>
         <div class="offer-foot">
           <p class="offer-price"><b data-mentoria-preco></b><s data-mentoria-cheio></s><small>por pessoa</small></p>
           <p class="offer-extra offer-count" data-online-count hidden></p>
-          <p class="offer-extra" data-mentoria-pergunta></p>
           <a class="offer-btn solid" href="#lead-mentoria" data-lead="mentoria" aria-haspopup="dialog">ASSISTIR ONLINE <span aria-hidden="true">→</span></a>
         </div>
       </li>
