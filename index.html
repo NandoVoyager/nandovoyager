@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" />
 <style>
-:root{--bg:#0a0a0b;--ink:#f4f1ea;--mid:#8d8b86;--line:rgba(244,241,234,.14);--spring:cubic-bezier(.3,1.4,.5,1);color-scheme:dark}
+:root{--bg:#0a0a0b;--gold:#e3bd6b;--ink:#f4f1ea;--mid:#8d8b86;--line:rgba(244,241,234,.14);--spring:cubic-bezier(.3,1.4,.5,1);color-scheme:dark}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--bg);-webkit-tap-highlight-color:transparent}
 ::selection{background:var(--ink);color:var(--bg)}
@@ -450,10 +450,10 @@ body:has(.home){overflow:auto}
 .hero{position:relative;display:flex;align-items:flex-end;min-height:clamp(320px,42vh,420px);margin-top:4px;padding:40px 44px;border:1px solid rgba(244,241,234,.12);border-radius:24px;overflow:hidden}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,11,.94),rgba(10,10,11,.72) 36%,rgba(10,10,11,.1) 68%,transparent),linear-gradient(transparent 60%,rgba(10,10,11,.55));z-index:0}
 .hero-text{position:relative;z-index:1;max-width:460px}
-.hero-kicker{margin:0;font:500 11.500px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.hero-kicker{margin:0;font:500 11.500px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 .hero-line{margin:12px 0 0;font-size:clamp(26px,2.8vw,38px);font-weight:500;line-height:1.15;letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
 .hero-proof{display:inline-flex;align-items:center;gap:8px;margin:20px 0 0;padding:7px 14px 7px 11px;border:1px solid rgba(244,241,234,.16);border-radius:99px;background:rgba(10,10,11,.5);font-size:13.500px;color:rgba(244,241,234,.74);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.hero-proof b{font-weight:600;color:var(--ink)}
+.hero-proof b{font-weight:600;color:var(--gold)}
 .hero-proof svg{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
 .hero-photo{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 26%;z-index:0}
 .home .socials{display:flex;margin:40px 0 0}
@@ -531,15 +531,15 @@ body:has(.home){overflow:auto}
 .menu-social [data-social=youtube] svg{color:#ff0033}
 .home .socials .ico{width:40px;height:40px;border-color:rgba(244,241,234,.2)}
 .offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:34px 0 0;padding:0;list-style:none;counter-reset:o}
-.offer{position:relative;display:flex;flex-direction:column;padding:22px 22px 20px;border:1px solid rgba(244,241,234,.14);border-radius:20px;background:rgba(244,241,234,.03)}
-.offer.hot{border-color:rgba(244,241,234,.34);background:rgba(244,241,234,.06)}
+.offer{position:relative;display:flex;flex-direction:column;padding:22px 22px 20px;border:1px solid rgba(244,241,234,.14);border-radius:20px;background:#111112;overflow:hidden;isolation:isolate}
+.offer-head{display:flex;flex-direction:column}
+.offer.hot{border-color:rgba(227,189,107,.5);background:#171718;box-shadow:0 0 0 1px rgba(227,189,107,.08),0 18px 50px rgba(227,189,107,.06)}
 /* the free one says so in green, the one colour on the page that means "no cost" */
-#offer-gratis .offer-tag{color:#34c77b}
-#offer-gratis .offer-tag:before{color:rgba(52,199,123,.5)}
-.offer-tag{display:flex;align-items:center;gap:8px;margin:0 0 14px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
-.offer-tag:before{counter-increment:o;content:"0" counter(o);color:rgba(244,241,234,.35)}
-.offer h2{margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
-.offer-text{margin:10px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
+
+.offer-tag{display:flex;align-items:center;gap:8px;margin:0 0 14px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.offer-tag:before{counter-increment:o;content:"0" counter(o);color:rgba(227,189,107,.5)}
+.offer h2{margin:0;font-size:27px;font-weight:500;letter-spacing:-.025em;line-height:1.08;text-wrap:balance}
+.offer-text{margin:12px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
 .offer-when{margin:12px 0 0;font-size:13px;color:var(--mid)}
 .offer-when:empty{display:none}
 /* the price always sits in the same place, at the foot of the card: one big number, anything else small and quiet */
@@ -554,7 +554,7 @@ body:has(.home){overflow:auto}
 .offer-extra b{font-weight:500;color:var(--ink)}
 .offer-count[hidden]{display:flex;visibility:hidden}
 .offer-count i{display:flex;align-items:center;gap:8px;font-style:normal}
-.offer-count i:before{content:"";width:6px;height:6px;border-radius:50%;background:#e5372b;animation:blink 1.6s ease-in-out infinite}
+.offer-count i:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.6s ease-in-out infinite}
 @keyframes blink{50%{opacity:.25}}
 .offer-count b{font:500 13px 'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
 .offer-foot .offer-btn{margin-top:16px}
@@ -581,7 +581,7 @@ body:has(.home){overflow:auto}
   #offer-gratis > *{grid-column:1}
   #offer-gratis .offer-tag{margin-bottom:10px}
   #offer-gratis .offer-text{max-width:520px;margin-top:8px}
-  #offer-gratis > .join{grid-column:2;grid-row:1 / span 3;margin:0;padding:0}
+  #offer-gratis > .join{grid-column:2;grid-row:1 / span 2;margin:0;padding:0}
   .offer:not(#offer-gratis){padding:28px 28px 26px}
   .offer:not(#offer-gratis) h2{font-size:28px}
   .offer:not(#offer-gratis) .offer-text{max-width:400px;font-size:15.500px}
@@ -599,7 +599,7 @@ body:has(.home){overflow:auto}
   #offer-gratis{grid-template-columns:minmax(0,1fr) minmax(280px,320px);column-gap:28px;padding:22px 24px}
   #offer-gratis h2{font-size:22px}
   .offer:not(#offer-gratis){padding:24px 24px 22px}
-  .offer:not(#offer-gratis) h2{font-size:25px}
+  .offer:not(#offer-gratis) h2{font-size:27px}
   .offer:not(#offer-gratis) .offer-text{font-size:14.500px}
   .offer-price b{font-size:34px}
   .home .socials{display:none}
@@ -613,14 +613,10 @@ body:has(.home){overflow:auto}
   .hero{margin:0 -16px;padding:0 16px 18px;min-height:330px;border:0;border-radius:0}
   .hero:after{inset:38% 0 0;background:linear-gradient(transparent,rgba(10,10,11,.86) 40%,var(--bg) 62%);z-index:0}
   .hero-photo{inset:0 0 auto;height:78%;object-position:62% 12%}
-  .hero-kicker{color:rgba(244,241,234,.7)}
   .hero-line{margin-top:8px;font-size:22px;line-height:1.25}
   .hero-proof{margin-top:14px;font-size:13px}
   .home .acts .contact{display:none}
-  #offer-gratis{padding:16px 16px 14px}
-  #offer-gratis .offer-tag{margin-bottom:8px}
-  #offer-gratis h2{font-size:21px}
-  #offer-gratis .offer-text{margin-top:6px;margin-bottom:14px;font-size:14px}
+  #offer-gratis .offer-text{margin-bottom:16px}
 }
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -688,8 +684,10 @@ body:has(.home){overflow:auto}
     </section>
     <ol class="offers" aria-label="Por onde começar">
       <li class="offer" id="offer-gratis">
-        <p class="offer-tag">Grátis</p>
-        <h2>Um e-mail meu por semana</h2>
+        <div class="offer-head">
+          <p class="offer-tag">Grátis</p>
+          <h2>Um e-mail meu por semana</h2>
+        </div>
         <p class="offer-text">O que eu aprendo pelo mundo sobre China, IA e negócios. E o aviso de cada podcast novo.</p>
         <form class="join" id="join" novalidate>
           <label class="sr-only" for="email">Seu e-mail</label>
@@ -707,8 +705,10 @@ body:has(.home){overflow:auto}
         </form>
       </li>
       <li class="offer" id="offer-mentoria">
-        <p class="offer-tag">Online</p>
-        <h2>Mentoria em grupo</h2>
+        <div class="offer-head">
+          <p class="offer-tag">Online</p>
+          <h2>Mentoria em grupo</h2>
+        </div>
         <p class="offer-text">2 horas ao vivo comigo no Zoom: minha história, inteligência artificial aplicada, a China por dentro e dicas para sair do Brasil.</p>
         <p class="offer-when" data-mentoria-quando></p>
         <div class="offer-foot">
@@ -718,8 +718,10 @@ body:has(.home){overflow:auto}
         </div>
       </li>
       <li class="offer hot" id="offer-imersao">
-        <p class="offer-tag">Presencial</p>
-        <h2>Imersão no Brasil</h2>
+        <div class="offer-head">
+          <p class="offer-tag">Presencial</p>
+          <h2>Imersão no Brasil</h2>
+        </div>
         <p class="offer-text">Um dia inteiro comigo, manhã e tarde, com um grupo pequeno.</p>
         <p class="offer-when" id="talk-when"></p>
         <div class="offer-foot">
