@@ -1260,7 +1260,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
       <div class="ev-info">
         <p class="letter-h">${esc(t.santos.rotulo)}</p>
         <h2 class="letter-subject ev-title" id="talks-title">${fill(t.santos.titulo)}</h2>
-        <p class="ev-meta"><span>${ICON.day}${esc(when || t.santos.emBreve)}</span>${santos.cidade ? `<span>${ICON.pin}${esc(santos.cidade)}</span>` : ''}<span class="max">${ICON.lock}${esc(seats)}</span></p>
+        <p class="ev-meta"><span>${ICON.day}${esc(when ? `${when}${santos.horario ? `, ${santos.horario}` : ''}` : t.santos.emBreve)}</span>${santos.cidade ? `<span>${ICON.pin}${esc(santos.cidade)}</span>` : ''}<span class="max">${ICON.lock}${esc(seats)}</span></p>
         <p class="ev-lead">${fill(hero.promessa)}</p>
         ${isTodo(items) ? '' : `<ul class="ev-list">${items.map(i => `<li>${fill(i)}</li>`).join('')}</ul>`}
         <div class="letter-body">${facts.filter(([k]) => k !== 'Data').map(([k, v]) => `<p><b>${esc(k)}:</b> ${esc(v)}</p>`).join('')}
@@ -1364,7 +1364,7 @@ ${hasTalk ? santosBlock : ''}
     const full = Math.max(...lots.map(l => l.preco)), cut = sale && sale.preco < full;
     document.querySelector('[data-imersao-cheio]').textContent = cut ? brl(full) : '';
     // one quiet line: how many seats, where and when
-    $('talk-when').textContent = [santos.vagasTotal && `${santos.vagasTotal} vagas`, santos.cidade, santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'}) : t.santos.emBreve.toLowerCase()].filter(Boolean).join(' · ');
+    $('talk-when').textContent = [santos.vagasTotal && `${santos.vagasTotal} vagas`, santos.cidade, santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', timeZone:'America/Sao_Paulo'}) + (santos.horario ? `, ${santos.horario}` : '') : t.santos.emBreve.toLowerCase()].filter(Boolean).join(' · ');
   };
   fillCard();
   // the online group mentoring card: prices and date from the config; the button opens WhatsApp with the message
