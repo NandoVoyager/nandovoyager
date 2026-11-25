@@ -803,6 +803,7 @@ body:has(.home){overflow:auto}
         <p class="offer-when" data-mentoria-quando></p>
         <div class="offer-foot">
           <p class="offer-price"><b data-mentoria-preco></b><s data-mentoria-cheio></s><small>por pessoa</small></p>
+          <p class="offer-extra offer-count" data-online-count hidden></p>
           <p class="offer-extra" data-mentoria-pergunta></p>
           <a class="offer-btn solid" href="#lead-mentoria" data-lead="mentoria" aria-haspopup="dialog">ASSISTIR ONLINE <span aria-hidden="true">→</span></a>
         </div>
@@ -1457,6 +1458,9 @@ ${hasTalk ? santosBlock : ''}
   });
     const n = Math.floor((miniEnd - Date.now()) / 1000);
     mini.hidden = !(n > 0);
+    // the online ticket has its own lot and its own deadline
+    const oc = document.querySelector('[data-online-count]'), ol = onlineLot(), on = ol?.viraEm ? Math.floor((Date.parse(ol.viraEm) - Date.now()) / 1000) : 0;
+    if (oc) { oc.hidden = !(on > 0); if (on > 0) oc.innerHTML = `<i>${esc(t.santos.contagemCurtaLote.replace('{lote}', ol.nome))}</i> <b>${Math.floor(on / 86400)}d ${two(Math.floor(on / 3600) % 24)}:${two(Math.floor(on / 60) % 60)}:${two(on % 60)}</b>`; }
     if (n > 0) mini.innerHTML = `<i>${esc(miniLabel)}</i> <b>${Math.floor(n / 86400)}d ${two(Math.floor(n / 3600) % 24)}:${two(Math.floor(n / 60) % 60)}:${two(n % 60)}</b>`;
   };
   if (counts.length || miniEnd) { count(); setInterval(count, 1000); }
