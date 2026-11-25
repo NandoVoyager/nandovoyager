@@ -1362,7 +1362,7 @@ ${hasTalk ? santosBlock : ''}
   let shown = selling?.nome, fillCard = () => {};
   const turnLot = () => {
     const lot = sellingAt(); shown = lot?.nome;
-    dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
+    lotPicked = false; dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
     const end = lot?.viraEm ? Date.parse(lot.viraEm) : 0;
     counts.forEach(entry => { entry[1] = end; entry[0].querySelector('p').textContent = lot ? t.santos.contagem.replace('{lote}', lot.nome) : t.santos.contagemFim; });
     fillCard();
