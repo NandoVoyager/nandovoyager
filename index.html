@@ -548,6 +548,10 @@ body:has(.home){overflow:auto}
 .offer-tag:before{counter-increment:o;content:"0" counter(o);color:rgba(244,241,234,.35)}
 .offer-date{margin-left:auto;padding:4px 10px;border:1px solid rgba(244,241,234,.18);border-radius:99px;letter-spacing:.04em;text-transform:none;color:var(--ink)}
 .offer-date:empty{display:none}
+#offer-gratis{border-color:rgba(52,199,123,.32);background:linear-gradient(180deg,rgba(52,199,123,.07),rgba(52,199,123,0) 70%),#111112}
+.offer-pods{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none}
+.offer-pods li{display:flex;align-items:center;gap:7px;padding:5px 11px 5px 5px;border:1px solid rgba(244,241,234,.16);border-radius:99px;font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap}
+.offer-pods b{padding:3px 8px;border-radius:99px;background:rgba(52,199,123,.16);color:#34c77b;font:500 11.5px/1.2 "IBM Plex Mono",monospace;letter-spacing:.04em}
 .offer h2{margin:0;font-size:27px;font-weight:500;letter-spacing:-.025em;line-height:1.08;text-wrap:balance}
 .offer-text{margin:12px 0 0;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.74);text-wrap:pretty}
 .offer-when{margin:12px 0 0;font-size:13px;color:var(--mid)}
@@ -591,7 +595,8 @@ body:has(.home){overflow:auto}
   #offer-gratis > *{grid-column:1}
   #offer-gratis .offer-tag{margin-bottom:10px}
   #offer-gratis .offer-text{max-width:520px;margin-top:8px}
-  #offer-gratis > .join{grid-column:2;grid-row:1 / span 2;margin:0;padding:0}
+  #offer-gratis > .join{grid-column:2;grid-row:1;align-self:end;margin:0;padding:0}
+  #offer-gratis > .offer-pods{grid-column:2;grid-row:2;flex-wrap:nowrap;justify-content:flex-end;align-self:start;margin:12px 0 0}
   .offer:not(#offer-gratis){padding:28px 28px 26px}
   .offer:not(#offer-gratis) h2{font-size:28px}
   .offer:not(#offer-gratis) .offer-text{max-width:400px;font-size:15.500px}
@@ -626,7 +631,7 @@ body:has(.home){overflow:auto}
   .hero-line{margin-top:8px;font-size:22px;line-height:1.25}
   .hero-proof{margin-top:14px;font-size:13px}
   .home .acts .contact{display:none}
-  #offer-gratis .offer-text{margin-bottom:16px}
+  #offer-gratis .offer-pods{margin-bottom:16px}
 }
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -698,7 +703,11 @@ body:has(.home){overflow:auto}
           <p class="offer-tag">Grátis</p>
           <h2>Um e-mail meu por semana</h2>
         </div>
-        <p class="offer-text">O que eu aprendo pelo mundo sobre China, IA e negócios. E o aviso de cada podcast novo.</p>
+        <p class="offer-text">O que eu aprendo sobre China, IA e negócios, e o aviso de cada podcast novo.</p>
+        <ul class="offer-pods" aria-label="Próximos podcasts">
+          <li><b>01/12</b>Inteligência Ltda.</li>
+          <li><b>02/12</b>RedCast</li>
+        </ul>
         <form class="join" id="join" novalidate>
           <label class="sr-only" for="email">Seu e-mail</label>
           <div class="join-row">
@@ -719,7 +728,7 @@ body:has(.home){overflow:auto}
           <p class="offer-tag">Online<span class="offer-date" data-mentoria-data></span></p>
           <h2>Mentoria em grupo</h2>
         </div>
-        <p class="offer-text">2 horas ao vivo comigo no Zoom: minha história, inteligência artificial aplicada, a China por dentro e dicas para sair do Brasil.</p>
+        <p class="offer-text">Como saí do Brasil, o que aprendi fazendo negócios na China e como uso inteligência artificial no dia a dia. 2 horas comigo, direto ao ponto.</p>
         <p class="offer-when" data-mentoria-quando></p>
         <div class="offer-foot">
           <p class="offer-price"><b data-mentoria-preco></b><small>por pessoa</small></p>
