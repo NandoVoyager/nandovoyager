@@ -610,7 +610,7 @@ body:has(.home){overflow:auto}
   .hero:after{background:linear-gradient(transparent 34%,rgba(10,10,11,.86) 74%,rgba(10,10,11,.96))}
   .hero-photo{object-position:64% 18%}
   .hero-line{font-size:clamp(23px,2.1vw,30px);line-height:1.2}
-  .offers{margin:0;gap:14px;grid-template-rows:auto 1fr}
+  .offers{margin:0;gap:14px;grid-template-rows:1fr auto}
   #offer-gratis{grid-template-columns:minmax(0,1fr) minmax(280px,320px);column-gap:28px;padding:22px 24px}
   #offer-gratis h2{font-size:22px}
   .offer:not(#offer-gratis){padding:24px 24px 22px}
@@ -702,31 +702,6 @@ body:has(.home){overflow:auto}
       <img class="hero-photo" src="/img/canton-cracha-1200.webp" width="1200" height="800" alt="Nando Voyager em frente à feira de importação e exportação da China" />
     </section>
     <ol class="offers" aria-label="Por onde começar">
-      <li class="offer" id="offer-gratis">
-        <div class="offer-head">
-          <p class="offer-tag">Grátis</p>
-          <h2>Fique um passo à frente</h2>
-        </div>
-        <p class="offer-text">Toda semana no seu e-mail: IA, China, negócios e o aviso de cada podcast.</p>
-        <ul class="offer-pods" aria-label="Próximos podcasts">
-          <li><b>01/12</b>Inteligência Ltda.</li>
-          <li><b>02/12</b>RedCast</li>
-        </ul>
-        <form class="join" id="join" novalidate>
-          <label class="sr-only" for="email">Seu e-mail</label>
-          <div class="join-row">
-            <input id="email" name="email" type="email" placeholder="seu e-mail" autocomplete="email" required />
-            <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <button type="submit">QUERO RECEBER <span aria-hidden="true">→</span></button>
-          </div>
-          <div class="join-done" hidden>
-            <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
-            <span class="done-mail"></span>
-            <span class="done-tag">INSCRITO</span>
-          </div>
-          <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
-        </form>
-      </li>
       <li class="offer" id="offer-mentoria">
         <div class="offer-head">
           <p class="offer-tag">Online<span class="offer-date" data-mentoria-data></span></p>
@@ -752,6 +727,31 @@ body:has(.home){overflow:auto}
           <p class="offer-extra offer-count" id="talk-count" hidden></p>
           <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">VER A IMERSÃO <span aria-hidden="true">→</span></a>
         </div>
+      </li>
+      <li class="offer" id="offer-gratis">
+        <div class="offer-head">
+          <p class="offer-tag">Grátis</p>
+          <h2>Fique um passo à frente</h2>
+        </div>
+        <p class="offer-text">Toda semana no seu e-mail: IA, China, negócios e o aviso de cada podcast.</p>
+        <ul class="offer-pods" aria-label="Próximos podcasts">
+          <li><b>01/12</b>Inteligência Ltda.</li>
+          <li><b>02/12</b>RedCast</li>
+        </ul>
+        <form class="join" id="join" novalidate>
+          <label class="sr-only" for="email">Seu e-mail</label>
+          <div class="join-row">
+            <input id="email" name="email" type="email" placeholder="seu e-mail" autocomplete="email" required />
+            <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button type="submit">QUERO RECEBER <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="join-done" hidden>
+            <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.8 3.8 7.2-8" /></svg></span>
+            <span class="done-mail"></span>
+            <span class="done-tag">INSCRITO</span>
+          </div>
+          <p class="join-msg" id="join-msg" role="status" aria-live="polite"></p>
+        </form>
       </li>
     </ol>
   </div>
