@@ -59,12 +59,18 @@ export default {
   santos: {
     rotulo: "Presencial · uma única data",
     titulo: "6 horas comigo, ao vivo. No auditório ou online.",
-    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas para abrir, ao vivo, o que não cabe nos meus vídeos. Você escolhe: comigo no auditório, em Alphaville, ou online, de onde estiver.", // rascunho: revisar
-    oQueRotulo: "O que você vai ver",
+    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas: 1h30 de palestra e todo o resto respondendo as perguntas de cada um. Você escolhe: comigo no auditório, em Alphaville, ou online, de onde estiver.", // rascunho: revisar
+    oQueRotulo: "O que eu vou abrir na palestra",
+    roteiroRotulo: "Como vão ser as 6 horas",
+    roteiro: [ // rascunho: revisar
+      ["Palestra, 1h30", "Começa às 11h. Eu abro os temas acima, direto ao ponto."],
+      ["Perguntas do auditório", "Respondo a pergunta de cada pessoa que estiver presente, uma a uma."],
+      ["Perguntas do online", "Depois do auditório, respondo as perguntas de quem comprou a pergunta no online."],
+    ],
     fatosRotulo: "O dia",
     comprarRotulo: "Escolha como participar",
     lugarRotulo: "O lugar",
-    lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e para conhecer quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
+    lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e networking com quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
     presencialRotulo: "Presencial · no auditório",
     presencialNota: "pergunta inclusa",
     onlineRotulo: "Online · pelo Zoom",
@@ -78,7 +84,7 @@ export default {
       ["Inteligência artificial na prática", "Como eu uso no meu trabalho e o que você pode aplicar no seu."],
       ["Sair do Brasil", "O caminho que eu fiz e o que aprendi em cada país."],
       ["Negócios, mentalidade e geopolítica", "O que eu vejo de fora e o que isso muda para quem empreende no Brasil."],
-      ["A sua dúvida, respondida", "No presencial a sua pergunta já está inclusa, e eu consigo olhar o seu caso mais de perto. No online, a pergunta é à parte."],
+      ["O seu caso", "A maior parte do dia é para as perguntas. No presencial a sua já está inclusa e eu olho o seu caso mais de perto."],
     ],
     aulas: "Introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",

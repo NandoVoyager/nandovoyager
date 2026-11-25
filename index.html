@@ -785,7 +785,7 @@ body:has(.home){overflow:auto}
       <li class="offer-top">
         <p class="offer-tag">Evento único · ao vivo<span class="offer-date" data-imersao-data></span></p>
         <h2>Imersão no Brasil</h2>
-        <p class="offer-text">6 horas comigo: China real, inteligência artificial, negócios e como sair do Brasil. No auditório, em Alphaville, ou online.</p>
+        <p class="offer-text">1h30 de palestra sobre China real, inteligência artificial, negócios e como sair do Brasil. Depois, eu respondo as perguntas de cada um.</p>
       </li>
       <li class="offer hot" id="offer-imersao">
         <div class="offer-head">
@@ -794,8 +794,9 @@ body:has(.home){overflow:auto}
         </div>
         <p class="offer-when" id="talk-when"></p>
         <ul class="offer-perks">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>Sua pergunta respondida, já inclusa</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>Sua pergunta inclusa, respondida antes do online</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>Ajuda mais próxima, olhando o seu caso</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>Networking com quem também foi</li>
         </ul>
         <div class="offer-foot">
           <p class="offer-price"><b data-imersao-preco></b><s data-imersao-cheio></s><small>por pessoa</small></p>
@@ -1381,6 +1382,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
         <p class="ev-lead">${fill(t.santos.abertura || hero.promessa)}</p>
         ${isTodo(items) ? '' : `<p class="ev-h">${esc(t.santos.oQueRotulo)}</p><ol class="ev-list">${items.map(i => Array.isArray(i) ? `<li><span><b>${fill(i[0])}</b>${fill(i[1])}</span></li>` : `<li><span>${fill(i)}</span></li>`).join('')}</ol>`}
         ${t.santos.lugar ? `<p class="ev-h">${esc(t.santos.lugarRotulo)}</p><div class="ev-photos"><img src="/img/auditorio-plateia-1100.webp" alt="Auditório com as cadeiras montadas, visto do palco" loading="lazy" width="1100" height="619" /><img src="/img/auditorio-lateral-1100.webp" alt="Plateia do auditório, vista lateral" loading="lazy" width="1100" height="774" /></div><ul class="ev-place">${t.santos.lugar.map(i => `<li>${fill(i)}</li>`).join('')}</ul>` : ''}
+        ${t.santos.roteiro ? `<p class="ev-h">${esc(t.santos.roteiroRotulo)}</p><ol class="ev-list ev-steps">${t.santos.roteiro.map(i => `<li><span><b>${fill(i[0])}</b>${fill(i[1])}</span></li>`).join('')}</ol>` : ''}
         <p class="ev-h">${esc(t.santos.fatosRotulo)}</p>
         <dl class="ev-facts"><div>${ICON.day}<dt>${esc(when ? `${when.split(',')[0]}, ${new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', timeZone:'America/Sao_Paulo'})}` : t.santos.emBreve)}</dt><dd>${esc(santos.horario || '')}</dd></div>${santos.cidade ? `<div>${ICON.pin}<dt>${esc(santos.cidade.split(',')[0])}</dt><dd>${esc(santos.cidade.split(',').slice(1).join(',').trim())}</dd></div>` : ''}<div class="max">${ICON.lock}<dt>${esc(santos.vagasRestantes != null ? `${santos.vagasRestantes} vagas` : santos.vagasTotal ? `${santos.vagasTotal} vagas` : t.santos.vagasLimitadas)}</dt><dd>${santos.vagasRestantes != null ? 'restantes' : santos.vagasTotal ? 'no máximo' : ''}</dd></div></dl>
         ${auction ? '' : `<p class="ev-h">${esc(t.santos.comprarRotulo)}</p>`}
