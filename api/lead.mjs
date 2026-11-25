@@ -27,7 +27,7 @@ export function validate(data) {
     email: clean(data.email, 254)
   };
   if (request.form === "mentoria") {
-    request.question = data.ask === true ? clean(data.question, 400) : "";
+    request.question = data.ask === true ? clean(data.question, 800) : "";
     if (data.ask === true && !request.question) return { error: "Escreva a sua pergunta." };
   } else if (request.form === "canton") {
     request.phases = picked(data.phases, options.phases);
