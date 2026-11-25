@@ -69,7 +69,8 @@ export default {
   // Mentoria em grupo online (cartão da página inicial). data null = "Data em breve".
   // turmas: a pessoa escolhe uma ao reservar; uma turma some do site depois que a data passa
   // "mentoria" hoje é a entrada ONLINE da mesma imersão (mesmo dia e horário do presencial)
-  mentoria: { preco: 250, precoPergunta: 100, data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
+  // lotes do online: mesmo formato dos lotes do presencial; "preco" é usado só se não houver lotes
+  mentoria: { preco: 297, precoPergunta: 100, lotes: [{ nome: "Lote 1", preco: 197, viraEm: "2026-11-26T23:59:00-03:00" }, { nome: "Lote 2", preco: 297 }], data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],

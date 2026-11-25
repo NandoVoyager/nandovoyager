@@ -407,7 +407,9 @@ input:autofill{-webkit-text-fill-color:var(--ink);caret-color:var(--ink)}
 .ev-facts .max svg{stroke:#ff7a66}
 .ev-rise{margin:-6px 0 14px!important;font-size:13.5px;color:var(--mid)}
 .ev-rise:empty{display:none}
-.ev-sub{margin:0 0 8px!important;font-size:13.5px;font-weight:500;color:var(--ink)}
+.ev-sub{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 8px!important;font-size:13.5px;font-weight:500;color:var(--ink)}
+.ev-sub small{font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid);white-space:nowrap}
+[data-olots] .city-list{margin-bottom:16px!important}
 .ev-photos{display:grid;grid-template-columns:1.25fr 1fr;gap:8px}
 .ev-photos img{display:block;width:100%;height:150px;object-fit:cover;border-radius:14px;border:1px solid rgba(244,241,234,.12)}
 .ev-place{margin:12px 0 0;padding:0;list-style:none}
@@ -800,7 +802,7 @@ body:has(.home){overflow:auto}
         </div>
         <p class="offer-when" data-mentoria-quando></p>
         <div class="offer-foot">
-          <p class="offer-price"><b data-mentoria-preco></b><small>por pessoa</small></p>
+          <p class="offer-price"><b data-mentoria-preco></b><s data-mentoria-cheio></s><small>por pessoa</small></p>
           <p class="offer-extra" data-mentoria-pergunta></p>
           <a class="offer-btn solid" href="#lead-mentoria" data-lead="mentoria" aria-haspopup="dialog">ASSISTIR ONLINE <span aria-hidden="true">→</span></a>
         </div>
@@ -1134,6 +1136,9 @@ document.querySelectorAll('form.join').forEach(form => {
 /* ---------- pop-up forms ("Meus serviços", "Imersão Canton Fair"): short lead filters sent to /api/lead ---------- */
 const MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // per form: its answers, what step 1, 2 or 3 still needs (the same rules as the server) and the lines for the e-mail
+// the online ticket is sold in lots too: the one on sale now, and its price
+function onlineLot(now = Date.now()) { return (talks.mentoria?.lotes || []).find(l => !(l.viraEm && now >= Date.parse(l.viraEm))) || null; }
+function onlinePrice() { return onlineLot()?.preco ?? talks.mentoria.preco; }
 const FORMS = {
   servicos: {
     subject: 'Serviços',
@@ -1152,7 +1157,7 @@ const FORMS = {
     missing: (n, a, f) => n === 1 && !a.turma && f.querySelector('[name=turma]') ? ['Escolha a turma.', f.querySelector('[name=turma]')] : n === 1 && a.ask && !a.question ? ['Escreva a sua pergunta.', f.elements.question] : null,
     hello: 'Oi, Nando! Vim pelo seu site e quero participar da imersão online.',
     lines: a => { const m = talks.mentoria, money = n => `R$ ${n.toLocaleString('pt-BR')}`;
-      return [a.turma && `Data: ${a.turma}`, `Imersão online: ${money(m.preco)}`, a.ask && a.question && `Minha pergunta (+ ${money(m.precoPergunta)}): ${a.question}`, `Total: ${money(m.preco + (a.ask && a.question ? m.precoPergunta : 0))}`].filter(Boolean); }
+      return [a.turma && `Data: ${a.turma}`, `Imersão online${onlineLot() ? ` (${onlineLot().nome})` : ''}: ${money(onlinePrice())}`, a.ask && a.question && `Minha pergunta (+ ${money(m.precoPergunta)}): ${a.question}`, `Total: ${money(onlinePrice() + (a.ask && a.question ? m.precoPergunta : 0))}`].filter(Boolean); }
   },
   canton: {
     subject: 'Imersão Canton Fair',
@@ -1307,11 +1312,11 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   // A lot cheaper than the last one reads as a discount: the full price struck through and how much comes off.
   // A lot whose date has passed stays on the list, faded and marked as ended.
   let lotPicked = ''; // 'presencial' or 'online': one has to be ticked before the button goes on
-  const lotList = (lots, now = Date.now()) => {
-    const full = Math.max(...lots.map(l => l.preco)), sale = sellingAt(now);
+  const lotList = (lots, now = Date.now(), key = 'presencial', sale = sellingAt(now)) => {
+    const full = Math.max(...lots.map(l => l.preco));
     return lots.length ? `<ul class="city-list">${lots.map(l => { const over = !!l.viraEm && now >= Date.parse(l.viraEm), off = !over && l.preco < full;
       const pick = l === sale;
-      return `<li${over ? ' class="lot-over"' : pick ? ` class="lot-pick" data-pick="presencial" role="radio" tabindex="0" aria-checked="${lotPicked === 'presencial'}"` : ''}>${pick ? '<i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i>' : ''}<b>${esc(l.nome)}${off ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${over ? `<small>${esc(t.santos.loteEncerrado)}</small>` : l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
+      return `<li${over ? ' class="lot-over"' : pick ? ` class="lot-pick" data-pick="${key}" role="radio" tabindex="0" aria-checked="${lotPicked === key}"` : ''}>${pick ? '<i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i>' : ''}<b>${esc(l.nome)}${off ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${over ? `<small>${esc(t.santos.loteEncerrado)}</small>` : l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
       <span class="lot-price">${off ? `<s>${brl(full)}</s> ` : ''}${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`; }).join('')}</ul>` : '';
   };
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
@@ -1345,9 +1350,10 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     <div><span><b data-d></b><small>d</small></span><span><b data-h></b><small>h</small></span><span><b data-m></b><small>min</small></span><span><b data-s></b><small>s</small></span></div></div>` : '';
   const risesTo = () => { const sale = sellingAt(), next = sale && lots[lots.indexOf(sale) + 1]; return sale?.viraEm && next && next.preco > sale.preco ? t.santos.depoisSobe.replace('{preco}', brl(next.preco)) : ''; };
   const om = talks.mentoria;
+  const onlineList = () => lotList(om.lotes?.length ? om.lotes : [{nome:t.santos.onlineNome, preco:om.preco}], Date.now(), 'online', onlineLot() || (om.lotes?.length ? null : {}));
   const buy = auction ? '' : `<p class="ev-sub">${esc(t.santos.presencialRotulo)}</p><div data-lots>${lotList(lots)}</div>
       <p class="ev-rise" data-rise>${esc(risesTo())}</p>
-      ${om?.preco ? `<p class="ev-sub">${esc(t.santos.onlineRotulo)}</p><ul class="city-list"><li class="lot-pick" data-pick="online" role="radio" tabindex="0" aria-checked="false"><i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i><b>${esc(t.santos.onlineNome)}${om.precoPergunta ? `<small>${esc(t.santos.onlineNota.replace('{preco}', brl(om.precoPergunta)))}</small>` : ''}</b><span class="lot-price">${brl(om.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li></ul>` : ''}
+      ${om?.preco ? `<p class="ev-sub">${esc(t.santos.onlineRotulo)}${om.precoPergunta ? `<small>${esc(t.santos.onlineNota.replace('{preco}', brl(om.precoPergunta)))}</small>` : ''}</p><div data-olots>${onlineList()}</div>` : ''}
       <p class="pick-note" data-pick-note hidden>${esc(t.santos.marqueLote)}</p>
       ${santosButton ? `<p class="buy-row"><button class="talk-btn solid wa" type="button" data-santos><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.200a8.800 8.800 0 0 0-7.500 13.400L3.300 20.700l4.200-1.100A8.800 8.800 0 1 0 12 3.200Z" /><path d="M9.300 8.300c-.300 1 .100 2.300 1.300 3.700 1.300 1.500 2.700 2.200 3.900 2.100.600-.100 1.100-.600 1.300-1.200l-1.600-.900-.800.700c-.800-.300-1.700-1.200-2.100-2.100l.600-.800-.900-1.700c-.700.100-1.400.700-1.700 1.400Z" /></svg>${esc(santosButton)}</button><small>${esc(t.santos.botaoNota)}</small></p>` : ''}`;
   const items = teaching ? [...t.santos.itens.slice(0, -1), teaching, t.santos.itens.at(-1)] : t.santos.itens;
@@ -1436,7 +1442,7 @@ ${hasTalk ? santosBlock : ''}
   let shown = selling?.nome, fillCard = () => {};
   const turnLot = () => {
     const lot = sellingAt(); shown = lot?.nome;
-    if (lotPicked === 'presencial') lotPicked = ''; dialog.querySelectorAll('[data-rise]').forEach(el => { el.textContent = risesTo(); }); dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
+    lotPicked = ''; dialog.querySelectorAll('[data-olots]').forEach(box => { box.innerHTML = onlineList(); }); dialog.querySelectorAll('[data-rise]').forEach(el => { el.textContent = risesTo(); }); dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
     const end = lot?.viraEm ? Date.parse(lot.viraEm) : 0;
     counts.forEach(entry => { entry[1] = end; entry[0].querySelector('p').textContent = lot ? t.santos.contagem.replace('{lote}', lot.nome) : t.santos.contagemFim; });
     fillCard();
@@ -1478,7 +1484,8 @@ ${hasTalk ? santosBlock : ''}
   // the online group mentoring card: prices and date from the config; the button opens WhatsApp with the message
   const m = talks.mentoria, mentoriaCard = document.querySelector('[data-mentoria-preco]');
   if (m && mentoriaCard) {
-    mentoriaCard.textContent = brl(m.preco);
+    const fillOnline = () => { const full = Math.max(onlinePrice(), ...(m.lotes || []).map(l => l.preco)); mentoriaCard.textContent = brl(onlinePrice()); document.querySelector('[data-mentoria-cheio]').textContent = onlinePrice() < full ? brl(full) : ''; };
+    fillOnline(); const wasFill = fillCard; fillCard = () => { wasFill(); fillOnline(); };
     document.querySelector('[data-mentoria-pergunta]').innerHTML = m.precoPergunta ? t.mentoria.pergunta.replace('{preco}', `<b>+ ${brl(m.precoPergunta)}</b>`) : '';
     // the groups still to come (one leaves the site once its day is over); the card shows their dates, the sheet asks which
     const ddmm = iso => new Date(`${iso}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', timeZone:'America/Sao_Paulo'});
@@ -1495,7 +1502,7 @@ ${hasTalk ? santosBlock : ''}
     // the sheet's own numbers: the price of a question and the total as the visitor switches it on
     const sheet = $('lead-mentoria');
     sheet.querySelectorAll('[data-q-price]').forEach(el => { el.textContent = `+ ${brl(m.precoPergunta)}`; });
-    const total = () => { const on = sheet.querySelector('[name=ask]').checked; sheet.querySelector('[data-question]').hidden = !on; sheet.querySelector('[data-total]').textContent = brl(m.preco + (on ? m.precoPergunta : 0)); };
+    const total = () => { const on = sheet.querySelector('[name=ask]').checked; sheet.querySelector('[data-question]').hidden = !on; sheet.querySelector('[data-total]').textContent = brl(onlinePrice() + (on ? m.precoPergunta : 0)); };
     sheet.addEventListener('input', total); total();
   }
   // the screen has its own address, so the browser's back button returns to the page too

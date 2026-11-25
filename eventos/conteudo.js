@@ -66,7 +66,7 @@ export default {
     lugarRotulo: "O lugar",
     lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e para conhecer quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
     presencialRotulo: "Presencial · no auditório",
-    onlineRotulo: "Online · ao vivo pelo Zoom",
+    onlineRotulo: "Online · pelo Zoom",
     onlineNome: "Online",
     onlineNota: "pergunta + {preco}",
     depoisSobe: "Depois disso, a vaga passa para {preco}.",
