@@ -358,10 +358,10 @@ body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);background:
 .city-list li.lot-pick[aria-checked="true"]{background:rgba(52,199,123,.09)}
 .lot-check{display:grid;flex:none;place-items:center;width:22px;height:22px;border:1.5px solid rgba(244,241,234,.45);border-radius:50%;transition:background .18s,border-color .18s}
 .lot-check svg{width:14px;height:14px;fill:none;stroke:#0a0a0b;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
-.lot-pick[aria-checked="true"] .lot-check{background:#34c77b;border-color:#34c77b}
-.lot-pick[aria-checked="true"] .lot-check svg{opacity:1}
-.lot-pick.nudge{animation:picknudge .45s}
-.lot-pick.nudge .lot-check{border-color:#ff7a66}
+[aria-checked="true"] > .lot-check{background:#34c77b;border-color:#34c77b}
+[aria-checked="true"] > .lot-check svg{opacity:1}
+.lot-pick.nudge,.offer-pick.nudge{animation:picknudge .45s}
+.lot-pick.nudge .lot-check,.offer-pick.nudge .lot-check{border-color:#ff7a66}
 @keyframes picknudge{20%{transform:translateX(-5px)}45%{transform:translateX(5px)}70%{transform:translateX(-3px)}}
 .pick-note{margin:-6px 0 12px!important;font-size:13.5px;color:#ff7a66}
 .pick-note[hidden]{display:none}
@@ -578,6 +578,13 @@ body:has(.home){overflow:auto}
 .offer-price s{font-size:15px;color:var(--mid)}
 .offer-price s:empty{display:none}
 .offer-price small{margin-left:auto;font-size:13px;color:var(--mid)}
+.offer-pick{align-items:center;margin:-6px -8px;padding:6px 8px;border-radius:12px;cursor:pointer;outline:0;transition:background .18s}
+.offer-pick:hover,.offer-pick:focus-visible{background:rgba(244,241,234,.05)}
+.offer-pick .lot-check{margin-right:2px}
+.offer-pick small.miss{color:#ff7a66}
+.offer-pick{gap:8px}
+.offer-pick b,.offer-pick s,.offer-pick small{white-space:nowrap}
+.offer-pick:has(small.miss) s{display:none}
 .offer-extra{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:20px;margin:10px 0 0;font-size:13px;color:var(--mid)}
 .offer-extra b{font-weight:500;color:var(--ink)}
 .offer-count[hidden]{display:flex;visibility:hidden}
@@ -695,6 +702,7 @@ body:has(.home){overflow:auto}
    Every field is 16px on touch screens, so the page keeps its size. */
 @media (pointer:coarse){input,textarea,select{font-size:16px!important}}
 @media (max-width:349px){.offer-pods{flex-wrap:wrap}}
+.offer .offer-pick b{font-size:30px}
 </style>
 </head>
 <body>
@@ -737,9 +745,9 @@ body:has(.home){overflow:auto}
         <p class="offer-text">Um dia inteiro comigo, manhã e tarde, ao vivo e presencial.</p>
         <p class="offer-when" id="talk-when"></p>
         <div class="offer-foot">
-          <p class="offer-price"><b data-imersao-preco></b><s data-imersao-cheio></s><small>por pessoa</small></p>
+          <p class="offer-price offer-pick" data-card-pick role="checkbox" tabindex="0" aria-checked="false"><i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i><b data-imersao-preco></b><s data-imersao-cheio></s><small data-card-pick-note data-ok="por pessoa" data-miss="marque para continuar">por pessoa</small></p>
           <p class="offer-extra offer-count" id="talk-count" hidden></p>
-          <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">VER A IMERSÃO <span aria-hidden="true">→</span></a>
+          <a class="offer-btn solid" href="/eventos" data-santos-card>GARANTIR MINHA VAGA <span aria-hidden="true">→</span></a>
         </div>
       </li>
       <li class="offer" id="offer-gratis">
@@ -1435,6 +1443,20 @@ ${hasTalk ? santosBlock : ''}
   const togglePick = row => { lotPicked = !lotPicked; row.setAttribute('aria-checked', lotPicked); row.classList.remove('nudge'); const n = dialog.querySelector('[data-pick-note]'); if (n && lotPicked) n.hidden = true; };
   dialog.addEventListener('click', e => { const row = e.target.closest('[data-pick]'); if (row) togglePick(row); });
   dialog.addEventListener('keydown', e => { const row = e.target.closest('[data-pick]'); if (row && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); togglePick(row); } });
+  // the home card sends straight to WhatsApp too, once its price is ticked
+  const cardPick = document.querySelector('[data-card-pick]'), cardNote = document.querySelector('[data-card-pick-note]');
+  const cardMiss = miss => { if (cardNote) { cardNote.textContent = miss ? cardNote.dataset.miss : cardNote.dataset.ok; cardNote.classList.toggle('miss', miss); } };
+  const cardToggle = () => { cardPick.setAttribute('aria-checked', cardPick.getAttribute('aria-checked') !== 'true'); cardPick.classList.remove('nudge'); cardMiss(false); };
+  if (cardPick) {
+    cardPick.addEventListener('click', cardToggle);
+    cardPick.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); cardToggle(); } });
+  }
+  document.querySelectorAll('[data-santos-card]').forEach(a => a.addEventListener('click', e => {
+    if (!waNumber) return; // no number yet: the link opens the event screen
+    e.preventDefault();
+    if (cardPick && cardPick.getAttribute('aria-checked') !== 'true') { cardPick.classList.remove('nudge'); void cardPick.offsetWidth; cardPick.classList.add('nudge'); cardMiss(true); return; }
+    const onSale = sellingAt(); const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null;
+  }));
   // fase 3: os botões [data-votar] abrem o formulário de voto
 }
 // On a phone the pop-ups are sheets from the bottom: drag the top down to close one (far enough, or quickly).
