@@ -1436,7 +1436,7 @@ ${hasTalk ? santosBlock : ''}
     document.querySelector('[data-mentoria-quando]').textContent = groups.length ? t.mentoria.onde : t.mentoria.emBreve;
     const box = document.querySelector('[data-turmas]');
     if (box && groups.length) {
-      box.hidden = false;
+      box.hidden = groups.length < 2; // one group only: nothing to choose, it goes in the message by itself
       box.querySelector('[data-turmas-list]').innerHTML = groups.map(g => { const label = `${wday(g.data)}, ${ddmm(g.data)}${g.horario ? ` · ${g.horario}` : ''}`; return `<label class="chip"><input type="radio" name="turma" value="${esc(label)}"${groups.length === 1 ? ' checked' : ''} /><span>${esc(label)}</span></label>`; }).join('');
     }
     // the sheet's own numbers: the price of a question and the total as the visitor switches it on
