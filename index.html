@@ -710,6 +710,8 @@ body:has(.home){overflow:auto}
 .pop .page-top{display:flex;justify-content:flex-end;padding:12px 18px 8px;background:rgba(17,17,18,.9)}
 .pop .page-top .lead-x{margin:0 -6px 0 0}
 .pop .letter-in{padding-top:4px}
+[data-turmas]{margin-bottom:22px}
+[data-turmas][hidden]{display:none}
 </style>
 </head>
 <body>
@@ -812,6 +814,10 @@ body:has(.home){overflow:auto}
       <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
     </div>
     <fieldset class="lead-panel" data-step="1">
+      <div data-turmas hidden>
+        <p class="lead-label">Escolha a turma</p>
+        <div class="chips" data-turmas-list></div>
+      </div>
       <legend class="lead-q">Quer fazer uma <span class="hand">pergunta?</span></legend>
       <p class="lead-hint">É opcional. Eu respondo ao vivo, no final da mentoria.</p>
       <label class="agree"><input type="checkbox" name="ask" value="sim" /><span><b>Quero a minha pergunta respondida</b><small data-q-price></small></span></label>
@@ -1096,11 +1102,11 @@ const FORMS = {
   },
   mentoria: {
     subject: 'Mentoria em grupo online',
-    answers: (d, get) => ({ask:get('ask') === 'sim', question:get('question')}),
-    missing: (n, a, f) => n === 1 && a.ask && !a.question ? ['Escreva a sua pergunta.', f.elements.question] : null,
+    answers: (d, get) => ({ask:get('ask') === 'sim', question:get('question'), turma:get('turma')}),
+    missing: (n, a, f) => n === 1 && !a.turma && f.querySelector('[name=turma]') ? ['Escolha a turma.', f.querySelector('[name=turma]')] : n === 1 && a.ask && !a.question ? ['Escreva a sua pergunta.', f.elements.question] : null,
     hello: 'Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.',
     lines: a => { const m = talks.mentoria, money = n => `R$ ${n.toLocaleString('pt-BR')}`;
-      return [`Mentoria: ${money(m.preco)}`, a.ask && a.question && `Minha pergunta (+ ${money(m.precoPergunta)}): ${a.question}`, `Total: ${money(m.preco + (a.ask && a.question ? m.precoPergunta : 0))}`].filter(Boolean); }
+      return [a.turma && `Turma: ${a.turma}`, `Mentoria: ${money(m.preco)}`, a.ask && a.question && `Minha pergunta (+ ${money(m.precoPergunta)}): ${a.question}`, `Total: ${money(m.preco + (a.ask && a.question ? m.precoPergunta : 0))}`].filter(Boolean); }
   },
   canton: {
     subject: 'Imersão Canton Fair',
@@ -1421,8 +1427,18 @@ ${hasTalk ? santosBlock : ''}
   if (m && mentoriaCard) {
     mentoriaCard.textContent = brl(m.preco);
     document.querySelector('[data-mentoria-pergunta]').innerHTML = m.precoPergunta ? t.mentoria.pergunta.replace('{preco}', `<b>+ ${brl(m.precoPergunta)}</b>`) : '';
-    document.querySelector('[data-mentoria-data]').textContent = m.data ? `${new Date(`${m.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', timeZone:'America/Sao_Paulo'})}${m.horario ? ` · ${m.horario}` : ''}` : '';
-    document.querySelector('[data-mentoria-quando]').textContent = m.data ? t.mentoria.onde : t.mentoria.emBreve;
+    // the groups still to come (one leaves the site once its day is over); the card shows their dates, the sheet asks which
+    const ddmm = iso => new Date(`${iso}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', timeZone:'America/Sao_Paulo'});
+    const wday = iso => { const w = new Date(`${iso}T12:00:00-03:00`).toLocaleDateString('pt-BR', {weekday:'long', timeZone:'America/Sao_Paulo'}).replace('-feira', ''); return w[0].toUpperCase() + w.slice(1); };
+    const groups = (m.turmas?.length ? m.turmas : m.data ? [{data:m.data, horario:m.horario}] : []).filter(g => Date.now() < Date.parse(`${g.data}T23:59:59-03:00`));
+    const sameHour = groups.every(g => g.horario === groups[0].horario);
+    document.querySelector('[data-mentoria-data]').textContent = groups.length ? (sameHour ? `${groups.map(g => ddmm(g.data)).join(' e ')}${groups[0].horario ? ` · ${groups[0].horario}` : ''}` : groups.map(g => `${ddmm(g.data)} ${g.horario || ''}`.trim()).join(' e ')) : '';
+    document.querySelector('[data-mentoria-quando]').textContent = groups.length ? t.mentoria.onde : t.mentoria.emBreve;
+    const box = document.querySelector('[data-turmas]');
+    if (box && groups.length) {
+      box.hidden = false;
+      box.querySelector('[data-turmas-list]').innerHTML = groups.map(g => { const label = `${wday(g.data)}, ${ddmm(g.data)}${g.horario ? ` · ${g.horario}` : ''}`; return `<label class="chip"><input type="radio" name="turma" value="${esc(label)}"${groups.length === 1 ? ' checked' : ''} /><span>${esc(label)}</span></label>`; }).join('');
+    }
     // the sheet's own numbers: the price of a question and the total as the visitor switches it on
     const sheet = $('lead-mentoria');
     sheet.querySelectorAll('[data-q-price]').forEach(el => { el.textContent = `+ ${brl(m.precoPergunta)}`; });
