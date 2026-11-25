@@ -19,7 +19,7 @@ export default {
     horarioTarde: null,  // ex.: "14h às 18h"
     local: null,
     vagasMinimo: null,   // mínimo de pessoas para acontecer (aparece só na versão com votação de cidades); null = não mostra
-    vagasTotal: 50,       // máximo de pessoas; null = mostra só "vagas limitadas"
+    vagasTotal: 150,      // máximo de pessoas; null = mostra só "vagas limitadas"
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
     // Leilão de vagas: a pessoa paga a entrada por Pix e dá o lance máximo que quiser (pode aumentar depois, sem pagar
     // de novo). Entram os maiores lances e todos pagam o valor do último que entrou; quem ficou dentro paga só a
