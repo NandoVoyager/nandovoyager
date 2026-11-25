@@ -703,6 +703,10 @@ body:has(.home){overflow:auto}
 @media (pointer:coarse){input,textarea,select{font-size:16px!important}}
 @media (max-width:349px){.offer-pods{flex-wrap:wrap}}
 .offer .offer-pick b{font-size:30px}
+@media (min-width:561px){.lead.pop{width:min(560px,calc(100% - 32px))}}
+.pop .page-top{display:flex;justify-content:flex-end;padding:12px 18px 8px;background:rgba(17,17,18,.9)}
+.pop .page-top .lead-x{margin:0 -6px 0 0}
+.pop .letter-in{padding-top:4px}
 </style>
 </head>
 <body>
@@ -745,9 +749,9 @@ body:has(.home){overflow:auto}
         <p class="offer-text">Um dia inteiro comigo, manhã e tarde, ao vivo e presencial.</p>
         <p class="offer-when" id="talk-when"></p>
         <div class="offer-foot">
-          <p class="offer-price offer-pick" data-card-pick role="checkbox" tabindex="0" aria-checked="false"><i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i><b data-imersao-preco></b><s data-imersao-cheio></s><small data-card-pick-note data-ok="por pessoa" data-miss="marque para continuar">por pessoa</small></p>
+          <p class="offer-price"><b data-imersao-preco></b><s data-imersao-cheio></s><small>por pessoa</small></p>
           <p class="offer-extra offer-count" id="talk-count" hidden></p>
-          <a class="offer-btn solid" href="/eventos" data-santos-card>GARANTIR MINHA VAGA <span aria-hidden="true">→</span></a>
+          <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">GARANTIR MINHA VAGA <span aria-hidden="true">→</span></a>
         </div>
       </li>
       <li class="offer" id="offer-gratis">
@@ -985,9 +989,9 @@ body:has(.home){overflow:auto}
     </div>
   </div>
 </dialog>
-<dialog class="lead letter talks page" id="eventos" aria-labelledby="talks-title" tabindex="-1">
+<dialog class="lead letter talks pop" id="eventos" aria-labelledby="talks-title" tabindex="-1">
   <div class="page-top">
-    <button class="page-back" type="button" data-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.500 6l-6 6 6 6" /></svg>Início</button>
+    <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
     <span class="letter-progress" aria-hidden="true"><i></i></span>
   </div>
   <div class="letter-in">
@@ -1424,7 +1428,7 @@ ${hasTalk ? santosBlock : ''}
   }
   // the screen has its own address, so the browser's back button returns to the page too
   const go = (how, url, state) => { try { history[how](state, '', url); } catch {} };
-  document.querySelectorAll('[data-talks]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTalks(); go('pushState', '/eventos', {eventos:true}); }));
+  document.querySelectorAll('[data-talks]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTalks(); })); // a pop-up over the page: the address stays the same
   dialog.addEventListener('close', () => { if (history.state?.eventos) history.back(); else if (/eventos|cidade/.test(location.pathname + location.search + location.hash)) go('replaceState', '/', null); });
   addEventListener('popstate', () => { if (dialog.open) closeDialog(dialog); });
   // /eventos (and links with ?cidade=) land here with the pop-up already open, over the finished page
