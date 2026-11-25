@@ -408,6 +408,10 @@ input:autofill{-webkit-text-fill-color:var(--ink);caret-color:var(--ink)}
 .ev-rise{margin:-6px 0 14px!important;font-size:13.5px;color:var(--mid)}
 .ev-rise:empty{display:none}
 .ev-sub{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 8px!important;font-size:13.5px;font-weight:500;color:var(--ink)}
+.offer-perks{margin:12px 0 0;padding:0;list-style:none}
+.offer-perks li{display:flex;align-items:flex-start;gap:8px;padding:3px 0;font-size:13.5px;line-height:1.4;color:rgba(244,241,234,.86)}
+.offer-perks svg{flex:none;width:15px;height:15px;margin-top:2px;fill:none;stroke:#ff7a66;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ev-sub small.ok{color:#34c77b}
 .ev-sub small{font:400 11.5px 'IBM Plex Mono',monospace;color:var(--mid);white-space:nowrap}
 [data-olots] .city-list{margin-bottom:16px!important}
 .ev-photos{display:grid;grid-template-columns:1.25fr 1fr;gap:8px}
@@ -789,6 +793,10 @@ body:has(.home){overflow:auto}
           <h2>No auditório, comigo</h2>
         </div>
         <p class="offer-when" id="talk-when"></p>
+        <ul class="offer-perks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>Sua pergunta respondida, já inclusa</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg>Ajuda mais próxima, olhando o seu caso</li>
+        </ul>
         <div class="offer-foot">
           <p class="offer-price"><b data-imersao-preco></b><s data-imersao-cheio></s><small>por pessoa</small></p>
           <p class="offer-extra offer-count" id="talk-count" hidden></p>
@@ -1352,7 +1360,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const risesTo = () => { const sale = sellingAt(), next = sale && lots[lots.indexOf(sale) + 1]; return sale?.viraEm && next && next.preco > sale.preco ? t.santos.depoisSobe.replace('{preco}', brl(next.preco)) : ''; };
   const om = talks.mentoria;
   const onlineList = () => lotList(om.lotes?.length ? om.lotes : [{nome:t.santos.onlineNome, preco:om.preco}], Date.now(), 'online', onlineLot() || (om.lotes?.length ? null : {}));
-  const buy = auction ? '' : `<p class="ev-sub">${esc(t.santos.presencialRotulo)}</p><div data-lots>${lotList(lots)}</div>
+  const buy = auction ? '' : `<p class="ev-sub">${esc(t.santos.presencialRotulo)}${t.santos.presencialNota ? `<small class="ok">${esc(t.santos.presencialNota)}</small>` : ''}</p><div data-lots>${lotList(lots)}</div>
       <p class="ev-rise" data-rise>${esc(risesTo())}</p>
       ${om?.preco ? `<p class="ev-sub">${esc(t.santos.onlineRotulo)}${om.precoPergunta ? `<small>${esc(t.santos.onlineNota.replace('{preco}', brl(om.precoPergunta)))}</small>` : ''}</p><div data-olots>${onlineList()}</div>` : ''}
       <p class="pick-note" data-pick-note hidden>${esc(t.santos.marqueLote)}</p>

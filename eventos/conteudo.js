@@ -66,6 +66,7 @@ export default {
     lugarRotulo: "O lugar",
     lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e para conhecer quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
     presencialRotulo: "Presencial · no auditório",
+    presencialNota: "pergunta inclusa",
     onlineRotulo: "Online · pelo Zoom",
     onlineNome: "Online",
     onlineNota: "pergunta + {preco}",
@@ -77,7 +78,7 @@ export default {
       ["Inteligência artificial na prática", "Como eu uso no meu trabalho e o que você pode aplicar no seu."],
       ["Sair do Brasil", "O caminho que eu fiz e o que aprendi em cada país."],
       ["Negócios, mentalidade e geopolítica", "O que eu vejo de fora e o que isso muda para quem empreende no Brasil."],
-      ["A sua dúvida, respondida", "Respondo as perguntas de cada um, com a minha opinião sincera."],
+      ["A sua dúvida, respondida", "No presencial a sua pergunta já está inclusa, e eu consigo olhar o seu caso mais de perto. No online, a pergunta é à parte."],
     ],
     aulas: "Introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
