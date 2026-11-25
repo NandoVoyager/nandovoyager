@@ -12,7 +12,7 @@ export default {
   // Imersão de 1 dia em Alphaville, São Paulo. (A chave continua "santos" por causa do código.)
   santos: {
     status: "aberta", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
-    data: "2026-12-28",  // um único dia, ISO (ex.: "2027-03-14"); null = "data em breve"
+    data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14"); null = "data em breve"
     horario: "9h",       // a que horas começa; aparece ao lado da data
     cidade: "Alphaville, São Paulo", // aparece ao lado da data
     horarioManha: null,  // ex.: "9h às 12h30"
@@ -67,7 +67,7 @@ export default {
 
   // Só aparece quem tem confirmado: true.
   // Mentoria em grupo online (cartão da página inicial). data null = "Data em breve".
-  mentoria: { preco: 97, precoPergunta: 97, data: "2026-12-27", horario: "19h30" }, // horario ex.: "20h (Brasília)"
+  mentoria: { preco: 97, precoPergunta: 97, data: "2026-11-27", horario: "19h30" }, // horario ex.: "20h (Brasília)"
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],
