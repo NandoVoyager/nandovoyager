@@ -57,10 +57,22 @@ export default {
     mensagem: "Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.",
   },
   santos: {
-    rotulo: "A imersão",
-    titulo: "Imersão presencial em Alphaville.",
+    rotulo: "Presencial · uma única data",
+    titulo: "Um dia inteiro comigo. Ao vivo, no Brasil.",
+    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro um dia inteiro para abrir, pessoalmente, o que não cabe nos meus vídeos.", // rascunho: revisar
+    oQueRotulo: "O que você vai ver",
+    fatosRotulo: "O dia",
+    comprarRotulo: "Garanta a sua vaga",
+    depoisSobe: "Depois disso, a vaga passa para {preco}.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
-    itens: ["Um dia inteiro comigo, manhã e tarde.", "China real, minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
+    // cada item: [título, frase]. rascunho: revisar
+    itens: [
+      ["A China real", "Como é viver e fazer negócio lá por dentro, sem o filtro das redes."],
+      ["Inteligência artificial na prática", "Como eu uso no meu trabalho e o que você pode aplicar no seu."],
+      ["Sair do Brasil", "O caminho que eu fiz e o que aprendi em cada país."],
+      ["Negócios, mentalidade e geopolítica", "O que eu vejo de fora e o que isso muda para quem empreende no Brasil."],
+      ["A sua dúvida, respondida", "Respondo as perguntas de cada um, com a minha opinião sincera."],
+    ],
     aulas: "Introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
