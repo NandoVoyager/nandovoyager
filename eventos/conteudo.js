@@ -59,11 +59,11 @@ export default {
   santos: {
     rotulo: "Presencial · uma única data",
     titulo: "6 horas comigo, ao vivo. No auditório ou online.",
-    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas: 1h30 de palestra e todo o resto respondendo as perguntas de cada um. Você escolhe: comigo no auditório, em Alphaville, ou online, de onde estiver.", // rascunho: revisar
+    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas: uma palestra e, depois, todo o tempo respondendo as perguntas de cada um. Você escolhe: comigo no auditório, em Alphaville, ou online, de onde estiver.", // rascunho: revisar
     oQueRotulo: "O que eu vou abrir na palestra",
     roteiroRotulo: "Como vão ser as 6 horas",
     roteiro: [ // rascunho: revisar
-      ["Palestra, 1h30", "Começa às 11h. Eu abro os temas acima, direto ao ponto."],
+      ["Palestra", "Começa às 11h. Eu abro os temas acima, direto ao ponto."],
       ["Perguntas do auditório", "Respondo a pergunta de cada pessoa que estiver presente, uma a uma."],
       ["Perguntas do online", "Depois do auditório, respondo as perguntas de quem comprou a pergunta no online."],
     ],
