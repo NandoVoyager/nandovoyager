@@ -821,6 +821,7 @@ html{scroll-behavior:smooth}
 .lead-row.wide{grid-template-columns:minmax(0,1fr) 84px}
 .lead-row > div{min-width:0}
 #p-state{text-transform:uppercase}
+.lead-cep{min-height:18px;margin:6px 2px 0;font-size:12.5px;color:var(--mid)}
 </style>
 </head>
 <body>
@@ -1099,7 +1100,7 @@ html{scroll-behavior:smooth}
       <label class="lead-label" for="p-name">Nome completo ou razão social</label>
       <input class="lead-field" id="p-name" name="name" type="text" maxlength="120" autocomplete="name" />
       <label class="lead-label" for="p-doc">CPF ou CNPJ</label>
-      <input class="lead-field" id="p-doc" name="doc" type="text" inputmode="numeric" maxlength="18" placeholder="só os números" autocomplete="off" />
+      <input class="lead-field" id="p-doc" name="doc" type="text" inputmode="numeric" maxlength="18" placeholder="000.000.000-00" autocomplete="off" />
       <label class="lead-label" for="p-email">E-mail (a nota chega nele)</label>
       <input class="lead-field" id="p-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
       <label class="lead-label" for="p-phone">Celular com DDD</label>
@@ -1107,9 +1108,10 @@ html{scroll-behavior:smooth}
     </fieldset>
     <fieldset class="lead-panel" data-step="2" hidden>
       <legend class="lead-q">Seu <span class="hand">endereço</span></legend>
-      <p class="lead-hint">É o endereço que vai na nota fiscal.</p>
+      <p class="lead-hint">Digite o CEP e eu preencho a rua, o bairro e a cidade.</p>
       <label class="lead-label" for="p-cep">CEP</label>
       <input class="lead-field" id="p-cep" name="cep" type="text" inputmode="numeric" maxlength="9" placeholder="00000-000" autocomplete="postal-code" />
+      <p class="lead-cep" data-cep-status role="status" aria-live="polite"></p>
       <label class="lead-label" for="p-street">Rua ou avenida</label>
       <input class="lead-field" id="p-street" name="street" type="text" maxlength="120" autocomplete="address-line1" />
       <div class="lead-row">
@@ -1497,6 +1499,39 @@ function leadDialog(dialog) {
   show(1);
 }
 document.querySelectorAll('dialog.lead[data-form]').forEach(leadDialog);
+/* The invoice form: the fields format themselves as they are typed, and the CEP fills the street, the district,
+   the city and the state (only the CEP goes to ViaCEP, the public postcode lookup; nothing else leaves the page). */
+{
+  const f = document.querySelector('#lead-presencial form');
+  if (f) {
+    const el = f.elements, digits = v => v.replace(/\D/g, '');
+    const mask = (v, m) => { let i = 0, out = ''; for (const c of m) { if (i >= v.length) break; out += c === '0' ? v[i++] : c; } return out; };
+    const fire = () => f.dispatchEvent(new Event('input', {bubbles:true}));
+    el.doc.addEventListener('input', () => { const d = digits(el.doc.value).slice(0, 14); el.doc.value = d.length > 11 ? mask(d, '00.000.000/0000-00') : mask(d, '000.000.000-00'); });
+    el.phone.addEventListener('input', () => { const d = digits(el.phone.value).slice(0, 11); el.phone.value = d.length > 10 ? mask(d, '(00) 00000-0000') : mask(d, '(00) 0000-0000'); });
+    const status = f.querySelector('[data-cep-status]');
+    let asked = '';
+    el.cep.addEventListener('input', async () => {
+      const d = digits(el.cep.value).slice(0, 8);
+      el.cep.value = mask(d, '00000-000');
+      if (d.length !== 8) { asked = ''; status.textContent = ''; return; }
+      if (d === asked) return;
+      asked = d; status.textContent = 'Buscando o endereço…';
+      try {
+        const r = await fetch(`https://viacep.com.br/ws/${d}/json/`), a = await r.json();
+        if (asked !== d) return; // the CEP changed while this one was on its way
+        if (!r.ok || a.erro) throw new Error('not found');
+        // fills what is empty or what the last lookup wrote; what the visitor typed by hand stays
+        const put = (field, value) => { if (value && (!field.value || field.dataset.auto)) { field.value = value; field.dataset.auto = '1'; } };
+        put(el.street, a.logradouro); put(el.district, a.bairro); put(el.city, a.localidade); put(el.state, a.uf);
+        status.textContent = a.logradouro ? 'Endereço encontrado. Falta só o número.' : 'Cidade encontrada. Complete a rua e o número.';
+        fire();
+        (a.logradouro ? el.number : el.street).focus({preventScroll:true});
+      } catch { if (asked === d) status.textContent = 'Não achei esse CEP. Preencha o endereço abaixo.'; }
+    });
+    [el.street, el.district, el.city, el.state].forEach(x => x.addEventListener('input', e => { if (e.isTrusted) delete x.dataset.auto; }));
+  }
+}
 // The long pop-ups ("Minha história" and "Palestras"): read from the top each time, with a line showing how far you are.
 function reader(dialog) {
   const line = dialog.querySelector('.letter-progress i');
