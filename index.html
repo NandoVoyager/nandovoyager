@@ -804,6 +804,9 @@ html{scroll-behavior:smooth}
 .about-facts b{display:block;font-size:16px;font-weight:500}
 .about-facts span{display:block;margin-top:6px;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.7)}
 @media (max-width:860px){.about-wide .about-place{grid-template-columns:minmax(0,1fr)}.about-wide .about-place img{height:210px}.about-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.offers.one .offer-top .offer-tag{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.offers.one .offer-top .offer-date{margin-left:auto;padding:7px 14px;border:0;border-radius:99px;background:var(--ink);color:#0a0a0b;font:600 13px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;white-space:nowrap}
+@media (max-width:860px){.offers.one .offer-top .offer-date{margin-left:0;font-size:12.5px}}
 </style>
 </head>
 <body>
@@ -1665,7 +1668,8 @@ ${hasTalk ? santosBlock : ''}
     document.querySelector('[data-imersao-cheio]').textContent = cut ? brl(full) : '';
     // one quiet line: how many seats, where and when
     const short = iso => new Date(`${iso}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', timeZone:'America/Sao_Paulo'});
-    document.querySelector('[data-imersao-data]').textContent = santos.data ? `${short(santos.data)}${santos.horario ? ` · ${santos.horario}` : ''}` : '';
+    const wd = santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {weekday:'long', timeZone:'America/Sao_Paulo'}).replace('-feira', '').replace(/^./, c => c.toUpperCase()) : '';
+    document.querySelector('[data-imersao-data]').textContent = santos.data ? `${wd}, ${short(santos.data)}${santos.horario ? ` · ${santos.horario}` : ''}` : '';
     $('talk-when').textContent = [santos.vagasTotal && `${santos.vagasTotal} vagas`, santos.cidade, !santos.data && t.santos.emBreve.toLowerCase()].filter(Boolean).join(' · ');
   };
   fillCard();
