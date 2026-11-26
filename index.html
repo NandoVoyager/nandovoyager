@@ -1331,7 +1331,7 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     const full = Math.max(...lots.map(l => l.preco));
     return lots.length ? `<ul class="city-list">${lots.map(l => { const over = !!l.viraEm && now >= Date.parse(l.viraEm), off = !over && l.preco < full;
       const pick = l === sale;
-      return `<li${over ? ' class="lot-over"' : pick ? ` class="lot-pick" data-pick="${key}" role="radio" tabindex="0" aria-checked="${lotPicked === key}"` : ''}>${pick ? '<i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i>' : ''}<b>${esc(l.nome)}${off ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${over ? `<small>${esc(t.santos.loteEncerrado)}</small>` : l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}</small>` : ''}</b>
+      return `<li${over ? ' class="lot-over"' : pick ? ` class="lot-pick" data-pick="${key}" role="radio" tabindex="0" aria-checked="${lotPicked === key}"` : ''}>${pick ? '<i class="lot-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></i>' : ''}<b>${esc(l.nome)}${off ? `<span class="lot-off">−${Math.round((1 - l.preco / full) * 100)}%</span>` : ''}${over ? `<small>${esc(t.santos.loteEncerrado)}</small>` : l.comecaEm ? `<small>após ${until(new Date(l.comecaEm).getTime() - 6e4)}</small>` : l.viraEm ? `<small>até ${until(new Date(l.viraEm).getTime() - 6e4)}${hourOf(l.viraEm)}</small>` : ''}</b>
       <span class="lot-price">${off ? `<s>${brl(full)}</s> ` : ''}${brl(l.preco)} <small>${esc(t.votacao.porPessoa)}</small></span></li>`; }).join('')}</ul>` : '';
   };
   const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
@@ -1353,6 +1353,8 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
   const auction = santos.leilao?.ativo ? santos.leilao : null;
   const lotEnds = auction ? (auction.encerraEm ? {viraEm:auction.encerraEm} : null) : activeEnds || lastEnds;
   const countLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagem.replace('{lote}', activeEnds.nome) : t.santos.contagemFim;
+  // a deadline in the middle of the day says its hour too ("até 27/11, 12h"); one at the end of the day does not
+  const hourOf = iso => { const [h, m] = new Date(iso).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', hour12:false, timeZone:'America/Sao_Paulo'}).split(':').map(Number); return h === 23 && m >= 55 ? '' : `, ${h}h${m ? String(m).padStart(2, '0') : ''}`; };
   const until = iso => new Date(iso).toLocaleDateString('pt-BR', {day:'numeric', month:'numeric', timeZone:'America/Sao_Paulo'});
   // who teaches at the immersion: the confirmed speakers and the partner, in one line
   const teachers = [...talks.palestrantes.filter(p => p.confirmado).map(p => p.nome), ...(talks.parceiro.mostrar ? [`a ${talks.parceiro.nome}`] : [])];

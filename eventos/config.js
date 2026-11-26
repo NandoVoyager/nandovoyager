@@ -36,8 +36,8 @@ export default {
       pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade
     },
     lotes: [ // preço por pessoa; com preco: null o lote não aparece
-      { nome: "Lote 1", preco: 1000, linkCheckout: "", ativo: true, viraEm: "2026-11-26T23:59:00-03:00" }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00". Com datas, o lote à venda (lista, contagem e botão) vira sozinho na hora certa e "ativo" é ignorado
-      { nome: "Lote 2", preco: 1200, linkCheckout: "", ativo: false }, // entra quando o Lote 1 termina
+      { nome: "Lote 1", preco: 497, linkCheckout: "", ativo: true, viraEm: "2026-11-27T12:00:00-03:00" }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00". Com datas, o lote à venda (lista, contagem e botão) vira sozinho na hora certa e "ativo" é ignorado
+      { nome: "Lote 2", preco: 597, linkCheckout: "", ativo: false }, // entra quando o Lote 1 termina
     ],
     lat: -23.9608, lng: -46.3336,
   },
@@ -70,7 +70,7 @@ export default {
   // turmas: a pessoa escolhe uma ao reservar; uma turma some do site depois que a data passa
   // "mentoria" hoje é a entrada ONLINE da mesma imersão (mesmo dia e horário do presencial)
   // lotes do online: mesmo formato dos lotes do presencial; "preco" é usado só se não houver lotes
-  mentoria: { preco: 297, precoPergunta: 100, lotes: [{ nome: "Lote 1", preco: 197, viraEm: "2026-11-26T23:59:00-03:00" }, { nome: "Lote 2", preco: 297 }], data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
+  mentoria: { preco: 147, precoPergunta: 97, lotes: [{ nome: "Lote 1", preco: 97, viraEm: "2026-11-27T12:00:00-03:00" }, { nome: "Lote 2", preco: 147 }], data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],
