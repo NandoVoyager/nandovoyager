@@ -805,7 +805,8 @@ html{scroll-behavior:smooth}
 .about-facts span{display:block;margin-top:6px;font-size:14.5px;line-height:1.5;color:rgba(244,241,234,.7)}
 @media (max-width:860px){.about-wide .about-place{grid-template-columns:minmax(0,1fr)}.about-wide .about-place img{height:210px}.about-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .offers.one .offer-top .offer-tag{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
-.offers.one .offer-top .offer-date{margin-left:auto;padding:7px 14px;border:0;border-radius:99px;background:var(--ink);color:#0a0a0b;font:600 13px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;white-space:nowrap}
+.offers.one .offer-top .offer-date{display:inline-flex;align-items:center;gap:8px;margin-left:auto;padding:7px 14px 7px 12px;border:1px solid rgba(255,122,102,.55);border-radius:99px;background:rgba(255,122,102,.1);color:var(--ink);font:500 13.5px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;white-space:nowrap}
+.offers.one .offer-top .offer-date:before{content:"";width:7px;height:7px;border-radius:50%;background:#ff7a66}
 @media (max-width:860px){.offers.one .offer-top .offer-date{margin-left:0;font-size:12.5px}}
 .about-topics{gap:10px}
 .about-topics > li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;align-items:baseline;padding:16px 18px 14px}
@@ -1678,7 +1679,7 @@ ${hasTalk ? santosBlock : ''}
     // one quiet line: how many seats, where and when
     const short = iso => new Date(`${iso}T12:00:00-03:00`).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', timeZone:'America/Sao_Paulo'});
     const wd = santos.data ? new Date(`${santos.data}T12:00:00-03:00`).toLocaleDateString('pt-BR', {weekday:'long', timeZone:'America/Sao_Paulo'}).replace('-feira', '').replace(/^./, c => c.toUpperCase()) : '';
-    document.querySelector('[data-imersao-data]').textContent = santos.data ? `${wd}, ${short(santos.data)}${santos.horario ? ` · ${santos.horario}` : ''}` : '';
+    document.querySelector('[data-imersao-data]').textContent = santos.data ? `${short(santos.data)}${santos.horario ? ` · ${santos.horario}` : ''}` : '';
     $('talk-when').textContent = [santos.vagasTotal && `${santos.vagasTotal} vagas`, santos.cidade, !santos.data && t.santos.emBreve.toLowerCase()].filter(Boolean).join(' · ');
   };
   fillCard();
