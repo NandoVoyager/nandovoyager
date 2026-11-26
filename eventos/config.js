@@ -71,7 +71,7 @@ export default {
   // "mentoria" hoje é a entrada ONLINE da mesma imersão (mesmo dia e horário do presencial)
   // lotes do online: mesmo formato dos lotes do presencial; "preco" é usado só se não houver lotes
   // linkCheckout: endereço do checkout do online (Kiwify). Cada lote pode ter o seu; o do lote à venda vale primeiro. Vazio, a compra vai pelo WhatsApp.
-  mentoria: { linkCheckout: "", preco: 147, precoPergunta: 97, lotes: [{ nome: "Lote 1", preco: 97, viraEm: "2026-11-27T12:00:00-03:00", linkCheckout: "https://pay.kiwify.com.br/5qiCSfC" }, { nome: "Lote 2", preco: 147, linkCheckout: "" }], data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
+  mentoria: { linkCheckout: "", preco: 147, precoPergunta: 97, lotes: [{ nome: "Lote 1", preco: 97, viraEm: "2026-11-27T12:00:00-03:00", linkCheckout: "https://pay.kiwify.com.br/AE5KOGv" }, { nome: "Lote 2", preco: 147, linkCheckout: "https://pay.kiwify.com.br/VtFIzZN" }], data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],
