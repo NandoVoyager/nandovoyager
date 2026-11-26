@@ -27,7 +27,8 @@ export function validate(data) {
     email: clean(data.email, 254)
   };
   if (request.form === "mentoria") {
-    request.question = data.ask === true ? clean(data.question, 400) : "";
+    request.question = data.ask === true ? clean(data.question, 800) : "";
+    request.turma = clean(data.turma, 60);
     if (data.ask === true && !request.question) return { error: "Escreva a sua pergunta." };
   } else if (request.form === "canton") {
     request.phases = picked(data.phases, options.phases);
@@ -49,7 +50,7 @@ export function validate(data) {
 export function requestText(request) {
   const contact = [`Nome: ${request.name}`, request.phone && `WhatsApp: ${request.phone}`, `E-mail: ${request.email}`].filter(Boolean);
   if (request.form === "mentoria") {
-    return ["Quer participar da mentoria em grupo online", request.question && `Pergunta: ${request.question}`, ...contact].filter(Boolean).join("\n");
+    return ["Quer participar da imersão online", request.turma && `Data: ${request.turma}`, request.question && `Pergunta: ${request.question}`, ...contact].filter(Boolean).join("\n");
   }
   if (request.form === "canton") {
     return [`Fase: ${request.phases.join(", ")}`, ...contact, "Quer marcar a call (gratuita)"].join("\n");

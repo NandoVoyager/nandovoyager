@@ -13,13 +13,13 @@ export default {
   santos: {
     status: "aberta", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
     data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14"); null = "data em breve"
-    horario: "9h às 18h", // aparece ao lado da data
+    horario: "11h às 17h", // aparece ao lado da data
     cidade: "Alphaville, São Paulo", // aparece ao lado da data
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
     local: null,
     vagasMinimo: null,   // mínimo de pessoas para acontecer (aparece só na versão com votação de cidades); null = não mostra
-    vagasTotal: 50,       // máximo de pessoas; null = mostra só "vagas limitadas"
+    vagasTotal: 150,      // máximo de pessoas; null = mostra só "vagas limitadas"
     vagasRestantes: null, // atualizado à mão; null = não mostra contagem
     // Leilão de vagas: a pessoa paga a entrada por Pix e dá o lance máximo que quiser (pode aumentar depois, sem pagar
     // de novo). Entram os maiores lances e todos pagam o valor do último que entrou; quem ficou dentro paga só a
@@ -36,8 +36,8 @@ export default {
       pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade
     },
     lotes: [ // preço por pessoa; com preco: null o lote não aparece
-      { nome: "Lote 1", preco: 1000, linkCheckout: "", ativo: true, viraEm: "2026-11-26T23:59:00-03:00" }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00". Com datas, o lote à venda (lista, contagem e botão) vira sozinho na hora certa e "ativo" é ignorado
-      { nome: "Lote 2", preco: 1500, linkCheckout: "", ativo: false }, // entra quando o Lote 1 termina
+      { nome: "Lote 1", preco: 497, linkCheckout: "", ativo: true, viraEm: "2026-11-27T12:00:00-03:00" }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00". Com datas, o lote à venda (lista, contagem e botão) vira sozinho na hora certa e "ativo" é ignorado
+      { nome: "Lote 2", preco: 597, linkCheckout: "", ativo: false }, // entra quando o Lote 1 termina
     ],
     lat: -23.9608, lng: -46.3336,
   },
@@ -67,7 +67,10 @@ export default {
 
   // Só aparece quem tem confirmado: true.
   // Mentoria em grupo online (cartão da página inicial). data null = "Data em breve".
-  mentoria: { preco: 97, precoPergunta: 97, data: "2026-11-27", horario: "19h30" }, // horario ex.: "20h (Brasília)"
+  // turmas: a pessoa escolhe uma ao reservar; uma turma some do site depois que a data passa
+  // "mentoria" hoje é a entrada ONLINE da mesma imersão (mesmo dia e horário do presencial)
+  // lotes do online: mesmo formato dos lotes do presencial; "preco" é usado só se não houver lotes
+  mentoria: { preco: 147, precoPergunta: 97, lotes: [{ nome: "Lote 1", preco: 97, viraEm: "2026-11-27T12:00:00-03:00" }, { nome: "Lote 2", preco: 147 }], data: "2026-11-28", horario: "11h às 17h", turmas: [{ data: "2026-11-28", horario: "11h às 17h" }] }, // horario ex.: "20h (Brasília)"
   palestrantes: [
     { nome: "Lincoln Fracari", cargo: "", empresa: "", foto: "", confirmado: false }, // com true, entra a linha "Introdução à importação com…" na lista
   ],

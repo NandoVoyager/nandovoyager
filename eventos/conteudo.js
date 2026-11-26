@@ -52,15 +52,40 @@ export default {
   // Mentoria em grupo online (cartão da página inicial)
   mentoria: {
     emBreve: "Zoom · data em breve",
-    onde: "Ao vivo no Zoom", // sob o texto, quando a data já aparece ao lado da etiqueta
-    pergunta: "Sua pergunta respondida ao vivo {preco}", // opcional; {preco} vira o valor por pergunta
-    mensagem: "Oi, Nando! Vim pelo seu site e quero participar da mentoria em grupo online.",
+    onde: "Ao vivo no Zoom · 6 horas", // sob o texto, quando a data já aparece ao lado da etiqueta
+    pergunta: "Pergunta respondida ao vivo: {preco}", // opcional; {preco} vira o valor por pergunta
+    mensagem: "Oi, Nando! Vim pelo seu site e quero participar da imersão online.",
   },
   santos: {
-    rotulo: "A imersão",
-    titulo: "Imersão presencial em Alphaville.",
+    rotulo: "Presencial · uma única data",
+    titulo: "6 horas comigo, ao vivo. No auditório ou online.",
+    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas: uma palestra e, depois, todo o tempo respondendo as perguntas de cada um. Você escolhe: comigo no auditório, em Alphaville, ou online, de onde estiver.", // rascunho: revisar
+    oQueRotulo: "O que eu vou abrir na palestra",
+    roteiroRotulo: "Como vão ser as 6 horas",
+    roteiro: [ // rascunho: revisar
+      ["Palestra", "Começa às 11h. Eu abro os temas acima, direto ao ponto."],
+      ["Perguntas do auditório", "Respondo a pergunta de cada pessoa que estiver presente, uma a uma."],
+      ["Perguntas do online", "Depois do auditório, respondo as perguntas de quem comprou a pergunta no online."],
+    ],
+    fatosRotulo: "O dia",
+    comprarRotulo: "Escolha como participar",
+    lugarRotulo: "O lugar",
+    lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e networking com quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
+    presencialRotulo: "Presencial · no auditório",
+    presencialNota: "pergunta inclusa",
+    onlineRotulo: "Online · pelo Zoom",
+    onlineNome: "Online",
+    onlineNota: "pergunta + {preco}",
+    depoisSobe: "Depois disso, a vaga passa para {preco}.",
     resumo: { interesse: "Confirmado. 1 dia, manhã e tarde. Vagas limitadas.", esgotado: "As vagas esgotaram.", encerrada: "Este workshop já aconteceu." },
-    itens: ["Um dia inteiro comigo, manhã e tarde.", "China real, minhas histórias, mentalidade, negócios, IA e geopolítica.", "Respondo as dúvidas de cada um, com a minha opinião sincera."], // rascunho
+    // cada item: [título, frase]. rascunho: revisar
+    itens: [
+      ["A China real", "Como é viver e fazer negócio lá por dentro, sem o filtro das redes."],
+      ["Inteligência artificial na prática", "Como eu uso no meu trabalho e o que você pode aplicar no seu."],
+      ["Sair do Brasil", "O caminho que eu fiz e o que aprendi em cada país."],
+      ["Negócios, mentalidade e geopolítica", "O que eu vejo de fora e o que isso muda para quem empreende no Brasil."],
+      ["O seu caso", "A maior parte do dia é para as perguntas. No presencial a sua já está inclusa e eu olho o seu caso mais de perto."],
+    ],
     aulas: "Introdução à importação com {nomes}.", // os nomes vêm da config: palestrantes confirmados e parceiro
     maximo: "Máximo de {n} pessoas",
     minimo: "Mínimo de {min} pessoas", // só aparece quando a config tem vagasMinimo
@@ -73,6 +98,7 @@ export default {
     contagem: "{lote} encerra em", // seguido da contagem regressiva; só aparece se o lote ativo tiver viraEm na config
     vagasLimitadas: "Vagas limitadas",
     botaoNota: "Você fala direto comigo no WhatsApp e paga por Pix.",
+    marqueLote: "Escolha presencial ou online para continuar.",
     mensagem: "Oi, Nando! Vim pelo seu site e quero garantir a minha vaga na imersão em Alphaville{lote}.", // {lote} vira o lote à venda e o preço, ex. " (Lote 1, R$ 2.000)" // a mensagem pronta que o botão leva ao WhatsApp
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir minha vaga", esgotado: "Entrar na lista de espera" },
   },
