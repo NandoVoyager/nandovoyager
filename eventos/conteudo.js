@@ -51,8 +51,8 @@ export default {
   },
   // Mentoria em grupo online (cartão da página inicial)
   mentoria: {
-    emBreve: "Zoom · data em breve",
-    onde: "Ao vivo no Zoom · 6 horas", // sob o texto, quando a data já aparece ao lado da etiqueta
+    emBreve: "Online · data em breve",
+    onde: "Transmissão ao vivo · 6 horas", // sob o texto, quando a data já aparece ao lado da etiqueta
     pergunta: "Pergunta respondida ao vivo: {preco}", // opcional; {preco} vira o valor por pergunta
     mensagem: "Oi, Nando! Vim pelo seu site e quero participar da imersão online.",
   },
@@ -73,7 +73,7 @@ export default {
     lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e networking com quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
     presencialRotulo: "Presencial · no auditório",
     presencialNota: "pergunta inclusa",
-    onlineRotulo: "Online · pelo Zoom",
+    onlineRotulo: "Online · ao vivo",
     onlineNome: "Online",
     onlineNota: "pergunta + {preco}",
     depoisSobe: "Depois disso, a vaga passa para {preco}.",
