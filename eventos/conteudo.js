@@ -66,6 +66,7 @@ export default {
       ["Palestra", "Começa às 11h. Eu abro os temas acima, direto ao ponto."],
       ["Perguntas do auditório", "Respondo a pergunta de cada pessoa que estiver presente, uma a uma."],
       ["Perguntas do online", "Depois do auditório, respondo as perguntas de quem comprou a pergunta no online."],
+      ["Gravação para quem está no online", "Se você perder alguma parte, a transmissão fica gravada para assistir depois."],
     ],
     fatosRotulo: "O dia",
     comprarRotulo: "Escolha como participar",
