@@ -771,10 +771,13 @@ html{scroll-behavior:smooth}
 .about-lead{max-width:640px;margin:20px 0 0;font-size:17px;line-height:1.6;color:rgba(244,241,234,.76);text-wrap:pretty}
 .about-block{margin-top:64px}
 .about-topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 0;padding:0;list-style:none;counter-reset:tp}
-.about-topics li{position:relative;padding:22px 22px 24px;border:1px solid rgba(244,241,234,.14);border-radius:20px;background:#111112;counter-increment:tp}
-.about-topics li:before{content:counter(tp,decimal-leading-zero);display:block;margin-bottom:14px;font:400 11.5px 'IBM Plex Mono',monospace;color:#ff7a66}
+.about-topics > li{position:relative;padding:22px 22px 24px;border:1px solid rgba(244,241,234,.14);border-radius:20px;background:#111112;counter-increment:tp}
+.about-topics > li:before{content:counter(tp,decimal-leading-zero);display:block;margin-bottom:14px;font:400 11.5px 'IBM Plex Mono',monospace;color:#ff7a66}
 .about-topics b{display:block;font-size:21px;font-weight:500;line-height:1.2;letter-spacing:-.015em}
 .about-topics span{display:block;margin-top:8px;font-size:15px;line-height:1.55;color:rgba(244,241,234,.7)}
+.about-topics ul{margin:18px 0 0;padding:14px 0 0;border-top:1px solid rgba(244,241,234,.1);list-style:none}
+.about-topics ul li{position:relative;padding:5px 0 5px 22px;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.about-topics ul li:before{content:"?";position:absolute;left:0;top:5px;width:15px;height:15px;border-radius:50%;background:rgba(255,122,102,.16);color:#ff7a66;font:500 10.5px/15px 'IBM Plex Mono',monospace;text-align:center}
 .about-day{margin:18px 0 0;padding:0;list-style:none;border-top:1px solid rgba(244,241,234,.12)}
 .about-day li{display:grid;grid-template-columns:130px minmax(0,1fr);column-gap:20px;padding:18px 0;border-bottom:1px solid rgba(244,241,234,.12)}
 .about-day i{grid-row:1 / span 2;padding-top:3px;font:400 12.5px 'IBM Plex Mono',monospace;font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:#ff7a66}
@@ -914,12 +917,12 @@ html{scroll-behavior:smooth}
     </div>
 
     <div class="about-block">
-      <p class="about-k">O que eu vou abrir</p>
+      <p class="about-k">O que eu vou abrir, e as perguntas que eu respondo</p>
       <ul class="about-topics">
-        <li><b>A China real</b><span>Como é viver e fazer negócio lá por dentro: o que funciona de verdade e o que é só imagem.</span></li>
-        <li><b>Inteligência artificial na prática</b><span>O jeito que eu uso no meu trabalho, todos os dias, para você aplicar no seu.</span></li>
-        <li><b>Como sair do Brasil</b><span>O caminho que eu fiz, os erros no meio e o que eu faria diferente hoje.</span></li>
-        <li><b>Negócios e geopolítica</b><span>O que se enxerga de fora e o que isso muda para quem empreende no Brasil.</span></li>
+        <li><b>A China real</b><span>Como é viver e fazer negócio lá, visto de dentro.</span><ul><li>Como é o dia a dia de um brasileiro lá?</li><li>Dá para fazer negócio sendo estrangeiro?</li><li>O que as redes mostram errado?</li></ul></li>
+        <li><b>Inteligência artificial na prática</b><span>Como eu uso no meu trabalho, todos os dias.</span><ul><li>Quais ferramentas valem o seu tempo?</li><li>Onde ela já poupa horas de trabalho?</li><li>Por onde começar ainda nesta semana?</li></ul></li>
+        <li><b>Como sair do Brasil</b><span>O caminho que eu fiz e o que eu faria diferente hoje.</span><ul><li>Por onde começar, mesmo com pouco dinheiro?</li><li>Como escolher o país certo para você?</li><li>Quais erros custam mais caro?</li></ul></li>
+        <li><b>Negócios e geopolítica</b><span>O que se enxerga quando se olha o Brasil de fora.</span><ul><li>Para onde o mundo está indo?</li><li>O que isso muda para quem empreende aqui?</li><li>Onde estão as oportunidades agora?</li></ul></li>
       </ul>
     </div>
 
