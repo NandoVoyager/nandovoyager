@@ -817,6 +817,10 @@ html{scroll-behavior:smooth}
 .about-topics ul li:before{content:none}
 /* Hidden for now, not removed: take the "hidden" off a link in the menu to bring it back. */
 .menu-links a[hidden]{display:none!important}
+.lead-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:10px}
+.lead-row.wide{grid-template-columns:minmax(0,1fr) 84px}
+.lead-row > div{min-width:0}
+#p-state{text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -1098,17 +1102,37 @@ html{scroll-behavior:smooth}
       <input class="lead-field" id="p-doc" name="doc" type="text" inputmode="numeric" maxlength="18" placeholder="só os números" autocomplete="off" />
       <label class="lead-label" for="p-email">E-mail (a nota chega nele)</label>
       <input class="lead-field" id="p-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <label class="lead-label" for="p-phone">Celular com DDD</label>
+      <input class="lead-field" id="p-phone" name="phone" type="tel" inputmode="tel" maxlength="20" placeholder="(11) 90000-0000" autocomplete="tel" />
+    </fieldset>
+    <fieldset class="lead-panel" data-step="2" hidden>
+      <legend class="lead-q">Seu <span class="hand">endereço</span></legend>
+      <p class="lead-hint">É o endereço que vai na nota fiscal.</p>
       <label class="lead-label" for="p-cep">CEP</label>
       <input class="lead-field" id="p-cep" name="cep" type="text" inputmode="numeric" maxlength="9" placeholder="00000-000" autocomplete="postal-code" />
-      <label class="lead-label" for="p-address">Endereço com número</label>
-      <input class="lead-field" id="p-address" name="address" type="text" maxlength="160" placeholder="Rua, número, cidade e estado" autocomplete="street-address" />
+      <label class="lead-label" for="p-street">Rua ou avenida</label>
+      <input class="lead-field" id="p-street" name="street" type="text" maxlength="120" autocomplete="address-line1" />
+      <div class="lead-row">
+        <div><label class="lead-label" for="p-number">Número</label>
+          <input class="lead-field" id="p-number" name="number" type="text" maxlength="12" autocomplete="off" /></div>
+        <div><label class="lead-label" for="p-extra">Complemento (opcional)</label>
+          <input class="lead-field" id="p-extra" name="extra" type="text" maxlength="60" placeholder="apto, bloco" autocomplete="address-line2" /></div>
+      </div>
+      <label class="lead-label" for="p-district">Bairro</label>
+      <input class="lead-field" id="p-district" name="district" type="text" maxlength="80" autocomplete="address-level3" />
+      <div class="lead-row wide">
+        <div><label class="lead-label" for="p-city">Cidade</label>
+          <input class="lead-field" id="p-city" name="city" type="text" maxlength="80" autocomplete="address-level2" /></div>
+        <div><label class="lead-label" for="p-state">Estado</label>
+          <input class="lead-field" id="p-state" name="state" type="text" maxlength="2" placeholder="SP" autocomplete="address-level1" /></div>
+      </div>
       <p class="lead-label">A mensagem que você vai me enviar</p>
       <p class="wa-msg" data-preview></p>
       <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500" /><path d="M12 7.500V12l3 2" /></svg><span><b>Você paga por Pix, direto comigo no WhatsApp.</b> Seus dados seguem só nessa mensagem e não ficam salvos no site.</span></p>
       <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <p class="lead-legal">Ao enviar, você concorda com a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
     </fieldset>
-    <div class="lead-panel lead-done" data-step="2" hidden>
+    <div class="lead-panel lead-done" data-step="3" hidden>
       <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></span>
       <p class="lead-q" data-done-q>Agora é só <span class="hand">enviar</span></p>
       <p class="lead-hint" data-done-hint>A mensagem já está escrita no meu WhatsApp. Se ele não abriu, <a href="#" data-wa-again target="_blank" rel="noreferrer">abra por aqui</a>.</p>
@@ -1320,12 +1344,22 @@ const FORMS = {
   presencial: {
     private: true, // tax data: it goes in the visitor's own WhatsApp message and nowhere else
     subject: 'Imersão presencial',
-    answers: (d, get) => ({doc:get('doc'), cep:get('cep'), address:get('address')}),
-    missing: (n, a, f) => !validDoc(a.doc) ? ['Informe um CPF ou CNPJ válido.', f.elements.doc]
+    answers: (d, get) => ({doc:get('doc'), phone:get('phone'), cep:get('cep'), street:get('street'), number:get('number'), extra:get('extra'), district:get('district'), city:get('city'), state:get('state').toUpperCase()}),
+    missing: (n, a, f) => n === 1 ? (!a.name ? ['Informe o seu nome.', f.elements.name]
+        : !validDoc(a.doc) ? ['Informe um CPF ou CNPJ válido.', f.elements.doc]
+        : !MAIL.test(a.email) ? ['Informe um e-mail válido.', f.elements.email]
+        : a.phone.replace(/\D/g, '').length < 10 ? ['Informe o celular com DDD.', f.elements.phone] : null)
       : a.cep.replace(/\D/g, '').length !== 8 ? ['Informe o CEP com 8 números.', f.elements.cep]
-      : a.address.length < 6 ? ['Informe o endereço com número.', f.elements.address] : null,
+      : a.street.length < 3 ? ['Informe a rua ou avenida.', f.elements.street]
+      : !a.number ? ['Informe o número.', f.elements.number]
+      : a.district.length < 2 ? ['Informe o bairro.', f.elements.district]
+      : a.city.length < 2 ? ['Informe a cidade.', f.elements.city]
+      : !/^[A-Z]{2}$/.test(a.state) ? ['Informe o estado com 2 letras, como SP.', f.elements.state] : null,
     get hello() { const lot = presencialLot(); return talkText.santos.mensagem.replace('{lote}', lot ? ` (${lot.nome}, R$ ${lot.preco.toLocaleString('pt-BR')})` : ''); },
-    lines: a => ['Dados para a nota fiscal:', a.doc && `CPF/CNPJ: ${a.doc}`, a.cep && `CEP: ${a.cep}`, a.address && `Endereço: ${a.address}`].filter(Boolean)
+    // the name and the e-mail come first, in the order of the sale form the invoice is made from
+    lines: a => ['Dados para a nota fiscal:', a.name && `Nome/Razão social: ${a.name}`, a.doc && `CPF/CNPJ: ${a.doc}`, a.email && `E-mail: ${a.email}`, a.phone && `Celular: ${a.phone}`,
+      a.street && `Endereço: ${a.street}`, a.number && `Número: ${a.number}`, a.extra && `Complemento: ${a.extra}`, a.district && `Bairro: ${a.district}`, a.city && `Cidade: ${a.city}`, a.state && `Estado: ${a.state}`, a.cep && `CEP: ${a.cep}`].filter(Boolean),
+    noContact: true
   },
   servicos: {
     subject: 'Serviços',
@@ -1400,7 +1434,7 @@ function leadDialog(dialog) {
     el.focus();
   };
   // the message the visitor sends: a greeting, the answers of the form and who they are
-  const text = a => [kind.hello, '', ...kind.lines(a), '', a.name && `Nome: ${a.name}`, a.email && `E-mail: ${a.email}`].filter((l, i, all) => l !== undefined && l !== false && !(l === '' && all[i - 1] === '')).join('\n').trim();
+  const text = a => [kind.hello, '', ...kind.lines(a), '', !kind.noContact && a.name && `Nome: ${a.name}`, !kind.noContact && a.email && `E-mail: ${a.email}`].filter((l, i, all) => l !== undefined && l !== false && !(l === '' && all[i - 1] === '')).join('\n').trim();
   // with a WhatsApp number in the config, the form ends in a chat with Nando, the message already written
   const number = String(config.whatsapp || '').replace(/\D/g, '');
   const chat = a => `https://wa.me/${number}?text=${encodeURIComponent(text(a))}`;
