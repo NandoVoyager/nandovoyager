@@ -759,6 +759,10 @@ body:has(.home){overflow:auto}
 .offers.one .offer{padding:18px 18px 18px!important}
 @media (max-width:860px){.hero-pod{font-size:12px;padding:4px 10px 4px 4px}.hero-pod b{font-size:10.5px;padding:3px 6px 3px 5px}.offers.one{grid-template-columns:minmax(0,1fr);padding:18px 14px 14px;gap:10px}.offers.one .offer-top h2{font-size:26px}.hero-pills{margin-top:14px}}
 @media (min-width:1100px){.offers.one{grid-template-rows:auto 1fr;gap:14px;padding:26px}.offers.one .offer-top h2{font-size:34px}}
+.offers.one .offer-more{grid-column:1 / -1;margin:-2px 0 -6px;text-align:center}
+.offer-more a{display:inline-block;padding:6px 10px;font-size:13.5px;color:rgba(244,241,234,.72);text-decoration:underline;text-decoration-color:rgba(244,241,234,.28);text-underline-offset:4px;transition:color .2s}
+.offer-more a:hover{color:var(--ink)}
+@media (min-width:1100px) and (max-height:760px){.offers.one{padding:18px 22px 14px;gap:10px}.offers.one .offer-top h2{font-size:30px;margin-top:6px}.offers.one .offer-top .offer-text{margin-top:6px}.offers.one .offer{padding:15px 18px 16px!important}.offers.one .offer-foot{padding-top:12px}.offers.one .offer-foot:before{margin-bottom:12px}}
 </style>
 </head>
 <body>
@@ -803,7 +807,7 @@ body:has(.home){overflow:auto}
         <div class="offer-foot">
           <p class="offer-price"><b data-imersao-preco></b><s data-imersao-cheio></s><small>por pessoa</small></p>
           <p class="offer-extra offer-count" id="talk-count" hidden></p>
-          <a class="offer-btn solid" href="/eventos" data-talks aria-haspopup="dialog">IR PRESENCIALMENTE <span aria-hidden="true">→</span></a>
+          <a class="offer-btn solid" href="#lead-presencial" data-lead="presencial" aria-haspopup="dialog">IR PRESENCIALMENTE <span aria-hidden="true">→</span></a>
         </div>
       </li>
       <li class="offer" id="offer-mentoria">
@@ -823,6 +827,7 @@ body:has(.home){overflow:auto}
           <a class="offer-btn solid" href="#lead-mentoria" data-lead="mentoria" aria-haspopup="dialog">ASSISTIR ONLINE <span aria-hidden="true">→</span></a>
         </div>
       </li>
+      <li class="offer-more"><a href="/eventos" data-talks aria-haspopup="dialog">Mais detalhes: temas, o lugar e como vão ser as 6 horas <span aria-hidden="true">→</span></a></li>
       <li class="offer" id="offer-gratis" hidden>
         <div class="offer-head">
           <p class="offer-tag">Grátis</p>
@@ -970,6 +975,45 @@ body:has(.home){overflow:auto}
     </div>
   </form>
 </dialog>
+<dialog class="lead" id="lead-presencial" data-form="presencial" data-last="ENVIAR NO WHATSAPP" tabindex="-1">
+  <form class="lead-in" novalidate>
+    <div class="lead-top">
+      <span class="lead-step" data-count>1/1</span>
+      <span class="lead-bar" aria-hidden="true"><i data-bar></i></span>
+      <button class="lead-x" type="button" data-close aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+    </div>
+    <fieldset class="lead-panel" data-step="1">
+      <legend class="lead-q">Dados para a sua <span class="hand">nota fiscal</span></legend>
+      <p class="lead-hint">Eu emito a nota no nome de quem vai ao evento. Leva um minuto.</p>
+      <label class="lead-label" for="p-name">Nome completo ou razão social</label>
+      <input class="lead-field" id="p-name" name="name" type="text" maxlength="120" autocomplete="name" />
+      <label class="lead-label" for="p-doc">CPF ou CNPJ</label>
+      <input class="lead-field" id="p-doc" name="doc" type="text" inputmode="numeric" maxlength="18" placeholder="só os números" autocomplete="off" />
+      <label class="lead-label" for="p-email">E-mail (a nota chega nele)</label>
+      <input class="lead-field" id="p-email" name="email" type="email" maxlength="254" placeholder="voce@email.com" autocomplete="email" />
+      <label class="lead-label" for="p-cep">CEP</label>
+      <input class="lead-field" id="p-cep" name="cep" type="text" inputmode="numeric" maxlength="9" placeholder="00000-000" autocomplete="postal-code" />
+      <label class="lead-label" for="p-address">Endereço com número</label>
+      <input class="lead-field" id="p-address" name="address" type="text" maxlength="160" placeholder="Rua, número, cidade e estado" autocomplete="street-address" />
+      <p class="lead-label">A mensagem que você vai me enviar</p>
+      <p class="wa-msg" data-preview></p>
+      <p class="lead-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500" /><path d="M12 7.500V12l3 2" /></svg><span><b>O pagamento é por Pix,</b> na conversa. Esses dados vão só na sua mensagem de WhatsApp; o site não guarda.</span></p>
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="lead-legal">Ao enviar, você concorda com a <a href="/privacidade.html" target="_blank">Política de Privacidade</a>.</p>
+    </fieldset>
+    <div class="lead-panel lead-done" data-step="2" hidden>
+      <span class="done-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.500 12.500l3.800 3.800 7.200-8" /></svg></span>
+      <p class="lead-q" data-done-q>Agora é só <span class="hand">enviar</span></p>
+      <p class="lead-hint" data-done-hint>A mensagem já está escrita no meu WhatsApp. Se ele não abriu, <a href="#" data-wa-again target="_blank" rel="noreferrer">abra por aqui</a>.</p>
+    </div>
+    <p class="lead-msg" role="status" aria-live="polite"></p>
+    <div class="lead-actions">
+      <button class="lead-back" type="button" data-back hidden>← Voltar</button>
+      <button class="lead-next" type="submit" data-next>CONTINUAR <span aria-hidden="true">→</span></button>
+    </div>
+  </form>
+</dialog>
+<a href="#lead-presencial" data-lead="presencial" hidden></a>
 <dialog class="lead" id="lead-canton" data-form="canton" data-last="ABRIR WHATSAPP" tabindex="-1">
   <form class="lead-in" novalidate>
     <div class="lead-top">
@@ -1155,7 +1199,27 @@ const MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // the online ticket is sold in lots too: the one on sale now, and its price
 function onlineLot(now = Date.now()) { return (talks.mentoria?.lotes || []).find(l => !(l.viraEm && now >= Date.parse(l.viraEm))) || null; }
 function onlinePrice() { return onlineLot()?.preco ?? talks.mentoria.preco; }
+// the in-person ticket: the lot on sale now
+function presencialLot(now = Date.now()) { const lots = (talks.santos?.lotes || []).filter(l => l.preco != null); return lots.find(l => !(l.viraEm && now >= Date.parse(l.viraEm))) || null; }
+// a CPF (11 digits, with its two check digits) or a CNPJ (14 digits)
+function validDoc(v) {
+  const d = v.replace(/\D/g, '');
+  if (d.length === 14) return !/^(\d)\1+$/.test(d);
+  if (d.length !== 11 || /^(\d)\1+$/.test(d)) return false;
+  const digit = n => { let s = 0; for (let i = 0; i < n; i++) s += +d[i] * (n + 1 - i); const r = (s * 10) % 11; return r === 10 ? 0 : r; };
+  return digit(9) === +d[9] && digit(10) === +d[10];
+}
 const FORMS = {
+  presencial: {
+    private: true, // tax data: it goes in the visitor's own WhatsApp message and nowhere else
+    subject: 'Imersão presencial',
+    answers: (d, get) => ({doc:get('doc'), cep:get('cep'), address:get('address')}),
+    missing: (n, a, f) => !validDoc(a.doc) ? ['Informe um CPF ou CNPJ válido.', f.elements.doc]
+      : a.cep.replace(/\D/g, '').length !== 8 ? ['Informe o CEP com 8 números.', f.elements.cep]
+      : a.address.length < 6 ? ['Informe o endereço com número.', f.elements.address] : null,
+    get hello() { const lot = presencialLot(); return talkText.santos.mensagem.replace('{lote}', lot ? ` (${lot.nome}, R$ ${lot.preco.toLocaleString('pt-BR')})` : ''); },
+    lines: a => ['Dados para a nota fiscal:', a.doc && `CPF/CNPJ: ${a.doc}`, a.cep && `CEP: ${a.cep}`, a.address && `Endereço: ${a.address}`].filter(Boolean)
+  },
   servicos: {
     subject: 'Serviços',
     answers: (d, get) => ({needs:d.getAll('needs').map(String), product:get('product'), budget:get('budget'), call:get('call') === 'sim'}),
@@ -1274,7 +1338,7 @@ function leadDialog(dialog) {
       again.href = url;
       const tab = window.open(url, '_blank');
       if (tab) tab.opener = null; else location.href = url;
-      fetch('/api/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(a), keepalive:true}).catch(() => {});
+      if (!kind.private) fetch('/api/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(a), keepalive:true}).catch(() => {});
       return show(last + 1);
     }
     next.disabled = true; next.classList.add('busy'); msg.textContent = '';
@@ -1554,6 +1618,8 @@ ${hasTalk ? santosBlock : ''}
       const checkoutUrl = checkoutNow();
       if (lotPicked === 'online' && checkoutUrl) { const tab = window.open(checkoutUrl, '_blank'); if (tab) tab.opener = null; else location.href = checkoutUrl; return; }
       if (lotPicked === 'online') { closeDialog(dialog); setTimeout(() => document.querySelector('[data-lead="mentoria"]')?.click(), 320); return; }
+      // in person: a short form first (the data for the invoice), and from it to WhatsApp
+      if (document.querySelector('[data-lead="presencial"]')) { closeDialog(dialog); setTimeout(() => document.querySelector('[data-lead="presencial"]').click(), 320); return; }
       const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null; });
   });
   const togglePick = row => { lotPicked = lotPicked === row.dataset.pick ? '' : row.dataset.pick; dialog.querySelectorAll('[data-pick]').forEach(r => { r.setAttribute('aria-checked', r.dataset.pick === lotPicked); r.classList.remove('nudge'); }); const n = dialog.querySelector('[data-pick-note]'); if (n && lotPicked) n.hidden = true; };
