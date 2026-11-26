@@ -807,6 +807,15 @@ html{scroll-behavior:smooth}
 .offers.one .offer-top .offer-tag{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
 .offers.one .offer-top .offer-date{margin-left:auto;padding:7px 14px;border:0;border-radius:99px;background:var(--ink);color:#0a0a0b;font:600 13px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;white-space:nowrap}
 @media (max-width:860px){.offers.one .offer-top .offer-date{margin-left:0;font-size:12.5px}}
+.about-topics{gap:10px}
+.about-topics > li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;align-items:baseline;padding:16px 18px 14px}
+.about-topics > li:before{margin:0}
+.about-topics > li > b{font-size:17px}
+.about-topics ul{grid-column:2;margin:8px 0 0;padding:0;border:0}
+.about-topics ul li{padding:2px 0;font-size:13.5px;line-height:1.45;color:rgba(244,241,234,.66)}
+.about-topics ul li:before{content:none}
+/* Hidden for now, not removed: take the "hidden" off a link in the menu to bring it back. */
+.menu-links a[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -926,14 +935,14 @@ html{scroll-behavior:smooth}
     <div class="about-block">
       <div class="about-side">
         <p class="about-k">A palestra</p>
-        <h3>Quatro temas, e as perguntas que eu respondo em cada um.</h3>
+        <h3>Quatro temas e o que eu respondo em cada um.</h3>
       </div>
       <div class="about-main">
       <ul class="about-cards about-topics">
-        <li><b>A China real</b><span>Como é viver e fazer negócio lá, visto de dentro.</span><ul><li>Como é o dia a dia de um brasileiro lá?</li><li>Dá para fazer negócio sendo estrangeiro?</li><li>O que as redes mostram errado?</li></ul></li>
-        <li><b>Inteligência artificial na prática</b><span>Como eu uso no meu trabalho, todos os dias.</span><ul><li>Quais ferramentas valem o seu tempo?</li><li>Onde ela já poupa horas de trabalho?</li><li>Por onde começar ainda nesta semana?</li></ul></li>
-        <li><b>Como sair do Brasil</b><span>O caminho que eu fiz e o que eu faria diferente hoje.</span><ul><li>Por onde começar, mesmo com pouco dinheiro?</li><li>Como escolher o país certo para você?</li><li>Quais erros custam mais caro?</li></ul></li>
-        <li><b>Negócios e geopolítica</b><span>O que se enxerga quando se olha o Brasil de fora.</span><ul><li>Para onde o mundo está indo?</li><li>O que isso muda para quem empreende aqui?</li><li>Onde estão as oportunidades agora?</li></ul></li>
+        <li><b>A China real</b><ul><li>Como é o dia a dia de um brasileiro lá?</li><li>Dá para fazer negócio sendo estrangeiro?</li><li>O que as redes mostram errado?</li></ul></li>
+        <li><b>Inteligência artificial na prática</b><ul><li>Quais ferramentas valem o seu tempo?</li><li>Onde ela já poupa horas de trabalho?</li><li>Por onde começar ainda nesta semana?</li></ul></li>
+        <li><b>Como sair do Brasil</b><ul><li>Por onde começar, mesmo com pouco dinheiro?</li><li>Como escolher o país certo para você?</li><li>Quais erros custam mais caro?</li></ul></li>
+        <li><b>Negócios e geopolítica</b><ul><li>Para onde o mundo está indo?</li><li>O que isso muda para quem empreende aqui?</li><li>Onde estão as oportunidades agora?</li></ul></li>
       </ul>
       </div>
     </div>
@@ -957,9 +966,9 @@ html{scroll-behavior:smooth}
   <div class="lead-in">
     <button class="menu-btn menu-close" type="button" data-close aria-label="Fechar menu"><svg class="chevs" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.500 6.500 12 12l-5.500 5.500" /><path d="M12.500 6.500 18 12l-5.500 5.500" /></svg></button>
     <nav class="menu-links" aria-label="Menu">
-      <a href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span>DeepChina AI</a>
-      <a href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.500" /><path d="M8 7V5.500A1.500 1.500 0 0 1 9.500 4h5A1.500 1.500 0 0 1 16 5.500V7M3 12.500h18M12 11.300v2.400" /></svg></span>Serviços</a>
-      <a href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.800 19.200 16 11l3.500-3.500C21 6 21.500 4 21 3c-1-.500-3 0-4.500 1.500L13 8 4.800 6.200c-.500-.100-.900.100-1.100.500l-.300.500c-.200.500-.100 1 .300 1.300L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.500 5.300c.300.400.800.500 1.300.300l.500-.200c.400-.300.600-.700.500-1.200z" /></svg></span>Imersão Canton Fair</a>
+      <a hidden href="#join" data-deepchina><span class="menu-ico deep"><img src="/img/deepchina-symbol-white.svg" width="20" height="20" alt="" /></span>DeepChina AI</a>
+      <a hidden href="mailto:contato@nandovoyager.com?subject=Servi%C3%A7os" data-lead="servicos" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2.500" /><path d="M8 7V5.500A1.500 1.500 0 0 1 9.500 4h5A1.500 1.500 0 0 1 16 5.500V7M3 12.500h18M12 11.300v2.400" /></svg></span>Serviços</a>
+      <a hidden href="mailto:contato@nandovoyager.com?subject=Imers%C3%A3o%20Canton%20Fair" data-lead="canton" aria-haspopup="dialog"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.800 19.200 16 11l3.500-3.500C21 6 21.500 4 21 3c-1-.500-3 0-4.500 1.500L13 8 4.800 6.200c-.500-.100-.900.100-1.100.500l-.300.500c-.200.500-.100 1 .300 1.300L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.500 5.300c.300.400.800.500 1.300.300l.500-.200c.400-.300.600-.700.500-1.200z" /></svg></span>Imersão Canton Fair</a>
       <a class="menu-mail" href="mailto:contato@nandovoyager.com"><span class="menu-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.500" /><path d="M3.500 7.500 12 13l8.500-5.500" /></svg></span><span>contato@nandovoyager.com</span></a>
     </nav>
     <nav class="menu-social" aria-label="Redes sociais">
