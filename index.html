@@ -1247,6 +1247,7 @@ function leadDialog(dialog) {
     return link;
   };
   document.querySelectorAll(`[data-lead="${dialog.dataset.form}"]`).forEach(a => a.addEventListener('click', e => {
+    if (a.dataset.checkout) return; // this one goes to a checkout page instead of the sheet
     e.preventDefault();
     if (step > last) { form.reset(); show(1); }
     dialog.classList.remove('closing');
@@ -1367,6 +1368,9 @@ letter.addEventListener('click', e => { if (e.target === letter || e.target.clos
     <div><span><b data-d></b><small>d</small></span><span><b data-h></b><small>h</small></span><span><b data-m></b><small>min</small></span><span><b data-s></b><small>s</small></span></div></div>` : '';
   const risesTo = () => { const sale = sellingAt(), next = sale && lots[lots.indexOf(sale) + 1]; return sale?.viraEm && next && next.preco > sale.preco ? t.santos.depoisSobe.replace('{preco}', brl(next.preco)) : ''; };
   const om = talks.mentoria;
+  // with a checkout address in the config, the online ticket is bought there (card or Pix), not by WhatsApp
+  const checkoutUrl = /^https:\/\//.test(om?.linkCheckout || '') ? om.linkCheckout : '';
+  if (checkoutUrl) document.querySelectorAll('[data-lead="mentoria"]').forEach(a => { a.href = checkoutUrl; a.target = '_blank'; a.rel = 'noopener'; a.dataset.checkout = '1'; a.removeAttribute('aria-haspopup'); });
   const onlineList = () => lotList(om.lotes?.length ? om.lotes : [{nome:t.santos.onlineNome, preco:om.preco}], Date.now(), 'online', onlineLot() || (om.lotes?.length ? null : {}));
   const buy = auction ? '' : `<p class="ev-sub">${esc(t.santos.presencialRotulo)}${t.santos.presencialNota ? `<small class="ok">${esc(t.santos.presencialNota)}</small>` : ''}</p><div data-lots>${lotList(lots)}</div>
       <p class="ev-rise" data-rise>${esc(risesTo())}</p>
@@ -1542,6 +1546,7 @@ ${hasTalk ? santosBlock : ''}
     b.addEventListener('click', () => { const onSale = sellingAt();
       const rows = [...dialog.querySelectorAll('[data-pick]')];
       if (rows.length && !lotPicked) { rows.forEach(row => { row.classList.remove('nudge'); void row.offsetWidth; row.classList.add('nudge'); }); const n = dialog.querySelector('[data-pick-note]'); if (n) n.hidden = false; rows[0].scrollIntoView({block:'nearest', behavior:'smooth'}); return; }
+      if (lotPicked === 'online' && checkoutUrl) { const tab = window.open(checkoutUrl, '_blank'); if (tab) tab.opener = null; else location.href = checkoutUrl; return; }
       if (lotPicked === 'online') { closeDialog(dialog); setTimeout(() => document.querySelector('[data-lead="mentoria"]')?.click(), 320); return; }
       const tab = window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(t.santos.mensagem.replace('{lote}', onSale ? ` (${onSale.nome}, ${brl(onSale.preco)})` : ''))}`, '_blank'); if (tab) tab.opener = null; });
   });
