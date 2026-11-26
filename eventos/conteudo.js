@@ -71,7 +71,7 @@ export default {
     fatosRotulo: "O dia",
     comprarRotulo: "Escolha como participar",
     lugarRotulo: "O lugar",
-    lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento e networking com quem também foi.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
+    lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento, coffee break e networking com os outros participantes.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
     presencialRotulo: "Presencial · no auditório",
     presencialNota: "pergunta inclusa",
     onlineRotulo: "Online · ao vivo",
