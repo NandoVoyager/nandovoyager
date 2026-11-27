@@ -1706,9 +1706,9 @@ ${hasTalk ? santosBlock : ''}
   let miniLabel = auction ? t.leilao.contagem : activeEnds ? t.santos.contagemCurtaLote.replace('{lote}', activeEnds.nome) : t.santos.contagemCurta;
   const two = v => String(v).padStart(2, '0');
   // the moment a lot ends, the next one is on sale: redo the list and point the countdowns at the new lot's end
-  let shown = selling?.nome, fillCard = () => {};
+  let shown = selling?.nome, shownOnline = onlineLot()?.nome, fillCard = () => {};
   const turnLot = () => {
-    const lot = sellingAt(); shown = lot?.nome;
+    const lot = sellingAt(); shown = lot?.nome; shownOnline = onlineLot()?.nome;
     linkOnline(); lotPicked = ''; dialog.querySelectorAll('[data-olots]').forEach(box => { box.innerHTML = onlineList(); }); dialog.querySelectorAll('[data-rise]').forEach(el => { el.textContent = risesTo(); }); dialog.querySelectorAll('[data-lots]').forEach(box => { box.innerHTML = lotList(lots); });
     const end = lot?.viraEm ? Date.parse(lot.viraEm) : 0;
     counts.forEach(entry => { entry[1] = end; entry[0].querySelector('p').textContent = lot ? t.santos.contagem.replace('{lote}', lot.nome) : t.santos.contagemFim; });
@@ -1716,7 +1716,8 @@ ${hasTalk ? santosBlock : ''}
     miniEnd = end; miniLabel = lot ? t.santos.contagemCurtaLote.replace('{lote}', lot.nome) : t.santos.contagemCurta;
   };
   const count = () => {
-    if (!auction && dated && sellingAt()?.nome !== shown) turnLot();
+    // either ticket can change lot on its own: the in-person one may have a single price while the online one still has a deadline
+    if ((!auction && dated && sellingAt()?.nome !== shown) || onlineLot()?.nome !== shownOnline) turnLot();
     counts.forEach(([el, end]) => {
     const n = Math.floor((end - Date.now()) / 1000);
     el.hidden = !(n > 0);
@@ -1729,7 +1730,7 @@ ${hasTalk ? santosBlock : ''}
     if (oc) { oc.hidden = !(on > 0); if (on > 0) oc.innerHTML = `<i>${esc(t.santos.contagemCurtaLote.replace('{lote}', ol.nome))}</i> <b>${Math.floor(on / 86400)}d ${two(Math.floor(on / 3600) % 24)}:${two(Math.floor(on / 60) % 60)}:${two(on % 60)}</b>`; }
     if (n > 0) mini.innerHTML = `<i>${esc(miniLabel)}</i> <b>${Math.floor(n / 86400)}d ${two(Math.floor(n / 3600) % 24)}:${two(Math.floor(n / 60) % 60)}:${two(n % 60)}</b>`;
   };
-  if (counts.length || miniEnd) { count(); setInterval(count, 1000); }
+  if (counts.length || miniEnd || (talks.mentoria?.lotes || []).some(l => l.viraEm)) { count(); setInterval(count, 1000); }
   const clock = $('talks-clock');
   if (clock) {
     const tick = () => { const n = Math.max(0, Math.floor((deadline - Date.now()) / 1000)); clock.textContent = `${Math.floor(n / 86400)}d ${Math.floor(n / 3600) % 24}h ${Math.floor(n / 60) % 60}m`; };
