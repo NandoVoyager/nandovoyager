@@ -99,7 +99,7 @@ async function notify(emails, env) {
   await Promise.allSettled(emails.map((to) => fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from, to: [to], subject: "Você foi ultrapassado no leilão da imersão", text: "Outro lance passou o seu e você saiu das vagas da imersão em Alphaville.\n\nPara voltar, aumente o seu lance: https://nandovoyager.com/eventos\n\nNando Voyager" })
+    body: JSON.stringify({ from, to: [to], subject: "Você foi ultrapassado no leilão da imersão", text: "Outro lance passou o seu e você saiu das vagas da imersão em São Paulo.\n\nPara voltar, aumente o seu lance: https://nandovoyager.com/eventos\n\nNando Voyager" })
   })));
 }
 

@@ -9,12 +9,12 @@
 export default {
   modo: "votacao", // "votacao" | "venda" | "encerrado"
 
-  // Imersão de 1 dia em Alphaville, São Paulo. (A chave continua "santos" por causa do código.)
+  // Imersão de 1 dia no Panamby (Morumbi), São Paulo. (A chave continua "santos" por causa do código.)
   santos: {
     status: "aberta", // "interesse" | "prevenda" | "aberta" | "esgotado" | "encerrada"
     data: "2026-11-28",  // um único dia, ISO (ex.: "2027-03-14"); null = "data em breve"
     horario: "11h às 17h", // aparece ao lado da data
-    cidade: "Alphaville, São Paulo", // aparece ao lado da data
+    cidade: "Panamby, Morumbi · São Paulo", // aparece ao lado da data
     horarioManha: null,  // ex.: "9h às 12h30"
     horarioTarde: null,  // ex.: "14h às 18h"
     local: null,

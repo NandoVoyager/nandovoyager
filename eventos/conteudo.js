@@ -14,7 +14,7 @@ export default {
     promessa: "Estou indo ao Brasil falar de importação e negócios com a China. O workshop já está confirmado. A palestra só acontece se tiver gente suficiente na lista.", // rascunho
     botao: "Quero ir à palestra",
     // sem nenhuma palestra na config, só com o workshop:
-    soImersao: { promessa: "Meu primeiro evento presencial: um dia inteiro de imersão comigo em Alphaville, São Paulo." }, // rascunho; aparece logo abaixo do título do workshop
+    soImersao: { promessa: "Meu primeiro evento presencial: um dia inteiro de imersão comigo no Panamby (Morumbi), em São Paulo." }, // rascunho; aparece logo abaixo do título do workshop
     linkSantos: "Quero o workshop em Santos",
     prazo: "Votação encerra em", // seguido da contagem; só aparece com data na config
   },
@@ -59,7 +59,7 @@ export default {
   santos: {
     rotulo: "Presencial · uma única data",
     titulo: "6 horas comigo, ao vivo. No auditório ou online.",
-    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas: uma palestra e, depois, todo o tempo respondendo as perguntas de cada um. Você escolhe: comigo no auditório, em Alphaville, ou online, de onde estiver.", // rascunho: revisar
+    abertura: "Eu moro em Hong Kong e quase nunca estou no Brasil. Neste sábado eu paro 6 horas: uma palestra e, depois, todo o tempo respondendo as perguntas de cada um. Você escolhe: comigo no auditório, no Panamby (Morumbi), ou online, de onde estiver.", // rascunho: revisar
     oQueRotulo: "O que eu vou abrir na palestra",
     roteiroRotulo: "Como vão ser as 6 horas",
     roteiro: [ // rascunho: revisar
@@ -71,7 +71,7 @@ export default {
     fatosRotulo: "O dia",
     comprarRotulo: "Escolha como participar",
     lugarRotulo: "O lugar",
-    lugar: ["Auditório climatizado, com palco, som e projeção profissionais.", "Hall para credenciamento, coffee break e networking com os outros participantes.", "Estacionamento gratuito na região e acesso por elevador e rampa.", "O endereço completo chega para você depois da compra."], // rascunho: revisar
+    lugar: null, // sem fotos nem detalhes do local: o endereço vai para quem garantir a vaga
     presencialRotulo: "Presencial · no auditório",
     presencialNota: "pergunta inclusa",
     onlineRotulo: "Online · ao vivo",
@@ -100,7 +100,7 @@ export default {
     vagasLimitadas: "Vagas limitadas",
     botaoNota: "Presencial: você me passa os dados da nota e paga por Pix no WhatsApp. Online: cartão ou Pix.",
     marqueLote: "Escolha presencial ou online para continuar.",
-    mensagem: "Oi, Nando! Vim pelo seu site e quero garantir a minha vaga na imersão em Alphaville{lote}.", // {lote} vira o lote à venda e o preço, ex. " (Lote 1, R$ 2.000)" // a mensagem pronta que o botão leva ao WhatsApp
+    mensagem: "Oi, Nando! Vim pelo seu site e quero garantir a minha vaga na imersão no Panamby (Morumbi){lote}.", // {lote} vira o lote à venda e o preço, ex. " (Lote 1, R$ 2.000)" // a mensagem pronta que o botão leva ao WhatsApp
     botao: { interesse: "Quero ser avisado", prevenda: "Garantir vaga (lista)", aberta: "Garantir minha vaga", esgotado: "Entrar na lista de espera" },
   },
 
