@@ -36,8 +36,7 @@ export default {
       pix: { chave: "", nome: "", cidade: "" }, // conta que recebe as entradas: chave Pix, nome do recebedor e cidade
     },
     lotes: [ // preço por pessoa; com preco: null o lote não aparece
-      { nome: "Lote 1", preco: 497, linkCheckout: "", ativo: true, viraEm: "2026-11-27T12:00:00-03:00" }, // viraEm: data e hora em que o lote termina, ex. "2026-12-01T23:59:00-03:00". Com datas, o lote à venda (lista, contagem e botão) vira sozinho na hora certa e "ativo" é ignorado
-      { nome: "Lote 2", preco: 597, linkCheckout: "", ativo: false }, // entra quando o Lote 1 termina
+      { nome: "Presencial", preco: 497, linkCheckout: "", ativo: true }, // preço único, sem virada de lote. Para ter lotes de novo, acrescente outro abaixo e ponha viraEm (data e hora do fim) neste
     ],
     lat: -23.9608, lng: -46.3336,
   },
