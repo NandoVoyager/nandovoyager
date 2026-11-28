@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Nando Voyager — China, IA e como sair do Brasil</title>
-<meta name="description" content="Empresário em Hong Kong. Imersão no Brasil, sábado, 28/11: 6 horas ao vivo, presencial no Panamby (Morumbi), em São Paulo, ou online, sobre a China real, inteligência artificial e como sair do Brasil." />
+<meta name="description" content="Empresário em Hong Kong. Imersão no Brasil, sábado, 28/11: 6 horas ao vivo, online, sobre a China real, inteligência artificial e como sair do Brasil." />
 <link rel="canonical" href="https://nandovoyager.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://nandovoyager.com/" />
 <meta property="og:site_name" content="Nando Voyager" />
 <meta property="og:locale" content="pt_BR" />
 <meta property="og:title" content="Nando Voyager — China, IA e como sair do Brasil" />
-<meta property="og:description" content="Imersão no Brasil, sábado, 28/11: 6 horas ao vivo comigo, presencial no Panamby (Morumbi), em São Paulo, ou online." />
+<meta property="og:description" content="Imersão no Brasil, sábado, 28/11: 6 horas ao vivo comigo, online, de onde você estiver." />
 <meta property="og:image" content="https://nandovoyager.com/img/og.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -822,6 +822,10 @@ html{scroll-behavior:smooth}
 .lead-row > div{min-width:0}
 #p-state{text-transform:uppercase}
 .lead-cep{min-height:18px;margin:6px 2px 0;font-size:12.5px;color:var(--mid)}
+/* only the online ticket is on sale: its card takes the whole row, and the single button below stays narrow */
+.offers.one .offer[hidden]{display:none}
+.offers.one #offer-mentoria{grid-column:1 / -1}
+.about-cta{grid-template-columns:minmax(0,1fr);max-width:420px}
 </style>
 </head>
 <body>
@@ -852,7 +856,7 @@ html{scroll-behavior:smooth}
         <h2>Imersão no Brasil</h2>
         <p class="offer-text">6 horas comigo: palestra sobre China real, inteligência artificial, negócios e como sair do Brasil. Depois, respondo as perguntas de cada um.</p>
       </li>
-      <li class="offer hot" id="offer-imersao">
+      <li class="offer hot" id="offer-imersao" hidden>
         <div class="offer-head">
           <p class="offer-tag">Presencial</p>
           <h2>No auditório, comigo</h2>
@@ -869,7 +873,7 @@ html{scroll-behavior:smooth}
           <a class="offer-btn solid" href="#lead-presencial" data-lead="presencial" aria-haspopup="dialog">IR PRESENCIALMENTE <span aria-hidden="true">→</span></a>
         </div>
       </li>
-      <li class="offer" id="offer-mentoria">
+      <li class="offer hot" id="offer-mentoria">
         <div class="offer-head">
           <p class="offer-tag">Online<span data-mentoria-data hidden></span></p>
           <h2>Ao vivo, de onde estiver</h2>
@@ -942,14 +946,13 @@ html{scroll-behavior:smooth}
     <div class="about-block about-end">
       <div class="about-side">
         <p class="about-k">Sábado, 28/11</p>
-        <h3>Escolha como você quer participar.</h3>
+        <h3>Assista ao vivo, de onde estiver.</h3>
       </div>
       <div class="about-main">
         <div class="about-cta">
-          <a class="offer-btn solid" href="#lead-presencial" data-lead="presencial" aria-haspopup="dialog">IR PRESENCIALMENTE <span aria-hidden="true">→</span></a>
           <a class="offer-btn solid" href="#lead-mentoria" data-lead="mentoria" aria-haspopup="dialog">ASSISTIR ONLINE <span aria-hidden="true">→</span></a>
         </div>
-        <a class="about-up" href="#stage">Ver os preços <span aria-hidden="true">↑</span></a>
+        <a class="about-up" href="#stage">Ver o preço <span aria-hidden="true">↑</span></a>
       </div>
     </div>
   </section>
